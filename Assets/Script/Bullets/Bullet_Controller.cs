@@ -7,14 +7,17 @@ public class Bullet_Controller : MonoBehaviour
 {
     public bool m_updateBulletProperty;
 
-    public GameObject m_BulletPicture;
-    
+    private GameObject _BulletSprite;
+
     [HideInInspector]
     public float m_InitAngle;
 
     private BulletPool _BulletPool;
     private Bullet_Property _propertyScript;
-    private Material _bulletPictureMaterial;
+    private BulletEventMaster _bulletEventMaster;
+
+    private SpriteRenderer _bulletSpriteRender;
+
     private Transform _bulletPictureTrans;
 
     private Vector2 _velocity;
@@ -22,6 +25,8 @@ public class Bullet_Controller : MonoBehaviour
 
     private float _lifeTimer;
     private float _acceTimer;  // The acceleration timer
+
+    private bool _updateVelocityOnce;  // the mark for init velocity 
 
     #region Bullet Property -- Private
 
@@ -46,10 +51,14 @@ public class Bullet_Controller : MonoBehaviour
         _lifeTimer = 0f;
         _acceTimer = 0f;
         _velocity = new Vector2();
+        _updateVelocityOnce = true;
 
-        UpdateBulletProperty();
+        _bulletEventMaster.BulletPropertyInitEvent += UpdateVelocityProperty;
+    }
 
-        //SetBulletPictureProperty();
+    private void OnDisable()
+    {
+        _bulletEventMaster.BulletPropertyInitEvent -= UpdateVelocityProperty;
     }
 
 
@@ -63,8 +72,29 @@ public class Bullet_Controller : MonoBehaviour
             ReachLifeTime();
         }
 
-        UpdateVelocity();
+        // init velocity
+        if (_updateVelocityOnce)
+        {
+            UpdateVelocity();
+            _updateVelocityOnce = false;
+            Debug.Log(_velocity);
+        }
+
+        // update velocity each frame
+        else
+        {
+            if(_propertyScript.m_useBulletAttrack || _propertyScript.m_useBulletReject)
+                _velocity = _propertyScript.m_Velocity;
+            else
+            {
+                UpdateVelocity();
+            }
+        }
+        
+
+        transform.rotation = Quaternion.Euler(0, 0, _velocityAngle);
         transform.position += (Vector3)_velocity * Time.deltaTime;
+        _propertyScript.m_Velocity = _velocity;
 
         if (m_updateBulletProperty)
         {
@@ -72,7 +102,7 @@ public class Bullet_Controller : MonoBehaviour
                 _acceTimer = 0f;
 
             UpdateBulletProperty();
-            SetBulletPictureProperty();          
+            SetBulletPictureProperty();
         }
 
     }
@@ -80,8 +110,9 @@ public class Bullet_Controller : MonoBehaviour
     void UpdateVelocity()
     {
         Vector2 velocityDir = new Vector2(Mathf.Cos(Mathf.Deg2Rad * m_InitAngle),
-                                        Mathf.Sin(Mathf.Deg2Rad * m_InitAngle));
-        Vector2 accelDir = new Vector2(
+                                    Mathf.Sin(Mathf.Deg2Rad * m_InitAngle));
+
+        Vector2 accelDir = (_AccelerateDir_Property == 0) ? Vector2.zero : new Vector2(
             Mathf.Cos(Mathf.Deg2Rad * (m_InitAngle + _AccelerateDir_Property)),
             Mathf.Sin(Mathf.Deg2Rad * m_InitAngle + _AccelerateDir_Property));
 
@@ -91,13 +122,13 @@ public class Bullet_Controller : MonoBehaviour
         _velocity.x *= _XVelocityFactor_Property;
         _velocity.y *= _YVelocityFactor_Property;
 
+
         float angle = CountVelocityAngle();
-        if(Mathf.Abs(angle - _velocityAngle) >= 0.05)
+        if (Mathf.Abs(angle - _velocityAngle) >= 0.05)
         {
             transform.rotation = Quaternion.Euler(0, 0, angle);
         }
         _velocityAngle = angle;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
 
         return;
     }
@@ -124,7 +155,7 @@ public class Bullet_Controller : MonoBehaviour
     void SetBulletPictureProperty()
     {
         _bulletColor_Property.a = _Alpha_Property;
-        _bulletPictureMaterial.color = _bulletColor_Property;
+        _bulletSpriteRender.color = _bulletColor_Property;
 
         if (!_alignWithVelocity_Property)
         {
@@ -190,23 +221,32 @@ public class Bullet_Controller : MonoBehaviour
 
     void SetInitReference()
     {
-        _propertyScript = GetComponent<BulletReference>().m_BulletProperty;
-
-        if (m_BulletPicture == null)
-        {
-            Debug.LogError("The m_BulletPicture is not assigned!");
-            return;
-        }
+        _propertyScript = GetComponent<Bullet_Property>();
+        _bulletEventMaster = GetComponent<BulletEventMaster>();
 
         _BulletPool = GetComponent<BulletReference>().m_BulletPool;
         if (_BulletPool == null)
         {
             Debug.LogError("The m_BulletPool is not Init");
             return;
-        }                   
+        }
 
-        _bulletPictureMaterial = m_BulletPicture.GetComponent<MeshRenderer>().material;
-        _bulletPictureTrans = m_BulletPicture.GetComponent<Transform>();
+        _BulletSprite = GetComponent<BulletReference>().m_BulletSprite;
+
+        _bulletPictureTrans = _BulletSprite.GetComponent<Transform>();
+        _bulletSpriteRender = _BulletSprite.GetComponent<SpriteRenderer>();
+    }
+
+
+    void UpdateVelocityProperty(Bullet_Property initBulletProperty)
+    {
+        _AccelerateDir_Property = initBulletProperty.m_AcceleratDir;
+        _Accelerate_Property = initBulletProperty.m_Accelerate;
+
+        _bulletSpeed_Property = initBulletProperty.m_BulletSpeed;
+
+        _XVelocityFactor_Property = initBulletProperty.m_HorizontalVelocityFactor;
+        _YVelocityFactor_Property = initBulletProperty.m_VerticalVelocityFactor;
     }
 
 }

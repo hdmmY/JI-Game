@@ -4,38 +4,52 @@ using UnityEngine;
 
 public class BulletReject : MonoBehaviour {
 
-    public Transform m_TargetTrans;
-
-    public float m_factor;
+    private Transform _TargetTrans;
+    private float _factor;
 
     private float _sqrDistance;
     private float _initialXVelocity;
     private float _deltXVelocity;
 
-    private Rigidbody2D _rb2D;
+    private Bullet_Property _bulletProperty;
+    private BulletEventMaster _bulletEventMaster;
 
     private void OnEnable()
     {
-        _rb2D = GetComponent<Rigidbody2D>();
+        _bulletProperty = GetComponent<Bullet_Property>();
+        _bulletEventMaster = GetComponent<BulletEventMaster>();
 
-        _initialXVelocity = GetComponent<Rigidbody2D>().velocity.x;
-        _deltXVelocity = 0f;
+        _bulletEventMaster.BulletPropertyInitEvent += InitFactorAndTargettrans;
+    }
+
+    private void OnDisable()
+    {
+        _bulletEventMaster.BulletPropertyInitEvent -= InitFactorAndTargettrans;
     }
 
 
     private void Update()
     {
-        Vector3 deltPosition = transform.position - m_TargetTrans.position;
+        if (!_bulletProperty.m_useBulletReject)
+            return;
 
-        _initialXVelocity = _rb2D.velocity.x - _deltXVelocity;
+        Vector3 deltPosition = transform.position - _TargetTrans.position;
+
+        _initialXVelocity = _bulletProperty.m_Velocity.x - _deltXVelocity;
 
         _sqrDistance = deltPosition.sqrMagnitude;
 
-        _deltXVelocity = m_factor / (_sqrDistance + 1f);
+        _deltXVelocity = _factor / (_sqrDistance + 1f);
         _deltXVelocity = deltPosition.x > 0 ? _deltXVelocity : -_deltXVelocity;
 
-        _rb2D.velocity = new Vector2(_initialXVelocity + _deltXVelocity, _rb2D.velocity.y);
+        _bulletProperty.m_Velocity = new Vector2(_initialXVelocity + _deltXVelocity, _bulletProperty.m_Velocity.y);
     }
 
+
+    void InitFactorAndTargettrans(Bullet_Property initProperty)
+    {
+        _TargetTrans = initProperty.m_targetTrans;
+        _factor = initProperty.m_rejectFactor;
+    }
 
 }

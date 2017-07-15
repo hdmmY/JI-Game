@@ -15,16 +15,19 @@ public class Enemy_Emit_Event : MonoBehaviour
     private delegate int GetEmitPropertyIntDelegate();
     private delegate float GetEmitPropertyFloatDelegate();
 
-    private delegate bool GetConditionResultDelegate();
+    private delegate bool GetConditionResultDelegate(bool isLeft);
+    private delegate bool GetConditionFinalResultDelegate();
 
     private delegate float EaseMethodDelegate(float start, float end, float value);
 
     private delegate void UpdatePropDelegate();
 
     // It is used to get the arbitrary emit property
-    private GetEmitPropertyFloatDelegate GetPropFunc_Cond_Float;
+    private GetEmitPropertyFloatDelegate GetPropFunc_Cond_Float_Left;
+    private GetEmitPropertyIntDelegate GetPropFunc_Cond_Int_Left;
+    private GetEmitPropertyFloatDelegate GetPropFunc_Cond_Float_Right;
+    private GetEmitPropertyIntDelegate GetPropFunc_Cond_Int_Right;
     private GetEmitPropertyFloatDelegate GetPropFunc_Resu_Float;
-    private GetEmitPropertyIntDelegate GetPropFunc_Cond_Int;
     private GetEmitPropertyIntDelegate GetPropFunc_Resu_Int;
 
     // It is used to change arbitrary emit property
@@ -32,7 +35,9 @@ public class Enemy_Emit_Event : MonoBehaviour
     private ChangePropertyIntDelegate ChangePropFunc_Int;
 
     // It is used to determine whether the condition is true
-    private GetConditionResultDelegate GetConditionResultFunc;
+    private GetConditionResultDelegate GetConditionResultFunc_Left;
+    private GetConditionResultDelegate GetConditionResultFunc_Right;
+    private GetConditionFinalResultDelegate GetConditionResultFunc_Final;
 
     // It is used to represent the ease method
     private EaseMethodDelegate EaseFunc;
@@ -44,13 +49,24 @@ public class Enemy_Emit_Event : MonoBehaviour
     #region variables
     private Enemy_Emit_Property _property;
 
-    public ConditionVariableType m_ConditionVariable;
-    public OperatorType m_Operator;
-    public int m_ConditioinTargetInt;
-    public float m_ConditioinTargetFloat;
-    public bool m_ConditionResult;
+    // condition
+    public ConditionVariableType m_ConditionVariable_Left;
+    public OperatorType m_Operator_Left;
+    public int m_ConditioinTargetInt_Left;
+    public float m_ConditioinTargetFloat_Left;
+    public bool m_ConditionResult_Left;
+
+    public ConditionVariableType m_ConditionVariable_Right;
+    public OperatorType m_Operator_Right;
+    public int m_ConditioinTargetInt_Right;
+    public float m_ConditioinTargetFloat_Right;
+    public bool m_ConditionResult_Right;
+
+    public LogicOperatorType m_LogicOperator;
+    public bool m_ConditionResult_Final;
 
 
+    // result
     public ResultVariableType m_ResuVariableType;
     public float m_TargetValue_Float;
     public int m_TargetValue_Int;
@@ -58,9 +74,14 @@ public class Enemy_Emit_Event : MonoBehaviour
     public EaseMethodType m_EaseType;
     public ChangeType m_ChangeMethod;
 
-    public ValueType _CondValueType;
+
+    // value type
+    public ValueType _CondValueType_Left;
+    public ValueType _CondValueType_Right;
     public ValueType _ResuValueType;
 
+
+    // internal 
     private float _initValue_Float;
     private int _initValue_Int;
     private float _curValue_Float;
@@ -90,6 +111,12 @@ public class Enemy_Emit_Event : MonoBehaviour
         equal,
         less,
         lessEqual
+    };
+
+    public enum LogicOperatorType
+    {
+        AND,
+        OR
     };
 
     public enum ValueType
@@ -138,9 +165,9 @@ public class Enemy_Emit_Event : MonoBehaviour
     private void Update()
     {
         _runingTime += Time.deltaTime;
-        m_ConditionResult = GetConditionResultFunc();
+        m_ConditionResult_Final = GetConditionResultFunc_Final();
 
-        if (m_ConditionResult)
+        if (m_ConditionResult_Final)
         {
             UpdatePercentage();
             UpdatePropertyMethod();
@@ -151,36 +178,69 @@ public class Enemy_Emit_Event : MonoBehaviour
 
     public void Init()
     {
-        // set  GetPropFunc_Cond_Int || GetPropFunc_Cond_Float variable
-        switch (m_ConditionVariable)
+        // set  left GetPropFunc_Cond_Int || GetPropFunc_Cond_Float variable
+        switch (m_ConditionVariable_Left)
         {
             case ConditionVariableType.startTime:
-                _CondValueType = ValueType.Float;
-                GetPropFunc_Cond_Float = GetRunningTime;
+                _CondValueType_Left = ValueType.Float;
+                GetPropFunc_Cond_Float_Left = GetRunningTime;
                 break;
             case ConditionVariableType.angleRange:
-                _CondValueType = ValueType.Int;
-                GetPropFunc_Cond_Int = _property.GetEmitAngleRange;
+                _CondValueType_Left = ValueType.Int;
+                GetPropFunc_Cond_Int_Left = _property.GetEmitAngleRange;
                 break;
             case ConditionVariableType.interval:
-                _CondValueType = ValueType.Float;
-                GetPropFunc_Cond_Float = _property.GetEmitInterval;
+                _CondValueType_Left = ValueType.Float;
+                GetPropFunc_Cond_Float_Left = _property.GetEmitInterval;
                 break;
             case ConditionVariableType.lineAngleOffset:
-                _CondValueType = ValueType.Int;
-                GetPropFunc_Cond_Int = _property.GetEmitLineAngleOffset;
+                _CondValueType_Left = ValueType.Int;
+                GetPropFunc_Cond_Int_Left = _property.GetEmitLineAngleOffset;
                 break;
             case ConditionVariableType.lineNumber:
-                _CondValueType = ValueType.Int;
-                GetPropFunc_Cond_Int = _property.GetEmitLineNumber;
+                _CondValueType_Left = ValueType.Int;
+                GetPropFunc_Cond_Int_Left = _property.GetEmitLineNumber;
                 break;
             case ConditionVariableType.pointAngleOffset:
-                _CondValueType = ValueType.Int;
-                GetPropFunc_Cond_Int = _property.GetEmitPointAngleOffset;
+                _CondValueType_Left = ValueType.Int;
+                GetPropFunc_Cond_Int_Left = _property.GetEmitPointAngleOffset;
                 break;
             case ConditionVariableType.radius:
-                _CondValueType = ValueType.Float;
-                GetPropFunc_Cond_Float = _property.GetEmitRadius;
+                _CondValueType_Left = ValueType.Float;
+                GetPropFunc_Cond_Float_Left = _property.GetEmitRadius;
+                break;
+        }
+
+        // set  right GetPropFunc_Cond_Int || GetPropFunc_Cond_Float variable
+        switch (m_ConditionVariable_Right)
+        {
+            case ConditionVariableType.startTime:
+                _CondValueType_Right = ValueType.Float;
+                GetPropFunc_Cond_Float_Right = GetRunningTime;
+                break;
+            case ConditionVariableType.angleRange:
+                _CondValueType_Right = ValueType.Int;
+                GetPropFunc_Cond_Int_Right = _property.GetEmitAngleRange;
+                break;
+            case ConditionVariableType.interval:
+                _CondValueType_Right = ValueType.Float;
+                GetPropFunc_Cond_Float_Right = _property.GetEmitInterval;
+                break;
+            case ConditionVariableType.lineAngleOffset:
+                _CondValueType_Right = ValueType.Int;
+                GetPropFunc_Cond_Int_Right = _property.GetEmitLineAngleOffset;
+                break;
+            case ConditionVariableType.lineNumber:
+                _CondValueType_Right = ValueType.Int;
+                GetPropFunc_Cond_Int_Right = _property.GetEmitLineNumber;
+                break;
+            case ConditionVariableType.pointAngleOffset:
+                _CondValueType_Right = ValueType.Int;
+                GetPropFunc_Cond_Int_Right = _property.GetEmitPointAngleOffset;
+                break;
+            case ConditionVariableType.radius:
+                _CondValueType_Right = ValueType.Float;
+                GetPropFunc_Cond_Float_Right = _property.GetEmitRadius;
                 break;
         }
 
@@ -221,23 +281,54 @@ public class Enemy_Emit_Event : MonoBehaviour
         }
 
 
-        // set the GetConditionResultFunc variable
-        switch (m_Operator)
+        // set the left GetConditionResultFunc variable
+        switch (m_Operator_Left)
         {
             case OperatorType.equal:
-                GetConditionResultFunc = IsEqual;
+                GetConditionResultFunc_Left = IsEqual;
                 break;
             case OperatorType.greater:
-                GetConditionResultFunc = IsGreater;
+                GetConditionResultFunc_Left = IsGreater;
                 break;
             case OperatorType.greaterEqual:
-                GetConditionResultFunc = IsGreaterEqual;
+                GetConditionResultFunc_Left = IsGreaterEqual;
                 break;
             case OperatorType.less:
-                GetConditionResultFunc = IsLess;
+                GetConditionResultFunc_Left = IsLess;
                 break;
             case OperatorType.lessEqual:
-                GetConditionResultFunc = IsLessEqual;
+                GetConditionResultFunc_Left = IsLessEqual;
+                break;
+        }
+
+        // set the right GetConditionResultFunc variable
+        switch (m_Operator_Right)
+        {
+            case OperatorType.equal:
+                GetConditionResultFunc_Right = IsEqual;
+                break;
+            case OperatorType.greater:
+                GetConditionResultFunc_Right = IsGreater;
+                break;
+            case OperatorType.greaterEqual:
+                GetConditionResultFunc_Right = IsGreaterEqual;
+                break;
+            case OperatorType.less:
+                GetConditionResultFunc_Right = IsLess;
+                break;
+            case OperatorType.lessEqual:
+                GetConditionResultFunc_Right = IsLessEqual;
+                break;
+        }
+
+        // set the final GetConditionResultFunc variable
+        switch (m_LogicOperator)
+        {
+            case LogicOperatorType.AND:
+                GetConditionResultFunc_Final = IsAndTrue;
+                break;
+            case LogicOperatorType.OR:
+                GetConditionResultFunc_Final = IsOrTrue;
                 break;
         }
 
@@ -283,7 +374,7 @@ public class Enemy_Emit_Event : MonoBehaviour
                 UpdatePropertyMethod = Increase;
                 break;
         }
-                              
+
         _percent = 0f;
         _timeSinceEvetStart = 0f;
         _runingTime = 0f;
@@ -296,15 +387,20 @@ public class Enemy_Emit_Event : MonoBehaviour
 
 
         // reset the event
-        GetPropFunc_Cond_Float = null;
-        GetPropFunc_Cond_Int = null;
+        GetPropFunc_Cond_Float_Left = null;
+        GetPropFunc_Cond_Int_Left = null;
+        GetPropFunc_Cond_Float_Right = null;
+        GetPropFunc_Cond_Int_Right = null;
+
         GetPropFunc_Resu_Float = null;
         GetPropFunc_Resu_Int = null;
 
         ChangePropFunc_Float = null;
         ChangePropFunc_Int = null;
 
-        GetConditionResultFunc = null;
+        GetConditionResultFunc_Left = null;
+        GetConditionResultFunc_Right = null;
+        GetConditionResultFunc_Final = null;
 
     }
 
@@ -385,13 +481,13 @@ public class Enemy_Emit_Event : MonoBehaviour
     #region Ease method
     private float SineEase(float start, float end, float value)
     {
-        if(start > end)
+        if (start > end)
         {
             start = start + end;
             end = start - end;
             start = start - end;
             value = 1 - value;
-        }   
+        }
 
         end -= start;
         end = end - start;
@@ -414,53 +510,107 @@ public class Enemy_Emit_Event : MonoBehaviour
 
 
     #region Get condition result method
-    private bool IsEqual()
+    private bool IsEqual(bool isLeft)
     {
-        switch (_CondValueType)
+        if(isLeft)
+        {
+            switch (_CondValueType_Left)
+            {
+                case ValueType.Float:
+                    return Mathf.Approximately(GetPropFunc_Cond_Float_Left(), m_ConditioinTargetFloat_Left);
+                case ValueType.Int:
+                    return GetPropFunc_Cond_Int_Left() == m_ConditioinTargetInt_Left;
+            }
+        }
+
+        switch (_CondValueType_Right)
         {
             case ValueType.Float:
-                return Mathf.Approximately(GetPropFunc_Cond_Float(), m_ConditioinTargetFloat);
+                return Mathf.Approximately(GetPropFunc_Cond_Float_Right(), m_ConditioinTargetFloat_Right);
             case ValueType.Int:
-                return GetPropFunc_Cond_Int() == m_ConditioinTargetInt;
+                return GetPropFunc_Cond_Int_Right() == m_ConditioinTargetInt_Right;
         }
 
         return false;
     }
 
-    private bool IsGreater()
+    private bool IsGreater(bool isLeft)
     {
-        switch (_CondValueType)
+        if(isLeft)
+        {
+            switch (_CondValueType_Left)
+            {
+                case ValueType.Float:
+                    return GetPropFunc_Cond_Float_Left() > m_ConditioinTargetFloat_Left;
+                case ValueType.Int:
+                    return GetPropFunc_Cond_Int_Left() > m_ConditioinTargetInt_Left;
+            }
+        }
+
+        switch (_CondValueType_Right)
         {
             case ValueType.Float:
-                return GetPropFunc_Cond_Float() > m_ConditioinTargetFloat;
+                return GetPropFunc_Cond_Float_Right() > m_ConditioinTargetFloat_Right;
             case ValueType.Int:
-                return GetPropFunc_Cond_Int() > m_ConditioinTargetInt;
+                return GetPropFunc_Cond_Int_Right() > m_ConditioinTargetInt_Right;
         }
 
         return false;
     }
 
-    private bool IsLess()
+    private bool IsLess(bool isLeft)
     {
-        switch (_CondValueType)
+        if (isLeft)
+        {
+            switch (_CondValueType_Left)
+            {
+                case ValueType.Float:
+                    return GetPropFunc_Cond_Float_Left() < m_ConditioinTargetFloat_Left;
+                case ValueType.Int:
+                    return GetPropFunc_Cond_Int_Left() < m_ConditioinTargetInt_Left;
+            }
+        }
+
+        switch (_CondValueType_Right)
         {
             case ValueType.Float:
-                return GetPropFunc_Cond_Float() < m_ConditioinTargetFloat;
+                return GetPropFunc_Cond_Float_Right() < m_ConditioinTargetFloat_Right;
             case ValueType.Int:
-                return GetPropFunc_Cond_Int() < m_ConditioinTargetInt;
+                return GetPropFunc_Cond_Int_Right() < m_ConditioinTargetInt_Right;
         }
 
         return false;
     }
 
-    private bool IsLessEqual()
+    private bool IsLessEqual(bool isLeft)
     {
-        return IsLess() || IsEqual();
+        if(isLeft)
+        {
+            return IsLess(true) || IsEqual(true);
+        }
+
+        return IsLess(false) || IsEqual(false);
     }
 
-    private bool IsGreaterEqual()
+    private bool IsGreaterEqual(bool isLeft)
     {
-        return IsGreater() || IsEqual();
+        if (isLeft)
+        {
+            return IsGreater(true) || IsEqual(true);
+        }
+
+        return IsGreater(false) || IsEqual(false);
+    }
+
+
+    private bool IsAndTrue()
+    {
+        return GetConditionResultFunc_Left(true) && GetConditionResultFunc_Right(false);
+    }
+
+    public bool IsOrTrue()
+    {
+        return GetConditionResultFunc_Left(true) || GetConditionResultFunc_Right(false);
     }
     #endregion
 }

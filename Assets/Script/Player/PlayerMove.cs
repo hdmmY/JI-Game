@@ -2,20 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour {
+[RequireComponent(typeof(PlayerProperty))]
+[RequireComponent(typeof(PlayerReference))]
+public class PlayerMove : MonoBehaviour
+{
 
-    public InputManager m_InputManager;
+    private float _verticalSpeed;
+    private float _horizontalSpeed;
 
-    public float m_verticalSpeed;
-    public float m_horizontalSpeed;
+    private InputManager _InputManager;
+    private PlayerReference _playerRefer;
+    private PlayerProperty _playerProperty;
+
+    private void OnEnable()
+    {
+        SetInitReference();
+
+        _verticalSpeed = _playerProperty.m_horizontalSpeed;
+        _horizontalSpeed = _playerProperty.m_verticalSpeed;
+    }
 
     private void Update()
     {
-        transform.position += new Vector3(m_InputManager.m_HorizontalInput * m_horizontalSpeed,
-                                          m_InputManager.m_VerticalInput * m_verticalSpeed, 0f) * Time.deltaTime;
+        UpdateSpeed();
+
+        transform.position += new Vector3(_InputManager.m_HorizontalInput * _verticalSpeed,
+                                          _InputManager.m_VerticalInput * _horizontalSpeed, 0f) * Time.deltaTime;
     }
 
 
+    void UpdateSpeed()
+    {
+        _verticalSpeed = _playerProperty.m_horizontalSpeed;
+        _horizontalSpeed = _playerProperty.m_verticalSpeed;
+    }
 
 
+    void SetInitReference()
+    {
+        _playerRefer = GetComponent<PlayerReference>();
+        _playerProperty = GetComponent<PlayerProperty>();
+
+        _InputManager = _playerRefer.m_InputManager;
+    }
 }

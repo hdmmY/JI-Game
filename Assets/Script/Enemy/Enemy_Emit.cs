@@ -10,6 +10,10 @@ public class Enemy_Emit : MonoBehaviour
     public bool m_updateEmitProperty;     // if the emit_bullet_property has changed, then please set it to true
 
     private Enemy_Emit_Property _emitProperty;
+    private Enemy_Reference _enemyReference;
+
+    private BulletPool _bulletPool;
+    private Bullet_Property _bulletTempleProperty;
 
     private float[] _emitDirs;
     private Vector3[] _emitPoints;
@@ -47,11 +51,11 @@ public class Enemy_Emit : MonoBehaviour
         _timer = 0f;
 
         GameObject bullet;
-        BulletPool bulletPool = _emitProperty.m_bulletPool;
+
         Vector3 bulletOrigin;
         float bulletAngleOffset;
 
-        if (bulletPool == null)
+        if (_bulletPool == null)
             return;
 
         for (int i = 0; i < _emitPoints.Length; i++)
@@ -59,17 +63,23 @@ public class Enemy_Emit : MonoBehaviour
             bulletAngleOffset = _emitDirs[i];
             bulletOrigin = _emitPoints[i];
 
-            bullet = bulletPool.create(bulletOrigin);
-
+            bullet = _bulletPool.create(bulletOrigin);
             bullet.transform.rotation = Quaternion.Euler(0, 0, bulletAngleOffset);
 
+            bullet.GetComponent<Bullet_Property>().CopyProperty(_bulletTempleProperty);
+            bullet.GetComponent<BulletEventMaster>().CallBulletPropertyInitEvent(_bulletTempleProperty);
+
             bullet.GetComponent<Bullet_Controller>().m_InitAngle = bulletAngleOffset;
+            
         }    
     }
 
 
 
-
+    /// <summary>
+    /// init the _emitDirs and _emitPoints
+    /// </summary>
+    /// <param name="emitProperty"></param>
     void EmitInit(Enemy_Emit_Property emitProperty)
     {
         _emitDirs = emitProperty.GetEmitDirs();
@@ -81,6 +91,10 @@ public class Enemy_Emit : MonoBehaviour
     void SetInitReference()
     {
         _emitProperty = GetComponent<Enemy_Emit_Property>();
+        _enemyReference = GetComponent<Enemy_Reference>();
+
+        _bulletPool = _enemyReference.m_BulletPool;
+        _bulletTempleProperty = _enemyReference.m_TempleBulletProperty;
     }
 
     private void OnDrawGizmos()

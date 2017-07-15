@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletReference : MonoBehaviour {
+public class Enemy_Reference: MonoBehaviour
+{
+    public Bullet_Property m_TempleBulletProperty;
 
     public BulletPool m_BulletPool;
-
-    public GameObject m_BulletSprite;
 
 }

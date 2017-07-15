@@ -13,8 +13,6 @@ public class EnemyEmitPropertyEditor : Editor
     public override void OnInspectorGUI()
     {
         _targetScript = (Enemy_Emit_Property)target;
-
-        
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Use Bound");
         _targetScript.m_useBound = EditorGUILayout.Toggle(_targetScript.m_useBound);

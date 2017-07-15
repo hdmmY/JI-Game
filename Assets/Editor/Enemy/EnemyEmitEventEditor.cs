@@ -54,32 +54,71 @@ public class EnemyEmitEventEditor : Editor
 
     private void ShowConditionSetting()
     {
-        // condition variable
+        // left : condition variable
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Condition Variable");
-        _targetScript.m_ConditionVariable = (Enemy_Emit_Event.ConditionVariableType)EditorGUILayout.EnumPopup(_targetScript.m_ConditionVariable);
+        EditorGUILayout.LabelField("Condition Variable Left");
+        _targetScript.m_ConditionVariable_Left = (Enemy_Emit_Event.ConditionVariableType)EditorGUILayout.EnumPopup(_targetScript.m_ConditionVariable_Left);
         EditorGUILayout.EndHorizontal();
 
 
-        // operator 
+        // left : operator 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Operator");
-        _targetScript.m_Operator = (Enemy_Emit_Event.OperatorType)EditorGUILayout.EnumPopup(_targetScript.m_Operator);
+        _targetScript.m_Operator_Left = (Enemy_Emit_Event.OperatorType)EditorGUILayout.EnumPopup(_targetScript.m_Operator_Left);
         EditorGUILayout.EndHorizontal();
 
-        // condition result;
+        // left : condition result;
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Condition Target Value");
-        switch (_targetScript._CondValueType)
+        switch (_targetScript._CondValueType_Left)
         {
             case Enemy_Emit_Event.ValueType.Float:
-                _targetScript.m_ConditioinTargetFloat = EditorGUILayout.FloatField(_targetScript.m_ConditioinTargetFloat);
+                _targetScript.m_ConditioinTargetFloat_Left = EditorGUILayout.FloatField(_targetScript.m_ConditioinTargetFloat_Left);
                 break;
             case Enemy_Emit_Event.ValueType.Int:
-                _targetScript.m_ConditioinTargetInt = EditorGUILayout.IntField(_targetScript.m_ConditioinTargetInt);
+                _targetScript.m_ConditioinTargetInt_Left = EditorGUILayout.IntField(_targetScript.m_ConditioinTargetInt_Left);
                 break;
         }
         EditorGUILayout.EndHorizontal();
+
+
+        // logic operator
+        EditorGUI.indentLevel++;
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Operator");
+        _targetScript.m_LogicOperator = (Enemy_Emit_Event.LogicOperatorType)EditorGUILayout.EnumPopup(_targetScript.m_LogicOperator);
+        EditorGUILayout.EndHorizontal();
+        EditorGUI.indentLevel--;
+
+
+        // right : condition variable
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Condition Variable Right");
+        _targetScript.m_ConditionVariable_Right = (Enemy_Emit_Event.ConditionVariableType)EditorGUILayout.EnumPopup(_targetScript.m_ConditionVariable_Right);
+        EditorGUILayout.EndHorizontal();
+
+
+        // right : operator 
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Operator");
+        _targetScript.m_Operator_Right = (Enemy_Emit_Event.OperatorType)EditorGUILayout.EnumPopup(_targetScript.m_Operator_Right);
+        EditorGUILayout.EndHorizontal();
+
+        // right : condition result;
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Condition Target Value");
+        switch (_targetScript._CondValueType_Right)
+        {
+            case Enemy_Emit_Event.ValueType.Float:
+                _targetScript.m_ConditioinTargetFloat_Right = EditorGUILayout.FloatField(_targetScript.m_ConditioinTargetFloat_Right);
+                break;
+            case Enemy_Emit_Event.ValueType.Int:
+                _targetScript.m_ConditioinTargetInt_Right = EditorGUILayout.IntField(_targetScript.m_ConditioinTargetInt_Right);
+                break;
+        }
+        EditorGUILayout.EndHorizontal();
+
+
     }
 
 

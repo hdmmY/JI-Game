@@ -12,6 +12,11 @@ public class InputManager : MonoBehaviour {
 
     public bool m_Shoot;
 
+
+    public KeyCode m_ChangeStateKey;
+    public delegate void ChangeStateKeyPressedDelegate();
+    public static ChangeStateKeyPressedDelegate ChangeStateKeyPressEvent; 
+
     private void Update()
     {
         m_HorizontalInput = Input.GetAxis("Horizontal");
@@ -25,7 +30,21 @@ public class InputManager : MonoBehaviour {
         {
             m_Shoot = false;
         }
+
+
+        if(Input.GetKeyDown(m_ChangeStateKey))
+        {
+            CallChangeStateKeyPressEvent();    
+        }
     }
 
+
+    void CallChangeStateKeyPressEvent()
+    {
+        if(ChangeStateKeyPressEvent != null)
+        {
+            ChangeStateKeyPressEvent();
+        }
+    }
 
 }

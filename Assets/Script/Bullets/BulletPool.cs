@@ -8,11 +8,15 @@ public class BulletPool : MonoBehaviour
 
     public Transform m_ParentTransform;
 
+    public int m_AddedNumberWhenReset = 40;
+
     [Range(5, 1000)]
     public int m_Capacity;
 
-    private List<GameObject> _pool;
+    public int m_activedObjects;
 
+    private List<GameObject> _pool;
+    
     private LinkedList<GameObject> _disactivedObjects;
 
     private void OnEnable()
@@ -20,41 +24,37 @@ public class BulletPool : MonoBehaviour
         _pool = new List<GameObject>();
         _disactivedObjects = new LinkedList<GameObject>();
 
-        GameObject go;
-
-        for(int i = 0; i < m_Capacity; i++)
-        {
-            go = Instantiate(m_BulletPrefab, m_ParentTransform);
-            go.SetActive(false);
-
-            _pool.Add(go);
-            _disactivedObjects.AddLast(go);
-        }
+        ResetPool(m_Capacity);
 
         return;
     }
 
 
-     public GameObject create()
+    private void Update()
     {
-        if(_disactivedObjects.Count == 0)
-        {
-            ResetPool();
+        m_activedObjects = m_Capacity - _disactivedObjects.Count;
+    }
 
-            return Instantiate(m_BulletPrefab, m_ParentTransform);
+    public GameObject create()
+    {
+        if (_disactivedObjects.Count == 0)
+        {
+            ResetPool(m_AddedNumberWhenReset);
         }
 
-        if(_pool == null)
+        if (_pool == null)
         {
             Debug.LogWarning(transform.parent + ": the bullet pool is null!");
             return null;
         }
 
         GameObject result = _disactivedObjects.Last.Value;
+
         result.SetActive(true);
+        ResetBulletProperty(result.GetComponent<Bullet_Property>());
 
         _disactivedObjects.RemoveLast();
-        
+
         return result;
     }
 
@@ -86,11 +86,11 @@ public class BulletPool : MonoBehaviour
     }
 
 
-    private void ResetPool()
+    private void ResetPool(int addedNumber)
     {
         GameObject go;
 
-        for (int i = 0; i < m_Capacity; i++)
+        for (int i = 0; i < addedNumber; i++)
         {
             go = Instantiate(m_BulletPrefab, m_ParentTransform);
             go.SetActive(false);
@@ -99,6 +99,43 @@ public class BulletPool : MonoBehaviour
             _disactivedObjects.AddLast(go);
         }
 
-        m_Capacity += 40;
+        m_Capacity = _pool.Count;
+    }
+
+
+    // reset the new bullet's property to the default property
+    private void ResetBulletProperty(Bullet_Property property)
+    {
+        property.m_LifeTime = BulletPropertyDefault.LifeTime;
+
+        property.m_BulletColor = BulletPropertyDefault.Color;
+
+        property.m_Alpha = BulletPropertyDefault.Alpha;
+
+        property.m_SpriteDirection = BulletPropertyDefault.SpriteDirection;
+
+        property.m_AlignWithVelocity = BulletPropertyDefault.AlignWithVelocity;
+
+        property.m_BulletSpeed = BulletPropertyDefault.BulletSpeed;
+
+        property.m_Accelerate = BulletPropertyDefault.Accelerator;
+
+        property.m_AcceleratDir = BulletPropertyDefault.AcceleratorDirection;
+
+        property.m_HorizontalVelocityFactor = BulletPropertyDefault.HorizontalVelocityFactor;
+
+        property.m_VerticalVelocityFactor = BulletPropertyDefault.VerticalVelocityFactor;
+
+        property.m_useBulletAttrack = BulletPropertyDefault.UseBulletAttrack;
+
+        property.m_useBulletReject = BulletPropertyDefault.UseBulletReject;
+
+        property.m_attrackFactor = BulletPropertyDefault.AttrackFactor;
+
+        property.m_rejectFactor = BulletPropertyDefault.RejectFactor;
+
+        property.m_targetTrans = BulletPropertyDefault.TargetTrans;
+
+        property.m_BulletDamage = BulletPropertyDefault.BulletDamage;
     }
 }
