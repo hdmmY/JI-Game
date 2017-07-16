@@ -15,7 +15,7 @@ public class InputManager : MonoBehaviour {
 
     public KeyCode m_ChangeStateKey;
     public delegate void ChangeStateKeyPressedDelegate();
-    public static ChangeStateKeyPressedDelegate ChangeStateKeyPressEvent; 
+    public ChangeStateKeyPressedDelegate ChangeStateKeyPressEvent; 
 
     private void Update()
     {

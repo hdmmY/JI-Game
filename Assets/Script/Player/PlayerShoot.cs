@@ -9,6 +9,7 @@ public class PlayerShoot : MonoBehaviour
 {
     private PlayerReference _playerRefer;
     private PlayerProperty _playerProperty;
+    private PlayerEventMaster _playerEventMaster;
 
     private InputManager _InputManager;
     private BulletPool _BulletPool;
@@ -39,13 +40,13 @@ public class PlayerShoot : MonoBehaviour
 
 
         // event 
-        PlayerProperty.OnPlayerStateChangeEvent += ChangeBulletProperty;
+        _playerEventMaster.OnPlayerStateChangeEvent += ChangeBulletProperty;
     }
 
 
     private void OnDisable()
     {
-        PlayerProperty.OnPlayerStateChangeEvent -= ChangeBulletProperty;
+        _playerEventMaster.OnPlayerStateChangeEvent -= ChangeBulletProperty;
     }
 
 
@@ -82,27 +83,29 @@ public class PlayerShoot : MonoBehaviour
         //Vector3 leftPoint = _leftShootPos.TransformPoint(_leftShootPos.localPosition);
         //Vector3 rightPoint = _rightShootPos.TransformPoint(_rightShootPos.localPosition); 
 
-        GameObject leftBullet = _BulletPool.create(_leftShootTras.position);
+        GameObject leftBullet = _BulletPool.create(_leftShootTras.position);        // create bullet
         GameObject rightBullet = _BulletPool.create(_rightShootTras.position);
 
-        leftBullet.GetComponent<BulletReference>().m_BulletPool = _BulletPool;
+        leftBullet.GetComponent<BulletReference>().m_BulletPool = _BulletPool;      // set the bullet pool reference
         rightBullet.GetComponent<BulletReference>().m_BulletPool = _BulletPool;
 
-        leftBullet.GetComponent<Bullet_Controller>().m_InitAngle = 90f;
+        leftBullet.GetComponent<Bullet_Controller>().m_InitAngle = 90f;             // init bullet controller
         rightBullet.GetComponent<Bullet_Controller>().m_InitAngle = 90f;
 
-        Bullet_Property leftProperty = leftBullet.GetComponent<Bullet_Property>();
+        rightBullet.layer = leftBullet.layer = _playerProperty.m_PlayerBulletLayer;  // set the layer of the bullet
+
+
+        Bullet_Property leftProperty = leftBullet.GetComponent<Bullet_Property>();   // set the bullet property
         Bullet_Property rightProperty = rightBullet.GetComponent<Bullet_Property>();
-
-        leftProperty.CopyProperty(_curTempleBulletProperty);
+        leftProperty.CopyProperty(_curTempleBulletProperty);                         
         rightProperty.CopyProperty(_curTempleBulletProperty);
-
         rightProperty.m_CurTime = leftProperty.m_CurTime = 0f;
         rightProperty.m_BulletSpeed = leftProperty.m_BulletSpeed = _bulletSpeed;
         rightProperty.m_BulletDamage = leftProperty.m_BulletDamage = _bulletDamage;
+        
 
-        PlayerEventMaster.CallPlayerShootEvent(leftBullet);
-        PlayerEventMaster.CallPlayerShootEvent(rightBullet);
+        _playerEventMaster.CallPlayerShootEvent(leftBullet);
+        _playerEventMaster.CallPlayerShootEvent(rightBullet);
 
         return;
     }
@@ -112,6 +115,7 @@ public class PlayerShoot : MonoBehaviour
     {
         _playerRefer = GetComponent<PlayerReference>();
         _playerProperty = GetComponent<PlayerProperty>();
+        _playerEventMaster = GetComponent<PlayerEventMaster>();
 
         _InputManager = _playerRefer.m_InputManager;
         _BulletPool = _playerRefer.m_BulletPool;

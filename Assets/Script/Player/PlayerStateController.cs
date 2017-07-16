@@ -8,8 +8,10 @@ using UnityEngine;
 public class PlayerStateController : MonoBehaviour
 {
     private InputManager _inputManager;
+
     private PlayerProperty _playerProperty;
     private PlayerReference _playerReference;
+    private PlayerEventMaster _playerEventMaster;
 
     private SpriteRenderer _playerSpriteRender;
 
@@ -19,15 +21,15 @@ public class PlayerStateController : MonoBehaviour
 
 
         // event
-        InputManager.ChangeStateKeyPressEvent += OnChangePressKeyPressed;
-        PlayerProperty.OnPlayerStateChangeEvent += ChangePlayerSprite;
+        _inputManager.ChangeStateKeyPressEvent += OnChangePressKeyPressed;
+        _playerEventMaster.OnPlayerStateChangeEvent += ChangePlayerSprite;
     }
 
 
     private void OnDisable()
     {
-        InputManager.ChangeStateKeyPressEvent -= OnChangePressKeyPressed;
-        PlayerProperty.OnPlayerStateChangeEvent -= ChangePlayerSprite;
+        _inputManager.ChangeStateKeyPressEvent -= OnChangePressKeyPressed;
+        _playerEventMaster.OnPlayerStateChangeEvent -= ChangePlayerSprite;
     }
 
 
@@ -37,6 +39,7 @@ public class PlayerStateController : MonoBehaviour
 
         _playerProperty = GetComponent<PlayerProperty>();
         _playerReference = GetComponent<PlayerReference>();
+        _playerEventMaster = GetComponent<PlayerEventMaster>();
 
         _playerSpriteRender = _playerReference.m_SpriteReference.GetComponent<SpriteRenderer>();
     }
@@ -50,9 +53,7 @@ public class PlayerStateController : MonoBehaviour
 
         _playerProperty.m_playerState = afterState;
 
-        PlayerEventMaster.CallOnPlayerStateChangeEvent(prevState);
-
-        
+        _playerEventMaster.CallOnPlayerStateChangeEvent(prevState);        
     }
 
 
@@ -68,12 +69,6 @@ public class PlayerStateController : MonoBehaviour
                 _playerSpriteRender.sprite = _playerProperty.m_BlackSprite;
                 break;
         }
-    }
-
-    
-    void ChangeBulletColor(PlayerProperty.PlayerStateType prevState)
-    {
-        
     }
     
 }

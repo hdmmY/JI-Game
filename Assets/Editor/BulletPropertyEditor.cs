@@ -8,8 +8,8 @@ public class BulletPropertyEditor : Editor
 {
     Bullet_Property _targetScript;
 
-    bool _showBaseProperty = true;
-    bool _showMotionProperty = true;
+    bool _showBaseProperty = false;
+    bool _showMotionProperty = false;
 
 
     public override void OnInspectorGUI()

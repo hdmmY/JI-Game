@@ -14,7 +14,7 @@ public class PlayerProperty : MonoBehaviour
     public string m_rightShootPoint;
     [Range(0.05f, 2.5f)]
     public float m_shootInterval;
-    public float m_bulletDamage;
+    public int m_bulletDamage;
     
     
     // state
@@ -28,14 +28,8 @@ public class PlayerProperty : MonoBehaviour
     public Sprite m_BlackSprite;
 
 
-    // event 
-    public delegate void OnPlayerStateChange(PlayerStateType prevState);
-    public static OnPlayerStateChange OnPlayerStateChangeEvent;
-
-
-    public delegate void PlayerShootDelegate(GameObject bullet);
-    public static PlayerShootDelegate PlayerShootEvent;
-
-
+    // layer
+    public LayerMask m_PlayerBulletLayer;
+    public LayerMask m_PlayerLayer;
 
 }

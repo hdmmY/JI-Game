@@ -77,7 +77,6 @@ public class Bullet_Controller : MonoBehaviour
         {
             UpdateVelocity();
             _updateVelocityOnce = false;
-            Debug.Log(_velocity);
         }
 
         // update velocity each frame

@@ -5,22 +5,31 @@ using UnityEngine;
 
 public class PlayerEventMaster: MonoBehaviour
 {
+    // event 
+    public delegate void OnPlayerStateChangeDelegate (PlayerProperty.PlayerStateType prevState);
+    public OnPlayerStateChangeDelegate OnPlayerStateChangeEvent;
+
+
+    public delegate void PlayerShootDelegate(GameObject bullet);
+    public PlayerShootDelegate PlayerShootEvent;
+
+
     // call the event
-    static public void CallOnPlayerStateChangeEvent(PlayerProperty.PlayerStateType prevState)
+    public void CallOnPlayerStateChangeEvent(PlayerProperty.PlayerStateType prevState)
     {
-        if (PlayerProperty.OnPlayerStateChangeEvent != null)
+        if (OnPlayerStateChangeEvent != null)
         {
-            PlayerProperty.OnPlayerStateChangeEvent(prevState);
+            OnPlayerStateChangeEvent(prevState);
         }
     }
 
 
 
-    static public void CallPlayerShootEvent(GameObject bullet)
+    public void CallPlayerShootEvent(GameObject bullet)
     {
-        if(PlayerProperty.PlayerShootEvent != null)
+        if(PlayerShootEvent != null)
         {
-            PlayerProperty.PlayerShootEvent(bullet);
+            PlayerShootEvent(bullet);
         }
     }
 

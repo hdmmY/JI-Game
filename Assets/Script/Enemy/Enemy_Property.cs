@@ -14,7 +14,9 @@ public class Enemy_Property: MonoBehaviour
 
     public int m_enmeyHealth;
 
+    public LayerMask m_EnemyBulletLayer;
 
+    public LayerMask m_EnemyLayer;
 
 
 

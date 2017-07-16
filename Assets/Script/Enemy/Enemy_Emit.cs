@@ -10,7 +10,8 @@ public class Enemy_Emit : MonoBehaviour
     public bool m_updateEmitProperty;     // if the emit_bullet_property has changed, then please set it to true
 
     private Enemy_Emit_Property _emitProperty;
-    private Enemy_Reference _enemyReference;
+    private Enemy_Emit_Reference _enemyEmitReference;
+    private Enemy_Property _enemyProperty;
 
     private BulletPool _bulletPool;
     private Bullet_Property _bulletTempleProperty;
@@ -63,14 +64,17 @@ public class Enemy_Emit : MonoBehaviour
             bulletAngleOffset = _emitDirs[i];
             bulletOrigin = _emitPoints[i];
 
-            bullet = _bulletPool.create(bulletOrigin);
-            bullet.transform.rotation = Quaternion.Euler(0, 0, bulletAngleOffset);
+            bullet = _bulletPool.create(bulletOrigin);                                    // create bullet
+            bullet.transform.rotation = Quaternion.Euler(0, 0, bulletAngleOffset);        // set bullet rotation
 
-            bullet.GetComponent<Bullet_Property>().CopyProperty(_bulletTempleProperty);
+            bullet.GetComponent<Bullet_Property>().CopyProperty(_bulletTempleProperty);   // set bullet property
+            
+            bullet.GetComponent<Bullet_Controller>().m_InitAngle = bulletAngleOffset;     // init bullet controller
+
+            bullet.layer = _enemyProperty.m_EnemyBulletLayer;                             // set bullet layer
+
             bullet.GetComponent<BulletEventMaster>().CallBulletPropertyInitEvent(_bulletTempleProperty);
 
-            bullet.GetComponent<Bullet_Controller>().m_InitAngle = bulletAngleOffset;
-            
         }    
     }
 
@@ -91,10 +95,11 @@ public class Enemy_Emit : MonoBehaviour
     void SetInitReference()
     {
         _emitProperty = GetComponent<Enemy_Emit_Property>();
-        _enemyReference = GetComponent<Enemy_Reference>();
+        _enemyEmitReference = GetComponent<Enemy_Emit_Reference>();
+        _enemyProperty = _enemyEmitReference.m_enemyProperty;
 
-        _bulletPool = _enemyReference.m_BulletPool;
-        _bulletTempleProperty = _enemyReference.m_TempleBulletProperty;
+        _bulletPool = _enemyEmitReference.m_BulletPool;
+        _bulletTempleProperty = _enemyEmitReference.m_TempleBulletProperty;
     }
 
     private void OnDrawGizmos()
