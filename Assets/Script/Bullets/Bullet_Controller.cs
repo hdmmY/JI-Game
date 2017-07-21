@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,7 +51,8 @@ public class Bullet_Controller : MonoBehaviour
 
         _lifeTimer = 0f;
         _acceTimer = 0f;
-        _velocity = new Vector2();
+        _velocity = Vector2.zero;
+        _velocityAngle = 0f;
         _updateVelocityOnce = true;
 
         _bulletEventMaster.BulletPropertyInitEvent += UpdateVelocityProperty;
@@ -105,6 +107,8 @@ public class Bullet_Controller : MonoBehaviour
         }
 
     }
+
+
 
     void UpdateVelocity()
     {
@@ -248,4 +252,5 @@ public class Bullet_Controller : MonoBehaviour
         _YVelocityFactor_Property = initBulletProperty.m_VerticalVelocityFactor;
     }
 
+    
 }

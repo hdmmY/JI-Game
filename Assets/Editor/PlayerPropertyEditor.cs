@@ -92,12 +92,12 @@ public class PlayerPropertyEditor : Editor
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Player Bullet Layer");
-        _targetScript.m_PlayerBulletLayer = EditorGUILayout.LayerField(_targetScript.m_PlayerBulletLayer);
+        _targetScript.m_PlayerBulletLayer = EditorGUILayout.TextField(_targetScript.m_PlayerBulletLayer);
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Player Layer");
-        _targetScript.m_PlayerLayer = EditorGUILayout.LayerField(_targetScript.m_PlayerLayer);
+        _targetScript.m_PlayerLayer = EditorGUILayout.TextField(_targetScript.m_PlayerLayer);
         EditorGUILayout.EndHorizontal();
 
         EditorGUI.indentLevel--;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,6 +31,13 @@ public class Enemy_Emit : MonoBehaviour
 
     private void Update()
     {
+        if (m_updateEmitProperty)
+        {
+            EmitInit(_emitProperty);
+            //m_updateEmitProperty = false;
+        }
+
+
         if (m_emit)
         {
             if (_timer >= _emitProperty.m_EmitInterval)
@@ -37,12 +45,6 @@ public class Enemy_Emit : MonoBehaviour
                 Emitting();
             }
             _timer += Time.deltaTime;
-        }
-
-        if (m_updateEmitProperty)
-        {
-            EmitInit(_emitProperty);
-            //m_updateEmitProperty = false;
         }
     }
 
@@ -68,14 +70,15 @@ public class Enemy_Emit : MonoBehaviour
             bullet.transform.rotation = Quaternion.Euler(0, 0, bulletAngleOffset);        // set bullet rotation
 
             bullet.GetComponent<Bullet_Property>().CopyProperty(_bulletTempleProperty);   // set bullet property
-            
+
             bullet.GetComponent<Bullet_Controller>().m_InitAngle = bulletAngleOffset;     // init bullet controller
 
-            bullet.layer = _enemyProperty.m_EnemyBulletLayer;                             // set bullet layer
+            bullet.layer = LayerMask.NameToLayer(_enemyProperty.m_EnemyBulletLayer);      // set bullet layer
 
             bullet.GetComponent<BulletEventMaster>().CallBulletPropertyInitEvent(_bulletTempleProperty);
 
-        }    
+            bullet.SetActive(true);
+        }
     }
 
 
@@ -108,7 +111,7 @@ public class Enemy_Emit : MonoBehaviour
 
         if (_emitPoints == null) return;
 
-        foreach(Vector3 point in _emitPoints)
+        foreach (Vector3 point in _emitPoints)
         {
             Gizmos.DrawCube(point, Vector3.one * 0.15f);
         }

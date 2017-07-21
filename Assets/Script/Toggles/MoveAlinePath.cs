@@ -7,6 +7,8 @@ namespace Toggles
 {
     public class MoveAlinePath : MonoBehaviour
     {
+        public bool m_useTime;
+        public float m_time;
 
         public string m_itweenName;
         public float m_speed;
@@ -30,12 +32,17 @@ namespace Toggles
         {
             args.Add("name", m_itweenName);
             args.Add("path", iTweenPath.GetPath(m_pathName));
-            args.Add("speed", m_speed);
+
+            if (m_useTime)
+                args.Add("time", m_time);
+            else
+                args.Add("speed", m_speed);
+
             args.Add("looptype", m_loopType);
             args.Add("easetype", m_easeType);
 
             args.Add("movetopath", false);
-        }     
+        }
 
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,15 +26,14 @@ public class BulletPool : MonoBehaviour
         _disactivedObjects = new LinkedList<GameObject>();
 
         ResetPool(m_Capacity);
-
-        return;
     }
-
 
     private void Update()
     {
         m_activedObjects = m_Capacity - _disactivedObjects.Count;
     }
+
+
 
     public GameObject create()
     {
@@ -50,7 +50,7 @@ public class BulletPool : MonoBehaviour
 
         GameObject result = _disactivedObjects.Last.Value;
 
-        result.SetActive(true);
+        //result.SetActive(true);
         ResetBulletProperty(result.GetComponent<Bullet_Property>());
 
         _disactivedObjects.RemoveLast();
@@ -70,9 +70,12 @@ public class BulletPool : MonoBehaviour
 
     public void delete(GameObject bullet)
     {
-        _disactivedObjects.AddLast(bullet);
-
         bullet.SetActive(false);
+
+
+        _disactivedObjects.AddLast(bullet);             
+
+        //bullet.GetComponent<Bullet_Property>().CopyProperty(m_BulletPrefab.GetComponent<Bullet_Property>());
 
         return;
     }
@@ -138,4 +141,6 @@ public class BulletPool : MonoBehaviour
 
         property.m_BulletDamage = BulletPropertyDefault.BulletDamage;
     }
+
+    
 }

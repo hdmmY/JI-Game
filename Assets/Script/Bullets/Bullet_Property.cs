@@ -101,7 +101,7 @@ public class Bullet_Property : MonoBehaviour
 
         m_HorizontalVelocityFactor = _property.m_HorizontalVelocityFactor;
         m_VerticalVelocityFactor = _property.m_VerticalVelocityFactor;
-        m_CurTime = _property.m_CurTime;
+        //m_CurTime = _property.m_CurTime;
     }
 
 }

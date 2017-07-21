@@ -86,25 +86,26 @@ public class PlayerShoot : MonoBehaviour
         GameObject leftBullet = _BulletPool.create(_leftShootTras.position);        // create bullet
         GameObject rightBullet = _BulletPool.create(_rightShootTras.position);
 
+        Bullet_Property leftProperty = leftBullet.GetComponent<Bullet_Property>();   // set the bullet property
+        Bullet_Property rightProperty = rightBullet.GetComponent<Bullet_Property>();
+        leftProperty.CopyProperty(_curTempleBulletProperty);
+        rightProperty.CopyProperty(_curTempleBulletProperty);
+        rightProperty.m_CurTime = leftProperty.m_CurTime = 0f;
+        rightProperty.m_BulletSpeed = leftProperty.m_BulletSpeed = _bulletSpeed;
+        rightProperty.m_BulletDamage = leftProperty.m_BulletDamage = _bulletDamage;
+
         leftBullet.GetComponent<BulletReference>().m_BulletPool = _BulletPool;      // set the bullet pool reference
         rightBullet.GetComponent<BulletReference>().m_BulletPool = _BulletPool;
 
         leftBullet.GetComponent<Bullet_Controller>().m_InitAngle = 90f;             // init bullet controller
         rightBullet.GetComponent<Bullet_Controller>().m_InitAngle = 90f;
 
-        rightBullet.layer = leftBullet.layer = _playerProperty.m_PlayerBulletLayer;  // set the layer of the bullet
+        rightBullet.layer = leftBullet.layer = LayerMask.NameToLayer(_playerProperty.m_PlayerBulletLayer); // set the layer of the bullet
 
+        rightBullet.SetActive(true);
+        leftBullet.SetActive(false);
 
-        Bullet_Property leftProperty = leftBullet.GetComponent<Bullet_Property>();   // set the bullet property
-        Bullet_Property rightProperty = rightBullet.GetComponent<Bullet_Property>();
-        leftProperty.CopyProperty(_curTempleBulletProperty);                         
-        rightProperty.CopyProperty(_curTempleBulletProperty);
-        rightProperty.m_CurTime = leftProperty.m_CurTime = 0f;
-        rightProperty.m_BulletSpeed = leftProperty.m_BulletSpeed = _bulletSpeed;
-        rightProperty.m_BulletDamage = leftProperty.m_BulletDamage = _bulletDamage;
-        
-
-        _playerEventMaster.CallPlayerShootEvent(leftBullet);
+        _playerEventMaster.CallPlayerShootEvent(leftBullet);                         // call bullet shoot event
         _playerEventMaster.CallPlayerShootEvent(rightBullet);
 
         return;

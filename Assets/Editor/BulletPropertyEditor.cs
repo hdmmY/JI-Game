@@ -79,6 +79,8 @@ public class BulletPropertyEditor : Editor
 
         if (_showBaseProperty)
         {
+            EditorGUI.indentLevel++;
+
             EditorGUILayout.BeginVertical();
 
             EditorGUILayout.BeginHorizontal();
@@ -110,12 +112,16 @@ public class BulletPropertyEditor : Editor
             }
 
             EditorGUILayout.EndVertical();
+
+            EditorGUI.indentLevel--;
         }
 
         _showMotionProperty = EditorGUILayout.Foldout(_showMotionProperty, "Bullet Motion Property");
 
         if (_showMotionProperty)
         {
+            EditorGUI.indentLevel++;
+
             EditorGUILayout.BeginVertical();
 
             EditorGUILayout.BeginHorizontal();
@@ -144,6 +150,8 @@ public class BulletPropertyEditor : Editor
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.EndVertical();
+
+            EditorGUI.indentLevel--;
         }
 
         Undo.RecordObject(_targetScript, "Change Bullet Property");

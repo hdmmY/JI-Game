@@ -5,22 +5,22 @@ using UnityEngine;
 public class BulletEventMaster: MonoBehaviour
 {
     public delegate void OnBulletPropertyChangeDelegate(Bullet_Property prevProperty);
-    public OnBulletPropertyChangeDelegate OnBulletPropertyChangeEvent;
+    public event OnBulletPropertyChangeDelegate OnBulletPropertyChangeEvent;
 
     public delegate void BulletPropertyInitDelegate(Bullet_Property initProperty);
-    public BulletPropertyInitDelegate BulletPropertyInitEvent;
+    public event BulletPropertyInitDelegate BulletPropertyInitEvent;
 
     public delegate void TriggerPlayerDelegate(Bullet_Property bulletProperty);
-    public TriggerPlayerDelegate TriggerPlayerEvent;
+    public event TriggerPlayerDelegate TriggerPlayerEvent;
 
     public delegate void TriggerEnemyDelegate(Bullet_Property bulletProperty, Enemy_Property enemyProperty);
-    public TriggerEnemyDelegate TriggerEnemyEvent;
+    public event TriggerEnemyDelegate TriggerEnemyEvent;
 
     public delegate void TriggerEdgeDelegate();
-    public TriggerEdgeDelegate TriggerEdgeEvent;
+    public event TriggerEdgeDelegate TriggerEdgeEvent;
 
     public delegate void BulletDisableDelegate();
-    public BulletDisableDelegate BulletDisableEvent;
+    public event BulletDisableDelegate BulletDisableEvent;
 
 
 
@@ -52,6 +52,7 @@ public class BulletEventMaster: MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         switch(collision.tag)
         {
             case "Player":

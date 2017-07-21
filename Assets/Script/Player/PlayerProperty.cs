@@ -29,7 +29,7 @@ public class PlayerProperty : MonoBehaviour
 
 
     // layer
-    public LayerMask m_PlayerBulletLayer;
-    public LayerMask m_PlayerLayer;
+    public string m_PlayerBulletLayer;
+    public string m_PlayerLayer;
 
 }

@@ -14,10 +14,18 @@ public class Enemy_Property: MonoBehaviour
 
     public int m_enmeyHealth;
 
-    public LayerMask m_EnemyBulletLayer;
+    public string m_EnemyBulletLayer;
 
-    public LayerMask m_EnemyLayer;
+    public string m_EnemyLayer;
 
+    [System.Serializable]
+    public class TimeLineEmitPoint
+    {
+        public GameObject m_emitPoint;
+        public float m_activeTime;
+        public float m_disactiveTime;
+    }
 
+    public List<TimeLineEmitPoint> m_TimeLineEmitPoints;
 
 }

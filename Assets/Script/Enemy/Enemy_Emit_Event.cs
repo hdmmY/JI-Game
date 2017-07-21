@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -169,12 +170,11 @@ public class Enemy_Emit_Event : MonoBehaviour
 
         if (m_ConditionResult_Final)
         {
-            UpdatePercentage();
+            UpdatePercentage(Time.deltaTime);
             UpdatePropertyMethod();
         }
 
     }
-
 
     public void Init()
     {
@@ -405,9 +405,9 @@ public class Enemy_Emit_Event : MonoBehaviour
     }
 
 
-    private void UpdatePercentage()
+    private void UpdatePercentage(float deltTime)
     {
-        _timeSinceEvetStart += Time.deltaTime;
+        _timeSinceEvetStart += deltTime;
 
         _percent = _timeSinceEvetStart / m_ChangeTime;
     }
@@ -612,5 +612,9 @@ public class Enemy_Emit_Event : MonoBehaviour
     {
         return GetConditionResultFunc_Left(true) || GetConditionResultFunc_Right(false);
     }
+
+    
+
+
     #endregion
 }
