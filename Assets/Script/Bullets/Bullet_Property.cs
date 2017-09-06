@@ -54,6 +54,8 @@ public class Bullet_Property : MonoBehaviour
     /// </summary>
     public float m_BulletSpeed = BulletPropertyDefault.BulletSpeed;
 
+    public float m_BulletSpeedDir = BulletPropertyDefault.BulletSpeedDir;
+
     /// <summary>
     /// The bullet acceleration
     /// </summary>
@@ -122,6 +124,8 @@ public static class BulletPropertyDefault
     public readonly static bool AlignWithVelocity = true;
 
     public readonly static float BulletSpeed = 5f;
+
+    public readonly static float BulletSpeedDir = 0f;
 
     public readonly static float Accelerator = 0;
 

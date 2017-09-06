@@ -20,10 +20,14 @@ public class BulletPool : MonoBehaviour
     
     private LinkedList<GameObject> _disactivedObjects;
 
+    private int _bulletIndex;
+
     private void OnEnable()
     {
         _pool = new List<GameObject>();
         _disactivedObjects = new LinkedList<GameObject>();
+
+        _bulletIndex = 0;
 
         ResetPool(m_Capacity);
     }
@@ -38,7 +42,7 @@ public class BulletPool : MonoBehaviour
     public GameObject create()
     {
         if (_disactivedObjects.Count == 0)
-        {
+        {                         
             ResetPool(m_AddedNumberWhenReset);
         }
 
@@ -54,6 +58,7 @@ public class BulletPool : MonoBehaviour
         ResetBulletProperty(result.GetComponent<Bullet_Property>());
 
         _disactivedObjects.RemoveLast();
+
 
         return result;
     }
@@ -72,8 +77,7 @@ public class BulletPool : MonoBehaviour
     {
         bullet.SetActive(false);
 
-
-        _disactivedObjects.AddLast(bullet);             
+        _disactivedObjects.AddFirst(bullet);             
 
         //bullet.GetComponent<Bullet_Property>().CopyProperty(m_BulletPrefab.GetComponent<Bullet_Property>());
 
@@ -98,9 +102,13 @@ public class BulletPool : MonoBehaviour
             go = Instantiate(m_BulletPrefab, m_ParentTransform);
             go.SetActive(false);
 
+            go.name += _bulletIndex.ToString();
+            _bulletIndex++;
+
             _pool.Add(go);
-            _disactivedObjects.AddLast(go);
+            _disactivedObjects.AddFirst(go);
         }
+      
 
         m_Capacity = _pool.Count;
     }

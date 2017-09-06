@@ -36,7 +36,7 @@ public class EnemyEmitPropertyEditor : Editor
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Emit Line Number");
-        _targetScript.m_EmitLineNumber = EditorGUILayout.IntSlider(_targetScript.m_EmitLineNumber, 1, 20);
+        _targetScript.m_EmitLineNumber = EditorGUILayout.IntSlider(_targetScript.m_EmitLineNumber, 1, 50);
         EditorGUILayout.EndHorizontal();
 
 
@@ -48,7 +48,7 @@ public class EnemyEmitPropertyEditor : Editor
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Emit Interval");
-        _targetScript.m_EmitInterval = EditorGUILayout.Slider(_targetScript.m_EmitInterval, 0.03f, 5f);
+        _targetScript.m_EmitInterval = EditorGUILayout.Slider(_targetScript.m_EmitInterval, 0.002f, 5f);
         EditorGUILayout.EndHorizontal();
 
                                            

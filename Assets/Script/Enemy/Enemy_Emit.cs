@@ -21,16 +21,24 @@ public class Enemy_Emit : MonoBehaviour
     private Vector3[] _emitPoints;
 
     private float _timer;
+    private float _preFireTimer;
 
     private void OnEnable()
     {
         SetInitReference();
 
         EmitInit(_emitProperty);
+
+        _timer = _preFireTimer = 0f;
     }
 
-    private void Update()
+
+    private void FixedUpdate()
     {
+        _preFireTimer += Time.fixedDeltaTime;
+        if (_preFireTimer <= 0.2)
+            return;
+
         if (m_updateEmitProperty)
         {
             EmitInit(_emitProperty);
@@ -40,18 +48,18 @@ public class Enemy_Emit : MonoBehaviour
 
         if (m_emit)
         {
-            if (_timer >= _emitProperty.m_EmitInterval)
+            if (Mathf.Approximately(Mathf.Max(_timer, _emitProperty.m_EmitInterval), _timer))
             {
                 Emitting();
             }
-            _timer += Time.deltaTime;
+            _timer += Time.fixedDeltaTime;
         }
     }
 
 
     void Emitting()
     {
-        _timer = 0f;
+        _timer = _timer - _emitProperty.m_EmitInterval;
 
         GameObject bullet;
 
@@ -67,17 +75,19 @@ public class Enemy_Emit : MonoBehaviour
             bulletOrigin = _emitPoints[i];
 
             bullet = _bulletPool.create(bulletOrigin);                                    // create bullet
-            bullet.transform.rotation = Quaternion.Euler(0, 0, bulletAngleOffset);        // set bullet rotation
+            bullet.transform.localRotation = Quaternion.Euler(0, 0, bulletAngleOffset);        // set bullet rotation
 
             bullet.GetComponent<Bullet_Property>().CopyProperty(_bulletTempleProperty);   // set bullet property
 
             bullet.GetComponent<Bullet_Controller>().m_InitAngle = bulletAngleOffset;     // init bullet controller
 
-            bullet.layer = LayerMask.NameToLayer(_enemyProperty.m_EnemyBulletLayer);      // set bullet layer
+            bullet.layer = _enemyProperty.m_EnemyBulletLayer;               // set bullet layer
 
             bullet.GetComponent<BulletEventMaster>().CallBulletPropertyInitEvent(_bulletTempleProperty);
 
             bullet.SetActive(true);
+
+            //Debug.Log(bullet.name);
         }
     }
 
@@ -113,7 +123,7 @@ public class Enemy_Emit : MonoBehaviour
 
         foreach (Vector3 point in _emitPoints)
         {
-            Gizmos.DrawCube(point, Vector3.one * 0.15f);
+            Gizmos.DrawCube(point, Vector3.one * 0.08f);
         }
     }
 

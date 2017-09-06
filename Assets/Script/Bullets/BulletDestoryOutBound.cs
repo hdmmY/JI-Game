@@ -3,27 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[RequireComponent(typeof(BulletEventMaster))]
-public class BulletDestoryOutBound : MonoBehaviour {
-
-    private BulletEventMaster _bulletEventMaster;
+public class BulletDestoryOutBound : MonoBehaviour
+{
     private BulletPool _bulletPool;
 
-        
+    private Vector2 _screenBorder;
+
+    private Camera _mainCamera;
+
     private void OnEnable()
     {
         _bulletPool = GetComponent<BulletReference>().m_BulletPool;
-        _bulletEventMaster = GetComponent<BulletEventMaster>();
-
-        _bulletEventMaster.TriggerEdgeEvent += DestroyBullet;
+        _mainCamera = Camera.main;
     }
 
 
-    private void OnDisable()
+    private void Update()
     {
-        _bulletEventMaster.TriggerEdgeEvent -= DestroyBullet;
-    }
+        _screenBorder = _mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0f));
+        Vector3 position = transform.position;
 
+        if(position.x >= _screenBorder.x || position.x <= -_screenBorder.x)
+        {
+            DestroyBullet();
+            return;
+        }
+
+
+        if(position.y >= _screenBorder.y || position.y <= -_screenBorder.y)
+        {
+            DestroyBullet();
+            return;
+        }
+    }
+   
 
     private void DestroyBullet()
     {

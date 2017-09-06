@@ -14,12 +14,5 @@ public class TimeLineManager : MonoBehaviour
         public GameObject m_gameObject;
         public float m_activeTime;
         public float m_disactiveTime;
-    }
-
-
-
-
-
-
-
+    }       
 }

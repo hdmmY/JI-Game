@@ -14,9 +14,9 @@ public class Enemy_Property: MonoBehaviour
 
     public int m_enmeyHealth;
 
-    public string m_EnemyBulletLayer;
+    public int m_EnemyBulletLayer;
 
-    public string m_EnemyLayer;
+    public int m_EnemyLayer;
 
     [System.Serializable]
     public class TimeLineEmitPoint

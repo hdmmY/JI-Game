@@ -88,7 +88,7 @@ public class Enemy_Emit_Event : MonoBehaviour
     private float _curValue_Float;
     private int _curValue_Int;
 
-    private float _percent;
+    public float _percent;
     private float _timeSinceEvetStart;
     private float _runingTime;
 
@@ -164,13 +164,15 @@ public class Enemy_Emit_Event : MonoBehaviour
 
 
     private void Update()
-    {
+    {                                       
         _runingTime += Time.deltaTime;
+        _timeSinceEvetStart += Time.deltaTime;
+        _percent = _timeSinceEvetStart / m_ChangeTime;
+
         m_ConditionResult_Final = GetConditionResultFunc_Final();
 
         if (m_ConditionResult_Final)
         {
-            UpdatePercentage(Time.deltaTime);
             UpdatePropertyMethod();
         }
 
@@ -404,14 +406,7 @@ public class Enemy_Emit_Event : MonoBehaviour
 
     }
 
-
-    private void UpdatePercentage(float deltTime)
-    {
-        _timeSinceEvetStart += deltTime;
-
-        _percent = _timeSinceEvetStart / m_ChangeTime;
-    }
-
+    
     private float GetRunningTime()
     {
         return _runingTime;

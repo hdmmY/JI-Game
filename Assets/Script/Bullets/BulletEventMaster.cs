@@ -14,10 +14,7 @@ public class BulletEventMaster: MonoBehaviour
     public event TriggerPlayerDelegate TriggerPlayerEvent;
 
     public delegate void TriggerEnemyDelegate(Bullet_Property bulletProperty, Enemy_Property enemyProperty);
-    public event TriggerEnemyDelegate TriggerEnemyEvent;
-
-    public delegate void TriggerEdgeDelegate();
-    public event TriggerEdgeDelegate TriggerEdgeEvent;
+    public event TriggerEnemyDelegate TriggerEnemyEvent;   
 
     public delegate void BulletDisableDelegate();
     public event BulletDisableDelegate BulletDisableEvent;
@@ -66,13 +63,6 @@ public class BulletEventMaster: MonoBehaviour
                 if (TriggerEnemyEvent != null)
                 {
                     TriggerEnemyEvent(GetComponent<Bullet_Property>(), collision.GetComponent<Enemy_Property>());
-                }
-                break;
-
-            case "Edge":
-                if(TriggerEdgeEvent != null)
-                {
-                    TriggerEdgeEvent();
                 }
                 break;
         }
