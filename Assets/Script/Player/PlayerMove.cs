@@ -10,7 +10,6 @@ public class PlayerMove : MonoBehaviour
     private float _verticalSpeed;
     private float _horizontalSpeed;
 
-    private InputManager _InputManager;
     private PlayerReference _playerRefer;
     private PlayerProperty _playerProperty;
 
@@ -26,8 +25,8 @@ public class PlayerMove : MonoBehaviour
     {
         UpdateSpeed();
 
-        transform.position += new Vector3(_InputManager.m_HorizontalInput * _verticalSpeed,
-                                          _InputManager.m_VerticalInput * _horizontalSpeed, 0f) * Time.deltaTime;
+        transform.position += new Vector3(InputManager.Instance.HorizontalInput * _verticalSpeed,
+                                          InputManager.Instance.VerticalInput, 0f) * Time.deltaTime;
     }
 
 
@@ -42,7 +41,5 @@ public class PlayerMove : MonoBehaviour
     {
         _playerRefer = GetComponent<PlayerReference>();
         _playerProperty = GetComponent<PlayerProperty>();
-
-        _InputManager = _playerRefer.m_InputManager;
     }
 }

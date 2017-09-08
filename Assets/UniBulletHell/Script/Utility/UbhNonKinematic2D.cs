@@ -63,5 +63,8 @@ public class UbhNonKinematic2D : UbhMonoBehaviour
         }
         rigidbody2D.gravityScale = _OrgGravityScale;
 #endif
+        
     }
+
+    
 }

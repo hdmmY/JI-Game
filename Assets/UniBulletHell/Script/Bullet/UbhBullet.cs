@@ -37,8 +37,23 @@ public class UbhBullet : UbhMonoBehaviour
                                      homing, homingTarget, homingAngleSpeed, maxHomingAngle,
                                      wave, waveSpeed, waveRangeSize,
                                      pauseAndResume, pauseTime, resumeTime, axisMove));
+        
+        //UbhBullet testBullet = new UbhBullet();
+        //testBullet._Shooting = false;
     }
 
+
+    // 
+    public void Shot(IEnumerator bulletMoveRoutine)
+    {
+        if(_Shooting)
+        {
+            return;
+        }
+        _Shooting = true;
+
+        StartCoroutine(bulletMoveRoutine);
+    }
 
 
 

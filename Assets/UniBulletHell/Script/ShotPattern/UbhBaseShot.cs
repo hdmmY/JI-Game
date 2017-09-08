@@ -159,6 +159,18 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
                     ShotCtrl != null ? ShotCtrl._AxisMove : UbhUtil.AXIS.X_AND_Y);
     }
 
+
+    protected void ShotBullet(UbhBullet bullet, IEnumerator bulletMoveRoutine)
+    {
+        if(bullet == null)
+        {
+            return;
+        }
+
+        bullet.Shot(bulletMoveRoutine);
+    }
+
+
     /// <summary>
     /// Auto release bullet GameObject after _AutoReleaseTime sec.
     /// </summary>

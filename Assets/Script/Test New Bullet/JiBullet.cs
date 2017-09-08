@@ -53,7 +53,6 @@ public class JiBullet : MonoBehaviour
                      bool pauseAndResume, float pauseTime, float resumeTime)
     {
         transform.SetEulerAnglesZ(angle);
-
         
         while(true)
         {

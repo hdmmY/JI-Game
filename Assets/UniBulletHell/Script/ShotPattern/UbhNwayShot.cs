@@ -7,6 +7,8 @@ using System.Collections;
 [AddComponentMenu("UniBulletHell/Shot Pattern/nWay Shot")]
 public class UbhNwayShot : UbhBaseShot
 {
+    // note : In N way shot pattern, each way has _BulletNum bullets.
+
     // "Set a number of shot way."
     public int _WayNum = 5;
     // "Set a center angle of shot. (0 to 360)"

@@ -1,17 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 [RequireComponent(typeof(PlayerProperty))]
 [RequireComponent(typeof(PlayerReference))]
 public class PlayerShoot : MonoBehaviour
 {
+    public KeyCode m_ShotKey;
+
     private PlayerReference _playerRefer;
     private PlayerProperty _playerProperty;
     private PlayerEventMaster _playerEventMaster;
 
-    private InputManager _InputManager;
     private BulletPool _BulletPool;
 
     private Bullet_Property _TempleBlackBulletProperty;
@@ -55,7 +54,7 @@ public class PlayerShoot : MonoBehaviour
     {
         UpdateShootProperty();
 
-        if (_InputManager.m_Shoot)
+        if (Input.GetKey(m_ShotKey))
         {
             if (_freTimer >= _shootInterval)
             {
@@ -118,7 +117,6 @@ public class PlayerShoot : MonoBehaviour
         _playerProperty = GetComponent<PlayerProperty>();
         _playerEventMaster = GetComponent<PlayerEventMaster>();
 
-        _InputManager = _playerRefer.m_InputManager;
         _BulletPool = _playerRefer.m_BulletPool;
 
         _leftShootTras = FindShootPoint(_playerProperty.m_leftShootPoint);

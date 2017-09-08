@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
+
 
 public class UbhSetting : UbhMonoBehaviour
 {
     [Range(0, 2)]
     public int _VsyncCount = 1;
-    [Range(0, 60)]
+    [Range(0, 70)]
     public int _FrameRate = 60;
 
     void Start ()

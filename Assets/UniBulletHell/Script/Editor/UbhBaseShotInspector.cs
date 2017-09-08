@@ -21,6 +21,7 @@ public class UbhBaseShotInspector : Editor
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Start Shot")) {
             if (Application.isPlaying && obj.gameObject.activeInHierarchy) {
+                
                 obj.Shot();
             }
         }
