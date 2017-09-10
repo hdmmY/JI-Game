@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerProperty))]
-[RequireComponent(typeof(PlayerReference))]
 public class PlayerMove : MonoBehaviour
 {
 
     private float _verticalSpeed;
     private float _horizontalSpeed;
 
-    private PlayerReference _playerRefer;
     private PlayerProperty _playerProperty;
+
+    private Animator _animator;
 
     private void OnEnable()
     {
@@ -25,21 +25,23 @@ public class PlayerMove : MonoBehaviour
     {
         UpdateSpeed();
 
-        transform.position += new Vector3(InputManager.Instance.HorizontalInput * _verticalSpeed,
-                                          InputManager.Instance.VerticalInput, 0f) * Time.deltaTime;
+        transform.position += new Vector3
+                (InputManager.Instance.HorizontalInput * _horizontalSpeed,
+                 InputManager.Instance.VerticalInput * _verticalSpeed, 0f) * Time.deltaTime;
+        _animator.SetFloat("HorizontalMove", InputManager.Instance.HorizontalInput);
     }
 
 
     void UpdateSpeed()
     {
-        _verticalSpeed = _playerProperty.m_horizontalSpeed;
-        _horizontalSpeed = _playerProperty.m_verticalSpeed;
+        _horizontalSpeed = _playerProperty.m_horizontalSpeed;
+        _verticalSpeed = _playerProperty.m_verticalSpeed;
     }
 
 
     void SetInitReference()
     {
-        _playerRefer = GetComponent<PlayerReference>();
         _playerProperty = GetComponent<PlayerProperty>();
+        _animator = GetComponent<Animator>();
     }
 }

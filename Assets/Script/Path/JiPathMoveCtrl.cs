@@ -23,7 +23,7 @@ public class JiPathMoveCtrl : MonoBehaviour
 
     // whether automatically generate a curve from Gameobject's current position to 
     // the begining of the path.
-    public bool m_movetoPath = true;
+    public bool m_movetoPath = false;
 
     // whether the gameobject will orient to its direction of travel.
     public bool m_orientedToPath = false;
@@ -58,7 +58,7 @@ public class JiPathMoveCtrl : MonoBehaviour
     public iTween.LoopType m_loopType = iTween.LoopType.none;
 
 
-    private void Start()
+    private void OnEnable()
     {
         iTween.Init(this.gameObject);
         Hashtable args = Lauch();
@@ -66,9 +66,9 @@ public class JiPathMoveCtrl : MonoBehaviour
     }
 
 
-    private void OnDisabled()
+    private void OnDisable()
     {
-
+        iTween.Stop(this.gameObject, "moveto");
     }
 
 
@@ -103,5 +103,4 @@ public class JiPathMoveCtrl : MonoBehaviour
 
         return args;
     }
-
 }

@@ -6012,6 +6012,12 @@ void TweenComplete()
         CleanArgs(args);
 
         float time;
+
+        // vector3s[0]: current rotation angle.
+        // vector3s[1]: target rotation angle.
+        // vector3s[2]: just use to fill the Mathf.SmoothDamp parameter, is no use.
+        // vector3s[3]: smooth damp result from vector3s[0] and vector3s[1].
+        // vector3s[4]: add axis restrict, final result.
         Vector3[] vector3s = new Vector3[5];
 
         //set smooth time:
@@ -6038,8 +6044,19 @@ void TweenComplete()
         {
             if (args["looktarget"].GetType() == typeof(Transform))
             {
-                //target.transform.LookAt((Transform)args["looktarget"]);
-                target.transform.LookAt((Transform)args["looktarget"], (Vector3?)args["up"] ?? Defaults.up);
+                // for XY-axis 2D use
+                if((string)args["axis"] == "z")
+                {
+                    float angleZ = UbhUtil.GetAngleFromTwoPosition
+                        (target.transform, (Transform)args["looktarget"], UbhUtil.AXIS.X_AND_Y);
+
+                    target.transform.SetEulerAnglesZ(angleZ);
+                }
+                else
+                {
+                    //target.transform.LookAt((Transform)args["looktarget"]);
+                    target.transform.LookAt((Transform)args["looktarget"], (Vector3?)args["up"] ?? Defaults.up);
+                }
             }
             else if (args["looktarget"].GetType() == typeof(Vector3))
             {

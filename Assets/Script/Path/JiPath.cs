@@ -15,6 +15,7 @@ public class JiPath : MonoBehaviour {
     // Path is visable even when you not select the object.
     public bool m_alwaysVisable = false;
 
+    //public bool m_revearse = false;
 
     void OnDrawGizmosSelected()
     {

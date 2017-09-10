@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -24,6 +24,10 @@ public class JiPathEditor : Editor
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.PrefixLabel("Path Name");
         _targetScript.m_PathName = EditorGUILayout.TextField(_targetScript.m_PathName);
+        if(string.IsNullOrEmpty(_targetScript.m_PathName))
+        {
+            _targetScript.m_PathName = _targetScript.transform.parent.name;
+        }
         EditorGUILayout.EndHorizontal();
 
         if(string.IsNullOrEmpty(_targetScript.m_PathName))

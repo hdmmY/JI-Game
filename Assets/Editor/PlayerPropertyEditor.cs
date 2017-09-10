@@ -39,18 +39,13 @@ public class PlayerPropertyEditor : Editor
         EditorGUI.indentLevel++;
 
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Left Shoot Point");
-        _targetScript.m_leftShootPoint = EditorGUILayout.TextField(_targetScript.m_leftShootPoint);
-        EditorGUILayout.EndHorizontal();
-
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Right Shoot Point");
-        _targetScript.m_rightShootPoint = EditorGUILayout.TextField(_targetScript.m_rightShootPoint);
-        EditorGUILayout.EndHorizontal();
-
-        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Shoot Interval");
         _targetScript.m_shootInterval = EditorGUILayout.FloatField(_targetScript.m_shootInterval);
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Bullet Speed");
+        _targetScript.m_bulletSpeed = EditorGUILayout.FloatField(_targetScript.m_bulletSpeed);
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
