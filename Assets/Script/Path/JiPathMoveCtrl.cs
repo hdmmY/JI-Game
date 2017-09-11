@@ -15,6 +15,10 @@ public class JiPathMoveCtrl : MonoBehaviour
     }
     public JiPathInfo m_pathInfo;
 
+    // The gameobject that will be controlled by iTween.
+    // Default is this.gameobject.
+    public GameObject m_movingGameObject = null;
+
     // An individual name for stopping itween
     //private string _itweenName = "";
 
@@ -60,15 +64,18 @@ public class JiPathMoveCtrl : MonoBehaviour
 
     private void OnEnable()
     {
-        iTween.Init(this.gameObject);
+        if(m_movingGameObject == null)
+            m_movingGameObject = this.gameObject;
+
+        iTween.Init(m_movingGameObject);
         Hashtable args = Lauch();
-        iTween.MoveTo(this.gameObject, args);        
+        iTween.MoveTo(m_movingGameObject, args);        
     }
 
 
     private void OnDisable()
     {
-        iTween.Stop(this.gameObject, "moveto");
+        iTween.Stop(m_movingGameObject, "moveto");
     }
 
 
@@ -79,6 +86,12 @@ public class JiPathMoveCtrl : MonoBehaviour
 
         args.Add("axis", "z");   // restrict the rotation to z-axis only.
 
+        if(m_pathInfo.m_Path == null)
+        {
+            m_pathInfo.m_Path = GetComponent<JiPath>();
+            if(m_pathInfo.m_Path == null)   
+                Debug.LogError("There is no path!");
+        }
         args.Add("name", m_pathInfo.m_Path.m_PathName);
         args.Add("path", m_pathInfo.m_Path.m_CtrolNode.ToArray()); 
         args.Add("delay", m_pathInfo.m_DelayTime); 

@@ -4,6 +4,42 @@
 		"selected_items":
 		[
 			[
+				"Get",
+				"Get360Angle(float angle)\tfloat"
+			],
+			[
+				"_T",
+				"_TempV3A\tVector3"
+			],
+			[
+				"SetEu",
+				"SetEulerAngles(float x, float y, float z)\tvoid"
+			],
+			[
+				"m_Cir",
+				"m_CircleTime\tint"
+			],
+			[
+				"m_C",
+				"m_CircleCentre\tVector2"
+			],
+			[
+				"Vec",
+				"Vector2()\tVector2()"
+			],
+			[
+				"m_c",
+				"m_CtrolNode\tList<Vector3>"
+			],
+			[
+				"m_mo",
+				"m_movingGameObject\tGameObject"
+			],
+			[
+				"m_Mo",
+				"m_movingGameObject\tGameObject"
+			],
+			[
 				"timeGO",
 				"m_timeGos\tList<TimeGameobject>"
 			],
@@ -26,10 +62,6 @@
 			[
 				"pre",
 				"_prePosition\tVector3"
-			],
-			[
-				"Get",
-				"GetAngleFromTwoPosition(Vector3 fromPos, Vector3 toPos, AXIS axisMove)\tfloat"
 			],
 			[
 				"_an",
@@ -110,10 +142,6 @@
 			[
 				"GUIS",
 				"GUIStyle\tGUIStyle"
-			],
-			[
-				"m_C",
-				"m_CtrolNode\tList<Vector3>"
 			],
 			[
 				"m_",
@@ -360,48 +388,55 @@
 	"buffers":
 	[
 		{
-			"file": "Assets/Script/Path/Editor/JiPathEditor.cs",
+			"file": "Assets/Script/Path/JiPath.cs",
 			"settings":
 			{
-				"buffer_size": 3810,
-				"encoding": "UTF-8",
+				"buffer_size": 912,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/Script/Time/TimeManager.cs",
+			"file": "Assets/Script/Path/JiCirclePath.cs",
 			"settings":
 			{
-				"buffer_size": 2763,
+				"buffer_size": 2026,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/UniBulletHell/Example/Script/UbhDestroyArea.cs",
+			"file": "Assets/UniBulletHell/Script/Utility/UbhTransformExtention.cs",
 			"settings":
 			{
-				"buffer_size": 3824,
+				"buffer_size": 40822,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Assets/Script/Path/JiPathMoveCtrl.cs",
+			"file": "Assets/UniBulletHell/Script/ShotPattern/UbhRandomLockOnShot.cs",
 			"settings":
 			{
-				"buffer_size": 3224,
-				"encoding": "UTF-8",
+				"buffer_size": 1723,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Script/Path/JiDelayMove.cs",
+			"settings":
+			{
+				"buffer_size": 1060,
+				"encoding": "UTF-8 with BOM",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/Script/Path/JiPath.cs",
+			"file": "Assets/Script/Path/iTween.cs",
 			"settings":
 			{
-				"buffer_size": 912,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
+				"buffer_size": 324399,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -461,15 +496,21 @@
 	],
 	"file_history":
 	[
+		"/F/极/Assets/UniBulletHell/Script/Utility/UbhTransformExtention.cs",
 		"/F/极/Assets/Script/Path/JiPath.cs",
-		"/F/极/Assets/Script/Path/Editor/JiPathEditor.cs",
-		"/F/极/Assets/UniBulletHell/Example/Script/UbhPlayer.cs",
+		"/F/极/Assets/UniBulletHell/Script/ShotPattern/UbhSpiralShot.cs",
+		"/F/极/Assets/UniBulletHell/Example/PaintShotData/paint_shot_data_0001.txt",
+		"/F/极/Assets/Script/Enemy/Monster_Rotate.cs",
+		"/F/极/Assets/Script/Path/JiPathMoveCtrl.cs",
+		"/F/极/Assets/Script/Path/JiCirclePath.cs",
 		"/F/极/Assets/UniBulletHell/Example/Script/UbhDestroyArea.cs",
+		"/F/极/Assets/Script/Time/TimeManager.cs",
+		"/F/极/Assets/Script/Path/Editor/JiPathEditor.cs",
+		"/F/极/Assets/UniBulletHell/Script/ShotPattern/UbhLinearShot.cs",
+		"/F/极/Assets/UniBulletHell/Example/Script/UbhPlayer.cs",
 		"/F/极/Assets/UniBulletHell/Example/Script/UbhBackground.cs",
 		"/F/极/Assets/plan",
 		"/F/极/Assets/Script/Player/PlayerMove.cs",
-		"/F/极/Assets/Script/Time/TimeManager.cs",
-		"/F/极/Assets/Script/Path/JiPathMoveCtrl.cs",
 		"/F/极/Assets/UniBulletHell/Script/Controller/UbhShotCtrl.cs",
 		"/F/极/Assets/UniBulletHell/Script/Utility/UbhNonKinematic2D.cs",
 		"/F/极/Assets/UniBulletHell/Script/Singleton/UbhObjectPool.cs",
@@ -490,7 +531,6 @@
 		"/F/极/Assets/UniBulletHell/Script/Utility/UbhUtil.cs",
 		"/E/Unity/Editor/Data/Resources/ScriptTemplates/81-C# Script-NewBehaviourScript.cs.txt",
 		"/F/极/Assets/UniBulletHell/Script/Bullet/UbhBullet.cs",
-		"/F/极/Assets/UniBulletHell/Script/ShotPattern/UbhLinearShot.cs",
 		"/F/极/Assets/UniBulletHell/Script/Singleton/UbhTimer.cs",
 		"/F/极/Assets/UniBulletHell/Script/ShotPattern/UbhBaseShot.cs",
 		"/F/极/Assets/UniBulletHell/Example/Prefab/ShotPattern/LinearShot.prefab",
@@ -515,7 +555,6 @@
 		"/F/极/Assets/UniBulletHell/Script/Singleton/UbhSingletonMonoBehavior.cs",
 		"/F/极/Assets/Script/Player/PlayerStateController.cs",
 		"/F/极/Assets/Script/Manager/InputManager.cs",
-		"/F/极/Assets/UniBulletHell/Example/PaintShotData/paint_shot_data_0001.txt",
 		"/F/极/Assets/UniBulletHell/Script/ShotPattern/Stage1/GlowwarmShot.cs",
 		"/F/极/Assets/UniBulletHell/Script/Bullet/UbhShotParam.cs",
 		"/F/极/Assets/UniBulletHell/Example/Script/UbhEnemy.cs",
@@ -584,11 +623,7 @@
 		"/H/HuMuYaoWebsite/themes/maupassant/_config.yml",
 		"/H/HuMuYaoWebsite/source/_posts/暑假旅行-涠洲岛.md",
 		"/H/HuMuYaoWebsite/Index.html",
-		"/C/Users/Administrator/Desktop/涠洲岛",
-		"/H/Unity Shader Learning/Ch6-SpecularPixle.shader",
-		"/H/Unity Shader Learning/Ch7-NormalMapTangent.shader",
-		"/C/Users/Administrator/Desktop/待办事项.markdown",
-		"/H/Unity Shader Learning/Ch7-MaskTexture.shader"
+		"/C/Users/Administrator/Desktop/涠洲岛"
 	],
 	"find":
 	{
@@ -606,6 +641,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"TweenRestart",
+			"pingPong",
+			"// void OnDrawGizmosSelected()\n    // {\n    //     if(!m_alwaysVisable)\n    //     {\n    //         if(m_CtrolNode.Count >= 2)\n    //             iTween.DrawPath(m_CtrolNode.ToArray());\n    //     }\n    // }   \n\n    // void OnDrawGizmos()\n    // {\n    //     if(m_alwaysVisable)\n    //     {\n    //         if(m_CtrolNode.Count >= 2)\n    //             iTween.DrawPath(m_CtrolNode.ToArray());\n    //     }\n    // }",
+			"void OnDrawGizmosSelected()\n    {\n        if(!m_alwaysVisable)\n        {\n            if(m_CtrolNode.Count >= 2)\n                iTween.DrawPath(m_CtrolNode.ToArray());\n        }\n    }   \n\n    void OnDrawGizmos()\n    {\n        if(m_alwaysVisable)\n        {\n            if(m_CtrolNode.Count >= 2)\n                iTween.DrawPath(m_CtrolNode.ToArray());\n        }\n    }",
 			"timeGo",
 			"OnDrawGizmoSelected",
 			"orienttopath",
@@ -673,160 +712,11 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Assets/Script/Path/Editor/JiPathEditor.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3810,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1366,
-								1366
-							]
-						],
-						"settings":
-						{
-							"oops":
-							{
-								"0,5": "Using directive is not used by code and can be removed safely.",
-								"26,31": "Using directive is not used by code and can be removed safely."
-							},
-							"syntax": "Packages/C#/C#.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 404.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Assets/Script/Time/TimeManager.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2763,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								620,
-								620
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 270.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "Assets/UniBulletHell/Example/Script/UbhDestroyArea.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3824,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2954,
-								2954
-							]
-						],
-						"settings":
-						{
-							"oops":
-							{
-								"125,143": "The private field '_UseCenterCollider' is never assigned",
-								"184,194": "The private field '_ColCenter' is never assigned",
-								"19,24": "Using directive is not used by code and can be removed safely.",
-								"235,242": "The private field '_ColTop' is never assigned",
-								"2682,2692": "Parameter can be declared with base type",
-								"283,293": "The private field '_ColBottom' is never assigned",
-								"2830,2840": "Parameter can be declared with base type",
-								"2881,2882": "Comparison with 'false' is redundant",
-								"2986,2994": "Parameter can be declared with base type",
-								"3130,3138": "Parameter can be declared with base type",
-								"3179,3180": "Comparison with 'false' is redundant",
-								"334,343": "The private field '_ColRight' is never assigned",
-								"3753,3754": "Comparison with 'false' is redundant",
-								"384,392": "The private field '_ColLeft' is never assigned"
-							},
-							"syntax": "Packages/C#/C#.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1441.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "Assets/Script/Path/JiPathMoveCtrl.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3224,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								740,
-								740
-							]
-						],
-						"settings":
-						{
-							"oops":
-							{
-								"2007,2011": "'this.' is redundant and can be removed safely.",
-								"2081,2085": "'this.' is redundant and can be removed safely.",
-								"2176,2180": "'this.' is redundant and can be removed safely.",
-								"26,31": "Using directive is not used by code and can be removed safely."
-							},
-							"syntax": "Packages/C#/C#.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 216.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
 					"file": "Assets/Script/Path/JiPath.cs",
 					"semi_transient": false,
 					"settings":
@@ -838,8 +728,8 @@
 						"selection":
 						[
 							[
-								505,
-								505
+								710,
+								627
 							]
 						],
 						"settings":
@@ -849,10 +739,171 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 108.0,
+						"translation.y": 54.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Assets/Script/Path/JiCirclePath.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2026,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1315,
+								1315
+							]
+						],
+						"settings":
+						{
+							"oops":
+							{
+								"0,5": "Using directive is not used by code and can be removed safely."
+							},
+							"syntax": "Packages/C#/C#.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 594.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Assets/UniBulletHell/Script/Utility/UbhTransformExtention.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 40822,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3769,
+								3769
+							]
+						],
+						"settings":
+						{
+							"oops":
+							{
+								"14,19": "Using directive is not used by code and can be removed safely.",
+								"40,45": "Using directive is not used by code and can be removed safely."
+							},
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2269.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Assets/UniBulletHell/Script/ShotPattern/UbhRandomLockOnShot.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1723,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Assets/Script/Path/JiDelayMove.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1060,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1008,
+								1008
+							]
+						],
+						"settings":
+						{
+							"oops":
+							{
+								"0,5": "Using directive is not used by code and can be removed safely.",
+								"1075,1079": "'this.' is redundant and can be removed safely.",
+								"26,31": "Using directive is not used by code and can be removed safely."
+							},
+							"syntax": "Packages/C#/C#.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 497.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Assets/Script/Path/iTween.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 324399,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								209849,
+								209861
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 2.0,
+						"translation.y": 93319.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -915,6 +966,14 @@
 		"selected_items":
 		[
 			[
+				"it",
+				"Script\\Path\\iTween.cs"
+			],
+			[
+				"path",
+				"Script\\Path\\JiCirclePath.cs"
+			],
+			[
 				"ji",
 				"Script\\Path\\JiPath.cs"
 			],
@@ -933,10 +992,6 @@
 			[
 				"pool",
 				"UniBulletHell\\Script\\Singleton\\UbhObjectPool.cs"
-			],
-			[
-				"it",
-				"Script\\Path\\iTween.cs"
 			],
 			[
 				"util",
@@ -977,10 +1032,6 @@
 			[
 				"shotc",
 				"UniBulletHell\\Script\\Controller\\UbhShotCtrl.cs"
-			],
-			[
-				"path",
-				"Script\\Path\\JiPathMoveCtrl.cs"
 			],
 			[
 				"itw",
