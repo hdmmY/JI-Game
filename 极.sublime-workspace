@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"m_",
+				"m_godModeTime\tfloat"
+			],
+			[
+				"Horizon",
+				"BeginHorizontal(params GUILayoutOption[] options)\tRect"
+			],
+			[
+				"Instantiate",
+				"Instantiate(Object original, Vector3 position, Quaternion rotation)\tObject"
+			],
+			[
 				"Get",
 				"Get360Angle(float angle)\tfloat"
 			],
@@ -142,10 +154,6 @@
 			[
 				"GUIS",
 				"GUIStyle\tGUIStyle"
-			],
-			[
-				"m_",
-				"m_CtrolNode\tList<Vector3>"
 			],
 			[
 				"nod",
@@ -388,54 +396,41 @@
 	"buffers":
 	[
 		{
-			"file": "Assets/Script/Path/JiPath.cs",
+			"contents": "### 2017.09.11\n    \n#### 上午：\n\n    学习 verilog 基本语法。\n        + verilog 中的数值表示\n        + verilog 中的模块概念\n    学习 vivado 的使用\n        + 学习如何生成比特流，写一个 “Hello World”\n        + 学习生成比特流失败，学习如何写我的第一个 verilog project\n    \n#### 下午：\n    \n    + 添加玩家死亡逻辑\n\n#### 晚上：\n    \n    ",
+			"file": "/C/Users/Administrator/Desktop/15数电课设/数电进度",
+			"file_size": 396,
+			"file_write_time": 131495974821377123,
 			"settings":
 			{
-				"buffer_size": 912,
-				"line_ending": "Unix"
+				"buffer_size": 257,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Assets/Script/Path/JiCirclePath.cs",
+			"file": "Assets/Script/Player/PlayerProperty.cs",
 			"settings":
 			{
-				"buffer_size": 2026,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Unix"
+				"buffer_size": 622,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Assets/UniBulletHell/Script/Utility/UbhTransformExtention.cs",
+			"file": "Assets/Editor/PlayerPropertyEditor.cs",
 			"settings":
 			{
-				"buffer_size": 40822,
+				"buffer_size": 2457,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Assets/UniBulletHell/Script/ShotPattern/UbhRandomLockOnShot.cs",
+			"file": "Assets/Script/Player/PlayerTakeDamage.cs",
 			"settings":
 			{
-				"buffer_size": 1723,
+				"buffer_size": 997,
 				"encoding": "UTF-8 with BOM",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Assets/Script/Path/JiDelayMove.cs",
-			"settings":
-			{
-				"buffer_size": 1060,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Script/Path/iTween.cs",
-			"settings":
-			{
-				"buffer_size": 324399,
 				"line_ending": "Windows"
 			}
 		}
@@ -496,21 +491,27 @@
 	],
 	"file_history":
 	[
-		"/F/极/Assets/UniBulletHell/Script/Utility/UbhTransformExtention.cs",
+		"/F/极/Assets/UniBulletHell/Script/Utility/UbhUtil.cs",
+		"/F/极/Assets/UniBulletHell/Example/Script/UbhPlayer.cs",
+		"/F/极/Assets/UniBulletHell/Example/Script/UbhSpaceship.cs",
+		"/F/极/Assets/UniBulletHell/Example/Script/UbhExplosion.cs",
+		"/F/极/Assets/UniBulletHell/Example/Script/UbhDestroyArea.cs",
+		"/F/极/Assets/Script/Player/PlayerMove.cs",
+		"/F/极/Assets/Script/Path/iTween.cs",
 		"/F/极/Assets/Script/Path/JiPath.cs",
+		"/F/极/Assets/Script/Path/JiCirclePath.cs",
+		"/F/极/Assets/UniBulletHell/Script/Utility/UbhTransformExtention.cs",
+		"/F/极/Assets/UniBulletHell/Script/ShotPattern/UbhRandomLockOnShot.cs",
+		"/F/极/Assets/Script/Path/JiDelayMove.cs",
 		"/F/极/Assets/UniBulletHell/Script/ShotPattern/UbhSpiralShot.cs",
 		"/F/极/Assets/UniBulletHell/Example/PaintShotData/paint_shot_data_0001.txt",
 		"/F/极/Assets/Script/Enemy/Monster_Rotate.cs",
 		"/F/极/Assets/Script/Path/JiPathMoveCtrl.cs",
-		"/F/极/Assets/Script/Path/JiCirclePath.cs",
-		"/F/极/Assets/UniBulletHell/Example/Script/UbhDestroyArea.cs",
 		"/F/极/Assets/Script/Time/TimeManager.cs",
 		"/F/极/Assets/Script/Path/Editor/JiPathEditor.cs",
 		"/F/极/Assets/UniBulletHell/Script/ShotPattern/UbhLinearShot.cs",
-		"/F/极/Assets/UniBulletHell/Example/Script/UbhPlayer.cs",
 		"/F/极/Assets/UniBulletHell/Example/Script/UbhBackground.cs",
 		"/F/极/Assets/plan",
-		"/F/极/Assets/Script/Player/PlayerMove.cs",
 		"/F/极/Assets/UniBulletHell/Script/Controller/UbhShotCtrl.cs",
 		"/F/极/Assets/UniBulletHell/Script/Utility/UbhNonKinematic2D.cs",
 		"/F/极/Assets/UniBulletHell/Script/Singleton/UbhObjectPool.cs",
@@ -519,7 +520,6 @@
 		"/C/Users/Administrator/Desktop/TimeLineController.cs",
 		"/F/极/Assets/Script/Bullets/BulletPool.cs",
 		"/F/极/Assets/Script/Player/PlayerShoot.cs",
-		"/F/极/Assets/Script/Path/iTween.cs",
 		"/F/极/Assets/Script/Time/TimeLineController.cs",
 		"/F/极/Assets/Script/Enemy/Monster_AnimCtrl.cs",
 		"/F/极/Assets/Script/Time/TimeLineManager.cs",
@@ -528,7 +528,6 @@
 		"/F/极/Assets/Script/Time/IHDMTimeLine.cs",
 		"/F/极/Assets/Editor/PlayerPropertyEditor.cs",
 		"/F/极/Assets/Script/Player/PlayerProperty.cs",
-		"/F/极/Assets/UniBulletHell/Script/Utility/UbhUtil.cs",
 		"/E/Unity/Editor/Data/Resources/ScriptTemplates/81-C# Script-NewBehaviourScript.cs.txt",
 		"/F/极/Assets/UniBulletHell/Script/Bullet/UbhBullet.cs",
 		"/F/极/Assets/UniBulletHell/Script/Singleton/UbhTimer.cs",
@@ -619,11 +618,7 @@
 		"/H/Unity Shader Learning/Ch10_Reflection.shader",
 		"/H/Unity Shader Learning/Ch10-Refraction.shader",
 		"/H/Unity Shader Learning/Ch8-ALphaTestBothSide.shader",
-		"/H/Unity Shader Learning/Ch9-ForwardRender.shader",
-		"/H/HuMuYaoWebsite/themes/maupassant/_config.yml",
-		"/H/HuMuYaoWebsite/source/_posts/暑假旅行-涠洲岛.md",
-		"/H/HuMuYaoWebsite/Index.html",
-		"/C/Users/Administrator/Desktop/涠洲岛"
+		"/H/Unity Shader Learning/Ch9-ForwardRender.shader"
 	],
 	"find":
 	{
@@ -712,151 +707,52 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Assets/Script/Path/JiPath.cs",
+					"file": "/C/Users/Administrator/Desktop/15数电课设/数电进度",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 912,
+						"buffer_size": 257,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								710,
-								627
+								257,
+								257
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C#/C#.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 54.0,
+						"translation.y": 27.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "Assets/Script/Path/JiCirclePath.cs",
+					"file": "Assets/Script/Player/PlayerProperty.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2026,
+						"buffer_size": 622,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1315,
-								1315
-							]
-						],
-						"settings":
-						{
-							"oops":
-							{
-								"0,5": "Using directive is not used by code and can be removed safely."
-							},
-							"syntax": "Packages/C#/C#.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 594.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "Assets/UniBulletHell/Script/Utility/UbhTransformExtention.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 40822,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3769,
-								3769
-							]
-						],
-						"settings":
-						{
-							"oops":
-							{
-								"14,19": "Using directive is not used by code and can be removed safely.",
-								"40,45": "Using directive is not used by code and can be removed safely."
-							},
-							"syntax": "Packages/C#/C#.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2269.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "Assets/UniBulletHell/Script/ShotPattern/UbhRandomLockOnShot.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1723,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "Assets/Script/Path/JiDelayMove.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1060,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1008,
-								1008
+								158,
+								158
 							]
 						],
 						"settings":
@@ -864,46 +760,86 @@
 							"oops":
 							{
 								"0,5": "Using directive is not used by code and can be removed safely.",
-								"1075,1079": "'this.' is redundant and can be removed safely.",
 								"26,31": "Using directive is not used by code and can be removed safely."
 							},
-							"syntax": "Packages/C#/C#.sublime-syntax"
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 497.0,
+						"translation.y": 22.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "Assets/Script/Path/iTween.cs",
+					"buffer": 2,
+					"file": "Assets/Editor/PlayerPropertyEditor.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 324399,
+						"buffer_size": 2457,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								209849,
-								209861
+								359,
+								359
 							]
 						],
 						"settings":
 						{
+							"oops":
+							{
+								"0,5": "Using directive is not used by code and can be removed safely.",
+								"26,31": "Using directive is not used by code and can be removed safely.",
+								"60,65": "Using directive is not used by code and can be removed safely."
+							},
 							"syntax": "Packages/C#/C#.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 2.0,
-						"translation.y": 93319.0,
+						"translation.x": 0.0,
+						"translation.y": 158.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Assets/Script/Player/PlayerTakeDamage.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 997,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								980,
+								980
+							]
+						],
+						"settings":
+						{
+							"oops":
+							{
+								"26,31": "Using directive is not used by code and can be removed safely.",
+								"442,452": "Parameter can be declared with base type"
+							},
+							"syntax": "Packages/C#/C#.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 289.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -966,6 +902,22 @@
 		"selected_items":
 		[
 			[
+				"ubhu",
+				"UniBulletHell\\Script\\Utility\\UbhUtil.cs"
+			],
+			[
+				"space",
+				"UniBulletHell\\Example\\Script\\UbhSpaceship.cs"
+			],
+			[
+				"ubhplayer",
+				"UniBulletHell\\Example\\Script\\UbhPlayer.cs"
+			],
+			[
+				"playerp",
+				"Script\\Player\\PlayerProperty.cs"
+			],
+			[
 				"it",
 				"Script\\Path\\iTween.cs"
 			],
@@ -982,10 +934,6 @@
 				"Script\\Path\\JiPath.cs"
 			],
 			[
-				"ubhplayer",
-				"UniBulletHell\\Example\\Script\\UbhPlayer.cs"
-			],
-			[
 				"ubhctr",
 				"UniBulletHell\\Script\\Controller\\UbhShotCtrl.cs"
 			],
@@ -996,10 +944,6 @@
 			[
 				"util",
 				"UniBulletHell\\Script\\Utility\\UbhUtil.cs"
-			],
-			[
-				"playerp",
-				"Script\\Player\\PlayerProperty.cs"
 			],
 			[
 				"new",

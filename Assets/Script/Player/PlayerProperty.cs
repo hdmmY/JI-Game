@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerProperty : MonoBehaviour
 {
+
+    // god mode -- from Skyrim.
+    public bool m_tgm = false;
+
     // movement
     public float m_verticalSpeed;
     public float m_horizontalSpeed;
@@ -25,10 +29,4 @@ public class PlayerProperty : MonoBehaviour
     public PlayerStateType m_playerState;
     public Sprite m_WhiteSprite;
     public Sprite m_BlackSprite;
-
-
-    // layer
-    public string m_PlayerBulletLayer;
-    public string m_PlayerLayer;
-
 }
