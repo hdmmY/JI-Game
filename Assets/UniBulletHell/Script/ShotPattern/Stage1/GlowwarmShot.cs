@@ -67,13 +67,11 @@ namespace Stage1Shot
                     float angle = m_StartAngle + (spiralWayShiftAngle * spiralWayIndex) + m_ShiftAngle * i;
 
                     ShotBullet(bullet, BulletMove(bullet, angle));
-                    AutoReleaseBulletGameObject(bullet.gameObject);
-
-                    if(spiralWayIndex == m_SpiralWayNum - 1 && m_BulletEmitInterval > 0f)
-                    {
-                        yield return StartCoroutine(UbhUtil.WaitForSeconds(m_BulletEmitInterval));
-                    }                       
+                    AutoReleaseBulletGameObject(bullet.gameObject);               
                 }  
+
+                if(m_BulletEmitInterval > 0f)
+                    yield return StartCoroutine(UbhUtil.WaitForSeconds(m_BulletEmitInterval));
             }
 
             _Shooting = false;
@@ -132,7 +130,7 @@ namespace Stage1Shot
 
                 selfTimeCount += UbhTimer.Instance.DeltaTime;
 
-                // Shoot two other bullet
+                // When the speed == 0, shoot two other bullet
                 if(selfTimeCount > Mathf.Abs(_BulletSpeed / accelSpeed))
                 {
                     yield return UbhUtil.WaitForSeconds(m_PauseBeforeChangeDirection);  

@@ -4,8 +4,20 @@
 		"selected_items":
 		[
 			[
+				"m_SP",
+				"m_BulletSpeedAfterChangeDir\tfloat"
+			],
+			[
+				"SHot",
+				"Shot(float speed, float angle, float accelSpeed, float accelTurn, bool homing, Transform homingTarget, float homingAngleSpeed, float maxHomingAngle, bool wave, float waveSpeed, float waveRangeSize, bool pauseAndResume, float pauseTime, float resumeTime, AXIS axisMove)\tvoid"
+			],
+			[
 				"m_",
-				"m_godModeTime\tfloat"
+				"m_ChangeSpeedInterval\tfloat"
+			],
+			[
+				"m_Star",
+				"m_StartChangeSpeedTime\tfloat"
 			],
 			[
 				"Horizon",
@@ -396,40 +408,37 @@
 	"buffers":
 	[
 		{
-			"contents": "### 2017.09.11\n    \n#### 上午：\n\n    学习 verilog 基本语法。\n        + verilog 中的数值表示\n        + verilog 中的模块概念\n    学习 vivado 的使用\n        + 学习如何生成比特流，写一个 “Hello World”\n        + 学习生成比特流失败，学习如何写我的第一个 verilog project\n    \n#### 下午：\n    \n    + 添加玩家死亡逻辑\n\n#### 晚上：\n    \n    ",
 			"file": "/C/Users/Administrator/Desktop/15数电课设/数电进度",
-			"file_size": 396,
-			"file_write_time": 131495974821377123,
 			"settings":
 			{
-				"buffer_size": 257,
+				"buffer_size": 307,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Assets/Script/Player/PlayerProperty.cs",
+			"file": "Assets/UniBulletHell/Script/ShotPattern/Stage1/ChangeDirecShot.cs",
 			"settings":
 			{
-				"buffer_size": 622,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
+				"buffer_size": 5290,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/Editor/PlayerPropertyEditor.cs",
+			"file": "Assets/UniBulletHell/Script/ShotPattern/UbhBaseShot.cs",
 			"settings":
 			{
-				"buffer_size": 2457,
+				"buffer_size": 6562,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Assets/Script/Player/PlayerTakeDamage.cs",
+			"file": "Assets/UniBulletHell/Script/ShotPattern/Stage1/GlowwarmShot.cs",
 			"settings":
 			{
-				"buffer_size": 997,
+				"buffer_size": 6338,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
@@ -491,7 +500,11 @@
 	],
 	"file_history":
 	[
+		"/F/极/Assets/UniBulletHell/Script/ShotPattern/UbhNwayShot.cs",
 		"/F/极/Assets/UniBulletHell/Script/Utility/UbhUtil.cs",
+		"/F/极/Assets/Script/Player/PlayerProperty.cs",
+		"/F/极/Assets/Editor/PlayerPropertyEditor.cs",
+		"/F/极/Assets/Script/Player/PlayerTakeDamage.cs",
 		"/F/极/Assets/UniBulletHell/Example/Script/UbhPlayer.cs",
 		"/F/极/Assets/UniBulletHell/Example/Script/UbhSpaceship.cs",
 		"/F/极/Assets/UniBulletHell/Example/Script/UbhExplosion.cs",
@@ -526,8 +539,6 @@
 		"/F/极/Assets/Script/Time/TImeLineInvoke.cs",
 		"/F/极/Assets/Script/Player/NewBehaviourScript.cs",
 		"/F/极/Assets/Script/Time/IHDMTimeLine.cs",
-		"/F/极/Assets/Editor/PlayerPropertyEditor.cs",
-		"/F/极/Assets/Script/Player/PlayerProperty.cs",
 		"/E/Unity/Editor/Data/Resources/ScriptTemplates/81-C# Script-NewBehaviourScript.cs.txt",
 		"/F/极/Assets/UniBulletHell/Script/Bullet/UbhBullet.cs",
 		"/F/极/Assets/UniBulletHell/Script/Singleton/UbhTimer.cs",
@@ -616,9 +627,7 @@
 		"/C/Users/Administrator/Hy20131120.pub",
 		"/C/Users/Administrator/Hy20131120",
 		"/H/Unity Shader Learning/Ch10_Reflection.shader",
-		"/H/Unity Shader Learning/Ch10-Refraction.shader",
-		"/H/Unity Shader Learning/Ch8-ALphaTestBothSide.shader",
-		"/H/Unity Shader Learning/Ch9-ForwardRender.shader"
+		"/H/Unity Shader Learning/Ch10-Refraction.shader"
 	],
 	"find":
 	{
@@ -636,6 +645,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"m_PauseWhenChangeSpeed",
 			"TweenRestart",
 			"pingPong",
 			"// void OnDrawGizmosSelected()\n    // {\n    //     if(!m_alwaysVisable)\n    //     {\n    //         if(m_CtrolNode.Count >= 2)\n    //             iTween.DrawPath(m_CtrolNode.ToArray());\n    //     }\n    // }   \n\n    // void OnDrawGizmos()\n    // {\n    //     if(m_alwaysVisable)\n    //     {\n    //         if(m_CtrolNode.Count >= 2)\n    //             iTween.DrawPath(m_CtrolNode.ToArray());\n    //     }\n    // }",
@@ -707,7 +717,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -716,15 +726,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 257,
+						"buffer_size": 307,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								257,
-								257
+								238,
+								238
 							]
 						],
 						"settings":
@@ -735,75 +745,67 @@
 						"translation.y": 27.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Assets/Script/Player/PlayerProperty.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 622,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								158,
-								158
-							]
-						],
-						"settings":
-						{
-							"oops":
-							{
-								"0,5": "Using directive is not used by code and can be removed safely.",
-								"26,31": "Using directive is not used by code and can be removed safely."
-							},
-							"syntax": "Packages/C#/C#.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 22.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "Assets/Editor/PlayerPropertyEditor.cs",
+					"buffer": 1,
+					"file": "Assets/UniBulletHell/Script/ShotPattern/Stage1/ChangeDirecShot.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2457,
+						"buffer_size": 5290,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								359,
-								359
+								290,
+								290
 							]
 						],
 						"settings":
 						{
 							"oops":
 							{
-								"0,5": "Using directive is not used by code and can be removed safely.",
-								"26,31": "Using directive is not used by code and can be removed safely.",
-								"60,65": "Using directive is not used by code and can be removed safely."
+								"2578,2587": "Parameter can be declared with base type",
+								"26,31": "Using directive is not used by code and can be removed safely."
 							},
+							"syntax": "Packages/C#/C#.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 47.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Assets/UniBulletHell/Script/ShotPattern/UbhBaseShot.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6562,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								432,
+								432
+							]
+						],
+						"settings":
+						{
 							"syntax": "Packages/C#/C#.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 0.0,
-						"translation.y": 158.0,
+						"translation.x": -0.0,
+						"translation.y": 2916.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -811,32 +813,33 @@
 				},
 				{
 					"buffer": 3,
-					"file": "Assets/Script/Player/PlayerTakeDamage.cs",
+					"file": "Assets/UniBulletHell/Script/ShotPattern/Stage1/GlowwarmShot.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 997,
+						"buffer_size": 6338,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								980,
-								980
+								5333,
+								5434
 							]
 						],
 						"settings":
 						{
 							"oops":
 							{
-								"26,31": "Using directive is not used by code and can be removed safely.",
-								"442,452": "Parameter can be declared with base type"
+								"2462,2471": "Parameter can be declared with base type"
 							},
-							"syntax": "Packages/C#/C#.sublime-syntax"
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 289.0,
+						"translation.y": 2434.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -886,7 +889,7 @@
 	},
 	"output.variable_get":
 	{
-		"height": 93.0
+		"height": 75.0
 	},
 	"pinned_build_system": "",
 	"project": "极.sublime-project",
@@ -901,6 +904,18 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"nway",
+				"UniBulletHell\\Script\\ShotPattern\\UbhNwayShot.cs"
+			],
+			[
+				"changed",
+				"UniBulletHell\\Script\\ShotPattern\\Stage1\\ChangeDirecShot.cs"
+			],
+			[
+				"grshot",
+				"UniBulletHell\\Script\\ShotPattern\\Stage1\\GlowwarmShot.cs"
+			],
 			[
 				"ubhu",
 				"UniBulletHell\\Script\\Utility\\UbhUtil.cs"
