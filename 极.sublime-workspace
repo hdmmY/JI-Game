@@ -4,6 +4,46 @@
 		"selected_items":
 		[
 			[
+				"Instan",
+				"Instantiate(Object original, Vector3 position, Quaternion rotation, Transform parent)\tObject"
+			],
+			[
+				"Key",
+				"KeyCode\tKeyCode"
+			],
+			[
+				"lef",
+				"LeftArrow\tKeyCode"
+			],
+			[
+				"Lef",
+				"LeftArrow\tKeyCode"
+			],
+			[
+				"Ke",
+				"KeyCode\tKeyCode"
+			],
+			[
+				"Arr",
+				"RightArrow\tKeyCode"
+			],
+			[
+				"GetKe",
+				"GetKey(string name)\tbool"
+			],
+			[
+				"pre",
+				"_preHorizontalInput\tfloat"
+			],
+			[
+				"_pre",
+				"_preHorizontalInput\tfloat"
+			],
+			[
+				"m_pal",
+				"m_playerSprite\tSpriteRenderer"
+			],
+			[
 				"m_SP",
 				"m_BulletSpeedAfterChangeDir\tfloat"
 			],
@@ -78,14 +118,6 @@
 			[
 				"Uti",
 				"UbhUtil\tUbhUtil"
-			],
-			[
-				"_pre",
-				"_preDistanceToTarget\tfloat"
-			],
-			[
-				"pre",
-				"_prePosition\tVector3"
 			],
 			[
 				"_an",
@@ -411,36 +443,36 @@
 			"file": "/C/Users/Administrator/Desktop/15数电课设/数电进度",
 			"settings":
 			{
-				"buffer_size": 307,
+				"buffer_size": 728,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Assets/UniBulletHell/Script/ShotPattern/Stage1/ChangeDirecShot.cs",
+			"file": "Assets/Script/Player/PlayerTakeDamage.cs",
 			"settings":
 			{
-				"buffer_size": 5290,
+				"buffer_size": 1734,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/UniBulletHell/Script/ShotPattern/UbhHomingShot.cs",
+			"settings":
+			{
+				"buffer_size": 2283,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/UniBulletHell/Script/ShotPattern/Stage1/AngleHomingShot.cs",
+			"settings":
+			{
+				"buffer_size": 2253,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/UniBulletHell/Script/ShotPattern/UbhBaseShot.cs",
-			"settings":
-			{
-				"buffer_size": 6562,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Assets/UniBulletHell/Script/ShotPattern/Stage1/GlowwarmShot.cs",
-			"settings":
-			{
-				"buffer_size": 6338,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Windows"
 			}
 		}
 	],
@@ -500,16 +532,23 @@
 	],
 	"file_history":
 	[
+		"/F/极/Assets/UniBulletHell/Script/ShotPattern/Stage1/AngleHoming.cs",
+		"/F/极/Assets/UniBulletHell/Script/ShotPattern/Stage1/ChangeDirecShot.cs",
+		"/F/极/Assets/UniBulletHell/Example/Script/UbhAutoScaleGUIText.cs",
+		"/F/极/Assets/UniBulletHell/Script/Singleton/UbhObjectPool.cs",
+		"/F/极/Assets/UniBulletHell/Example/Script/UbhDestroyArea.cs",
+		"/F/极/Assets/Script/Player/PlayerTakeDamage.cs",
+		"/F/极/Assets/Script/Player/PlayerMove.cs",
+		"/F/极/Assets/UniBulletHell/Script/ShotPattern/UbhBaseShot.cs",
+		"/F/极/Assets/Script/Singeton/InputManager.cs",
+		"/F/极/Assets/UniBulletHell/Script/ShotPattern/Stage1/GlowwarmShot.cs",
 		"/F/极/Assets/UniBulletHell/Script/ShotPattern/UbhNwayShot.cs",
 		"/F/极/Assets/UniBulletHell/Script/Utility/UbhUtil.cs",
 		"/F/极/Assets/Script/Player/PlayerProperty.cs",
 		"/F/极/Assets/Editor/PlayerPropertyEditor.cs",
-		"/F/极/Assets/Script/Player/PlayerTakeDamage.cs",
 		"/F/极/Assets/UniBulletHell/Example/Script/UbhPlayer.cs",
 		"/F/极/Assets/UniBulletHell/Example/Script/UbhSpaceship.cs",
 		"/F/极/Assets/UniBulletHell/Example/Script/UbhExplosion.cs",
-		"/F/极/Assets/UniBulletHell/Example/Script/UbhDestroyArea.cs",
-		"/F/极/Assets/Script/Player/PlayerMove.cs",
 		"/F/极/Assets/Script/Path/iTween.cs",
 		"/F/极/Assets/Script/Path/JiPath.cs",
 		"/F/极/Assets/Script/Path/JiCirclePath.cs",
@@ -527,7 +566,6 @@
 		"/F/极/Assets/plan",
 		"/F/极/Assets/UniBulletHell/Script/Controller/UbhShotCtrl.cs",
 		"/F/极/Assets/UniBulletHell/Script/Utility/UbhNonKinematic2D.cs",
-		"/F/极/Assets/UniBulletHell/Script/Singleton/UbhObjectPool.cs",
 		"/C/Users/Administrator/Desktop/TimeLineManager.cs",
 		"/C/Users/Administrator/Desktop/TImeLineInvoke.cs",
 		"/C/Users/Administrator/Desktop/TimeLineController.cs",
@@ -542,9 +580,7 @@
 		"/E/Unity/Editor/Data/Resources/ScriptTemplates/81-C# Script-NewBehaviourScript.cs.txt",
 		"/F/极/Assets/UniBulletHell/Script/Bullet/UbhBullet.cs",
 		"/F/极/Assets/UniBulletHell/Script/Singleton/UbhTimer.cs",
-		"/F/极/Assets/UniBulletHell/Script/ShotPattern/UbhBaseShot.cs",
 		"/F/极/Assets/UniBulletHell/Example/Prefab/ShotPattern/LinearShot.prefab",
-		"/F/极/Assets/Script/Singeton/InputManager.cs",
 		"/F/极/Assets/Script/Player/PlayerReference.cs",
 		"/F/极/Assets/Editor/Toggle/GenBulletMeshEditor.cs",
 		"/C/Users/Administrator/Desktop/极/DongFangYongYeChao_setup/th08.dat",
@@ -565,7 +601,6 @@
 		"/F/极/Assets/UniBulletHell/Script/Singleton/UbhSingletonMonoBehavior.cs",
 		"/F/极/Assets/Script/Player/PlayerStateController.cs",
 		"/F/极/Assets/Script/Manager/InputManager.cs",
-		"/F/极/Assets/UniBulletHell/Script/ShotPattern/Stage1/GlowwarmShot.cs",
 		"/F/极/Assets/UniBulletHell/Script/Bullet/UbhShotParam.cs",
 		"/F/极/Assets/UniBulletHell/Example/Script/UbhEnemy.cs",
 		"/F/极/Assets/UniBulletHell/Script/ShotPattern/UbhLinearLockOnShot.cs",
@@ -624,10 +659,7 @@
 		"/H/HdmmYWebsite/themes/yilia/_config.yml",
 		"/H/HuMuYaoWebsite/themes/yilia/_config.yml",
 		"/C/Users/Administrator/.ssh/id_rsa.pub",
-		"/C/Users/Administrator/Hy20131120.pub",
-		"/C/Users/Administrator/Hy20131120",
-		"/H/Unity Shader Learning/Ch10_Reflection.shader",
-		"/H/Unity Shader Learning/Ch10-Refraction.shader"
+		"/C/Users/Administrator/Hy20131120.pub"
 	],
 	"find":
 	{
@@ -645,6 +677,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"tmpHor",
 			"m_PauseWhenChangeSpeed",
 			"TweenRestart",
 			"pingPong",
@@ -717,7 +750,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -726,20 +759,22 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 307,
+						"buffer_size": 728,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								238,
-								238
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 27.0,
@@ -750,62 +785,74 @@
 				},
 				{
 					"buffer": 1,
-					"file": "Assets/UniBulletHell/Script/ShotPattern/Stage1/ChangeDirecShot.cs",
+					"file": "Assets/Script/Player/PlayerTakeDamage.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5290,
+						"buffer_size": 1734,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								290,
-								290
+								1406,
+								1406
 							]
 						],
 						"settings":
 						{
 							"oops":
 							{
-								"2578,2587": "Parameter can be declared with base type",
-								"26,31": "Using directive is not used by code and can be removed safely."
+								"26,31": "Using directive is not used by code and can be removed safely.",
+								"485,495": "Parameter can be declared with base type"
 							},
-							"syntax": "Packages/C#/C#.sublime-syntax"
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 47.0,
+						"translation.y": 300.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "Assets/UniBulletHell/Script/ShotPattern/UbhBaseShot.cs",
+					"file": "Assets/UniBulletHell/Script/ShotPattern/UbhHomingShot.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6562,
+						"buffer_size": 2283,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								432,
-								432
+								204,
+								2281
 							]
 						],
 						"settings":
 						{
+							"oops":
+							{
+								"281,294": "'_BetweenDelay' should start with a lower case letter. (Rule 'Fields')",
+								"358,375": "'_HomingAngleSpeed' should start with a lower case letter. (Rule 'Fields')",
+								"446,461": "'_MaxHomingAngle' should start with a lower case letter. (Rule 'Fields')",
+								"522,539": "'_SetTargetFromTag' should start with a lower case letter. (Rule 'Fields')",
+								"634,648": "'_TargetTagName' should start with a lower case letter. (Rule 'Fields')",
+								"787,803": "'_TargetTransform' should start with a lower case letter. (Rule 'Fields')",
+								"815,824": "Redundant method override"
+							},
 							"syntax": "Packages/C#/C#.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": -0.0,
-						"translation.y": 2916.0,
+						"translation.x": 0.0,
+						"translation.y": 160.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -813,36 +860,42 @@
 				},
 				{
 					"buffer": 3,
-					"file": "Assets/UniBulletHell/Script/ShotPattern/Stage1/GlowwarmShot.cs",
+					"file": "Assets/UniBulletHell/Script/ShotPattern/Stage1/AngleHomingShot.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6338,
+						"buffer_size": 2253,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5333,
-								5434
+								2086,
+								2086
 							]
 						],
 						"settings":
 						{
 							"oops":
 							{
-								"2462,2471": "Parameter can be declared with base type"
+								"145,156": "'_StartAngle' should start with a lower case letter. (Rule 'Fields')",
+								"242,255": "'_BetweenDelay' should start with a lower case letter. (Rule 'Fields')",
+								"26,31": "Using directive is not used by code and can be removed safely.",
+								"319,336": "'_HomingAngleSpeed' should start with a lower case letter. (Rule 'Fields')",
+								"407,422": "'_MaxHomingAngle' should start with a lower case letter. (Rule 'Fields')",
+								"483,500": "'_SetTargetFromTag' should start with a lower case letter. (Rule 'Fields')",
+								"595,609": "'_TargetTagName' should start with a lower case letter. (Rule 'Fields')",
+								"748,764": "'_TargetTransform' should start with a lower case letter. (Rule 'Fields')",
+								"776,785": "Redundant method override"
 							},
-							"syntax": "Packages/C#/C#.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/C#/C#.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 2434.0,
+						"translation.y": 946.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]

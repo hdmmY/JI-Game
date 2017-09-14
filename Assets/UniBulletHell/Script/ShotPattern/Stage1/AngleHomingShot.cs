@@ -1,13 +1,14 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-/// <summary>
-/// Ubh homing shot.
-/// </summary>
-[AddComponentMenu("UniBulletHell/Shot Pattern/Homing Shot")]
-public class UbhHomingShot : UbhBaseShot
+
+
+public class AngleHomingShot : UbhBaseShot 
 {
-    // "Set a delay time between bullet and next bullet. (sec)"
+    public float _StartAngle = 0f;
+
+	// "Set a delay time between bullet and next bullet. (sec)"
     public float _BetweenDelay = 0.1f;
     // "Set a speed of homing angle."
     public float _HomingAngleSpeed = 20f;
@@ -62,9 +63,9 @@ public class UbhHomingShot : UbhBaseShot
                 yield break;
             }
 
-            float angle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform, ShotCtrl._AxisMove);
+            //float angle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform, ShotCtrl._AxisMove);
 
-            ShotBullet(bullet, _BulletSpeed, angle, true, _TargetTransform, _HomingAngleSpeed, _MaxHomingAngle);
+            ShotBullet(bullet, _BulletSpeed, _StartAngle, true, _TargetTransform, _HomingAngleSpeed, _MaxHomingAngle);
 
             AutoReleaseBulletGameObject(bullet.gameObject);
         }

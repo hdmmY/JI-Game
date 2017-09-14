@@ -127,15 +127,7 @@ public class UbhDestroyArea : UbhMonoBehaviour
 
         if(goTag.Contains("Bullet"))
         {
-            UbhObjectPool.Instance.ReleaseGameObject(colTrans.gameObject);
+            UbhObjectPool.Instance.ReleaseGameObject(colTrans.parent.gameObject);
         }
-        // string goName = colTrans.name;
-        // if (goName.Contains(UbhPlayer.NAME_ENEMY_BULLET) ||
-        //     goName.Contains(UbhEnemy.NAME_PLAYER_BULLET)) {
-        //     UbhObjectPool.Instance.ReleaseGameObject(colTrans.parent.gameObject);
-
-        // } else if (goName.Contains(UbhEnemy.NAME_PLAYER) == false) {
-        //     Destroy(colTrans.gameObject);
-        // }
     }
 }

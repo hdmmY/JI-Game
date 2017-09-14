@@ -13,6 +13,8 @@ public class PlayerTakeDamage: MonoBehaviour
     // The player property. 
     public PlayerProperty m_playerProperty; 
 
+    public SpriteRenderer m_playerSprite;
+
     // Player Death.
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -23,7 +25,7 @@ public class PlayerTakeDamage: MonoBehaviour
         {
             if(! m_playerProperty.m_tgm)
             {
-                Instantiate(m_Explosion, transform.position, Quaternion.identity);
+                Instantiate(m_Explosion, transform.position, Quaternion.identity, transform.parent);
                 StartCoroutine(TurnOnGodMode());
             }  
         }   
@@ -32,11 +34,25 @@ public class PlayerTakeDamage: MonoBehaviour
 
     IEnumerator TurnOnGodMode()
     {
+        float prevHorizontalSpeed = m_playerProperty.m_horizontalSpeed;
+        float prevVerticalSpeed = m_playerProperty.m_verticalSpeed;
+        Color prevColor = m_playerSprite.color;
+
+        //m_playerProperty.m_horizontalSpeed = 0f;
+        //m_playerProperty.m_verticalSpeed = 0f;
+        m_playerSprite.color = new Color(prevColor.r, 
+                                         prevColor.g, 
+                                         prevColor.b,
+                                         0.3f);
         m_playerProperty.m_tgm = true;
 
         yield return UbhUtil.WaitForSeconds(m_godModeTime);
 
         m_playerProperty.m_tgm = false;
+        //m_playerProperty.m_horizontalSpeed = prevHorizontalSpeed;
+        //m_playerProperty.m_verticalSpeed = prevVerticalSpeed;
+        m_playerSprite.color = prevColor;
+
     }
 
 }

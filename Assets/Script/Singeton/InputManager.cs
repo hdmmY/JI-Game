@@ -22,6 +22,9 @@ public class InputManager : MonoBehaviour {
     private float _HorizontalInput;
     private float _VerticalInput;
 
+    private float _preHorizontalInput;
+    private float _preVerticalinput;
+
     public float HorizontalInput
     {
         get
@@ -39,11 +42,44 @@ public class InputManager : MonoBehaviour {
     }
 
 
+    private void Start()
+    {
+        _preVerticalinput = 0f;
+        _preHorizontalInput = 0f;
+    }
+
 
     private void Update()
     {
-        _HorizontalInput = Input.GetAxis("Horizontal");
-        _VerticalInput = Input.GetAxis("Vertical");
+        if(Input.GetKey(KeyCode.RightArrow))  // 玩家想要向右移动
+        {
+            _HorizontalInput = 1;
+        } 
+
+        if(Input.GetKey(KeyCode.LeftArrow))
+        {
+            _HorizontalInput = -1;
+        }
+
+        if(!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
+        {
+            _HorizontalInput = 0;
+        }
+
+        if(Input.GetKey(KeyCode.UpArrow))
+        {
+            _VerticalInput = 1;
+        }
+
+        if(Input.GetKey(KeyCode.DownArrow))
+        {
+            _VerticalInput = -1;
+        }
+
+        if(!Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.DownArrow))
+        {
+            _VerticalInput = 0;
+        }
     }
 
 }
