@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"Size",
+				"fontSize\tint { get; set; }"
+			],
+			[
+				"stop",
+				"StopCoroutine(IEnumerator routine)\tvoid"
+			],
+			[
+				"time",
+				"timeSinceLevelLoad\tfloat { get; }"
+			],
+			[
+				"_Ma",
+				"_MainTex_ST\tcontext"
+			],
+			[
+				"_MAin",
+				"_MainTex_ST\tcontext"
+			],
+			[
+				"TEXCOOR",
+				"TEXCOORD1"
+			],
+			[
 				"Instan",
 				"Instantiate(Object original, Vector3 position, Quaternion rotation, Transform parent)\tObject"
 			],
@@ -400,10 +424,6 @@
 				"unity_ObjectToWorld\tbuiltin-marco"
 			],
 			[
-				"TEXCOOR",
-				"TEXCOORD2"
-			],
-			[
 				"STA",
 				"START"
 			],
@@ -440,39 +460,24 @@
 	"buffers":
 	[
 		{
-			"file": "/C/Users/Administrator/Desktop/15数电课设/数电进度",
+			"contents": "using System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\n\npublic class PlayerTakeDamage: MonoBehaviour\n{\n    // The animation Object that used to show player death animation.\n    public GameObject m_Explosion;\n\n    // The player's god mode time after it destroied.\n    public float m_godModeTime;\n\n    // The player property. \n    public PlayerProperty m_playerProperty; \n\n    public SpriteRenderer m_playerSprite;\n\n    // Player Death.\n    void OnTriggerEnter2D(Collider2D other)\n    {\n        string otherTag = other.tag;\n\n        // Enemy bullet or Enemy\n        if(otherTag.Contains(\"Enemy\"))\n        {\n            if(! m_playerProperty.m_tgm)\n            {\n                Instantiate(m_Explosion, transform.position, Quaternion.identity, transform.parent);\n                StartCoroutine(TurnOnGodMode());\n            }  \n        }   \n    }\n\n\n    IEnumerator TurnOnGodMode()\n    {\n        float prevHorizontalSpeed = m_playerProperty.m_horizontalSpeed;\n        float prevVerticalSpeed = m_playerProperty.m_verticalSpeed;\n        Color prevColor = m_playerSprite.color;\n\n        //m_playerProperty.m_horizontalSpeed = 0f;\n        //m_playerProperty.m_verticalSpeed = 0f;\n        m_playerSprite.color = new Color(prevColor.r, \n                                         prevColor.g, \n                                         prevColor.b,\n                                         0.3f);\n        m_playerProperty.m_tgm = true;\n\n        yield return \n\n        m_playerProperty.m_tgm = false;\n        //m_playerProperty.m_horizontalSpeed = prevHorizontalSpeed;\n        //m_playerProperty.m_verticalSpeed = prevVerticalSpeed;\n        m_playerSprite.color = prevColor;\n\n    }\n\n}",
+			"file": "Assets/Script/Player/PlayerTakeDamage.cs",
+			"file_size": 1730,
+			"file_write_time": 131503731995572148,
 			"settings":
 			{
-				"buffer_size": 728,
+				"buffer_size": 1696,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Assets/Script/Player/PlayerTakeDamage.cs",
+			"file": "Assets/UniBulletHell/Script/Singleton/UbhTimer.cs",
 			"settings":
 			{
-				"buffer_size": 1734,
+				"buffer_size": 1733,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Assets/UniBulletHell/Script/ShotPattern/UbhHomingShot.cs",
-			"settings":
-			{
-				"buffer_size": 2283,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Assets/UniBulletHell/Script/ShotPattern/Stage1/AngleHomingShot.cs",
-			"settings":
-			{
-				"buffer_size": 2253,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Unix"
 			}
 		}
 	],
@@ -483,7 +488,7 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 104.0,
 		"last_filter": "instal",
 		"selected_items":
 		[
@@ -532,13 +537,30 @@
 	],
 	"file_history":
 	[
+		"/C/Users/Administrator/AppData/Local/Temp/Rar$DIa0.297/Nexys4DDR_Master.xdc",
+		"/C/Users/Administrator/Desktop/builtin_shaders-4.3.0/CGIncludes/UnityCG.cginc",
+		"/F/极/Assets/Shader/IntersectionHightlight.shader",
+		"/F/极/Assets/Shader/HDMSprite.shader",
+		"/F/极/Assets/Script/Player/PlayerMove.cs",
+		"/F/极/Assets/UniBulletHell/Script/Singleton/UbhTimer.cs",
+		"/C/Users/Administrator/AppData/Local/Temp/Rar$DIa0.378/lab1_nexys4.xdc",
+		"/F/极/Assets/UniBulletHell/Example/Script/UbhSetting.cs",
+		"/C/Users/Administrator/Desktop/builtin_shaders-4.3.0/DefaultResources/Sprites-Default.shader",
+		"/E/Unity/Editor/Data/CGIncludes/UnitySprites.cginc",
+		"/F/极/Assets/Shader/SingleTexture.shader",
+		"/F/Unity_Shaders_Book/Assets/Shaders/Chapter7/Chapter7-MaskTexture.shader",
+		"/F/Unity_Shaders_Book/Assets/Shaders/Chapter7/Chapter7-TextureProperties.shader",
+		"/E/迅雷下载/Running-Bear-master/Assets/Scenes/Shader Lab/Tests/Intersection Highlight/IntersectionHightlight.shader",
+		"/F/Unity_Shaders_Book/Assets/Shaders/Chapter7/Chapter7-NormalMapWorldSpace.shader",
+		"/F/极/Assets/UniBulletHell/Script/ShotPattern/Stage1/AngleHomingShot.cs",
+		"/F/极/Assets/Script/Player/PlayerTakeDamage.cs",
+		"/F/极/Assets/UniBulletHell/Script/ShotPattern/UbhHomingShot.cs",
+		"/C/Users/Administrator/Desktop/15数电课设/数电进度",
 		"/F/极/Assets/UniBulletHell/Script/ShotPattern/Stage1/AngleHoming.cs",
 		"/F/极/Assets/UniBulletHell/Script/ShotPattern/Stage1/ChangeDirecShot.cs",
 		"/F/极/Assets/UniBulletHell/Example/Script/UbhAutoScaleGUIText.cs",
 		"/F/极/Assets/UniBulletHell/Script/Singleton/UbhObjectPool.cs",
 		"/F/极/Assets/UniBulletHell/Example/Script/UbhDestroyArea.cs",
-		"/F/极/Assets/Script/Player/PlayerTakeDamage.cs",
-		"/F/极/Assets/Script/Player/PlayerMove.cs",
 		"/F/极/Assets/UniBulletHell/Script/ShotPattern/UbhBaseShot.cs",
 		"/F/极/Assets/Script/Singeton/InputManager.cs",
 		"/F/极/Assets/UniBulletHell/Script/ShotPattern/Stage1/GlowwarmShot.cs",
@@ -579,7 +601,6 @@
 		"/F/极/Assets/Script/Time/IHDMTimeLine.cs",
 		"/E/Unity/Editor/Data/Resources/ScriptTemplates/81-C# Script-NewBehaviourScript.cs.txt",
 		"/F/极/Assets/UniBulletHell/Script/Bullet/UbhBullet.cs",
-		"/F/极/Assets/UniBulletHell/Script/Singleton/UbhTimer.cs",
 		"/F/极/Assets/UniBulletHell/Example/Prefab/ShotPattern/LinearShot.prefab",
 		"/F/极/Assets/Script/Player/PlayerReference.cs",
 		"/F/极/Assets/Editor/Toggle/GenBulletMeshEditor.cs",
@@ -591,7 +612,6 @@
 		"/F/极/Assets/Editor/BulletPropertyEditor.cs",
 		"/F/极/Assets/UniBulletHell/Example/Script/UbhEmitter.cs",
 		"/F/极/Assets/UniBulletHell/Example/Sprite/BlackScreen.png",
-		"/F/极/Assets/UniBulletHell/Example/Script/UbhSetting.cs",
 		"/F/极/Assets/Script/Toggles/MoveAlinePath.cs",
 		"/F/极/Assets/Plugins/Pixelplacement/iTween/iTweenPath/iTweenPath.cs",
 		"/F/极/Assets/Plugins/Pixelplacement/iTween/Sample/MoveSample.cs",
@@ -644,22 +664,7 @@
 		"/C/Users/Administrator/Desktop/CS 1.03I 完整包/Microsoft.DirectX.DirectSound.dll",
 		"/C/Users/Administrator/Desktop/CS 1.03I 完整包/Content/Graphics/aimed.xna",
 		"/C/Users/Administrator/Desktop/CS 1.03I 完整包/Example/绑定范例.mbg",
-		"/C/Users/Administrator/Desktop/CS 1.03I 完整包/Data/set.xna",
-		"/C/Users/Administrator/Desktop/CS 1.03I 完整包/子弹编号表.txt",
-		"/E/迅雷下载/Running-Bear-master/Assets/Scenes/Mesh Lab/Mesh Deformation/MeshDeformer.cs",
-		"/H/Unity Shader Learning/Ch10-GrassReflection.shader",
-		"/H/Unity Shader Learning/Ch10-Mirror.shader",
-		"/E/迅雷下载/Running-Bear-master/Assets/Scripts/Beisaier/BeisaierMesh.cs",
-		"/C/Users/Administrator/Desktop/gui-config(1).json",
-		"/C/Users/Administrator/Desktop/bomb889/disassemble",
-		"/C/Users/Administrator/Desktop/bomb889/result.txt",
-		"/C/Users/Administrator/Desktop/胡东明_U201514523/2/result_U201514523.txt",
-		"/H/HuMuYaoWebsite/_config.yml",
-		"/H/HdmmYWebsite/_config.yml",
-		"/H/HdmmYWebsite/themes/yilia/_config.yml",
-		"/H/HuMuYaoWebsite/themes/yilia/_config.yml",
-		"/C/Users/Administrator/.ssh/id_rsa.pub",
-		"/C/Users/Administrator/Hy20131120.pub"
+		"/C/Users/Administrator/Desktop/CS 1.03I 完整包/Data/set.xna"
 	],
 	"find":
 	{
@@ -750,152 +755,67 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/C/Users/Administrator/Desktop/15数电课设/数电进度",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 728,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 27.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "Assets/Script/Player/PlayerTakeDamage.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1734,
+						"buffer_size": 1696,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1406,
-								1406
+								1470,
+								1472
 							]
 						],
 						"settings":
 						{
-							"oops":
-							{
-								"26,31": "Using directive is not used by code and can be removed safely.",
-								"485,495": "Parameter can be declared with base type"
-							},
 							"syntax": "Packages/C#/C#.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 300.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "Assets/UniBulletHell/Script/ShotPattern/UbhHomingShot.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2283,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								204,
-								2281
-							]
-						],
-						"settings":
-						{
-							"oops":
-							{
-								"281,294": "'_BetweenDelay' should start with a lower case letter. (Rule 'Fields')",
-								"358,375": "'_HomingAngleSpeed' should start with a lower case letter. (Rule 'Fields')",
-								"446,461": "'_MaxHomingAngle' should start with a lower case letter. (Rule 'Fields')",
-								"522,539": "'_SetTargetFromTag' should start with a lower case letter. (Rule 'Fields')",
-								"634,648": "'_TargetTagName' should start with a lower case letter. (Rule 'Fields')",
-								"787,803": "'_TargetTransform' should start with a lower case letter. (Rule 'Fields')",
-								"815,824": "Redundant method override"
-							},
-							"syntax": "Packages/C#/C#.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 160.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "Assets/UniBulletHell/Script/ShotPattern/Stage1/AngleHomingShot.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2253,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2086,
-								2086
-							]
-						],
-						"settings":
-						{
-							"oops":
-							{
-								"145,156": "'_StartAngle' should start with a lower case letter. (Rule 'Fields')",
-								"242,255": "'_BetweenDelay' should start with a lower case letter. (Rule 'Fields')",
-								"26,31": "Using directive is not used by code and can be removed safely.",
-								"319,336": "'_HomingAngleSpeed' should start with a lower case letter. (Rule 'Fields')",
-								"407,422": "'_MaxHomingAngle' should start with a lower case letter. (Rule 'Fields')",
-								"483,500": "'_SetTargetFromTag' should start with a lower case letter. (Rule 'Fields')",
-								"595,609": "'_TargetTagName' should start with a lower case letter. (Rule 'Fields')",
-								"748,764": "'_TargetTransform' should start with a lower case letter. (Rule 'Fields')",
-								"776,785": "Redundant method override"
-							},
-							"syntax": "Packages/C#/C#.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 946.0,
+						"translation.y": 594.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Assets/UniBulletHell/Script/Singleton/UbhTimer.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1733,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1148,
+								1148
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 311.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -957,6 +877,14 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"ubht",
+				"UniBulletHell\\Script\\Singleton\\UbhTimer.cs"
+			],
+			[
+				"ubhtime",
+				"UniBulletHell\\Script\\Singleton\\UbhTimer.cs"
+			],
 			[
 				"nway",
 				"UniBulletHell\\Script\\ShotPattern\\UbhNwayShot.cs"

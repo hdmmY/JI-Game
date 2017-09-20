@@ -7584,7 +7584,7 @@ void TweenComplete()
 
     #endregion
 
-    #region Internal Helpers
+        #region Internal Helpers
 
     private static void DrawLineHelper(Vector3[] line, Color color, string method)
     {
@@ -8071,7 +8071,7 @@ void TweenComplete()
         }
         else
         {
-            runningTime += Time.deltaTime;
+            runningTime += UbhTimer.Instance.DeltaTime;
         }
 
         if (reverse)

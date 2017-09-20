@@ -41,7 +41,7 @@ public class PlayerShoot : MonoBehaviour
     // Player wants to shot.
     void Shot()
     {
-        _timer += UbhTimer.Instance.DeltaTime;
+        _timer += UbhTimer.Instance.DeltaTime / UbhTimer.Instance.TimeScale;
 
         // it is not enough time after the last shot, shot cancel 
         if(_timer < _playerProperty.m_shootInterval)
@@ -62,7 +62,7 @@ public class PlayerShoot : MonoBehaviour
                     false, null, 0, 0, 
                     false, 0, 0, 
                     false, 0, 0, 
-                    UbhUtil.AXIS.X_AND_Y);
+                    UbhUtil.AXIS.X_AND_Y, true);
         }
 
         // finish a shot, reset timer

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,7 +46,7 @@ public class PlayerTakeDamage: MonoBehaviour
                                          0.3f);
         m_playerProperty.m_tgm = true;
 
-        yield return UbhUtil.WaitForSeconds(m_godModeTime);
+        yield return new WaitForSeconds(m_godModeTime);
 
         m_playerProperty.m_tgm = false;
         //m_playerProperty.m_horizontalSpeed = prevHorizontalSpeed;

@@ -7,9 +7,34 @@ using System.Collections;
 public class UbhTimer : UbhSingletonMonoBehavior<UbhTimer>
 {
     float _LastTime;
-    float _DeltaTime;
+    float _DeltaTime = 1f;
+    float _TimeScale;
     float _FrameCount;
     bool _Pausing;
+
+
+    // Time scale.
+    // 1 is the normal, 0 is the pause.
+    public float TimeScale
+    {
+        get 
+        {
+            if(Time.timeSinceLevelLoad <= 0.01f)
+                _TimeScale = 1;
+            return _TimeScale;    
+        }
+        set
+        {
+            if(_TimeScale < 0)
+            {
+                _TimeScale = 1;
+            }
+            else 
+            {
+                _TimeScale = value;
+            }
+        }
+    }
 
     /// <summary>
     /// Get delta time of UniBulletHell.
@@ -18,7 +43,7 @@ public class UbhTimer : UbhSingletonMonoBehavior<UbhTimer>
     {
         get
         {
-            return _Pausing ? 0f : _DeltaTime;
+            return _Pausing ? 0f : _DeltaTime * _TimeScale;
         }
     }
 
