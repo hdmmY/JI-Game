@@ -26,6 +26,8 @@ public class PlayerMove : MonoBehaviour
 
         _verticalSpeed = _playerProperty.m_horizontalSpeed;
         _horizontalSpeed = _playerProperty.m_verticalSpeed;
+
+        UbhTimer.Instance.TimeScale = 1;
     }
 
     private void Update()
@@ -33,11 +35,11 @@ public class PlayerMove : MonoBehaviour
         UpdateSpeed();
 
         // player move is not affected by time scale.
-        float deltTime = UbhTimer.Instance.DeltaTime / UbhTimer.Instance.TimeScale;
+        float deltTime = Time.deltaTime;
 
         transform.position += new Vector3
                 (InputManager.Instance.HorizontalInput * _horizontalSpeed,
-                 InputManager.Instance.VerticalInput * _verticalSpeed, 0f) * deltTime;
+                 InputManager.Instance.VerticalInput * _verticalSpeed, 0f) * UbhTimer.Instance.DeltaTime;
         _animator.SetFloat("HorizontalMove", InputManager.Instance.HorizontalInput);
 
         if (Input.GetKeyDown(KeyCode.Space))

@@ -12,7 +12,6 @@ public class PlayerProperty : MonoBehaviour
     public float m_verticalSpeed;
     public float m_horizontalSpeed;
 
-
     // shoot 
     [Range(0.05f, 2.5f)]
     public float m_shootInterval;
@@ -27,6 +26,4 @@ public class PlayerProperty : MonoBehaviour
         White
     };
     public PlayerStateType m_playerState;
-    public Sprite m_WhiteSprite;
-    public Sprite m_BlackSprite;
 }

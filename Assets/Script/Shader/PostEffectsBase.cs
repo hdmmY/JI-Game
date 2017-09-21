@@ -24,7 +24,7 @@ public class PostEffectsBase : MonoBehaviour
 
     protected bool CheckSupport()
     {
-        if (!SystemInfo.supportsImageEffects)
+        if (!SystemInfo.supportsImageEffects )
         {
             Debug.LogWarning("This platform do not support image effects.");
             return false;
