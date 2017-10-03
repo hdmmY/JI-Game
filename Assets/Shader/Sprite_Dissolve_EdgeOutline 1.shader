@@ -1,4 +1,4 @@
-﻿Shader "Custom/Sprite_Dissolve_EdgeOutline" {
+﻿Shader "Custom/Sprite_Dissolve_EdgeOutline_1" {
 	
 	Properties {		
 		[PerRendererData] 
@@ -110,7 +110,7 @@
 				half edgeX = 0;
 				half edgeY = 0;
 				for (int it = 0; it < 9; it++) {
-					texColor = tex2D(_MainTex, i.uv[it]).a;
+					texColor = Luminance(tex2D(_MainTex, i.uv[it]));
 					edgeX += texColor * Gx[it];
 					edgeY += texColor * Gy[it];
 				}
@@ -126,7 +126,7 @@
 
 				fixed4 texColor = tex2D(_MainTex, i.texcoord);
 
-				if(dissolve.r < _DissolveAmount || texColor.a < 0.05)
+				if(dissolve.r < _DissolveAmount || texColor.a <= 0.05)
 				{
 					texColor.a = 0;
 					return texColor;	

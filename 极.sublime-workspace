@@ -512,21 +512,21 @@
 	"buffers":
 	[
 		{
-			"file": "Assets/Script/Player/PlayerChangeState.cs",
-			"settings":
-			{
-				"buffer_size": 3823,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "Assets/UniBulletHell/Script/ShotPattern/UbhLinearShot.cs",
 			"settings":
 			{
 				"buffer_size": 1360,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/F/Braid Rewinding Simulate/Assets/BehaviorWithTree.cs",
+			"settings":
+			{
+				"buffer_size": 248,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Unix"
 			}
 		},
 		{
@@ -542,7 +542,43 @@
 			"file": "Assets/Script/Player/DestroyBullet.cs",
 			"settings":
 			{
-				"buffer_size": 383,
+				"buffer_size": 394,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Shader/Sprite_Dissolve_EdgeOutline.shader",
+			"settings":
+			{
+				"buffer_size": 3028,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/UniBulletHell/Example/Script/UbhSpaceship.cs",
+			"settings":
+			{
+				"buffer_size": 524,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/UniBulletHell/Example/Script/UbhPlayer.cs",
+			"settings":
+			{
+				"buffer_size": 4452,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/UniBulletHell/Script/Bullet/UbhBullet.cs",
+			"settings":
+			{
+				"buffer_size": 5826,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
@@ -589,7 +625,7 @@
 	},
 	"console":
 	{
-		"height": 160.0,
+		"height": 200.0,
 		"history":
 		[
 			"setting syntax"
@@ -613,6 +649,7 @@
 	],
 	"file_history":
 	[
+		"/F/极/Assets/Script/Player/PlayerChangeState.cs",
 		"/F/极/Assets/UniBulletHell/Example/Prefab/ShotPattern/LinearShot.prefab",
 		"/C/Users/Administrator/Desktop/builtin_shaders-4.3.0/CGIncludes/UnityCG.cginc",
 		"/C/Users/Administrator/Desktop/builtin_shaders-4.3.0/DefaultResources/Sprites-Default.shader",
@@ -739,12 +776,11 @@
 		"/C/Users/Administrator/Desktop/Adobe CC 2017专属犀利破解机 破解文件/此公众号永久有效链接长期有效，如有疑问请咨询，如怀疑骗关注请只管举报投诉。破解机绝对真实可靠.txt",
 		"/C/Program Files/Unity/Editor/Data/Resources/ScriptTemplates/81-C# Script-NewBehaviourScript.cs.txt",
 		"/C/Users/Administrator/Desktop/Readme for more cheap gameart.txt",
-		"/F/sd/.gitattributes",
-		"/F/sd/.gitignore"
+		"/F/sd/.gitattributes"
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 23.0
 	},
 	"find_in_files":
 	{
@@ -838,46 +874,11 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Assets/Script/Player/PlayerChangeState.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3823,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3447,
-								3447
-							]
-						],
-						"settings":
-						{
-							"oops":
-							{
-								"1739,1743": "Local variable 'name' hides property 'UnityEngine.Object.name'",
-								"26,31": "Using directive is not used by code and can be removed safely.",
-								"285,308": "'ChangeStateTrangerTrans' should start with a lower case letter. (Rule 'Fields')",
-								"2921,2929": "Local variable 'collider' hides property 'UnityEngine.Component.collider'"
-							},
-							"syntax": "Packages/C#/C#.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1658.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "Assets/UniBulletHell/Script/ShotPattern/UbhLinearShot.cs",
 					"semi_transient": false,
 					"settings":
@@ -889,21 +890,55 @@
 						"selection":
 						[
 							[
-								1270,
-								1297
+								132,
+								132
 							]
 						],
 						"settings":
 						{
+							"oops":
+							{
+								"280,286": "'_Angle' should start with a lower case letter. (Rule 'Fields')",
+								"376,389": "'_BetweenDelay' should start with a lower case letter. (Rule 'Fields')",
+								"403,412": "Redundant method override"
+							},
 							"syntax": "Packages/C#/C#.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 555.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/F/Braid Rewinding Simulate/Assets/BehaviorWithTree.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 248,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -930,10 +965,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3365.0,
+						"translation.y": 2620.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -942,15 +977,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 383,
+						"buffer_size": 394,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								362,
-								362
+								0,
+								0
 							]
 						],
 						"settings":
@@ -968,11 +1003,126 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
+					"file": "Assets/Shader/Sprite_Dissolve_EdgeOutline.shader",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3028,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2502,
+								2502
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Unity Shader/UnityShader.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1456.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Assets/UniBulletHell/Example/Script/UbhSpaceship.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 524,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Assets/UniBulletHell/Example/Script/UbhPlayer.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4452,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								415,
+								434
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2199.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "Assets/UniBulletHell/Script/Bullet/UbhBullet.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5826,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 742.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
 					"file": "Assets/Script/Player/PlayerMove.cs",
 					"semi_transient": false,
 					"settings":
@@ -999,10 +1149,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 333.0,
+						"translation.y": 261.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
@@ -1010,11 +1160,11 @@
 	],
 	"incremental_find":
 	{
-		"height": 26.0
+		"height": 22.0
 	},
 	"input":
 	{
-		"height": 36.0
+		"height": 102.0
 	},
 	"layout":
 	{
@@ -1055,7 +1205,7 @@
 	"project": "极.sublime-project",
 	"replace":
 	{
-		"height": 48.0
+		"height": 42.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1064,6 +1214,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"sprite_dis",
+				"Shader\\Sprite_Dissolve_EdgeOutline.shader"
+			],
 			[
 				"des",
 				"Script\\Player\\DestroyBullet.cs"
