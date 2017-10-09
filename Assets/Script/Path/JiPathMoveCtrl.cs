@@ -2,118 +2,131 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JiPathMoveCtrl : MonoBehaviour 
+public class JiPathMoveCtrl : MonoBehaviour
 {
-	[System.Serializable]
-    public class JiPathInfo
+    // GameObject that move on the path
+    public GameObject m_targetGameObject;
+
+    // Destroy the m_targetGameObject when at the end of the last m_Paths
+    public bool m_distroyWhenEndOfPaths = true;
+
+    public List<JiPathInfo> m_Paths;
+
+    private float _timer;
+    private int _invokedPathNumber;
+    private List<float> _invokeTimes;
+    private List<bool> _isInvoked;
+
+
+    private void Start()
     {
-        // Select a path that you will move on.
-        public JiPath m_Path;
+        if (m_targetGameObject == null)
+            return;
 
-        // Set a delay time to start move when this component is enabled
-        public float m_DelayTime;
+        _timer = 0f;
+        _invokedPathNumber = 0;
+        _invokeTimes = new List<float>(m_Paths.Count + 1);
+        _isInvoked = new List<bool>(m_Paths.Count);
+
+        if (m_Paths.Count != 0)
+        {
+            _invokeTimes.Add(m_Paths[0].m_DelayTime + 0.1f);
+            for (int i = 1; i < m_Paths.Count; i++)
+            {
+                _invokeTimes.Add(_invokeTimes[i - 1] + m_Paths[i - 1].m_time + m_Paths[i].m_DelayTime);
+            }
+            _invokeTimes.Add(_invokeTimes[m_Paths.Count - 1] + m_Paths[m_Paths.Count - 1].m_time);
+
+            for (int i = 0; i < m_Paths.Count; i++) _isInvoked.Add(false);
+        }
+
+        iTween.Init(m_targetGameObject);
     }
-    public JiPathInfo m_pathInfo;
 
-    // The gameobject that will be controlled by iTween.
-    // Default is this.gameobject.
-    public GameObject m_movingGameObject = null;
 
-    // An individual name for stopping itween
-    //private string _itweenName = "";
+    private void Update()
+    {
+        _timer += UbhTimer.Instance.DeltaTime;
 
-    // A curved animation path for target to move
-    //private Vector3[] _Path = null;
+        if ((_timer >= _invokeTimes[_invokedPathNumber]) &&   // can be invoked
+            (_invokedPathNumber < m_Paths.Count) &&           // not the last time
+            (!_isInvoked[_invokedPathNumber]))          // not been invoked
+        {
+            iTween.MoveTo(m_targetGameObject, Lauch(m_Paths[_invokedPathNumber]));
+            _isInvoked[_invokedPathNumber] = true;
+            _invokedPathNumber++;
+        }
 
-    // whether automatically generate a curve from Gameobject's current position to 
-    // the begining of the path.
-    public bool m_movetoPath = false;
+        if (_timer >= _invokeTimes[_invokeTimes.Count - 1])
+        {
+            if (m_distroyWhenEndOfPaths)
+            {
+                Destroy(m_targetGameObject, 0.1f);
+            }
+        }
+    }
 
-    // whether the gameobject will orient to its direction of travel.
-    public bool m_orientedToPath = false;
 
-    // A target that the GameObject will look at.
-    // If the m_lookTarget_Transform is null, m_lookTarget_Vector3 will be used.
-    public Transform m_lookTarget_Trans = null;
-    public Vector3 m_lookTarget_Vector = Vector3.zero;
+    private void OnDisable()
+    {
+        iTween.Stop(m_targetGameObject, "moveto");
+    }
 
-    // How much of a percentage (from 0 to 1) to look ahead on a path to influence 
-    // how strict "orienttopath" is and how much the object will anticipate each curve 
-    public float m_lookAhead;
+    private void OnDestroy()
+    {
+        iTween.Stop(m_targetGameObject, "moveto");
+    }
 
-    // For whether the movement is in wordspace or in localspace.
-    public bool m_isLocal = false;
+    // Lauch the itween variabeles
+    private Hashtable Lauch(JiPathInfo pathInfo)
+    {
+        Hashtable args = new Hashtable();
+
+        args.Add("axis", "z");   // restrict the rotation to z-axis only.
+
+        if (pathInfo.m_PathData == null)
+        {
+            Debug.LogError("There is no path!");
+        }
+        args.Add("name", pathInfo.m_PathData.m_pathName);
+        args.Add("path", pathInfo.m_PathData.m_controlPoints.ToArray());
+        args.Add("time", pathInfo.m_time);
+
+        args.Add("movetopath", false);
+        args.Add("easetype", pathInfo.m_easeType);
+        args.Add("looptype", pathInfo.m_loopType);
+
+        return args;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        for (int i = 0; i < m_Paths.Count; i++)
+        {
+            if(m_Paths[i].m_PathData != null)
+
+                iTween.DrawPath(m_Paths[i].m_PathData.m_controlPoints.ToArray());
+        }
+    }
+}
+
+
+
+[System.Serializable]
+public class JiPathInfo
+{
+    // Select a path that you will move on.
+    public JiPathData m_PathData;
+
+    // Set a delay time to start move when this path is invoked
+    public float m_DelayTime;
 
     // Time in seconds the movement will take to complete.
-    // If the time is 0, than we will use the speed variable instead.
-    // Or, we will use the time.
     public float m_time = 0f;
-
-    // The speed of the GameObject movement.
-    public float m_speed = 0f;
-
-    // The ease curve of the movement
-    public AnimationCurve m_easeAnimCurve;
 
     // The ease type of the movement.
     public iTween.EaseType m_easeType = iTween.EaseType.linear;
 
     // The loop type of the movement.
     public iTween.LoopType m_loopType = iTween.LoopType.none;
-
-
-    private void OnEnable()
-    {
-        if(m_movingGameObject == null)
-            m_movingGameObject = this.gameObject;
-
-        iTween.Init(m_movingGameObject);
-        Hashtable args = Lauch();
-        iTween.MoveTo(m_movingGameObject, args);        
-    }
-
-
-    private void OnDisable()
-    {
-        iTween.Stop(m_movingGameObject, "moveto");
-    }
-
-
-    // Lauch the itween variabeles
-    private Hashtable Lauch()
-    {
-        Hashtable args = new Hashtable();
-
-        args.Add("axis", "z");   // restrict the rotation to z-axis only.
-
-        if(m_pathInfo.m_Path == null)
-        {
-            m_pathInfo.m_Path = GetComponent<JiPath>();
-            if(m_pathInfo.m_Path == null)   
-                Debug.LogError("There is no path!");
-        }
-        args.Add("name", m_pathInfo.m_Path.m_PathName);
-        args.Add("path", m_pathInfo.m_Path.m_CtrolNode.ToArray()); 
-        args.Add("delay", m_pathInfo.m_DelayTime); 
-        args.Add("movetopath", m_movetoPath);
-        args.Add("orienttopath", m_orientedToPath);
-
-        if(m_lookTarget_Trans != null)
-            args.Add("looktarget", m_lookTarget_Trans);
-        else if(m_lookTarget_Vector != Vector3.zero)
-            args.Add("looktarget", m_lookTarget_Vector);
-
-        args.Add("islocal", m_isLocal);
-
-        if(Mathf.Approximately(m_time, 0))
-            args.Add("speed", m_speed);
-        else
-            args.Add("time", m_time);
-
-        args.Add("easetype", m_easeType);
-        args.Add("easeAnimCurve", m_easeAnimCurve);
-        args.Add("looptype", m_loopType);
-
-        return args;
-    }
 }

@@ -65,6 +65,7 @@ public class UbhTimer : UbhSingletonMonoBehavior<UbhTimer>
         base.Awake();
     }
 
+
     void Update ()
     {
         float nowTime = Time.time;

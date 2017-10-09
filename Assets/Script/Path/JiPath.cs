@@ -4,7 +4,7 @@ using UnityEngine;
 public class JiPath : MonoBehaviour {
 
     // Eash path name that identify the path
-	public string m_PathName = "";
+	public string m_PathName = "path";
 
     // Control nodes of the path, determine the path shape.
     public List<Vector3> m_CtrolNode = new List<Vector3>();

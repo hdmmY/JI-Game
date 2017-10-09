@@ -20,10 +20,7 @@ public class InputManager : MonoBehaviour {
     }
 
     private float _HorizontalInput;
-    private float _VerticalInput;
-
-    private float _preHorizontalInput;
-    private float _preVerticalinput;
+    private float _VerticalInput;         
 
     public float HorizontalInput
     {
@@ -40,14 +37,6 @@ public class InputManager : MonoBehaviour {
             return _VerticalInput;
         }
     }
-
-
-    private void Start()
-    {
-        _preVerticalinput = 0f;
-        _preHorizontalInput = 0f;
-    }
-
 
     private void Update()
     {

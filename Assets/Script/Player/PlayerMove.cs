@@ -10,7 +10,7 @@ public class PlayerMove : MonoBehaviour
 
     private PlayerProperty _playerProperty;
 
-    private Animator _animator;
+    //private Animator _animator;
 
     private enum TimeState
     {
@@ -40,7 +40,6 @@ public class PlayerMove : MonoBehaviour
         transform.position += new Vector3
                 (InputManager.Instance.HorizontalInput * _horizontalSpeed,
                  InputManager.Instance.VerticalInput * _verticalSpeed, 0f) * UbhTimer.Instance.DeltaTime;
-        _animator.SetFloat("HorizontalMove", InputManager.Instance.HorizontalInput);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -95,6 +94,6 @@ public class PlayerMove : MonoBehaviour
     void SetInitReference()
     {
         _playerProperty = GetComponent<PlayerProperty>();
-        _animator = GetComponent<Animator>();
+        //_animator = GetComponent<Animator>();
     }
 }

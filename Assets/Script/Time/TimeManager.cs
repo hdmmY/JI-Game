@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeManager : MonoBehaviour 
+public class TimeManager : MonoBehaviour
 {
     // GameObject that controlleed by TimeManager.
     [System.Serializable]
-	public class TimeGameobject
+    public class TimeGameobject
     {
         public GameObject Go;
 
@@ -24,20 +24,6 @@ public class TimeManager : MonoBehaviour
             }
         }
 
-        // The time before the Go release (destroy)
-        public float _releaseTime = 0.1f;
-        public float ReleaseTime
-        {
-            get
-            {
-                return _releaseTime;
-            }
-            set
-            {
-                _releaseTime = value <= _activeTime ? _activeTime + 0.1f : value;
-            }
-        }
-
         // Whether the game object is active.
         [HideInInspector]
         public bool _active = false;
@@ -45,7 +31,7 @@ public class TimeManager : MonoBehaviour
         {
             get
             {
-                return Go.active;
+                return Go.activeInHierarchy;
             }
             set
             {
@@ -58,22 +44,29 @@ public class TimeManager : MonoBehaviour
     public bool m_useConstantInterval;
     public float m_ConstantInterval;
 
+    public bool m_destroySelfReachEndTime = true;
+
     // A list of the time controled gameobject.
     public List<TimeGameobject> m_timeGos;
+
+    private List<bool> _activedTimeGos;
 
     // A timer for active or disactive gameobject.
     private float _timer;
 
-
+    private bool _isFirstUpdate = true;
+                                        
     void OnEnable()
     {
-        // Reset timer.
-        _timer = 0f;
+        // Reset timer. The init _timer is a little below zero to aviod inaccuracy.
+        _timer = -0.5f;
 
+        _activedTimeGos = new List<bool>(m_timeGos.Count);
+        for (int i = 0; i < m_timeGos.Count; i++) _activedTimeGos.Add(false);
 
-        if(m_useConstantInterval)
+        if (m_useConstantInterval)
         {
-            for(int i = 1; i < m_timeGos.Count; i++)
+            for (int i = 1; i < m_timeGos.Count; i++)
             {
                 m_timeGos[i]._activeTime += m_timeGos[i - 1]._activeTime + m_ConstantInterval;
             }
@@ -83,35 +76,45 @@ public class TimeManager : MonoBehaviour
 
     void Update()
     {
-        _timer += UbhTimer.Instance.DeltaTime;
-
-        for(int i = 0; i < m_timeGos.Count; i++)
+        if(_isFirstUpdate)
         {
-            // Not reach the active time.
-            if(_timer < m_timeGos[i].ActiveTime)
-            {
-                if(m_timeGos[i].Active)
-                    m_timeGos[i].Active = false;
-                continue;
-            }
-
-            // Reach the active time, but not reach the release time
-            if(_timer < m_timeGos[i].ReleaseTime)
-            {
-                if(!m_timeGos[i].Active)
-                    m_timeGos[i].Active = true;
-                continue;
-            }
-
-            // Release the gameobject.
-            if(_timer >= m_timeGos[i].ReleaseTime)
-            {
-                if(m_timeGos[i].Active)
-                    m_timeGos[i].Active = false;
-                continue;
-            }
+            _isFirstUpdate = false;
+            return;
         }
 
-        return;
+        _timer += UbhTimer.Instance.DeltaTime;
+
+        for (int i = 0; i < m_timeGos.Count; i++)
+        {
+            if (_activedTimeGos[i]) continue;
+
+            if (m_timeGos[i].Go == null) continue;
+
+            // Not reach the active time.
+            if (_timer < m_timeGos[i].ActiveTime)
+            {
+                if (m_timeGos[i].Active)
+                    m_timeGos[i].Active = false;
+                continue;
+            }
+
+            // Reach the active time.
+            if(_timer >= m_timeGos[i].ActiveTime)
+            {
+                if (!m_timeGos[i].Active)
+                {
+                    m_timeGos[i].Active = true;
+                    _activedTimeGos[i] = true;
+                }                                                 
+            }
+        }    
+        
+
+        // Destroy this component when all object has been actived.
+        if(m_destroySelfReachEndTime)
+        {
+            if (!_activedTimeGos.Contains(false))
+                Destroy(this);
+        }
     }
 }

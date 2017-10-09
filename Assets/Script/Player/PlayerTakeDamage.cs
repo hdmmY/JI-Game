@@ -34,12 +34,8 @@ public class PlayerTakeDamage: MonoBehaviour
 
     IEnumerator TurnOnGodMode()
     {
-        float prevHorizontalSpeed = m_playerProperty.m_horizontalSpeed;
-        float prevVerticalSpeed = m_playerProperty.m_verticalSpeed;
         Color prevColor = m_playerSprite.color;
-
-        //m_playerProperty.m_horizontalSpeed = 0f;
-        //m_playerProperty.m_verticalSpeed = 0f;
+  
         m_playerSprite.color = new Color(prevColor.r, 
                                          prevColor.g, 
                                          prevColor.b,
@@ -48,11 +44,8 @@ public class PlayerTakeDamage: MonoBehaviour
 
         yield return new WaitForSeconds(m_godModeTime);
 
-        m_playerProperty.m_tgm = false;
-        //m_playerProperty.m_horizontalSpeed = prevHorizontalSpeed;
-        //m_playerProperty.m_verticalSpeed = prevVerticalSpeed;
-        m_playerSprite.color = prevColor;
-
+        m_playerProperty.m_tgm = false;                         
+        m_playerSprite.color = prevColor;             
     }
 
 }

@@ -12,20 +12,14 @@ public class Enemy_Property: MonoBehaviour
 
     public EnemyState m_enemyState;
 
-    public int m_enmeyHealth;
+    [HideInInspector]
+    public string m_enemyBulletTag = "Untagged";
 
-    public int m_EnemyBulletLayer;
+    [HideInInspector]
+    public string m_playerBulletTag = "Untagged";
 
-    public int m_EnemyLayer;
+    public int m_health;
 
-    [System.Serializable]
-    public class TimeLineEmitPoint
-    {
-        public GameObject m_emitPoint;
-        public float m_activeTime;
-        public float m_disactiveTime;
-    }
-
-    public List<TimeLineEmitPoint> m_TimeLineEmitPoints;
+    public int m_enemyDamage;
 
 }

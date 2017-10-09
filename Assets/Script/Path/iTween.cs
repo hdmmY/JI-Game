@@ -75,7 +75,6 @@ public class iTween : MonoBehaviour
     private delegate void ApplyTween();
     private EasingFunction ease;
     private ApplyTween apply;
-    private AnimationCurve _easeAnimCurve;
     private AudioSource audioSource;
     private Vector3[] vector3s;
     private Vector2[] vector2s;
@@ -98,7 +97,6 @@ public class iTween : MonoBehaviour
     /// </summary>
     public enum EaseType
     {
-        easeInAnimCurve, // ease by an animation curve
         easeInQuad,
         easeOutQuad,
         easeInOutQuad,
@@ -7787,8 +7785,6 @@ void TweenComplete()
             }
         }
 
-        _easeAnimCurve = (AnimationCurve)tweenArguments["easeanimcurve"];
-
         id = (string)tweenArguments["id"];
         type = (string)tweenArguments["type"];
         /* GFX47 MOD START */
@@ -7948,9 +7944,6 @@ void TweenComplete()
     {
         switch (easeType)
         {
-            case EaseType.easeInAnimCurve:
-                ease = new EasingFunction(easeInAnimCurve);
-                break;
             case EaseType.easeInQuad:
                 ease = new EasingFunction(easeInQuad);
                 break;
@@ -8239,16 +8232,6 @@ void TweenComplete()
         value = Mathf.Clamp01(value);
         value = (Mathf.Sin(value * Mathf.PI * (0.2f + 2.5f * value * value * value)) * Mathf.Pow(1f - value, 2.2f) + value) * (1f + (1.2f * (1f - value)));
         return start + (end - start) * value;
-    }
-
-    private float easeInAnimCurve(float start, float end, float value)
-    {
-        if(_easeAnimCurve == null)
-        {
-            Debug.LogError("The ease Animation Curve is not set! Blabla~~");
-            return 0f;
-        }
-        return _easeAnimCurve.Evaluate(value) * (end - start);
     }
 
     private float easeInQuad(float start, float end, float value)

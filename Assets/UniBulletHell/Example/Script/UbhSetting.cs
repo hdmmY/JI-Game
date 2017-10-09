@@ -8,7 +8,7 @@ public class UbhSetting : UbhMonoBehaviour
     [Range(0, 70)]
     public int _FrameRate = 60;
 
-    void Start ()
+    void Awake ()
     {
         SetValue();
     }

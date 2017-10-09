@@ -12,134 +12,72 @@ public class UbhShotCtrl : UbhMonoBehaviour
     [Serializable]
     public class ShotInfo
     {
+        // "Set a delay time to starting next shot pattern. (sec)"
+        public float _DelayTime;
+
         // "Set a shot pattern component (inherits UbhBaseShot)."
         public UbhBaseShot _ShotObj;
-        // "Set a delay time to starting next shot pattern. (sec)"
-        public float _AfterDelay;
     }
 
     // "Axis on bullet move."
+    [HideInInspector]
     public UbhUtil.AXIS _AxisMove = UbhUtil.AXIS.X_AND_Y;
-    // "This flag starts a shot routine at same time as instantiate."
-    public bool _StartOnAwake = true;
-    // "Set a delay time at using Start On Awake. (sec)"
-    public float _StartOnAwakeDelay = 1f;
+    
     // "This flag repeats a shot routine."
     public bool _Loop = true;
-    // "This flag makes a shot routine randomly."
-    public bool _AtRandom = false;
+    
     // "List of shot information. this size is necessary at least 1 or more."
     public List<ShotInfo> _ShotList = new List<ShotInfo>();
-    bool _Shooting;
 
-    IEnumerator Start ()
+
+    private float _timer;
+    private List<float> _shotInvokeTime;
+    private List<bool> _isInvoked;
+    private int _invokeNumber;
+
+
+    private void Start ()
     {
-        if (_StartOnAwake) {
-            if (0f < _StartOnAwakeDelay) {
-                yield return StartCoroutine(UbhUtil.WaitForSeconds(_StartOnAwakeDelay));
-            }
-            StartShotRoutine();
+        _timer = 0f;
+        _invokeNumber = 0;
+
+        _shotInvokeTime = new List<float>(_ShotList.Count);
+        _shotInvokeTime.Add(_ShotList[0]._DelayTime + 0.1f);
+        for(int i = 1; i < _ShotList.Count; i++)
+        {
+            _shotInvokeTime.Add(_shotInvokeTime[i - 1] + _ShotList[i]._DelayTime);
         }
+
+        _isInvoked = new List<bool>(_ShotList.Count);
+        for (int i = 0; i < _ShotList.Count; i++) _isInvoked.Add(false);
     }
 
-    void OnDisable ()
+    private void Update()
     {
-        _Shooting = false;
+        _timer += UbhTimer.Instance.DeltaTime;
+
+        // can be invoke and haven't been invoke
+        if(_timer >= _shotInvokeTime[_invokeNumber] && !_isInvoked[_invokeNumber])
+        {
+            _ShotList[_invokeNumber]._ShotObj.Shot();
+            _isInvoked[_invokeNumber] = true;
+            _invokeNumber++;
+        }
+
+        // all shot has been invoked
+        if(!_isInvoked.Contains(false) && _Loop)
+        {
+            ResetShot();
+        }
+
     }
 
-    /// <summary>
-    /// Start the shot routine.
-    /// </summary>
-    public void StartShotRoutine ()
+    private void ResetShot()
     {
-        StartCoroutine(ShotCoroutine());
+        _timer = 0f;
+        _invokeNumber = 0;
+
+        for (int i = 0; i < _ShotList.Count; i++) _isInvoked[i] = false;
     }
 
-    IEnumerator ShotCoroutine ()
-    {
-        if (_ShotList == null || _ShotList.Count <= 0) {
-            Debug.LogWarning("Cannot shot because ShotList is not set.");
-            yield break;
-        }
-
-        bool enableShot = false;
-        for (int i = 0; i < _ShotList.Count; i++) {
-            if (_ShotList[i]._ShotObj != null) {
-                enableShot = true;
-                break;
-            }
-        }
-
-        bool enableDelay = false;
-        for (int i = 0; i < _ShotList.Count; i++) {
-            if (0f < _ShotList[i]._AfterDelay) {
-                enableDelay = true;
-                break;
-            }
-        }
-
-        if (enableShot == false || enableDelay == false) {
-            if (enableShot == false) {
-                Debug.LogWarning("Cannot shot because all ShotObj of ShotList is not set.");
-            }
-            if (enableDelay == false) {
-                Debug.LogWarning("Cannot shot because all AfterDelay of ShotList is zero.");
-            }
-            yield break;
-        }
-
-        if (_Shooting) {
-            yield break;
-        }
-        _Shooting = true;
-
-        var tmpShotInfoList = new List<ShotInfo>(_ShotList);
-
-        int nowIndex = 0;
-
-        while (true) {
-            if (_AtRandom) {
-                nowIndex = UnityEngine.Random.Range(0, tmpShotInfoList.Count);
-            }
-
-            if (tmpShotInfoList[nowIndex]._ShotObj != null) {
-                tmpShotInfoList[nowIndex]._ShotObj.SetShotCtrl(this);
-                tmpShotInfoList[nowIndex]._ShotObj.Shot();
-            }
-
-            if (0f < tmpShotInfoList[nowIndex]._AfterDelay) {
-                yield return StartCoroutine(UbhUtil.WaitForSeconds(tmpShotInfoList[nowIndex]._AfterDelay));
-            }
-
-            if (_AtRandom) {
-                tmpShotInfoList.RemoveAt(nowIndex);
-
-                if (tmpShotInfoList.Count <= 0) {
-                    if (_Loop) {
-                        tmpShotInfoList = new List<ShotInfo>(_ShotList);
-                    } else {
-                        break;
-                    }
-                }
-
-            } else {
-                if (_Loop == false && tmpShotInfoList.Count - 1 <= nowIndex) {
-                    break;
-                }
-
-                nowIndex = (int) Mathf.Repeat(nowIndex + 1f, tmpShotInfoList.Count);
-            }
-        }
-
-        _Shooting = false;
-    }
-
-    /// <summary>
-    /// Stop the shot routine.
-    /// </summary>
-    public void StopShotRoutine ()
-    {
-        StopAllCoroutines();
-        _Shooting = false;
-    }
 }

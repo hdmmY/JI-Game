@@ -63,6 +63,7 @@ public class PlayerShoot : MonoBehaviour
                     false, 0, 0, 
                     false, 0, 0, 
                     UbhUtil.AXIS.X_AND_Y, true);
+            bullet.m_damage = _playerProperty.m_bulletDamage;
         }
 
         // finish a shot, reset timer

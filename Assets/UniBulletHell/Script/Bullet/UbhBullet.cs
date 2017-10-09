@@ -6,6 +6,8 @@ using System.Collections;
 /// </summary>
 public class UbhBullet : UbhMonoBehaviour
 {
+    public int m_damage;
+
     public bool _Shooting
     {
         get;
