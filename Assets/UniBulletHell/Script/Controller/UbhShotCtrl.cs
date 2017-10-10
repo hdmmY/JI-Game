@@ -57,11 +57,14 @@ public class UbhShotCtrl : UbhMonoBehaviour
         _timer += UbhTimer.Instance.DeltaTime;
 
         // can be invoke and haven't been invoke
-        if(_timer >= _shotInvokeTime[_invokeNumber] && !_isInvoked[_invokeNumber])
+        if(_invokeNumber < _ShotList.Count && 
+           _timer >= _shotInvokeTime[_invokeNumber] &&
+           !_isInvoked[_invokeNumber])
         {
             _ShotList[_invokeNumber]._ShotObj.Shot();
             _isInvoked[_invokeNumber] = true;
             _invokeNumber++;
+            Debug.Log(_invokeNumber);
         }
 
         // all shot has been invoked
