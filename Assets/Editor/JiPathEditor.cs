@@ -68,9 +68,7 @@ public class JiPathEditor : Editor
         // Display control nodes
         EditorGUI.indentLevel = 4;
         for (int i = 0; i < _targetScript.m_CtrolNode.Count; i++) {
-            EditorGUILayout.BeginHorizontal();
             _targetScript.m_CtrolNode[i] = EditorGUILayout.Vector3Field("Node " + (i+1), _targetScript.m_CtrolNode[i]);
-            EditorGUILayout.EndHorizontal();
         }
 
 
