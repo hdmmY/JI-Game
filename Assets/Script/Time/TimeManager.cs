@@ -52,9 +52,8 @@ public class TimeManager : MonoBehaviour
     private List<bool> _activedTimeGos;
 
     // A timer for active or disactive gameobject.
+    [SerializeField ]
     private float _timer;
-
-    private bool _isFirstUpdate = true;
                                         
     void OnEnable()
     {
@@ -76,12 +75,6 @@ public class TimeManager : MonoBehaviour
 
     void Update()
     {
-        if(_isFirstUpdate)
-        {
-            _isFirstUpdate = false;
-            return;
-        }
-
         _timer += UbhTimer.Instance.DeltaTime;
 
         for (int i = 0; i < m_timeGos.Count; i++)

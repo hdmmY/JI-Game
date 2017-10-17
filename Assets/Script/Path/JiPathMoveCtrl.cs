@@ -23,7 +23,9 @@ public class JiPathMoveCtrl : MonoBehaviour
         if (m_targetGameObject == null)
             return;
 
-        _timer = 0f;
+        // Reset timer. The init _timer is a little below zero to aviod inaccuracy.
+        _timer = -0.5f;
+
         _invokedPathNumber = 0;
         _invokeTimes = new List<float>(m_Paths.Count + 1);
         _isInvoked = new List<bool>(m_Paths.Count);
@@ -92,7 +94,7 @@ public class JiPathMoveCtrl : MonoBehaviour
         args.Add("path", pathInfo.m_PathData.m_controlPoints.ToArray());
         args.Add("time", pathInfo.m_time);
 
-        args.Add("movetopath", false);
+        args.Add("movetopath", pathInfo.m_MoveTo);
         args.Add("easetype", pathInfo.m_easeType);
         args.Add("looptype", pathInfo.m_loopType);
 
@@ -129,4 +131,7 @@ public class JiPathInfo
 
     // The loop type of the movement.
     public iTween.LoopType m_loopType = iTween.LoopType.none;
+
+    // The gameobject will move to the start of the path
+    public bool m_MoveTo = false;
 }
