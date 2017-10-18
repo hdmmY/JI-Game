@@ -34,7 +34,7 @@ public class UbhPaintShot : UbhBaseShot
 
     IEnumerator ShotCoroutine ()
     {
-        if (_BulletSpeed <= 0f || _PaintDataText == null) {
+        if (m_bulletSpeed <= 0f || _PaintDataText == null) {
             Debug.LogWarning("Cannot shot because BulletSpeed or PaintDataText is not set.");
             yield break;
         }
@@ -66,7 +66,7 @@ public class UbhPaintShot : UbhBaseShot
 
                     float angle = paintStartAngle + (_BetweenAngle * i);
 
-                    ShotBullet(bullet, _BulletSpeed, angle);
+                    ShotBullet(bullet, m_bulletSpeed, angle);
 
                     AutoReleaseBulletGameObject(bullet.gameObject);
                 }

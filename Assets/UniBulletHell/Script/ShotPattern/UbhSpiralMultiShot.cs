@@ -30,7 +30,7 @@ public class UbhSpiralMultiShot : UbhBaseShot
 
     IEnumerator ShotCoroutine ()
     {
-        if (_BulletNum <= 0 || _BulletSpeed <= 0f || _SpiralWayNum <= 0) {
+        if (m_bulletNum<= 0 || m_bulletSpeed <= 0f || _SpiralWayNum <= 0) {
             Debug.LogWarning("Cannot shot because BulletNum or BulletSpeed or SpiralWayNum is not set.");
             yield break;
         }
@@ -43,7 +43,7 @@ public class UbhSpiralMultiShot : UbhBaseShot
 
         int spiralWayIndex = 0;
 
-        for (int i = 0; i < _BulletNum; i++) {
+        for (int i = 0; i < m_bulletNum; i++) {
             if (_SpiralWayNum <= spiralWayIndex) {
                 spiralWayIndex = 0;
                 if (0f < _BetweenDelay) {
@@ -58,7 +58,7 @@ public class UbhSpiralMultiShot : UbhBaseShot
 
             float angle = _StartAngle + (spiralWayShiftAngle * spiralWayIndex) + (_ShiftAngle * Mathf.Floor(i / _SpiralWayNum));
 
-            ShotBullet(bullet, _BulletSpeed, angle);
+            ShotBullet(bullet, m_bulletSpeed, angle);
 
             AutoReleaseBulletGameObject(bullet.gameObject);
 

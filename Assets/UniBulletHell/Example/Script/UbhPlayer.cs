@@ -11,7 +11,7 @@ public class UbhPlayer : UbhMonoBehaviour
     readonly Vector2 VIEW_PORT_LEFT_BOTTOM = new Vector2(0, 0);
     readonly Vector2 VIEW_PORT_RIGHT_TOP = new Vector2(1, 1);
     [SerializeField]
-    GameObject _BulletPrefab;
+    GameObject m_bulletPrefab;
     [SerializeField]
     float _ShotDelay;
     [SerializeField]
@@ -115,8 +115,8 @@ public class UbhPlayer : UbhMonoBehaviour
 
     void Shot ()
     {
-        if (_BulletPrefab != null) {
-            UbhObjectPool.Instance.GetGameObject(_BulletPrefab, transform.position, transform.rotation);
+        if (m_bulletPrefab != null) {
+            UbhObjectPool.Instance.GetGameObject(m_bulletPrefab, transform.position, transform.rotation);
 
             if (_AudioShot != null) {
                 _AudioShot.Play();

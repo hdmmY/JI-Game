@@ -41,7 +41,7 @@ public class UbhRandomSpiralMultiShot : UbhBaseShot
 
     IEnumerator ShotCoroutine ()
     {
-        if (_BulletNum <= 0 || _RandomSpeedMin <= 0f || _RandomSpeedMax <= 0 || _SpiralWayNum <= 0) {
+        if (m_bulletNum<= 0 || _RandomSpeedMin <= 0f || _RandomSpeedMax <= 0 || _SpiralWayNum <= 0) {
             Debug.LogWarning("Cannot shot because BulletNum or RandomSpeedMin or RandomSpeedMax or SpiralWayNum is not set.");
             yield break;
         }
@@ -54,7 +54,7 @@ public class UbhRandomSpiralMultiShot : UbhBaseShot
 
         int wayIndex = 0;
 
-        for (int i = 0; i < _BulletNum; i++) {
+        for (int i = 0; i < m_bulletNum; i++) {
             if (_SpiralWayNum <= wayIndex) {
                 wayIndex = 0;
 

@@ -39,7 +39,7 @@ public class UbhRandomShot : UbhBaseShot
 
     IEnumerator ShotCoroutine ()
     {
-        if (_BulletNum <= 0 || _RandomSpeedMin <= 0f || _RandomSpeedMax <= 0) {
+        if (m_bulletNum<= 0 || _RandomSpeedMin <= 0f || _RandomSpeedMax <= 0) {
             Debug.LogWarning("Cannot shot because BulletNum or RandomSpeedMin or RandomSpeedMax is not set.");
             yield break;
         }
@@ -50,7 +50,7 @@ public class UbhRandomShot : UbhBaseShot
 
         List<int> numList = new List<int>();
 
-        for (int i = 0; i < _BulletNum; i++) {
+        for (int i = 0; i < m_bulletNum; i++) {
             numList.Add(i);
         }
 
@@ -68,7 +68,7 @@ public class UbhRandomShot : UbhBaseShot
             float angle = 0f;
 
             if (_EvenlyDistribute) {
-                float oneDirectionNum = Mathf.Floor((float) _BulletNum / 4f);
+                float oneDirectionNum = Mathf.Floor((float) m_bulletNum / 4f);
                 float quarterIndex = Mathf.Floor((float) numList[index] / oneDirectionNum);
                 float quarterAngle = Mathf.Abs(maxAngle - minAngle) / 4f;
                 angle = Random.Range(minAngle + (quarterAngle * quarterIndex), minAngle + (quarterAngle * (quarterIndex + 1f)));

@@ -7,7 +7,7 @@ using System.Collections;
 [AddComponentMenu("UniBulletHell/Shot Pattern/nWay Shot")]
 public class UbhNwayShot : UbhBaseShot
 {
-    // note : In N way shot pattern, each way has _BulletNum bullets.
+    // note : In N way shot pattern, each way has m_bulletNum bullets.
 
     // "Set a number of shot way."
     public int _WayNum = 5;
@@ -32,7 +32,7 @@ public class UbhNwayShot : UbhBaseShot
 
     IEnumerator ShotCoroutine ()
     {
-        if (_BulletNum <= 0 || _BulletSpeed <= 0f || _WayNum <= 0) {
+        if (m_bulletNum <= 0 || m_bulletSpeed <= 0f || _WayNum <= 0) {
             Debug.LogWarning("Cannot shot because BulletNum or BulletSpeed or WayNum is not set.");
             yield break;
         }
@@ -43,7 +43,7 @@ public class UbhNwayShot : UbhBaseShot
 
         int wayIndex = 0;
 
-        for (int i = 0; i < _BulletNum; i++) {
+        for (int i = 0; i < m_bulletNum; i++) {
             if (_WayNum <= wayIndex) {
                 wayIndex = 0;
 
@@ -61,7 +61,7 @@ public class UbhNwayShot : UbhBaseShot
 
             float angle = UbhUtil.GetShiftedAngle(wayIndex, baseAngle, _BetweenAngle);
 
-            ShotBullet(bullet, _BulletSpeed, angle);
+            ShotBullet(bullet, m_bulletSpeed, angle);
 
             AutoReleaseBulletGameObject(bullet.gameObject);
 

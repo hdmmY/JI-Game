@@ -36,7 +36,7 @@ public class UbhSinWaveBulletNwayShot : UbhBaseShot
 
     IEnumerator ShotCoroutine ()
     {
-        if (_BulletNum <= 0 || _BulletSpeed <= 0f || _WayNum <= 0) {
+        if (m_bulletNum<= 0 || m_bulletSpeed <= 0f || _WayNum <= 0) {
             Debug.LogWarning("Cannot shot because BulletNum or BulletSpeed or WayNum is not set.");
             yield break;
         }
@@ -47,7 +47,7 @@ public class UbhSinWaveBulletNwayShot : UbhBaseShot
 
         int wayIndex = 0;
 
-        for (int i = 0; i < _BulletNum; i++) {
+        for (int i = 0; i < m_bulletNum; i++) {
             if (_WayNum <= wayIndex) {
                 wayIndex = 0;
 
@@ -65,7 +65,7 @@ public class UbhSinWaveBulletNwayShot : UbhBaseShot
 
             float angle = UbhUtil.GetShiftedAngle(wayIndex, baseAngle, _BetweenAngle);
 
-            ShotBullet(bullet, _BulletSpeed, angle, false, null, 0f, 0f, true, _WaveSpeed, _WaveRangeSize);
+            ShotBullet(bullet, m_bulletSpeed, angle, false, null, 0f, 0f, true, _WaveSpeed, _WaveRangeSize);
 
             AutoReleaseBulletGameObject(bullet.gameObject);
 

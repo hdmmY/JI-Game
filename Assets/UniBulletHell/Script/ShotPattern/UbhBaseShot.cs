@@ -10,32 +10,32 @@ using System;
 public abstract class UbhBaseShot : UbhMonoBehaviour
 {
     // "Set a bullet prefab for the shot. (ex. sprite or model)"
-    public GameObject _BulletPrefab;
+    public GameObject m_bulletPrefab;
     // "Set a bullet number of shot."
-    public int _BulletNum = 10;
+    public int m_bulletNum = 10;
     // "Set a bullet base speed of shot."
-    public float _BulletSpeed = 2f;
+    public float m_bulletSpeed = 2f;
     // "Set an acceleration of bullet speed."
-    public float _AccelerationSpeed = 0f;
+    public float m_accelerationSpeed = 0f;
     // "Set an acceleration of bullet turning."
-    public float _AccelerationTurn = 0f;
+    public float m_accelerationTurn = 0f;
     // "This flag is pause and resume bullet at specified time."
-    public bool _UsePauseAndResume = false;
+    public bool m_usePauseAndResume = false;
     // "Set a time to pause bullet."
-    public float _PauseTime = 0f;
+    public float m_pauseTime = 0f;
     // "Set a time to resume bullet."
-    public float _ResumeTime = 0f;
+    public float m_resumeTime = 0f;
     // "This flag settings pooling bullet GameObject from object pool at initial awake."
-    public bool _InitialPooling = false;
+    public bool m_initialPooling = false;
     // "This flag is automatically release the bullet GameObject at the specified time."
-    public bool _UseAutoRelease = false;
+    public bool m_useAutoRelease = false;
     // "Set a time to automatically release after the shot at using UseAutoRelease. (sec)"
     // "That is the bullet life time."
-    public float _AutoReleaseTime = 10f;
+    public float m_autoReleaseTime = 10f;
     // "Set a GameObject that receives callback method when shooting is over."
-    public GameObject _CallbackReceiver;
+    public GameObject m_callbackReceiver;
     // "Set a name of callback method at using Call Back Receiver."
-    public string _CallbackMethod;
+    public string m_callbackMethod;
 
     protected UbhShotCtrl ShotCtrl
     {
@@ -58,10 +58,10 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
     /// </summary>
     protected virtual void Awake()
     {
-        if (_InitialPooling)
+        if (m_initialPooling)
         {
             var goBulletList = new List<GameObject>();
-            for (int i = 0; i < _BulletNum; i++)
+            for (int i = 0; i < m_bulletNum; i++)
             {
                 var bullet = GetBullet(Vector3.zero, Quaternion.identity, true);
                 if (bullet != null)
@@ -98,9 +98,9 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
     /// </summary>
     protected void FinishedShot()
     {
-        if (_CallbackReceiver != null && string.IsNullOrEmpty(_CallbackMethod) == false)
+        if (m_callbackReceiver != null && string.IsNullOrEmpty(m_callbackMethod) == false)
         {
-            _CallbackReceiver.SendMessage(_CallbackMethod, SendMessageOptions.DontRequireReceiver);
+            m_callbackReceiver.SendMessage(m_callbackMethod, SendMessageOptions.DontRequireReceiver);
         }
         _Shooting = false;
     }
@@ -112,14 +112,14 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
     /// <returns></returns>
     protected UbhBullet GetBullet(Vector3 position, Quaternion rotation, bool forceInstantiate = false)
     {
-        if (_BulletPrefab == null)
+        if (m_bulletPrefab == null)
         {
             Debug.LogWarning("Cannot generate a bullet because BulletPrefab is not set.");
             return null;
         }
 
         // get Bullet GameObject from ObjectPool
-        var goBullet = UbhObjectPool.Instance.GetGameObject(_BulletPrefab, position, rotation, forceInstantiate);
+        var goBullet = UbhObjectPool.Instance.GetGameObject(m_bulletPrefab, position, rotation, forceInstantiate);
         if (goBullet == null)
         {
             return null;
@@ -152,10 +152,10 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
         {
             return;
         }
-        bullet.Shot(speed, angle, _AccelerationSpeed, _AccelerationTurn,
+        bullet.Shot(speed, angle, m_accelerationSpeed, m_accelerationTurn,
                     homing, homingTarget, homingAngleSpeed, maxHomingAngle,
                     wave, waveSpeed, waveRangeSize,
-                    _UsePauseAndResume, _PauseTime, _ResumeTime,
+                    m_usePauseAndResume, m_pauseTime, m_resumeTime,
                     ShotCtrl != null ? ShotCtrl._AxisMove : UbhUtil.AXIS.X_AND_Y);
     }
 
@@ -172,11 +172,11 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
 
 
     /// <summary>
-    /// Auto release bullet GameObject after _AutoReleaseTime sec.
+    /// Auto release bullet GameObject after m_autoReleaseTime sec.
     /// </summary>
     protected void AutoReleaseBulletGameObject(GameObject goBullet)
     {
-        if (_UseAutoRelease == false || _AutoReleaseTime < 0f)
+        if (m_useAutoRelease == false || m_autoReleaseTime < 0f)
         {
             return;
         }
@@ -185,7 +185,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
 
 
     /// <summary>
-    /// Auto release bullet GameObject after _AutoReleaseTime sec.
+    /// Auto release bullet GameObject after m_autoReleaseTime sec.
     /// </summary>
     IEnumerator AutoReleaseBulletGameObjectCoroutine(GameObject goBullet)
     {
@@ -198,7 +198,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
                 yield break;
             }
 
-            if (_AutoReleaseTime <= countUpTime)
+            if (m_autoReleaseTime <= countUpTime)
             {
                 break;
             }

@@ -39,7 +39,7 @@ namespace Stage1Shot
 
         IEnumerator ShotCoroutine()
         {
-            if (_BulletNum <= 0 || _BulletSpeed <= 0f || m_SpiralWayNum <= 0)
+            if (m_bulletNum <= 0 || m_bulletSpeed <= 0f || m_SpiralWayNum <= 0)
             {
                 Debug.LogWarning("Cannot shot because BulletNum or BulletSpeed or SpiralWayNum is not set.");
                 yield break;
@@ -54,9 +54,9 @@ namespace Stage1Shot
             float spiralWayShiftAngle = 360f / m_SpiralWayNum;
             int spiralWayIndex = 0;
 
-            for (int i = 0; i < _BulletNum; i++)
+            for (int i = 0; i < m_bulletNum; i++)
             {
-                for(spiralWayIndex = 0; spiralWayIndex < m_SpiralWayNum; spiralWayIndex++)
+                for (spiralWayIndex = 0; spiralWayIndex < m_SpiralWayNum; spiralWayIndex++)
                 {
                     var bullet = GetBullet(transform.position, transform.rotation);
                     if (bullet == null)
@@ -67,10 +67,10 @@ namespace Stage1Shot
                     float angle = m_StartAngle + (spiralWayShiftAngle * spiralWayIndex) + m_ShiftAngle * i;
 
                     ShotBullet(bullet, BulletMove(bullet, angle));
-                    AutoReleaseBulletGameObject(bullet.gameObject);               
-                }  
+                    AutoReleaseBulletGameObject(bullet.gameObject);
+                }
 
-                if(m_BulletEmitInterval > 0f)
+                if (m_BulletEmitInterval > 0f)
                     yield return StartCoroutine(UbhUtil.WaitForSeconds(m_BulletEmitInterval));
             }
 
@@ -83,11 +83,23 @@ namespace Stage1Shot
         IEnumerator BulletMove(UbhBullet bullet, float angle)
         {
             Transform bulletTrans = bullet.transform;
-            float speed = _BulletSpeed;
-            float accelSpeed = _AccelerationSpeed;
+
+            float bulletSpeed = m_bulletSpeed;
+            float accelerationSpeed = m_accelerationSpeed;
+            float accelerationTurn = m_accelerationTurn;
+            float addAngleAfterChangeDirection = m_AddAngleAfterChangeDirection;
+
             float selfTimeCount = 0;
 
-            if(bulletTrans == null)
+            float pauseBeforeChangeDirection = m_PauseBeforeChangeDirection;
+            float bulletSpeedAfterChangeDir = m_BulletSpeedAfterChangeDir;
+
+
+            bool usePauseAndResume = m_usePauseAndResume;
+            float pauseTime = m_pauseTime;
+            float resumeTime = m_resumeTime;
+
+            if (bulletTrans == null)
             {
                 Debug.LogWarning("The shooting bullet is not exist!");
                 yield break;
@@ -97,33 +109,32 @@ namespace Stage1Shot
             if (axisMove == UbhUtil.AXIS.X_AND_Z) // X and Z axis
             {
                 bulletTrans.SetEulerAnglesY(-angle);
-            } 
+            }
             else  // X and Y axis 
             {
                 bulletTrans.SetEulerAnglesZ(angle);
             }
 
-
-            while(true)
+            while (true)
             {
-                float addAngle = _AccelerationTurn * UbhTimer.Instance.DeltaTime;
+                float addAngle = accelerationTurn * UbhTimer.Instance.DeltaTime;
                 if (axisMove == UbhUtil.AXIS.X_AND_Z) // X and Z axis
                 {
-                   bulletTrans.AddEulerAnglesY(-addAngle);
-                } 
+                    bulletTrans.AddEulerAnglesY(-addAngle);
+                }
                 else // X and Y axis
                 {
-                     bulletTrans.AddEulerAnglesZ(addAngle);
+                    bulletTrans.AddEulerAnglesZ(addAngle);
                 }
 
-                speed += accelSpeed * UbhTimer.Instance.DeltaTime;
+                bulletSpeed += accelerationSpeed * UbhTimer.Instance.DeltaTime;
                 if (axisMove == UbhUtil.AXIS.X_AND_Z) // X and Z axis
                 {
-                    bulletTrans.position += bulletTrans.forward.normalized * speed * UbhTimer.Instance.DeltaTime;
-                } 
+                    bulletTrans.position += bulletTrans.forward.normalized * bulletSpeed * UbhTimer.Instance.DeltaTime;
+                }
                 else // X and Y axis
                 {
-                    bulletTrans.position += bulletTrans.up.normalized * speed * UbhTimer.Instance.DeltaTime;
+                    bulletTrans.position += bulletTrans.up.normalized * bulletSpeed * UbhTimer.Instance.DeltaTime;
                 }
 
                 yield return 0;
@@ -131,21 +142,21 @@ namespace Stage1Shot
                 selfTimeCount += UbhTimer.Instance.DeltaTime;
 
                 // When the speed == 0, shoot two other bullet
-                if(selfTimeCount > Mathf.Abs(_BulletSpeed / accelSpeed))
+                if (selfTimeCount > Mathf.Abs(bulletSpeed / accelerationSpeed))
                 {
-                    yield return UbhUtil.WaitForSeconds(m_PauseBeforeChangeDirection);  
-                    
-                    speed = m_BulletSpeedAfterChangeDir;
-                    angle = UbhUtil.GetAngleFromTwoPosition(bulletTrans, transform, axisMove) - 90; 
+                    yield return UbhUtil.WaitForSeconds(pauseBeforeChangeDirection);
+
+                    bulletSpeed = bulletSpeedAfterChangeDir;
+                    //angle = UbhUtil.GetAngleFromTwoPosition(bulletTrans, transform, axisMove) - 90;
 
                     var bulletUpper = GetBullet(bulletTrans.position, bulletTrans.rotation);
                     var bulletUnder = GetBullet(bulletTrans.position, bulletTrans.rotation);
-                    if(bulletUpper == null || bulletUnder == null)
+                    if (bulletUpper == null || bulletUnder == null)
                     {
                         break;
                     }
-                    ShotChildBullet(bulletUpper, speed, angle + m_AddAngleAfterChangeDirection, axisMove);
-                    ShotChildBullet(bulletUnder, speed, angle - m_AddAngleAfterChangeDirection, axisMove);
+                    ShotChildBullet(bulletUpper, bulletSpeed, angle + addAngleAfterChangeDirection, axisMove);
+                    ShotChildBullet(bulletUnder, bulletSpeed, angle - addAngleAfterChangeDirection, axisMove);
                     AutoReleaseBulletGameObject(bulletUpper.gameObject);
                     AutoReleaseBulletGameObject(bulletUnder.gameObject);
 
@@ -155,9 +166,12 @@ namespace Stage1Shot
                     yield break;
                 }
 
+
                 // pause and resume.
-                if (_UsePauseAndResume && _PauseTime >= 0f && _ResumeTime > _PauseTime) {
-                    while (_PauseTime <= selfTimeCount && selfTimeCount < _ResumeTime) {
+                if (usePauseAndResume && pauseTime >= 0f && resumeTime > pauseTime)
+                {
+                    while (pauseTime <= selfTimeCount && selfTimeCount < resumeTime)
+                    {
                         yield return 0;
                         selfTimeCount += UbhTimer.Instance.DeltaTime;
                     }
@@ -167,13 +181,13 @@ namespace Stage1Shot
 
 
         // Different from ShotBullet Method(in UbhBaseShot Class), it just care about bullet angle and speed
-        private void ShotChildBullet(UbhBullet bullet, float speed, float angle, 
+        private void ShotChildBullet(UbhBullet bullet, float speed, float angle,
                 UbhUtil.AXIS axisMove = UbhUtil.AXIS.X_AND_Y)
         {
-            if(bullet == null)  return;
-            
-            bullet.Shot(speed, angle, 
-                    0, 0, false, null, 0, 0, false, 0, 0, false, 0,  0, axisMove);
+            if (bullet == null) return;
+
+            bullet.Shot(speed, angle,
+                    0, 0, false, null, 0, 0, false, 0, 0, false, 0, 0, axisMove);
         }
     }
 }

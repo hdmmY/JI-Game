@@ -17,8 +17,8 @@ public class UbhBullet : UbhMonoBehaviour
     void OnDisable ()
     {
         StopAllCoroutines();
-        transform.ResetPosition();
-        transform.ResetRotation();
+        //transform.ResetPosition();
+        //transform.ResetRotation();
         _Shooting = false;
     }
 

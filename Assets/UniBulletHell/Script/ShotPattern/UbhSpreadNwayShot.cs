@@ -30,7 +30,7 @@ public class UbhSpreadNwayShot : UbhBaseShot
 
     IEnumerator ShotCoroutine ()
     {
-        if (_BulletNum <= 0 || _BulletSpeed <= 0f || _WayNum <= 0) {
+        if (m_bulletNum<= 0 || m_bulletSpeed <= 0f || _WayNum <= 0) {
             Debug.LogWarning("Cannot shot because BulletNum or BulletSpeed or WayNum is not set.");
             yield break;
         }
@@ -41,9 +41,9 @@ public class UbhSpreadNwayShot : UbhBaseShot
 
         int wayIndex = 0;
 
-        float bulletSpeed = _BulletSpeed;
+        float bulletSpeed = m_bulletSpeed;
 
-        for (int i = 0; i < _BulletNum; i++) {
+        for (int i = 0; i < m_bulletNum; i++) {
             if (_WayNum <= wayIndex) {
                 wayIndex = 0;
 

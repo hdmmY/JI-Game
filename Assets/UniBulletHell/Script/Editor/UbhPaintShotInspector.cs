@@ -26,13 +26,13 @@ public class UbhPaintShotInspector : Editor
         }
         EditorGUILayout.EndHorizontal();
 
-        if (obj._BulletPrefab == null || obj._PaintDataText == null) {
+        if (obj.m_bulletPrefab == null || obj._PaintDataText == null) {
             Color guiColor = GUI.color;
             GUI.color = Color.yellow;
 
             EditorGUILayout.LabelField("*****WARNING*****");
 
-            if (obj._BulletPrefab == null) {
+            if (obj.m_bulletPrefab == null) {
                 EditorGUILayout.LabelField("BulletPrefab has not been set!");
             }
 

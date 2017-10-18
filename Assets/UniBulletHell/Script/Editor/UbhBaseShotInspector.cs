@@ -27,7 +27,7 @@ public class UbhBaseShotInspector : Editor
         }
         EditorGUILayout.EndHorizontal();
 
-        if (obj._BulletPrefab == null) {
+        if (obj.m_bulletPrefab == null) {
             Color guiColor = GUI.color;
             GUI.color = Color.yellow;
 

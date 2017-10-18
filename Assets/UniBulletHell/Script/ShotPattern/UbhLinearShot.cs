@@ -25,7 +25,7 @@ public class UbhLinearShot : UbhBaseShot
 
     IEnumerator ShotCoroutine ()
     {
-        if (_BulletNum <= 0 || _BulletSpeed <= 0f) {
+        if (m_bulletNum <= 0 || m_bulletSpeed <= 0f) {
             Debug.LogWarning("Cannot shot because BulletNum or BulletSpeed is not set.");
             yield break;
         }
@@ -34,7 +34,7 @@ public class UbhLinearShot : UbhBaseShot
         }
         _Shooting = true;
 
-        for (int i = 0; i < _BulletNum; i++) {
+        for (int i = 0; i < m_bulletNum; i++) {
             if (0 < i && 0f < _BetweenDelay) {
                 yield return StartCoroutine(UbhUtil.WaitForSeconds(_BetweenDelay));
             }
@@ -44,7 +44,7 @@ public class UbhLinearShot : UbhBaseShot
                 break;
             }
 
-            ShotBullet(bullet, _BulletSpeed, _Angle);
+            ShotBullet(bullet, m_bulletSpeed, _Angle);
 
             AutoReleaseBulletGameObject(bullet.gameObject);
         }

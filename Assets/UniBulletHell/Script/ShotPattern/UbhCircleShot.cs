@@ -14,14 +14,14 @@ public class UbhCircleShot : UbhBaseShot
 
     public override void Shot ()
     {
-        if (_BulletNum <= 0 || _BulletSpeed <= 0f) {
+        if (m_bulletNum <= 0 || m_bulletSpeed <= 0f) {
             Debug.LogWarning("Cannot shot because BulletNum or BulletSpeed is not set.");
             return;
         }
 
-        float shiftAngle = 360f / (float) _BulletNum;
+        float shiftAngle = 360f / (float) m_bulletNum;
 
-        for (int i = 0; i < _BulletNum; i++) {
+        for (int i = 0; i < m_bulletNum; i++) {
             var bullet = GetBullet(transform.position, transform.rotation);
             if (bullet == null) {
                 break;
@@ -29,7 +29,7 @@ public class UbhCircleShot : UbhBaseShot
 
             float angle = shiftAngle * i;
 
-            ShotBullet(bullet, _BulletSpeed, angle);
+            ShotBullet(bullet, m_bulletSpeed, angle);
 
             AutoReleaseBulletGameObject(bullet.gameObject);
         }

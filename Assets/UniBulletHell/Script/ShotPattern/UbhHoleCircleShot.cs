@@ -21,7 +21,7 @@ public class UbhHoleCircleShot : UbhBaseShot
 
     public override void Shot ()
     {
-        if (_BulletNum <= 0 || _BulletSpeed <= 0f) {
+        if (m_bulletNum <= 0 || m_bulletSpeed <= 0f) {
             Debug.LogWarning("Cannot shot because BulletNum or BulletSpeed is not set.");
             return;
         }
@@ -30,9 +30,9 @@ public class UbhHoleCircleShot : UbhBaseShot
         float startAngle = _HoleCenterAngle - (_HoleSize / 2f);
         float endAngle = _HoleCenterAngle + (_HoleSize / 2f);
 
-        float shiftAngle = (endAngle - startAngle) / (float) _BulletNum;
+        float shiftAngle = (endAngle - startAngle) / (float) m_bulletNum;
 
-        for (int i = 0; i < _BulletNum; i++) {
+        for (int i = 0; i < m_bulletNum; i++) {
             float angle = startAngle + shiftAngle * i;
             
             //if (startAngle <= angle && angle <= endAngle) {
@@ -44,7 +44,7 @@ public class UbhHoleCircleShot : UbhBaseShot
                 break;
             }
 
-            ShotBullet(bullet, _BulletSpeed, angle);
+            ShotBullet(bullet, m_bulletSpeed, angle);
 
             AutoReleaseBulletGameObject(bullet.gameObject);
         }

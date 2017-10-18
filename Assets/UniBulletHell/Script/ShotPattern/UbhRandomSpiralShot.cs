@@ -39,7 +39,7 @@ public class UbhRandomSpiralShot : UbhBaseShot
 
     IEnumerator ShotCoroutine ()
     {
-        if (_BulletNum <= 0 || _RandomSpeedMin <= 0f || _RandomSpeedMax <= 0) {
+        if (m_bulletNum<= 0 || _RandomSpeedMin <= 0f || _RandomSpeedMax <= 0) {
             Debug.LogWarning("Cannot shot because BulletNum or RandomSpeedMin or RandomSpeedMax is not set.");
             yield break;
         }
@@ -48,7 +48,7 @@ public class UbhRandomSpiralShot : UbhBaseShot
         }
         _Shooting = true;
 
-        for (int i = 0; i < _BulletNum; i++) {
+        for (int i = 0; i < m_bulletNum; i++) {
             if (0 < i && 0f <= _RandomDelayMin && 0f < _RandomDelayMax) {
                 float waitTime = Random.Range(_RandomDelayMin, _RandomDelayMax);
                 yield return StartCoroutine(UbhUtil.WaitForSeconds(waitTime));
