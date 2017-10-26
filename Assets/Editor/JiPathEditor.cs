@@ -48,6 +48,7 @@ public class JiPathEditor : Editor
             {
                 int removeCount = _targetScript.m_CtrolNode.Count - _targetScript.m_CtrolNodeCount;
                 _targetScript.m_CtrolNode.RemoveRange(_targetScript.m_CtrolNode.Count - removeCount, removeCount);
+                Undo.RecordObject(_targetScript, "Remove point");
             }
             else
             {
@@ -61,6 +62,7 @@ public class JiPathEditor : Editor
             for(int i = 0; i < _targetScript.m_CtrolNodeCount - _targetScript.m_CtrolNode.Count; i++)
             {
                 _targetScript.m_CtrolNode.Add(Vector3.zero);
+                Undo.RecordObject(_targetScript, "Add node");
             }
         }
 
@@ -110,6 +112,7 @@ public class JiPathEditor : Editor
             for (int i = 0; i < _targetScript.m_CtrolNode.Count; i++)
             {
                 _targetScript.m_CtrolNode[i] = Handles.PositionHandle(_targetScript.m_CtrolNode[i], Quaternion.identity);
+                Undo.RecordObject(_targetScript, "Change path node");
             }
         }   
     }

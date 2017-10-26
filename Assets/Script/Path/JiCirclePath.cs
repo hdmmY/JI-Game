@@ -7,40 +7,25 @@ public class JiCirclePath : JiPath
     // The circle centre position.
     public Vector2 m_CircleCentre = new Vector2(0f, 0f);
 
-    public int m_CircleTimes = 2;
+    public int m_startAngle;
+    public int m_endAngle;
+    public int m_deltAngle = 10;
 
     // The circle radius.
     public float m_Radius = 1f;
-
-    // The segment is clockwise?
-    public bool m_ClockWise = true;
-
-    // The segment to divide the circle to points.
-    public int m_segment = 10;
+    
 
     public void GenerateCirclePath()
     {
+        m_CtrolNodeCount = 0;
         m_CtrolNode.Clear();
-        m_CtrolNode = new List<Vector3>(m_segment + 2);
 
-
-        // Segment angle.
-        float deltAngle = 360f / m_segment;
-
-        // Whethe the segment is clockwise or not.
-        deltAngle = m_ClockWise ? deltAngle : -deltAngle;
-
-        for (int t = 0; t < m_CircleTimes; t++)
+        for (int angle = m_startAngle; angle < m_endAngle; angle += m_deltAngle)
         {
-            for (int i = 0; i < m_segment; i++)
-            {
-                // start from angle 90f.
-                float rad = (90f - deltAngle * i) * Mathf.Deg2Rad;
-                m_CtrolNode.Add(m_CircleCentre + new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)) * m_Radius);
-            }
+            // start from angle 90f.
+            float rad = angle * Mathf.Deg2Rad;
+            m_CtrolNode.Add(m_CircleCentre + new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)) * m_Radius);
         }
-        float theRad = 89f * Mathf.Deg2Rad;
-        m_CtrolNode.Add(m_CircleCentre + new Vector2(Mathf.Cos(theRad), Mathf.Sin(theRad)) * m_Radius);
 
         m_CtrolNodeCount = m_CtrolNode.Count;
     }
