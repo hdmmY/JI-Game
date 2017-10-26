@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[AddComponentMenu("UniBulletHell/Shot Pattern/AngleHoming Shot")]
+
 public class AngleHomingShot : UbhBaseShot 
 {
     public float _StartAngle = 0f;

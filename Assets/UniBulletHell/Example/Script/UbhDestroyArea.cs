@@ -16,14 +16,16 @@ public class UbhDestroyArea : UbhMonoBehaviour
     [SerializeField]
     BoxCollider2D _ColLeft;
 
-    void Start ()
+    void Start()
     {
-        if (_ColCenter == null || _ColTop == null || _ColBottom == null || _ColRight == null || _ColLeft == null) {
+        if (_ColCenter == null || _ColTop == null || _ColBottom == null || _ColRight == null || _ColLeft == null)
+        {
             return;
         }
 
         UbhManager manager = FindObjectOfType<UbhManager>();
-        if (manager != null && manager._ScaleToFit) {
+        if (manager != null && manager._ScaleToFit)
+        {
             Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1f, 1f));
             Vector2 size = max * 2f;
             size.x += 0.5f;
@@ -86,33 +88,37 @@ public class UbhDestroyArea : UbhMonoBehaviour
         _ColLeft.enabled = !_UseCenterCollider;
     }
 
-    void OnTriggerEnter2D (Collider2D c)
+    void OnTriggerEnter2D(Collider2D c)
     {
-        if (_UseCenterCollider) {
+        if (_UseCenterCollider)
+        {
             return;
         }
         HitCheck(c.transform);
     }
 
-    void OnTriggerExit2D (Collider2D c)
+    void OnTriggerExit2D(Collider2D c)
     {
-        if (_UseCenterCollider == false) {
+        if (_UseCenterCollider == false)
+        {
             return;
         }
         HitCheck(c.transform);
     }
 
-    void OnTriggerEnter (Collider c)
+    void OnTriggerEnter(Collider c)
     {
-        if (_UseCenterCollider) {
+        if (_UseCenterCollider)
+        {
             return;
         }
         HitCheck(c.transform);
     }
 
-    void OnTriggerExit (Collider c)
+    void OnTriggerExit(Collider c)
     {
-        if (_UseCenterCollider == false) {
+        if (_UseCenterCollider == false)
+        {
             return;
         }
         HitCheck(c.transform);
@@ -121,13 +127,24 @@ public class UbhDestroyArea : UbhMonoBehaviour
 
     // Destroy all bullet. 
     // distinguished by tag
-    void HitCheck (Transform colTrans)
+    void HitCheck(Transform colTrans)
     {
         string goTag = colTrans.tag;
 
-        if(goTag.Contains("Bullet"))
+        if (goTag.Contains("Bullet"))
         {
             UbhObjectPool.Instance.ReleaseGameObject(colTrans.parent.gameObject);
+            return;
         }
+
+        if (goTag.Contains("EnemyLaser"))
+            StartCoroutine(DestroyLaser(colTrans));
+    }
+
+    IEnumerator DestroyLaser(Transform colTrans)
+    {
+        yield return new WaitForSeconds(1f);
+        UbhObjectPool.Instance.ReleaseGameObject(colTrans.parent.gameObject);
+        Debug.Log(1);
     }
 }

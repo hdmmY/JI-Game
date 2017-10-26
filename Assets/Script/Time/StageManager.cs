@@ -53,7 +53,7 @@ public class StageManager : MonoBehaviour
 
         _property = GetComponent<Enemy_Property>();
 
-        for (int i = 0; i < m_stages.Count; i++)
+        for(int i = 0; i < m_stages.Count; i++)
         {
             if (m_stages[i].m_stageDataGO == null) continue;
             m_stages[i].m_stageDataGO.SetActive(false);
@@ -109,30 +109,30 @@ public class StageManager : MonoBehaviour
                     continue;
                 }
             }
-        }
+        }   
 
     }
 
 
     private void InvokeStage(int stageIndex)
     {
-        if (stageIndex != 0)
+        if(stageIndex != 0)
         {
             Destroy(m_stages[stageIndex - 1].m_stageDataGO);
             m_stages[stageIndex - 1].m_stageDataGO = null;
         }
-
+                     
 
         GameObject stageData = m_stages[stageIndex].m_stageDataGO;
 
         if (stageData == null) return;
 
-        if (stageData.GetComponent<JiPathMoveCtrl>() != null)
+        if(stageData.GetComponent<JiPathMoveCtrl>() != null)
         {
             stageData.GetComponent<JiPathMoveCtrl>().m_targetGameObject = this.gameObject;
         }
-
-        stageData.SetActive(true);
+        
+        stageData.SetActive(true);                                                          
     }
 
 

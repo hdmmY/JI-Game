@@ -18,14 +18,14 @@ public class UbhBaseShotInspector : Editor
 
         EditorGUILayout.Space();
 
-        //EditorGUILayout.BeginHorizontal();
-        //if (GUILayout.Button("Start Shot")) {
-        //    if (Application.isPlaying && obj.gameObject.activeInHierarchy) {
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("Start Shot")) {
+            if (Application.isPlaying && obj.gameObject.activeInHierarchy) {
                 
-        //        obj.Shot();
-        //    }
-        //}
-        //EditorGUILayout.EndHorizontal();
+                obj.Shot();
+            }
+        }
+        EditorGUILayout.EndHorizontal();
 
         if (obj.m_bulletPrefab == null) {
             Color guiColor = GUI.color;

@@ -16,10 +16,9 @@ public class UbhDebugInfo : UbhMonoBehaviour
     float _LastUpdateTime;
     int _Frame = 0;
 
-    void Start()
+    void Start ()
     {
-        if (Debug.isDebugBuild == false)
-        {
+        if (Debug.isDebugBuild == false) {
             gameObject.SetActive(false);
             return;
         }
@@ -29,31 +28,27 @@ public class UbhDebugInfo : UbhMonoBehaviour
         _timer = -0.5f;
     }
 
-    void Update()
+    void Update ()
     {
-        if (_FpsGUIText == null || _BulletNumGUIText == null)
-        {
+        if (_FpsGUIText == null || _BulletNumGUIText == null) {
             return;
         }
 
         _Frame++;
         float time = Time.realtimeSinceStartup - _LastUpdateTime;
 
-        if (INTERVAL_SEC <= time)
-        {
+        if (INTERVAL_SEC <= time) {
             // Count FPS
             float frameRate = _Frame / time;
-            _FpsGUIText.text = "FPS : " + ((int)frameRate).ToString();
+            _FpsGUIText.text = "FPS : " + ((int) frameRate).ToString();
             _LastUpdateTime = Time.realtimeSinceStartup;
             _Frame = 0;
 
             // Count Bullet Num
-            if (objectPool == null)
-            {
+            if (objectPool == null) {
                 objectPool = FindObjectOfType<UbhObjectPool>();
             }
-            if (objectPool != null)
-            {
+            if (objectPool != null) {
                 int bulletNum = objectPool.GetActivePooledObjectCount();
                 _BulletNumGUIText.text = "Bullet Num : " + bulletNum.ToString();
             }

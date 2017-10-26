@@ -17,6 +17,7 @@ public class Enemy_TakeDamage : MonoBehaviour {
     {
         if(collision.CompareTag(_property.m_playerBulletTag))
         {
+            Debug.Log(collision.name);
             var bullet = collision.transform.parent.GetComponent<UbhBullet>();
 
             UbhObjectPool.Instance.ReleaseGameObject(bullet.gameObject);
