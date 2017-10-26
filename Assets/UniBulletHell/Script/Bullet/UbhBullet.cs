@@ -14,7 +14,7 @@ public class UbhBullet : UbhMonoBehaviour
         private set;
     }
 
-    void OnDisable ()
+    void OnDisable()
     {
         StopAllCoroutines();
         //transform.ResetPosition();
@@ -30,7 +30,8 @@ public class UbhBullet : UbhMonoBehaviour
                       bool wave, float waveSpeed, float waveRangeSize,
                       bool pauseAndResume, float pauseTime, float resumeTime, UbhUtil.AXIS axisMove, bool useRealTime = false)
     {
-        if (_Shooting) {
+        if (_Shooting)
+        {
             return;
         }
         _Shooting = true;
@@ -39,7 +40,7 @@ public class UbhBullet : UbhMonoBehaviour
                                      homing, homingTarget, homingAngleSpeed, maxHomingAngle,
                                      wave, waveSpeed, waveRangeSize,
                                      pauseAndResume, pauseTime, resumeTime, axisMove, useRealTime));
-        
+
         //UbhBullet testBullet = new UbhBullet();
         //testBullet._Shooting = false;
     }
@@ -48,7 +49,7 @@ public class UbhBullet : UbhMonoBehaviour
     // 
     public void Shot(IEnumerator bulletMoveRoutine)
     {
-        if(_Shooting)
+        if (_Shooting)
         {
             return;
         }
@@ -59,15 +60,18 @@ public class UbhBullet : UbhMonoBehaviour
 
 
 
-    IEnumerator MoveCoroutine (float speed, float angle, float accelSpeed, float accelTurn,
+    IEnumerator MoveCoroutine(float speed, float angle, float accelSpeed, float accelTurn,
                                bool homing, Transform homingTarget, float homingAngleSpeed, float maxHomingAngle,
                                bool wave, float waveSpeed, float waveRangeSize,
                                bool pauseAndResume, float pauseTime, float resumeTime, UbhUtil.AXIS axisMove, bool useRealTime = false)
     {
-        if (axisMove == UbhUtil.AXIS.X_AND_Z) {
+        if (axisMove == UbhUtil.AXIS.X_AND_Z)
+        {
             // X and Z axis
             transform.SetEulerAnglesY(-angle);
-        } else {
+        }
+        else
+        {
             // X and Y axis
             transform.SetEulerAnglesZ(angle);
         }
@@ -76,16 +80,22 @@ public class UbhBullet : UbhMonoBehaviour
         float selfTimeCount = 0f;
         float homingAngle = 0f;
 
-        while (true) {
-            if (homing) {
+        while (true)
+        {
+            if (homing)
+            {
                 // homing target.
-                if (homingTarget != null && 0f < homingAngleSpeed) {
+                if (homingTarget != null && 0f < homingAngleSpeed)
+                {
                     float rotAngle = UbhUtil.GetAngleFromTwoPosition(transform, homingTarget, axisMove);
                     float myAngle = 0f;
-                    if (axisMove == UbhUtil.AXIS.X_AND_Z) {
+                    if (axisMove == UbhUtil.AXIS.X_AND_Z)
+                    {
                         // X and Z axis
                         myAngle = -transform.eulerAngles.y;
-                    } else {
+                    }
+                    else
+                    {
                         // X and Y axis
                         myAngle = transform.eulerAngles.z;
                     }
@@ -93,40 +103,54 @@ public class UbhBullet : UbhMonoBehaviour
                     float toAngle = Mathf.MoveTowardsAngle(myAngle, rotAngle, GetDeltTime(useRealTime) * homingAngleSpeed);
 
                     homingAngle += Mathf.Abs(myAngle - toAngle) >= 30 ? 0 : Mathf.Abs(myAngle - toAngle);
-                    if(homingAngle >= maxHomingAngle)  homing = false;                   
+                    if (homingAngle >= maxHomingAngle) homing = false;
 
-                    if (axisMove == UbhUtil.AXIS.X_AND_Z) {
+                    if (axisMove == UbhUtil.AXIS.X_AND_Z)
+                    {
                         // X and Z axis
                         transform.SetEulerAnglesY(-toAngle);
-                    } else {
+                    }
+                    else
+                    {
                         // X and Y axis
                         transform.SetEulerAnglesZ(toAngle);
                     }
                 }
 
-            } else if (wave) {
+            }
+            else if (wave)
+            {
                 // acceleration turning.
                 angle += (accelTurn * GetDeltTime(useRealTime));
                 // wave.
-                if (0f < waveSpeed && 0f < waveRangeSize) {
+                if (0f < waveSpeed && 0f < waveRangeSize)
+                {
                     float waveAngle = angle + (waveRangeSize / 2f * Mathf.Sin(selfFrameCnt * waveSpeed / 100f));
-                    if (axisMove == UbhUtil.AXIS.X_AND_Z) {
+                    if (axisMove == UbhUtil.AXIS.X_AND_Z)
+                    {
                         // X and Z axis
                         transform.SetEulerAnglesY(-waveAngle);
-                    } else {
+                    }
+                    else
+                    {
                         // X and Y axis
                         transform.SetEulerAnglesZ(waveAngle);
                     }
                 }
                 selfFrameCnt++;
 
-            } else {
+            }
+            else
+            {
                 // acceleration turning.
                 float addAngle = accelTurn * GetDeltTime(useRealTime);
-                if (axisMove == UbhUtil.AXIS.X_AND_Z) {
+                if (axisMove == UbhUtil.AXIS.X_AND_Z)
+                {
                     // X and Z axis
                     transform.AddEulerAnglesY(-addAngle);
-                } else {
+                }
+                else
+                {
                     // X and Y axis
                     transform.AddEulerAnglesZ(addAngle);
                 }
@@ -136,10 +160,13 @@ public class UbhBullet : UbhMonoBehaviour
             speed += (accelSpeed * GetDeltTime(useRealTime));
 
             // move.
-            if (axisMove == UbhUtil.AXIS.X_AND_Z) {
+            if (axisMove == UbhUtil.AXIS.X_AND_Z)
+            {
                 // X and Z axis
                 transform.position += transform.forward.normalized * speed * GetDeltTime(useRealTime);
-            } else {
+            }
+            else
+            {
                 // X and Y axis
                 transform.position += transform.up.normalized * speed * GetDeltTime(useRealTime);
             }
@@ -149,8 +176,10 @@ public class UbhBullet : UbhMonoBehaviour
             selfTimeCount += GetDeltTime(useRealTime);
 
             // pause and resume.
-            if (pauseAndResume && pauseTime >= 0f && resumeTime > pauseTime) {
-                while (pauseTime <= selfTimeCount && selfTimeCount < resumeTime) {
+            if (pauseAndResume && pauseTime >= 0f && resumeTime > pauseTime)
+            {
+                while (pauseTime <= selfTimeCount && selfTimeCount < resumeTime)
+                {
                     yield return 0;
                     selfTimeCount += GetDeltTime(useRealTime);
                 }
@@ -159,11 +188,10 @@ public class UbhBullet : UbhMonoBehaviour
     }
 
 
+    // Simplifed to return deltaTime. It will let for further coding.
+    // 
     private float GetDeltTime(bool useRealTime)
-    {
-        if (useRealTime)
-            return UbhTimer.Instance.DeltaTime / UbhTimer.Instance.TimeScale;
-        else
-            return UbhTimer.Instance.DeltaTime;
+    { 
+        return UbhTimer.Instance.DeltaTime;
     }
 }

@@ -40,6 +40,41 @@ public class JiCirclePathEditor : Editor
         _targetScript.m_CtrolNodeCount = Mathf.Max(2, EditorGUILayout.IntField("Control Node Count", _targetScript.m_CtrolNodeCount));
         EditorGUILayout.EndHorizontal();
 
+        // Remove node?
+        if (_targetScript.m_CtrolNode.Count > _targetScript.m_CtrolNodeCount)
+        {
+            if (EditorUtility.DisplayDialog("Remove path node?",
+                "Shortening the node list will permantently destory parts of your path. This operation cannot be undone.",
+                "OK", "Cancel"))
+            {
+                int removeCount = _targetScript.m_CtrolNode.Count - _targetScript.m_CtrolNodeCount;
+                _targetScript.m_CtrolNode.RemoveRange(_targetScript.m_CtrolNode.Count - removeCount, removeCount);
+                Undo.RecordObject(_targetScript, "Remove point");
+            }
+            else
+            {
+                _targetScript.m_CtrolNodeCount = _targetScript.m_CtrolNode.Count;
+            }
+        }
+
+        // Add node?
+        if (_targetScript.m_CtrolNode.Count < _targetScript.m_CtrolNodeCount)
+        {
+            for (int i = 0; i < _targetScript.m_CtrolNodeCount - _targetScript.m_CtrolNode.Count; i++)
+            {
+                _targetScript.m_CtrolNode.Add(Vector3.zero);
+                Undo.RecordObject(_targetScript, "Add node");
+            }
+        }
+
+        // Display control nodes
+        EditorGUI.indentLevel = 2;
+        _targetScript.m_CtrolNode[0] = EditorGUILayout.
+            Vector3Field("Start Node: ", _targetScript.m_CtrolNode[0]);
+        int endIndex = _targetScript.m_CtrolNodeCount - 1;
+        _targetScript.m_CtrolNode[endIndex] = EditorGUILayout.
+            Vector3Field("End Node: ", _targetScript.m_CtrolNode[endIndex]);
+
 
         // Save path data
         if (GUILayout.Button("Generate Data"))
@@ -53,6 +88,11 @@ public class JiCirclePathEditor : Editor
             LoadPathData(_targetScript);
         }
 
+        if(GUILayout.Button("GenerateCircle"))
+        {
+            _targetScript.GenerateCirclePath();
+            Undo.RecordObject(_targetScript, "GenerateCircleData");
+        }
 
         if (GUI.changed)
         {
@@ -67,6 +107,7 @@ public class JiCirclePathEditor : Editor
         style.fontStyle = FontStyle.Bold;
         style.normal.textColor = Color.white;
 
+        if (_targetScript == null) return;
         if (_targetScript.m_CtrolNode == null) return;
 
         if (_targetScript.m_CtrolNode.Count > 0)
@@ -76,10 +117,13 @@ public class JiCirclePathEditor : Editor
             Handles.Label(_targetScript.m_CtrolNode[_targetScript.m_CtrolNode.Count - 1], "'" + _targetScript.m_PathName + "' End", style);
 
             //node handle display:       
-            for (int i = 0; i < _targetScript.m_CtrolNode.Count; i++)
-            {
-                _targetScript.m_CtrolNode[i] = Handles.PositionHandle(_targetScript.m_CtrolNode[i], Quaternion.identity);
-            }
+            _targetScript.m_CtrolNode[0] = Handles.PositionHandle(_targetScript.m_CtrolNode[0], Quaternion.identity);
+            Undo.RecordObject(_targetScript, "Change path node");
+
+            int lastIndex = _targetScript.m_CtrolNodeCount - 1;
+            _targetScript.m_CtrolNode[lastIndex] = 
+                Handles.PositionHandle(_targetScript.m_CtrolNode[lastIndex], Quaternion.identity);
+            Undo.RecordObject(_targetScript, "Change path node");
         }
     }
 

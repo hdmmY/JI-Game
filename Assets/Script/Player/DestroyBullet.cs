@@ -6,9 +6,9 @@ public class DestroyBullet : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        string name = collision.name.ToLower();
+        string tag = collision.tag.ToLower();
 
-        if(name.Contains("bullet"))
+        if(tag.Contains("enemy") && tag.Contains("bullet"))
         {
             UbhObjectPool.Instance.ReleaseGameObject(collision.transform.parent.gameObject);
         }

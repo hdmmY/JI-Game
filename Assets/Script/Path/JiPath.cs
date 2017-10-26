@@ -4,16 +4,16 @@ using UnityEngine;
 public class JiPath : MonoBehaviour {
 
     // Eash path name that identify the path
-	public string m_PathName = "path";
+	[HideInInspector] public string m_PathName = "path";
 
     // Control nodes of the path, determine the path shape.
-    public List<Vector3> m_CtrolNode = new List<Vector3>();
-    
+    [HideInInspector] public List<Vector3> m_CtrolNode = new List<Vector3>();
+
     // The Control node cout, it must greater or equal than 2.
-    public int m_CtrolNodeCount = 2;
+    [HideInInspector] public int m_CtrolNodeCount = 2;
 
     // Path is visable even when you not select the object.
-    public bool m_alwaysVisable = false;
+    [HideInInspector] public bool m_alwaysVisable = false;
 
     //public bool m_revearse = false;
 
