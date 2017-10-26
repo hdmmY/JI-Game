@@ -1,3 +1,5 @@
 # JI-Game
 
-The JI-Game is a STG game. 
+The JI-Game is a STG game.
+
+~~~

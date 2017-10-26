@@ -64,7 +64,6 @@ public class UbhShotCtrl : UbhMonoBehaviour
             _ShotList[_invokeNumber]._ShotObj.Shot();
             _isInvoked[_invokeNumber] = true;
             _invokeNumber++;
-            Debug.Log(_invokeNumber);
         }
 
         // all shot has been invoked

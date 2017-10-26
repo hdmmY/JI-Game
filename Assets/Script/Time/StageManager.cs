@@ -53,8 +53,9 @@ public class StageManager : MonoBehaviour
 
         _property = GetComponent<Enemy_Property>();
 
-        for(int i = 0; i < m_stages.Count; i++)
+        for (int i = 0; i < m_stages.Count; i++)
         {
+            if (m_stages[i].m_stageDataGO == null) continue;
             m_stages[i].m_stageDataGO.SetActive(false);
         }
 
@@ -69,12 +70,10 @@ public class StageManager : MonoBehaviour
 
         for (int i = 0; i < m_stages.Count - 1; i++)
         {
-            if (m_stages[i].m_stageDataGO == null) continue;
-
             // Use for 'm_thresoldTime' condition
             if (m_stages[i].m_thresoldTime != 0)
             {
-                if (m_stages[i].m_thresoldTime > _timer)
+                if (m_stages[i].m_thresoldTime <= _timer)
                 {
                     InvokeStage(i + 1);
                     continue;
@@ -110,23 +109,30 @@ public class StageManager : MonoBehaviour
                     continue;
                 }
             }
-        }   
+        }
 
     }
 
 
     private void InvokeStage(int stageIndex)
     {
-        if(stageIndex != 0)
+        if (stageIndex != 0)
         {
             Destroy(m_stages[stageIndex - 1].m_stageDataGO);
             m_stages[stageIndex - 1].m_stageDataGO = null;
         }
-                     
+
 
         GameObject stageData = m_stages[stageIndex].m_stageDataGO;
-        stageData.GetComponent<JiPathMoveCtrl>().m_targetGameObject = this.gameObject;
-        stageData.SetActive(true);                                                          
+
+        if (stageData == null) return;
+
+        if (stageData.GetComponent<JiPathMoveCtrl>() != null)
+        {
+            stageData.GetComponent<JiPathMoveCtrl>().m_targetGameObject = this.gameObject;
+        }
+
+        stageData.SetActive(true);
     }
 
 
