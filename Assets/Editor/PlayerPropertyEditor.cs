@@ -30,6 +30,11 @@ public class PlayerPropertyEditor : Editor
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Slow Vertical Speed");
+        _targetScript.m_slowVerticalSpeed = EditorGUILayout.FloatField(_targetScript.m_slowVerticalSpeed);
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Horizontal Speed");
         _targetScript.m_horizontalSpeed = EditorGUILayout.FloatField(_targetScript.m_horizontalSpeed);
         EditorGUILayout.EndHorizontal();
@@ -38,6 +43,8 @@ public class PlayerPropertyEditor : Editor
         EditorGUILayout.LabelField("Slow Horizontal Speed");
         _targetScript.m_slowHorizontalSpeed = EditorGUILayout.FloatField(_targetScript.m_slowHorizontalSpeed);
         EditorGUILayout.EndHorizontal();
+
+        
 
         EditorGUI.indentLevel--;
         #endregion

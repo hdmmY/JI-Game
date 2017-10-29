@@ -49,7 +49,7 @@ public class PlayerMove : MonoBehaviour
                 StopAllCoroutines();
                 StartCoroutine(Resuming(UbhTimer.Instance.TimeScale, 1.5f));
             }
-            else if(_timeState == TimeState.Normal || _timeState == TimeState.Resume)
+            else if (_timeState == TimeState.Normal || _timeState == TimeState.Resume)
             {
                 _timeState = TimeState.Pausing;
                 StopAllCoroutines();
@@ -87,10 +87,15 @@ public class PlayerMove : MonoBehaviour
     void UpdateSpeed()
     {
         if (_playerProperty.m_playerMoveState == PlayerProperty.PlayerMoveType.HighSpeed)
+        {
             _horizontalSpeed = _playerProperty.m_horizontalSpeed;
+            _verticalSpeed = _playerProperty.m_verticalSpeed;
+        }
         else
+        {
             _horizontalSpeed = _playerProperty.m_slowHorizontalSpeed;
-        _verticalSpeed = _playerProperty.m_verticalSpeed;
+            _verticalSpeed = _playerProperty.m_slowVerticalSpeed;
+        }
     }
 
 

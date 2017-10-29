@@ -31,19 +31,6 @@ public class PlayerTakeDamage: MonoBehaviour
         }   
     }
 
-    private void Update()
-    {
-        if(m_playerProperty.m_playerMoveState == PlayerProperty.PlayerMoveType.HighSpeed)
-        {
-            GetComponent<SpriteRenderer>().enabled = false;
-        }
-        else
-        {
-            GetComponent<SpriteRenderer>().enabled = true;
-        }
-    }
-
-
     IEnumerator TurnOnGodMode()
     {
         Color prevColor = m_playerSprite.color;

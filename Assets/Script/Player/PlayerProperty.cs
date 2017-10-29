@@ -12,6 +12,7 @@ public class PlayerProperty : MonoBehaviour
     public float m_verticalSpeed;
     public float m_horizontalSpeed;
     public float m_slowHorizontalSpeed;
+    public float m_slowVerticalSpeed;
 
     // shoot 
     [Range(0.05f, 2.5f)]

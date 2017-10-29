@@ -16,6 +16,8 @@ public class PlayerChangeState : MonoBehaviour
     public float m_Velocity;
     public float m_Time;
 
+    public GameObject m_JudgePoint;
+
     private PlayerProperty _property;
     private SpriteRenderer _spriteRender;
 
@@ -42,10 +44,12 @@ public class PlayerChangeState : MonoBehaviour
         if(Input.GetKey(m_ChangeStateKey))
         {
             _property.m_playerMoveState = PlayerProperty.PlayerMoveType.SlowSpeed;
+            m_JudgePoint.SetActive(true);
         }
         else
         {
             _property.m_playerMoveState = PlayerProperty.PlayerMoveType.HighSpeed;
+            m_JudgePoint.SetActive(false);
         }
 
         if (Input.GetKeyDown(m_ChangeStateKey))
@@ -89,8 +93,6 @@ public class PlayerChangeState : MonoBehaviour
             }
 
         }
-
-
     }
 
 
