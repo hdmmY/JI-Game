@@ -47,11 +47,7 @@ public class PlayerMove : MonoBehaviour
         UpdateSpeed();
 
         // player move is not affected by time scale.
-        float deltTime = Time.deltaTime;
-
-        transform.position += new Vector3
-                (InputManager.Instance.HorizontalInput * _horizontalSpeed,
-                 InputManager.Instance.VerticalInput * _verticalSpeed, 0f) * UbhTimer.Instance.DeltaTime;
+        float deltTime = Time.deltaTime;                                                                   
 
         Vector2 playerPos = (Vector2)transform.position + new Vector2
                 (InputManager.Instance.HorizontalInput * _horizontalSpeed,
