@@ -132,10 +132,7 @@ public class StageManager : MonoBehaviour
 
         GameObject stageData = m_stages[stageIndex].m_stageDataGO;
 
-        if (stageData == null)
-        {
-            Destroy(this.gameObject);
-        }
+        if (stageData == null) return;     
 
         if (stageData.GetComponent<JiPathMoveCtrl>() != null)
         {
