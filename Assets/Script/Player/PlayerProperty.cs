@@ -11,6 +11,7 @@ public class PlayerProperty : MonoBehaviour
     // movement
     public float m_verticalSpeed;
     public float m_horizontalSpeed;
+    public float m_slowHorizontalSpeed;
 
     // shoot 
     [Range(0.05f, 2.5f)]
@@ -26,4 +27,13 @@ public class PlayerProperty : MonoBehaviour
         White
     };
     public PlayerStateType m_playerState;
+
+    
+    public enum PlayerMoveType
+    {
+        HighSpeed,
+        SlowSpeed
+    };
+
+    public PlayerMoveType m_playerMoveState;
 }

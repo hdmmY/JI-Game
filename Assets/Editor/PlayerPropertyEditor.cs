@@ -34,6 +34,11 @@ public class PlayerPropertyEditor : Editor
         _targetScript.m_horizontalSpeed = EditorGUILayout.FloatField(_targetScript.m_horizontalSpeed);
         EditorGUILayout.EndHorizontal();
 
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Slow Horizontal Speed");
+        _targetScript.m_slowHorizontalSpeed = EditorGUILayout.FloatField(_targetScript.m_slowHorizontalSpeed);
+        EditorGUILayout.EndHorizontal();
+
         EditorGUI.indentLevel--;
         #endregion
 
@@ -69,6 +74,11 @@ public class PlayerPropertyEditor : Editor
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Player State");
         _targetScript.m_playerState = (PlayerProperty.PlayerStateType)EditorGUILayout.EnumPopup(_targetScript.m_playerState);
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Player Move State");
+        _targetScript.m_playerMoveState = (PlayerProperty.PlayerMoveType)EditorGUILayout.EnumPopup(_targetScript.m_playerMoveState);
         EditorGUILayout.EndHorizontal();
 
         EditorGUI.indentLevel--;

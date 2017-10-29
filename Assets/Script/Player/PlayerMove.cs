@@ -86,7 +86,10 @@ public class PlayerMove : MonoBehaviour
 
     void UpdateSpeed()
     {
-        _horizontalSpeed = _playerProperty.m_horizontalSpeed;
+        if (_playerProperty.m_playerMoveState == PlayerProperty.PlayerMoveType.HighSpeed)
+            _horizontalSpeed = _playerProperty.m_horizontalSpeed;
+        else
+            _horizontalSpeed = _playerProperty.m_slowHorizontalSpeed;
         _verticalSpeed = _playerProperty.m_verticalSpeed;
     }
 

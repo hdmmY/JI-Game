@@ -39,6 +39,15 @@ public class PlayerChangeState : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKey(m_ChangeStateKey))
+        {
+            _property.m_playerMoveState = PlayerProperty.PlayerMoveType.SlowSpeed;
+        }
+        else
+        {
+            _property.m_playerMoveState = PlayerProperty.PlayerMoveType.HighSpeed;
+        }
+
         if (Input.GetKeyDown(m_ChangeStateKey))
         {
             switch (_property.m_playerState)
