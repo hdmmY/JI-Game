@@ -11,7 +11,7 @@ public class LaserController : MonoBehaviour {
         get
         {
             if (_instance == null) _instance = new LaserController();
-            return _instance;
+            return _instance;                           
         }
     }
 
