@@ -23,12 +23,12 @@ public class UbhShotCtrl : UbhMonoBehaviour
     [HideInInspector]
     public UbhUtil.AXIS m_AxisMove = UbhUtil.AXIS.X_AND_Y;
 
-    
-    public bool m_FirstNotInLoop = false;
+
+    [HideInInspector] public bool m_FirstNotInLoop = false;
     [HideInInspector] public float m_InitFristEleDelay = 0f;
-    
+
     // "This flag repeats a shot routine."
-    public bool m_loop = true;
+    [HideInInspector] public bool m_loop = true;
 
 
     // "List of shot information. this size is necessary at least 1 or more."
@@ -58,10 +58,12 @@ public class UbhShotCtrl : UbhMonoBehaviour
         while(_invokeNumber < _ShotList.Count && _timer >= _delayTime[_invokeNumber])
         {
             _ShotList[_invokeNumber++]._ShotObj.Shot();
+            _timer = 0f;
         }
 
-        if(_invokeNumber < _ShotList.Count)
+        if(_invokeNumber >= _ShotList.Count)
         {
+            Debug.Log("Reset");
             ResetShot();
         }
 
@@ -72,7 +74,7 @@ public class UbhShotCtrl : UbhMonoBehaviour
         _timer = 0f;
         _invokeNumber = 0;
 
-        _delayTime[0] = m_InitFristEleDelay;
+        _delayTime[0] = _ShotList[0]._DelayTime;
     }
 
 }

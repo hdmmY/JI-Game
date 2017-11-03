@@ -92,7 +92,6 @@ public class LaserController : MonoBehaviour {
         }
         else
         {
-            Debug.Log(_timer);
             transform.parent.gameObject.SetActive(false);
         }                              
     }
