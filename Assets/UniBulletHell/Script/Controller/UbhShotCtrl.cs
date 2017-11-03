@@ -22,12 +22,14 @@ public class UbhShotCtrl : UbhMonoBehaviour
     // "Axis on bullet move."
     [HideInInspector]
     public UbhUtil.AXIS m_AxisMove = UbhUtil.AXIS.X_AND_Y;
+
+    
+    public bool m_FirstNotInLoop = false;
+    [HideInInspector] public float m_InitFristEleDelay = 0f;
     
     // "This flag repeats a shot routine."
     public bool m_loop = true;
 
-    public bool m_FirstNotInLoop = false;
-    public float m_InitFristEleDelay = 0f;
 
     // "List of shot information. this size is necessary at least 1 or more."
     public List<ShotInfo> _ShotList = new List<ShotInfo>();
