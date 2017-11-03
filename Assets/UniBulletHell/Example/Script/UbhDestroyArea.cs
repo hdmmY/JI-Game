@@ -136,15 +136,5 @@ public class UbhDestroyArea : UbhMonoBehaviour
             UbhObjectPool.Instance.ReleaseGameObject(colTrans.parent.gameObject);
             return;
         }
-
-        if (goTag.Contains("EnemyLaser"))
-            StartCoroutine(DestroyLaser(colTrans));
-    }
-
-    IEnumerator DestroyLaser(Transform colTrans)
-    {
-        yield return new WaitForSeconds(1f);
-        UbhObjectPool.Instance.ReleaseGameObject(colTrans.parent.gameObject);
-        Debug.Log(1);
     }
 }

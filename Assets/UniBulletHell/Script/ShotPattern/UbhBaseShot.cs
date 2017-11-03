@@ -17,8 +17,8 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
     public float m_bulletSpeed = 2f;
     // "Set an acceleration of bullet speed."
     public float m_accelerationSpeed = 0f;
-    // "Set an acceleration of bullet turning."
-    public float m_accelerationTurn = 0f;
+    // "Set an speed of bullet turning."
+    public float m_angleSpeed = 0f;
     // "This flag is pause and resume bullet at specified time."
     public bool m_usePauseAndResume = false;
     // "Set a time to pause bullet."
@@ -152,7 +152,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
         {
             return;
         }
-        bullet.Shot(speed, angle, m_accelerationSpeed, m_accelerationTurn,
+        bullet.Shot(speed, angle, m_angleSpeed, m_accelerationSpeed,
                     homing, homingTarget, homingAngleSpeed, maxHomingAngle,
                     wave, waveSpeed, waveRangeSize,
                     m_usePauseAndResume, m_pauseTime, m_resumeTime,

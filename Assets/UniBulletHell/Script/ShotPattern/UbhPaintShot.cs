@@ -34,8 +34,8 @@ public class UbhPaintShot : UbhBaseShot
 
     IEnumerator ShotCoroutine ()
     {
-        if (m_bulletSpeed <= 0f || _PaintDataText == null) {
-            Debug.LogWarning("Cannot shot because BulletSpeed or PaintDataText is not set.");
+        if (_PaintDataText == null) {
+            Debug.LogWarning("Cannot shot because PaintDataText is not set.");
             yield break;
         }
         if (_Shooting) {

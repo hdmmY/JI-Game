@@ -25,7 +25,7 @@ public class UbhBullet : UbhMonoBehaviour
     /// <summary>
     /// Bullet Shot
     /// </summary>
-    public void Shot(float speed, float angle, float accelSpeed, float accelTurn,
+    public void Shot(float speed, float angle, float angleSpeed, float accelSpeed,
                       bool homing, Transform homingTarget, float homingAngleSpeed, float maxHomingAngle,
                       bool wave, float waveSpeed, float waveRangeSize,
                       bool pauseAndResume, float pauseTime, float resumeTime, UbhUtil.AXIS axisMove, bool useRealTime = false)
@@ -36,10 +36,10 @@ public class UbhBullet : UbhMonoBehaviour
         }
         _Shooting = true;
 
-        StartCoroutine(MoveCoroutine(speed, angle, accelSpeed, accelTurn,
-                                     homing, homingTarget, homingAngleSpeed, maxHomingAngle,
-                                     wave, waveSpeed, waveRangeSize,
-                                     pauseAndResume, pauseTime, resumeTime, axisMove, useRealTime));
+        StartCoroutine(MoveCoroutine(speed, angle, angleSpeed, accelSpeed,
+                                    homing, homingTarget, homingAngleSpeed, maxHomingAngle,
+                                    wave, waveSpeed, waveRangeSize,
+                                    pauseAndResume, pauseTime, resumeTime, axisMove, useRealTime));
 
         //UbhBullet testBullet = new UbhBullet();
         //testBullet._Shooting = false;
@@ -60,10 +60,10 @@ public class UbhBullet : UbhMonoBehaviour
 
 
 
-    IEnumerator MoveCoroutine(float speed, float angle, float accelSpeed, float accelTurn,
-                               bool homing, Transform homingTarget, float homingAngleSpeed, float maxHomingAngle,
-                               bool wave, float waveSpeed, float waveRangeSize,
-                               bool pauseAndResume, float pauseTime, float resumeTime, UbhUtil.AXIS axisMove, bool useRealTime = false)
+    IEnumerator MoveCoroutine(float speed, float angle, float angleSpeed, float accelSpeed,
+                            bool homing, Transform homingTarget, float homingAngleSpeed, float maxHomingAngle,
+                            bool wave, float waveSpeed, float waveRangeSize,
+                            bool pauseAndResume, float pauseTime, float resumeTime, UbhUtil.AXIS axisMove, bool useRealTime = false)
     {
         if (axisMove == UbhUtil.AXIS.X_AND_Z)
         {
@@ -121,7 +121,7 @@ public class UbhBullet : UbhMonoBehaviour
             else if (wave)
             {
                 // acceleration turning.
-                angle += (accelTurn * GetDeltTime(useRealTime));
+                angle += (angleSpeed * GetDeltTime(useRealTime));
                 // wave.
                 if (0f < waveSpeed && 0f < waveRangeSize)
                 {
@@ -143,7 +143,7 @@ public class UbhBullet : UbhMonoBehaviour
             else
             {
                 // acceleration turning.
-                float addAngle = accelTurn * GetDeltTime(useRealTime);
+                float addAngle = angleSpeed * GetDeltTime(useRealTime);
                 if (axisMove == UbhUtil.AXIS.X_AND_Z)
                 {
                     // X and Z axis
@@ -191,7 +191,7 @@ public class UbhBullet : UbhMonoBehaviour
     // Simplifed to return deltaTime. It will let for further coding.
     // 
     private float GetDeltTime(bool useRealTime)
-    { 
+    {
         return UbhTimer.Instance.DeltaTime;
     }
 }

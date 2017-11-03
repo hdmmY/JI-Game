@@ -39,9 +39,9 @@ namespace Stage1Shot
 
         IEnumerator ShotCoroutine()
         {
-            if (m_bulletNum <= 0 || m_bulletSpeed <= 0f || m_SpiralWayNum <= 0)
+            if (m_bulletNum <= 0 || m_SpiralWayNum <= 0)
             {
-                Debug.LogWarning("Cannot shot because BulletNum or BulletSpeed or SpiralWayNum is not set.");
+                Debug.LogWarning("Cannot shot because BulletNum or SpiralWayNum is not set.");
                 yield break;
             }
 
@@ -86,7 +86,7 @@ namespace Stage1Shot
 
             float bulletSpeed = m_bulletSpeed;
             float accelerationSpeed = m_accelerationSpeed;
-            float accelerationTurn = m_accelerationTurn;
+            float angleSpeed = m_angleSpeed;
             float addAngleAfterChangeDirection = m_AddAngleAfterChangeDirection;
 
             float selfTimeCount = 0;
@@ -117,7 +117,7 @@ namespace Stage1Shot
 
             while (true)
             {
-                float addAngle = accelerationTurn * UbhTimer.Instance.DeltaTime;
+                float addAngle = angleSpeed * UbhTimer.Instance.DeltaTime;
                 if (axisMove == UbhUtil.AXIS.X_AND_Z) // X and Z axis
                 {
                     bulletTrans.AddEulerAnglesY(-addAngle);

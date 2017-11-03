@@ -32,8 +32,8 @@ public class UbhNwayShot : UbhBaseShot
 
     IEnumerator ShotCoroutine ()
     {
-        if (m_bulletNum <= 0 || m_bulletSpeed <= 0f || _WayNum <= 0) {
-            Debug.LogWarning("Cannot shot because BulletNum or BulletSpeed or WayNum is not set.");
+        if (m_bulletNum <= 0 || _WayNum <= 0) {
+            Debug.LogWarning("Cannot shot because BulletNum or WayNum is not set.");
             yield break;
         }
         if (_Shooting) {
