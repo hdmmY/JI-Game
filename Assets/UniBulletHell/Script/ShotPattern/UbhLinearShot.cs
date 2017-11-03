@@ -25,8 +25,8 @@ public class UbhLinearShot : UbhBaseShot
 
     IEnumerator ShotCoroutine ()
     {
-        if (m_bulletNum <= 0 || m_bulletSpeed <= 0f) {
-            Debug.LogWarning("Cannot shot because BulletNum or BulletSpeed is not set.");
+        if (m_bulletNum <= 0) {
+            Debug.LogWarning("Cannot shot because BulletNum is not set.");
             yield break;
         }
         if (_Shooting) {

@@ -35,8 +35,8 @@ public class UbhSpiralMultiNwayShot : UbhBaseShot
 
     IEnumerator ShotCoroutine ()
     {
-        if (m_bulletNum<= 0 || m_bulletSpeed <= 0f || _WayNum <= 0 || _SpiralWayNum <= 0) {
-            Debug.LogWarning("Cannot shot because BulletNum or BulletSpeed or WayNum or SpiralWayNum is not set.");
+        if (m_bulletNum<= 0 || _WayNum <= 0 || _SpiralWayNum <= 0) {
+            Debug.LogWarning("Cannot shot because BulletNum or WayNum or SpiralWayNum is not set.");
             yield break;
         }
         if (_Shooting) {

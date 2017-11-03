@@ -32,7 +32,7 @@ public class UbhDebugInfo : UbhMonoBehaviour
         }
 
         // Count FPS
-        _FpsGUIText.text = "FPS : " + 1f / Time.deltaTime;
+        _FpsGUIText.text = "FPS : " + (int)(1f / Time.deltaTime);
 
         // Count Bullet Num
         if (objectPool == null)

@@ -84,14 +84,14 @@ public class LaserController : MonoBehaviour {
             _spriteColor.a += UbhTimer.Instance.DeltaTime * _alphaSpeed;
             _sprite.color = _spriteColor;
         }
-        else if(_timer < m_laserDelay + m_laserLastTime)
+        else if(_timer < (m_laserDelay + m_laserLastTime))
         {
             if(!_collider.enabled)
                 _collider.enabled = true;    
         }
         else
         {
-            this.gameObject.SetActive(false);
+            transform.parent.gameObject.SetActive(false);
         }                              
     }
 
