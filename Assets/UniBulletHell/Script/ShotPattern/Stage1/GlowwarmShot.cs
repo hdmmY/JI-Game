@@ -105,7 +105,7 @@ namespace Stage1Shot
                 yield break;
             }
 
-            UbhUtil.AXIS axisMove = ShotCtrl != null ? ShotCtrl._AxisMove : UbhUtil.AXIS.X_AND_Y;
+            UbhUtil.AXIS axisMove = ShotCtrl != null ? ShotCtrl.m_AxisMove : UbhUtil.AXIS.X_AND_Y;
             if (axisMove == UbhUtil.AXIS.X_AND_Z) // X and Z axis
             {
                 bulletTrans.SetEulerAnglesY(-angle);

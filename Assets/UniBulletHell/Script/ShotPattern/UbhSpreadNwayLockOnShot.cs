@@ -49,7 +49,7 @@ public class UbhSpreadNwayLockOnShot : UbhSpreadNwayShot
             _TargetTransform = UbhUtil.GetTransformFromTagName(_TargetTagName);
         }
         if (_TargetTransform != null) {
-            _CenterAngle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform, ShotCtrl._AxisMove);
+            _CenterAngle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform, ShotCtrl.m_AxisMove);
         }
     }
 

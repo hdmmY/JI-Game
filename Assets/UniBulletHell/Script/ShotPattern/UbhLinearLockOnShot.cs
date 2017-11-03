@@ -49,7 +49,7 @@ public class UbhLinearLockOnShot : UbhLinearShot
             _TargetTransform = UbhUtil.GetTransformFromTagName(_TargetTagName);
         }
         if (_TargetTransform != null) {
-            _Angle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform, ShotCtrl._AxisMove);
+            _Angle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform, ShotCtrl.m_AxisMove);
         }
     }
 

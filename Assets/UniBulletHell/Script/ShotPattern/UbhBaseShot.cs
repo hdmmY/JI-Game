@@ -156,7 +156,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
                     homing, homingTarget, homingAngleSpeed, maxHomingAngle,
                     wave, waveSpeed, waveRangeSize,
                     m_usePauseAndResume, m_pauseTime, m_resumeTime,
-                    ShotCtrl != null ? ShotCtrl._AxisMove : UbhUtil.AXIS.X_AND_Y);
+                    ShotCtrl != null ? ShotCtrl.m_AxisMove : UbhUtil.AXIS.X_AND_Y);
     }
 
 
