@@ -26,7 +26,6 @@ public class LaserController : MonoBehaviour {
     // Alpha before laset collider appear
     public float m_laserStartAlpha;
 
-    [SerializeField]
     private float _timer;
 
     private float _alphaCounter;
@@ -92,7 +91,6 @@ public class LaserController : MonoBehaviour {
         }
         else
         {
-            Debug.Log(_timer);
             transform.parent.gameObject.SetActive(false);
         }                              
     }
