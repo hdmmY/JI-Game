@@ -26,49 +26,39 @@ public class UbhShotCtrl : UbhMonoBehaviour
     // "This flag repeats a shot routine."
     public bool m_loop = true;
 
-    public bool m_isFirstInLoop = false;
+    public bool m_FirstNotInLoop = false;
+    public float m_InitFristEleDelay = 0f;
 
     // "List of shot information. this size is necessary at least 1 or more."
     public List<ShotInfo> _ShotList = new List<ShotInfo>();
 
-    private float _timer;
-    private List<float> _shotInvokeTime;
-    private List<bool> _isInvoked;
+    private float _timer;    
+    
     private int _invokeNumber;
 
+    private List<float> _delayTime;
 
     private void Start ()
     {
         _timer = 0f;
         _invokeNumber = 0;
 
-        _shotInvokeTime = new List<float>(_ShotList.Count);
-        _shotInvokeTime.Add(_ShotList[0]._DelayTime + 0.1f);
-        for(int i = 1; i < _ShotList.Count; i++)
-        {
-            _shotInvokeTime.Add(_shotInvokeTime[i - 1] + _ShotList[i]._DelayTime);
-        }
+        _delayTime = new List<float>(new float[_ShotList.Count]);
+        for (int i = 0; i < _delayTime.Count; i++) _delayTime[i] = _ShotList[i]._DelayTime;
 
-        _isInvoked = new List<bool>(_ShotList.Count);
-        for (int i = 0; i < _ShotList.Count; i++) _isInvoked.Add(false);
+        if (m_FirstNotInLoop) _delayTime[0] = m_InitFristEleDelay;
     }
 
     private void Update()
     {
         _timer += UbhTimer.Instance.DeltaTime;
 
-        // can be invoke and haven't been invoke
-        if(_invokeNumber < _ShotList.Count && 
-           _timer >= _shotInvokeTime[_invokeNumber] &&
-           !_isInvoked[_invokeNumber])
+        while(_invokeNumber < _ShotList.Count && _timer >= _delayTime[_invokeNumber])
         {
-            _ShotList[_invokeNumber]._ShotObj.Shot();
-            _isInvoked[_invokeNumber] = true;
-            _invokeNumber++;
+            _ShotList[_invokeNumber++]._ShotObj.Shot();
         }
 
-        // all shot has been invoked
-        if(!_isInvoked.Contains(false) && m_loop)
+        if(_invokeNumber < _ShotList.Count)
         {
             ResetShot();
         }
@@ -78,13 +68,9 @@ public class UbhShotCtrl : UbhMonoBehaviour
     private void ResetShot()
     {
         _timer = 0f;
+        _invokeNumber = 0;
 
-        if (m_isFirstInLoop)
-            _invokeNumber = 1;
-        else
-            _invokeNumber = 0;
-
-        for (int i = 0; i < _ShotList.Count; i++) _isInvoked[i] = false;
+        _delayTime[0] = m_InitFristEleDelay;
     }
 
 }
