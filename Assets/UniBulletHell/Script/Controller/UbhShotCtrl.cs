@@ -21,14 +21,15 @@ public class UbhShotCtrl : UbhMonoBehaviour
 
     // "Axis on bullet move."
     [HideInInspector]
-    public UbhUtil.AXIS _AxisMove = UbhUtil.AXIS.X_AND_Y;
+    public UbhUtil.AXIS m_AxisMove = UbhUtil.AXIS.X_AND_Y;
     
     // "This flag repeats a shot routine."
-    public bool _Loop = true;
-    
+    public bool m_loop = true;
+
+    public bool m_isFirstInLoop = false;
+
     // "List of shot information. this size is necessary at least 1 or more."
     public List<ShotInfo> _ShotList = new List<ShotInfo>();
-
 
     private float _timer;
     private List<float> _shotInvokeTime;
@@ -67,7 +68,7 @@ public class UbhShotCtrl : UbhMonoBehaviour
         }
 
         // all shot has been invoked
-        if(!_isInvoked.Contains(false) && _Loop)
+        if(!_isInvoked.Contains(false) && m_loop)
         {
             ResetShot();
         }
@@ -77,7 +78,11 @@ public class UbhShotCtrl : UbhMonoBehaviour
     private void ResetShot()
     {
         _timer = 0f;
-        _invokeNumber = 0;
+
+        if (m_isFirstInLoop)
+            _invokeNumber = 1;
+        else
+            _invokeNumber = 0;
 
         for (int i = 0; i < _ShotList.Count; i++) _isInvoked[i] = false;
     }
