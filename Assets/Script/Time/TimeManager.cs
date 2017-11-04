@@ -52,13 +52,13 @@ public class TimeManager : MonoBehaviour
     private List<bool> _activedTimeGos;
 
     // A timer for active or disactive gameobject.
-    [SerializeField ]
-    private float _timer;
+    [HideInInspector]
+    public float m_timer;
                                         
     void OnEnable()
     {
         // Reset timer. The init _timer is a little below zero to aviod inaccuracy.
-        _timer = -0.5f;
+        m_timer = -0.5f;
 
         _activedTimeGos = new List<bool>(m_timeGos.Count);
         for (int i = 0; i < m_timeGos.Count; i++) _activedTimeGos.Add(false);
@@ -75,7 +75,7 @@ public class TimeManager : MonoBehaviour
 
     void Update()
     {
-        _timer += UbhTimer.Instance.DeltaTime;
+        m_timer += UbhTimer.Instance.DeltaTime;
 
         for (int i = 0; i < m_timeGos.Count; i++)
         {
@@ -84,7 +84,7 @@ public class TimeManager : MonoBehaviour
             if (m_timeGos[i].Go == null) continue;
 
             // Not reach the active time.
-            if (_timer < m_timeGos[i].ActiveTime)
+            if (m_timer < m_timeGos[i].ActiveTime)
             {
                 if (m_timeGos[i].Active)
                     m_timeGos[i].Active = false;
@@ -92,7 +92,7 @@ public class TimeManager : MonoBehaviour
             }
 
             // Reach the active time.
-            if(_timer >= m_timeGos[i].ActiveTime)
+            if(m_timer >= m_timeGos[i].ActiveTime)
             {
                 if (!m_timeGos[i].Active)
                 {
