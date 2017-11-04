@@ -61,7 +61,7 @@ public class UbhShotCtrl : UbhMonoBehaviour
             _timer = 0f;
         }
 
-        if(_invokeNumber >= _ShotList.Count)
+        if(_invokeNumber >= _ShotList.Count && m_loop)
         {
             ResetShot();
         }
