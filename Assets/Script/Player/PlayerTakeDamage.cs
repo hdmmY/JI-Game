@@ -16,20 +16,32 @@ public class PlayerTakeDamage: MonoBehaviour
     public SpriteRenderer m_playerSprite;
 
     // Player Death.
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        CheckCollision(collision);   
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        CheckCollision(collision);
+    }
+
+
+    void CheckCollision(Collider2D other)
     {
         string otherTag = other.tag;
 
         // Enemy bullet or Enemy
-        if(otherTag.Contains("Enemy"))
+        if (otherTag.Contains("Enemy"))
         {
-            if(! m_playerProperty.m_tgm)
+            if (!m_playerProperty.m_tgm)
             {
                 Instantiate(m_Explosion, transform.position, Quaternion.identity, transform.parent);
                 StartCoroutine(TurnOnGodMode());
-            }  
-        }   
+            }
+        }
     }
+
 
     IEnumerator TurnOnGodMode()
     {
