@@ -63,7 +63,6 @@ public class UbhShotCtrl : UbhMonoBehaviour
 
         if(_invokeNumber >= _ShotList.Count)
         {
-            Debug.Log("Reset");
             ResetShot();
         }
 
@@ -71,7 +70,6 @@ public class UbhShotCtrl : UbhMonoBehaviour
 
     private void ResetShot()
     {
-        _timer = 0f;
         _invokeNumber = 0;
 
         _delayTime[0] = _ShotList[0]._DelayTime;
