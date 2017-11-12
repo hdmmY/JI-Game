@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c553f8c05b7b1734f9a9c72ed9feda9e
-timeCreated: 1509634665
+timeCreated: 1510460943
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -218,6 +218,56 @@ TextureImporter:
     21300422: Imperishable Night - Projectiles and Items_211
     21300424: Imperishable Night - Projectiles and Items_212
     21300426: Imperishable Night - Projectiles and Items_213
+    21300428: Imperishable Night - Projectiles and Items_214
+    21300430: Imperishable Night - Projectiles and Items_215
+    21300432: Imperishable Night - Projectiles and Items_216
+    21300434: Imperishable Night - Projectiles and Items_217
+    21300436: Imperishable Night - Projectiles and Items_218
+    21300438: Imperishable Night - Projectiles and Items_219
+    21300440: Imperishable Night - Projectiles and Items_220
+    21300442: Imperishable Night - Projectiles and Items_221
+    21300444: Imperishable Night - Projectiles and Items_222
+    21300446: Imperishable Night - Projectiles and Items_223
+    21300448: Imperishable Night - Projectiles and Items_224
+    21300450: Imperishable Night - Projectiles and Items_225
+    21300452: Imperishable Night - Projectiles and Items_226
+    21300454: Imperishable Night - Projectiles and Items_227
+    21300456: Imperishable Night - Projectiles and Items_228
+    21300458: Imperishable Night - Projectiles and Items_229
+    21300460: Imperishable Night - Projectiles and Items_230
+    21300462: Imperishable Night - Projectiles and Items_231
+    21300464: Imperishable Night - Projectiles and Items_232
+    21300466: Imperishable Night - Projectiles and Items_233
+    21300468: Imperishable Night - Projectiles and Items_234
+    21300470: Imperishable Night - Projectiles and Items_235
+    21300472: Imperishable Night - Projectiles and Items_236
+    21300474: Imperishable Night - Projectiles and Items_237
+    21300476: Imperishable Night - Projectiles and Items_238
+    21300478: Imperishable Night - Projectiles and Items_239
+    21300480: Imperishable Night - Projectiles and Items_240
+    21300482: Imperishable Night - Projectiles and Items_241
+    21300484: Imperishable Night - Projectiles and Items_242
+    21300486: Imperishable Night - Projectiles and Items_243
+    21300488: Imperishable Night - Projectiles and Items_244
+    21300490: Imperishable Night - Projectiles and Items_245
+    21300492: Imperishable Night - Projectiles and Items_246
+    21300494: Imperishable Night - Projectiles and Items_247
+    21300496: Imperishable Night - Projectiles and Items_248
+    21300498: Imperishable Night - Projectiles and Items_249
+    21300500: Imperishable Night - Projectiles and Items_250
+    21300502: Imperishable Night - Projectiles and Items_251
+    21300504: Imperishable Night - Projectiles and Items_252
+    21300506: Imperishable Night - Projectiles and Items_253
+    21300508: Imperishable Night - Projectiles and Items_254
+    21300510: Imperishable Night - Projectiles and Items_255
+    21300512: Imperishable Night - Projectiles and Items_256
+    21300514: Imperishable Night - Projectiles and Items_257
+    21300516: Imperishable Night - Projectiles and Items_258
+    21300518: Imperishable Night - Projectiles and Items_259
+    21300520: Imperishable Night - Projectiles and Items_260
+    21300522: Projectiles and Items_0
+    21300524: Projectiles and Items_1
+    21300526: Projectiles and Items_2
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -420,10 +470,10 @@ TextureImporter:
       name: Imperishable Night - Projectiles and Items_8
       rect:
         serializedVersion: 2
-        x: 10
-        y: 426
-        width: 256
-        height: 95
+        x: 28
+        y: 506
+        width: 12
+        height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3296,6 +3346,706 @@ TextureImporter:
         height: 14
       alignment: 7
       pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_214
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 506
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_215
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 506
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_216
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 506
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_217
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 506
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_218
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 506
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_219
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 506
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_220
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 506
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_221
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 506
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_222
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 506
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_223
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 506
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_224
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 506
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_225
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 506
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_226
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 506
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_227
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 506
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_228
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 506
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_229
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 474
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_230
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 474
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_231
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 474
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_232
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 474
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_233
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 474
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_234
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 474
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_235
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 474
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_236
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 474
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_237
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 474
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_238
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 474
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_239
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 474
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_240
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 474
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_241
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 474
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_242
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 474
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_243
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 474
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_244
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 474
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_245
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 458
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_246
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 458
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_247
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 458
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_248
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 458
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_249
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 458
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_250
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 458
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_251
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 458
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_252
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 458
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_253
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 458
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_254
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 458
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_255
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 458
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_256
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 458
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_257
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 458
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_258
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 458
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_259
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 458
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Imperishable Night - Projectiles and Items_260
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 458
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Projectiles and Items_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 395
+        width: 30
+        height: 30
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Projectiles and Items_1
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 395
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Projectiles and Items_2
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 395
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

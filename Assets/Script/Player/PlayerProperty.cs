@@ -25,7 +25,7 @@ public class PlayerProperty : MonoBehaviour
     public enum PlayerStateType
     {
         Black,
-        White
+        Red
     };
     public PlayerStateType m_playerState;
 
