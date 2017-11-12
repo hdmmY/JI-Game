@@ -10,7 +10,11 @@ public class PlayerShoot : MonoBehaviour
     // The position of the bullet emit point.
     public List<Transform> m_shootList = new List<Transform>();
 
-    public GameObject m_bulletPrefab;
+    // Prefab of red status bullet
+    public GameObject m_redBulletPrefab;
+
+    // Prefab of black status bullet
+    public GameObject m_blackBulletPrefab;
 
     // Use this property to control damage and shot interval.
     private PlayerProperty _playerProperty;
@@ -77,14 +81,16 @@ public class PlayerShoot : MonoBehaviour
     // forceInstantiate: force to instantiate a bullet in object pool and get it.
     UbhBullet GetBullet(Vector3 position, Quaternion rotation, bool forceInstantiate = false)
     {
-        if(m_bulletPrefab == null)
+        GameObject bulletPrefab = (_playerProperty.m_playerState == PlayerProperty.PlayerStateType.Black) ? m_blackBulletPrefab : m_redBulletPrefab;
+
+        if(bulletPrefab == null)
         {
             return null;
         }
 
         // Get bullet gameobject from object pool
         var goBullet = UbhObjectPool.Instance.GetGameObject
-                    (m_bulletPrefab, position, rotation, forceInstantiate);
+                    (bulletPrefab, position, rotation, forceInstantiate);
         if(goBullet == null)
         {
             Debug.LogWarning("Fail to get the bullet from object pool!");

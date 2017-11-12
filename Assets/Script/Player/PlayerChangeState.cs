@@ -7,7 +7,7 @@ public class PlayerChangeState : MonoBehaviour
 
     public KeyCode m_ChangeStateKey;
 
-    public Sprite m_whiteSprite;
+    public Sprite m_redSprite;
     public Sprite m_blackSprite;
 
     public float m_Radius;
@@ -29,8 +29,8 @@ public class PlayerChangeState : MonoBehaviour
 
         switch (_property.m_playerState)
         {
-            case PlayerProperty.PlayerStateType.White:
-                _spriteRender.sprite = m_whiteSprite;
+            case PlayerProperty.PlayerStateType.Red:
+                _spriteRender.sprite = m_redSprite;
                 break;
 
             case PlayerProperty.PlayerStateType.Black:
@@ -56,14 +56,14 @@ public class PlayerChangeState : MonoBehaviour
         {
             switch (_property.m_playerState)
             {
-                case PlayerProperty.PlayerStateType.White:
+                case PlayerProperty.PlayerStateType.Red:
                     _property.m_playerState = PlayerProperty.PlayerStateType.Black;
                     _spriteRender.sprite = m_blackSprite;
                     break;
 
                 case PlayerProperty.PlayerStateType.Black:
-                    _property.m_playerState = PlayerProperty.PlayerStateType.White;
-                    _spriteRender.sprite = m_whiteSprite;
+                    _property.m_playerState = PlayerProperty.PlayerStateType.Red;
+                    _spriteRender.sprite = m_redSprite;
                     break;
             }
 
@@ -83,7 +83,7 @@ public class PlayerChangeState : MonoBehaviour
                         break;
 
 
-                    case PlayerProperty.PlayerStateType.White:
+                    case PlayerProperty.PlayerStateType.Red:
                         if (name.Contains("red"))
                         {
                             StartCoroutine(TriggerEnter());
