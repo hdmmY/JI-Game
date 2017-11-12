@@ -126,11 +126,7 @@
 
 				fixed4 texColor = tex2D(_MainTex, i.texcoord);
 
-				if(dissolve.r < _DissolveAmount || texColor.a < 0.05)
-				{
-					texColor.a = 0;
-					return texColor;	
-				}
+				clip(dissolve.g - _DissolveAmount);
 
 				fixed edge = Sobel(i);
 				return lerp(_EdgeColor, texColor, edge);
