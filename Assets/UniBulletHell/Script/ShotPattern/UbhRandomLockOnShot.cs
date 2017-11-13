@@ -49,7 +49,7 @@ public class UbhRandomLockOnShot : UbhRandomShot
             _TargetTransform = UbhUtil.GetTransformFromTagName(_TargetTagName);
         }
         if (_TargetTransform != null) {
-            _RandomCenterAngle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform, ShotCtrl.m_AxisMove);
+            _RandomCenterAngle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform);
         }
     }
 

@@ -65,8 +65,7 @@ public class PlayerShoot : MonoBehaviour
                     0, 0, 
                     false, null, 0, 0, 
                     false, 0, 0, 
-                    false, 0, 0, 
-                    UbhUtil.AXIS.X_AND_Y, true);
+                    false, 0, 0, true);
             bullet.m_damage = _playerProperty.m_bulletDamage;
         }
 

@@ -17,12 +17,7 @@ public class UbhShotCtrl : UbhMonoBehaviour
 
         // "Set a shot pattern component (inherits UbhBaseShot)."
         public UbhBaseShot _ShotObj;
-    }
-
-    // "Axis on bullet move."
-    [HideInInspector]
-    public UbhUtil.AXIS m_AxisMove = UbhUtil.AXIS.X_AND_Y;
-
+    }                                                           
 
     [HideInInspector] public bool m_FirstNotInLoop = false;
     [HideInInspector] public float m_InitFristEleDelay = 0f;

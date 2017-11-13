@@ -49,7 +49,7 @@ public class UbhWavingNwayLockOnShot : UbhWavingNwayShot
             _TargetTransform = UbhUtil.GetTransformFromTagName(_TargetTagName);
         }
         if (_TargetTransform != null) {
-            _WaveCenterAngle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform, ShotCtrl.m_AxisMove);
+            _WaveCenterAngle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform);
         }
     }
 

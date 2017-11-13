@@ -7,6 +7,9 @@ namespace SpecialShot
 {
     public class GlowwarmShot : UbhBaseShot
     {
+        [Space]
+        [Header("Special Properties")]
+
         // Set number of shot spiral way
         public int m_SpiralWayNum = 4;
 
@@ -104,37 +107,15 @@ namespace SpecialShot
                 yield break;
             }
 
-            UbhUtil.AXIS axisMove = ShotCtrl != null ? ShotCtrl.m_AxisMove : UbhUtil.AXIS.X_AND_Y;
-            if (axisMove == UbhUtil.AXIS.X_AND_Z) // X and Z axis
-            {
-                bulletTrans.SetEulerAnglesY(-angle);
-            }
-            else  // X and Y axis 
-            {
-                bulletTrans.SetEulerAnglesZ(angle);
-            }
+            bulletTrans.SetEulerAnglesZ(angle);
 
             while (true)
             {
                 float addAngle = angleSpeed * UbhTimer.Instance.DeltaTime;
-                if (axisMove == UbhUtil.AXIS.X_AND_Z) // X and Z axis
-                {
-                    bulletTrans.AddEulerAnglesY(-addAngle);
-                }
-                else // X and Y axis
-                {
-                    bulletTrans.AddEulerAnglesZ(addAngle);
-                }
+                bulletTrans.AddEulerAnglesZ(addAngle);
 
                 bulletSpeed += accelerationSpeed * UbhTimer.Instance.DeltaTime;
-                if (axisMove == UbhUtil.AXIS.X_AND_Z) // X and Z axis
-                {
-                    bulletTrans.position += bulletTrans.forward.normalized * bulletSpeed * UbhTimer.Instance.DeltaTime;
-                }
-                else // X and Y axis
-                {
-                    bulletTrans.position += bulletTrans.up.normalized * bulletSpeed * UbhTimer.Instance.DeltaTime;
-                }
+                bulletTrans.position += bulletTrans.up * bulletSpeed * UbhTimer.Instance.DeltaTime;
 
                 yield return 0;
 
@@ -154,8 +135,8 @@ namespace SpecialShot
                     {
                         break;
                     }
-                    ShotChildBullet(bulletUpper, bulletSpeed, angle + addAngleAfterChangeDirection, axisMove);
-                    ShotChildBullet(bulletUnder, bulletSpeed, angle - addAngleAfterChangeDirection, axisMove);
+                    ShotChildBullet(bulletUpper, bulletSpeed, angle + addAngleAfterChangeDirection);
+                    ShotChildBullet(bulletUnder, bulletSpeed, angle - addAngleAfterChangeDirection);
                     AutoReleaseBulletGameObject(bulletUpper.gameObject);
                     AutoReleaseBulletGameObject(bulletUnder.gameObject);
 
@@ -186,7 +167,7 @@ namespace SpecialShot
             if (bullet == null) return;
 
             bullet.Shot(speed, angle,
-                    0, 0, false, null, 0, 0, false, 0, 0, false, 0, 0, axisMove);
+                    0, 0, false, null, 0, 0, false, 0, 0, false, 0, 0);
         }
     }
 }

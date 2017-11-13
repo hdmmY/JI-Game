@@ -6046,7 +6046,7 @@ void TweenComplete()
                 if((string)args["axis"] == "z")
                 {
                     float angleZ = UbhUtil.GetAngleFromTwoPosition
-                        (target.transform, (Transform)args["looktarget"], UbhUtil.AXIS.X_AND_Y);
+                        (target.transform, (Transform)args["looktarget"]);
 
                     target.transform.SetEulerAnglesZ(angleZ);
                 }

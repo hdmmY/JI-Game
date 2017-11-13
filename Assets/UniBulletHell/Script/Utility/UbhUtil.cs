@@ -82,19 +82,12 @@ public static class UbhUtil
     /// <summary>
     /// Get angle from two transforms position.
     /// </summary>
-    public static float GetAngleFromTwoPosition (Transform fromTrans, Transform toTrans, UbhUtil.AXIS axisMove)
+    public static float GetAngleFromTwoPosition (Transform fromTrans, Transform toTrans)
     {
         if(fromTrans == null || toTrans == null)
             return 0f;
 
-        switch (axisMove) {
-            case AXIS.X_AND_Y:
-                return GetZangleFromTwoPosition(fromTrans.position, toTrans.position);
-            case AXIS.X_AND_Z:
-                return GetYangleFromTwoPosition(fromTrans.position, toTrans.position);
-            default:
-                return 0f;
-        }
+        return GetZangleFromTwoPosition(fromTrans.position, toTrans.position);
     }
 
     /// <summary>

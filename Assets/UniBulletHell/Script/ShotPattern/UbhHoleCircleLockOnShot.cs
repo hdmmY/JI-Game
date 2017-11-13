@@ -32,7 +32,7 @@ public class UbhHoleCircleLockOnShot : UbhHoleCircleShot
             return;
         }
 
-        _HoleCenterAngle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform, ShotCtrl.m_AxisMove);
+        _HoleCenterAngle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform);
 
         base.Shot();
     }

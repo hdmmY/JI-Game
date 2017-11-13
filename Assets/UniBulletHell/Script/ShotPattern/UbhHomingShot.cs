@@ -62,7 +62,7 @@ public class UbhHomingShot : UbhBaseShot
                 yield break;
             }
 
-            float angle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform, ShotCtrl.m_AxisMove);
+            float angle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform);
 
             ShotBullet(bullet, m_bulletSpeed, angle, true, _TargetTransform, _HomingAngleSpeed, _MaxHomingAngle);
 
