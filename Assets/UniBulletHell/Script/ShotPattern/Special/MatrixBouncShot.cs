@@ -45,6 +45,9 @@ namespace SpecialShot
         [Tooltip("The maximum times that bullet can bounce against the edge")]
         public int m_bounceTimes;
 
+        [Tooltip("Use to determine the bouce rect")]
+        public Transform m_background;
+
         public override void Shot()
         {
             StartCoroutine(ShotCoroutine());
@@ -67,15 +70,15 @@ namespace SpecialShot
             _Shooting = true;
 
 
-            for (int i = 0; i < m_bulletNum; i++)
+            for (int bulletNum = 0; bulletNum < m_bulletNum;)
             {
                 // Four direction: forwarad, right, back, left
                 for (int dir = 0; dir < 4; dir++)
                 {
                     // Start angle of each direction
-                    float startAngle = m_ShiftAngle + dir * 90f;
+                    float startAngle = m_ShiftAngle + dir * 90f;                                            
 
-                    float endAngle = m_ShiftAngle + (dir + 1) * 90f;
+                    float endAngle = startAngle + 90f;
 
                     // Delt angle of each bullet in the direction
                     float deltAngle = 90f / (m_NWay + 1);
@@ -91,15 +94,17 @@ namespace SpecialShot
                     // Each direction show NWay number of the bullet
                     for (int wayIndex = 0; wayIndex < m_NWay; wayIndex++)
                     {
+                        bulletNum++;
+                                                                                                  
                         var bullet = GetBullet(transform.position, transform.rotation);
                         if (bullet == null)
                         {
                             break;
                         }
 
-                        float angle = startAngle + deltAngle * wayIndex;
+                        float angle = (90f / (m_NWay + 1)) * (wayIndex + 1) + startAngle;
                         Vector3 destination = ((endPos - startPos) / (m_NWay + 1)) * (wayIndex + 1) + startPos;
-
+                              
                         ShotBullet(bullet, BulletMove(bullet, angle, startAngle + 45, destination));
                         AutoReleaseBulletGameObject(bullet.gameObject);
                     }
@@ -130,45 +135,234 @@ namespace SpecialShot
             float speedAfterWait = m_speedAfterWait;
             float maxBounceTimes = m_bounceTimes;
 
+            Rect edgeRect = new Rect(m_background.position, m_background.localScale);
+            edgeRect.Set(edgeRect.x - edgeRect.width / 2, edgeRect.y - edgeRect.height / 2, edgeRect.width, edgeRect.height);
+
             if (bulletTrans == null)
             {
                 Debug.LogWarning("The shooting bullet is not exist!");
                 yield break;
             }
 
-            bulletTrans.SetEulerAnglesZ(afterAngle);
+            bulletTrans.SetEulerAnglesZ(beforeAngle - 90f);
 
-            // Bullet move speed before waiting.
-            float beforeSpeed = (bulletTrans.position - destination).magnitude / timeToReachRect;
-            // Bullet move direction before waiting
-            Vector3 beforeDirection = transform.up;
+            Vector3 startPosition = bulletTrans.position;
+            float timer = 0f;
             // Bullet movement before waiting.
-            while(true)
+            while (true)
             {
-                bulletTrans.position += beforeDirection * beforeSpeed * UbhTimer.Instance.DeltaTime;
+                float t = timer / timeToReachRect;
+                bulletTrans.position = Vector3.Lerp(startPosition, destination, t);
+                timer += UbhTimer.Instance.DeltaTime;
 
-                // Use vector dot to determine if bullet reach the destination
-                Vector3 line = destination - bulletTrans.position;
-                if (Vector3.Dot(line, beforeDirection) < 0) break;
+                if(Mathf.Abs(t - 1) < 0.01f)
+                {
+                    break;
+                }
+
+                yield return null;
             }
-
 
             // Wait for a while
             yield return UbhUtil.WaitForSeconds(waitTime);
 
+            bulletTrans.SetEulerAnglesZ(afterAngle - 90);
 
             // Bullet movement after waiting, it will bouncing against the edge
-            int bounceTime;
-            while(true)
-            {
-                Vector3 direction = transform.forward;
+            int bounceTime = 0;
+            while (true)
+            {                                           
+                Vector3 newPosition = bulletTrans.position + bulletTrans.up * speedAfterWait * UbhTimer.Instance.DeltaTime;
 
+                if (edgeRect.Contains(newPosition) || bounceTime >= maxBounceTimes)
+                {
+                    bulletTrans.position = newPosition;
+                }
+                else // cross with edge 
+                {
+                    bulletTrans.position = GetIntersectWithRect(bulletTrans.position, newPosition, ref edgeRect, ref afterAngle);
+                    bulletTrans.SetEulerAnglesZ(afterAngle - 90);
+                    bounceTime++;
+                }
+
+                yield return null;
             }
         }
 
 
+        private Vector2 GetIntersectWithRect(Vector2 origin, Vector2 end, ref Rect rect, ref float afterAngle)
+        {
+            bool cross;
+
+            Vector2 upRight = rect.center + new Vector2(rect.width / 2, rect.height / 2);
+            Vector2 upLeft = rect.center + new Vector2(-rect.width / 2, rect.height / 2);
+            Vector2 downRight = rect.center + new Vector2(rect.width / 2, -rect.height / 2);
+            Vector2 downLeft = rect.center + new Vector2(-rect.width / 2, -rect.height / 2);
+
+            Vector2 closestPoint;
+            Vector2 originDir = end - origin;
+            Vector2 newDir;
+
+            afterAngle = UbhUtil.Get360Angle(afterAngle);
+
+            closestPoint = GetClosePoint(ref origin, ref end, ref upRight, ref downRight, out cross);
+            if (cross)
+            {
+                newDir = new Vector2(-originDir.x, originDir.y);
+                afterAngle = originDir.y > 0 ? 180 - afterAngle : 540 - afterAngle;
+                return closestPoint + newDir;
+            }
+
+            closestPoint = GetClosePoint(ref origin, ref end, ref downRight, ref downLeft, out cross);
+            if (cross)
+            {
+                newDir = new Vector2(originDir.x, -originDir.y);
+                afterAngle = 360 - afterAngle; 
+                return closestPoint + newDir;
+            }
+
+            closestPoint = GetClosePoint(ref origin, ref end, ref downLeft, ref upLeft, out cross);
+            if (cross)
+            {
+                newDir = new Vector2(-originDir.x, originDir.y);
+                afterAngle = originDir.y > 0 ? 180 - afterAngle : 540 - afterAngle;
+                return closestPoint + newDir;
+            }
+
+            closestPoint = GetClosePoint(ref origin, ref end, ref upLeft, ref upRight, out cross);
+            newDir = new Vector2(originDir.x, -originDir.y);
+            afterAngle = 360 - afterAngle;
+            return closestPoint + newDir;
+        }
+
+
+        /// <summary>
+        /// Get the cross point
+        /// </summary>
+        /// <param name="start"> start of the line </param>
+        /// <param name="end"> end of the line </param>
+        /// <param name="rect"> edge rect </param>
+        /// <returns></returns>
+        private Vector2 GetClosePoint(ref Vector2 segment0_origin, ref Vector2 segment0_end, ref Vector2 segment1_origin, ref Vector2 segment1_end, out bool cross)
+        {
+            Vector2 segment0_dir = segment0_end - segment0_origin;
+            Vector2 segment1_dir = segment1_end - segment1_origin;
+
+            Vector2 w0 = segment0_origin - segment1_origin;
+            float a = segment0_dir.x * segment0_dir.x + segment0_dir.y * segment0_dir.y;
+            float b = segment0_dir.x * segment1_dir.x + segment0_dir.y * segment1_dir.y;
+            float c = segment1_dir.x * segment1_dir.x + segment1_dir.y * segment1_dir.y;
+            float d = segment0_dir.x * w0.x + segment0_dir.y * w0.y;
+            float e = segment1_dir.x * w0.x + segment1_dir.y * w0.y;
+
+            float denom = a * c - b * b;
+            float s_c, t_c;
+            float sn, sd, tn, td;  // parameters to compute s_c, t_c
+
+            if (Mathf.Approximately(denom, 0))
+            {
+                // clamp s_c to 0
+                sd = td = c;
+                sn = 0.0f;
+                tn = e;
+            }
+            else
+            {
+                // clamp s_c within [0,1]
+                sd = td = denom;
+                sn = b * e - c * d;
+                tn = a * e - b * d;
+
+                // clamp s_c to 0
+                if (sn < 0.0f)
+                {
+                    sn = 0.0f;
+                    tn = e;
+                    td = c;
+                }
+                // clamp s_c to 1
+                else if (sn > sd)
+                {
+                    sn = sd;
+                    tn = e + b;
+                    td = c;
+                }
+            }
+
+            // clamp t_c within [0,1]
+            // clamp t_c to 0
+            if (tn < 0.0f)
+            {
+                t_c = 0.0f;
+                // clamp s_c to 0
+                if (-d < 0.0f)
+                {
+                    s_c = 0.0f;
+                }
+                // clamp s_c to 1
+                else if (-d > a)
+                {
+                    s_c = 1.0f;
+                }
+                else
+                {
+                    s_c = -d / a;
+                }
+            }
+            // clamp t_c to 1
+            else if (tn > td)
+            {
+                t_c = 1.0f;
+                // clamp s_c to 0
+                if ((-d + b) < 0.0f)
+                {
+                    s_c = 0.0f;
+                }
+                // clamp s_c to 1
+                else if ((-d + b) > a)
+                {
+                    s_c = 1.0f;
+                }
+                else
+                {
+                    s_c = (-d + b) / a;
+                }
+            }
+            else
+            {
+                t_c = tn / td;
+                s_c = sn / sd;
+            }
+
+            Vector2 wc = w0 + s_c * segment0_dir - t_c * segment1_dir;
+            Vector2 result = s_c * segment0_dir + segment0_origin;
+            float wc2 = wc.x * wc.x + wc.y * wc.y;
+
+            if (wc2 > -0.05f && wc2 < 0.05f)
+            {
+                cross = true;
+                return result;
+            }
+            else
+            {
+                cross = false;
+                return Vector2.zero;
+            }                      
+        }
+
+
+
+
         private void OnDrawGizmosSelected()
         {
+            // Draw the bounce edge
+            if (m_background != null)
+            {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawWireCube(m_background.position, m_background.localScale);
+            }
+
+
             // Four direction: forwarad, right, back, left
             for (int dir = 0; dir < 4; dir++)
             {

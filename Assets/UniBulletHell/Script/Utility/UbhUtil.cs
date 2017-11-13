@@ -6,15 +6,7 @@ using System.Collections;
 /// </summary>
 public static class UbhUtil
 {
-    /// <summary>
-    /// Move axis types.
-    /// </summary>
-    public enum AXIS
-    {
-        X_AND_Y,
-        X_AND_Z,
-    }
-
+    
     /// <summary>
     /// Determines if is mobile platform.
     /// </summary>
@@ -93,16 +85,9 @@ public static class UbhUtil
     /// <summary>
     /// Get angle from two transforms position.
     /// </summary>
-    public static float GetAngleFromTwoPosition (Vector3 fromPos, Vector3 toPos, UbhUtil.AXIS axisMove)
+    public static float GetAngleFromTwoPosition (Vector3 fromPos, Vector3 toPos)
     {
-        switch (axisMove) {
-            case AXIS.X_AND_Y:
-                return GetZangleFromTwoPosition(fromPos, toPos);
-            case AXIS.X_AND_Z:
-                return GetYangleFromTwoPosition(fromPos, toPos);
-            default:
-                return 0f;
-        }
+        return GetZangleFromTwoPosition(fromPos, toPos);
     }
 
 

@@ -27,12 +27,12 @@ public class Monster_AnimCtrl : MonoBehaviour
         if(curDistance < _preDistanceToTarget)
         {
             // The monster is moving to target, so the angle is from prev position to cur position.
-             _angle = UbhUtil.GetAngleFromTwoPosition(_prePosition, transform.position, UbhUtil.AXIS.X_AND_Y);
+             _angle = UbhUtil.GetAngleFromTwoPosition(_prePosition, transform.position);
         }
         else
         {
             // The monster is going away from target, so the angle is from cur position to prev position.
-             _angle = UbhUtil.GetAngleFromTwoPosition(transform.position, _prePosition, UbhUtil.AXIS.X_AND_Y);
+             _angle = UbhUtil.GetAngleFromTwoPosition(transform.position, _prePosition);
         }
         _angle = UbhUtil.Get360Angle(_angle + 90f);  // I don't know why, it works.
 

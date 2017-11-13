@@ -161,8 +161,7 @@ namespace SpecialShot
 
 
         // Different from ShotBullet Method(in UbhBaseShot Class), it just care about bullet angle and speed
-        private void ShotChildBullet(UbhBullet bullet, float speed, float angle,
-                UbhUtil.AXIS axisMove = UbhUtil.AXIS.X_AND_Y)
+        private void ShotChildBullet(UbhBullet bullet, float speed, float angle)
         {
             if (bullet == null) return;
 
