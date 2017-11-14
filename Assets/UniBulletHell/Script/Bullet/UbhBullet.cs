@@ -104,7 +104,7 @@ public class UbhBullet : UbhMonoBehaviour
             }
             else
             {
-                // acceleration turning.
+                // turning.
                 float addAngle = angleSpeed * GetDeltTime(useRealTime);
                 transform.AddEulerAnglesZ(addAngle);
             }
