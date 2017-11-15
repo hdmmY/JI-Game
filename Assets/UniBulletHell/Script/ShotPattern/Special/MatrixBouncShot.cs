@@ -25,11 +25,7 @@ namespace SpecialShot
         [Range(0f, 90f)]
         [Tooltip("Shift angle of spiral")]
         public float m_ShiftAngle = 30f;
-
-        [Range(0.2f, 2f)]
-        [Tooltip("The time delay between bullet and next shoot bullet in the same spiral way")]
-        public float m_BulletEmitInterval = 0.2f;
-
+                                                     
         [Range(0.1f, 5f)]
         [Tooltip("Time that bullet will cost to reach the rect edge")]
         public float m_timeToReachRectEdge;
@@ -37,13 +33,6 @@ namespace SpecialShot
         [Range(0, 3f)]
         [Tooltip("Time that bullet will waiting")]
         public float m_waitingTime;
-
-        [Tooltip("Bullet speed after waiting")]
-        public float m_speedAfterWait;
-
-        [Range(0, 10)]
-        [Tooltip("The maximum times that bullet can bounce against the edge")]
-        public int m_bounceTimes;
 
         [Tooltip("Use to determine the bouce rect")]
         public Transform m_background;
@@ -63,6 +52,12 @@ namespace SpecialShot
                 yield break;
             }
 
+            if(m_bulletNum != m_NWay * 4)
+            {
+                Debug.LogWarning("Cannot shot because BulletNum != NWay * 4!");
+                yield break;
+            }
+
             if (_Shooting)
             {
                 yield break;
@@ -70,49 +65,37 @@ namespace SpecialShot
             _Shooting = true;
 
 
-            for (int bulletNum = 0; bulletNum < m_bulletNum;)
+            // Four direction: forwarad, right, back, left
+            for (int dir = 0; dir < 4; dir++)
             {
-                // Four direction: forwarad, right, back, left
-                for (int dir = 0; dir < 4; dir++)
-                {
-                    // Start angle of each direction
-                    float startAngle = m_ShiftAngle + dir * 90f;                                            
+                // Start angle of each direction
+                float startAngle = m_ShiftAngle + dir * 90f;
+                // End angle of each direction
+                float endAngle = startAngle + 90f;
 
-                    float endAngle = startAngle + 90f;
+                float length = 1 / Mathf.Sqrt(2) * m_RectWidth;
+                Vector3 startPos = new Vector3(Mathf.Cos(Mathf.Deg2Rad * startAngle), Mathf.Sin(Mathf.Deg2Rad * startAngle), 0);
+                startPos *= length;
+                startPos += transform.position;
+                Vector3 endPos = new Vector3(Mathf.Cos(Mathf.Deg2Rad * endAngle), Mathf.Sin(Mathf.Deg2Rad * endAngle), 0);
+                endPos *= length;
+                endPos += transform.position;
 
-                    // Delt angle of each bullet in the direction
-                    float deltAngle = 90f / (m_NWay + 1);
-
-                    float length = 1 / Mathf.Sqrt(2) * m_RectWidth;
-                    Vector3 startPos = new Vector3(Mathf.Cos(Mathf.Deg2Rad * startAngle), Mathf.Sin(Mathf.Deg2Rad * startAngle), 0);
-                    startPos *= length;
-                    startPos += transform.position;
-                    Vector3 endPos = new Vector3(Mathf.Cos(Mathf.Deg2Rad * endAngle), Mathf.Sin(Mathf.Deg2Rad * endAngle), 0);
-                    endPos *= length;
-                    endPos += transform.position;
-
-                    // Each direction show NWay number of the bullet
-                    for (int wayIndex = 0; wayIndex < m_NWay; wayIndex++)
+                // Each direction show NWay number of the bullet
+                for (int wayIndex = 0; wayIndex < m_NWay; wayIndex++)
+                {                                         
+                    var bullet = GetBullet(transform.position, transform.rotation);
+                    if (bullet == null)
                     {
-                        bulletNum++;
-                        if (bulletNum >= m_bulletNum) break;
-                                                                                                  
-                        var bullet = GetBullet(transform.position, transform.rotation);
-                        if (bullet == null)
-                        {
-                            break;
-                        }
-
-                        float angle = (90f / (m_NWay + 1)) * (wayIndex + 1) + startAngle;
-                        Vector3 destination = ((endPos - startPos) / (m_NWay + 1)) * (wayIndex + 1) + startPos;
-                              
-                        ShotBullet(bullet, BulletMove(bullet, angle, startAngle + 45, destination));
-                        AutoReleaseBulletGameObject(bullet.gameObject);
+                        break;
                     }
-                }
 
-                if (m_BulletEmitInterval > 0f)
-                    yield return StartCoroutine(UbhUtil.WaitForSeconds(m_BulletEmitInterval));
+                    float angle = (90f / (m_NWay + 1)) * (wayIndex + 1) + startAngle;
+                    Vector3 destination = ((endPos - startPos) / (m_NWay + 1)) * (wayIndex + 1) + startPos;
+
+                    ShotBullet(bullet, BulletMove(bullet, angle, startAngle + 45, destination));
+                    AutoReleaseBulletGameObject(bullet.gameObject);
+                }
             }
 
             _Shooting = false;
@@ -133,12 +116,8 @@ namespace SpecialShot
 
             float timeToReachRect = m_timeToReachRectEdge;
             float waitTime = m_waitingTime;
-            float speedAfterWait = m_speedAfterWait;
-            float maxBounceTimes = m_bounceTimes;
-
-            Rect edgeRect = new Rect(m_background.position, m_background.localScale);
-            edgeRect.Set(edgeRect.x - edgeRect.width / 2, edgeRect.y - edgeRect.height / 2, edgeRect.width, edgeRect.height);
-
+            Transform backgroundRect = m_background;
+            
             if (bulletTrans == null)
             {
                 Debug.LogWarning("The shooting bullet is not exist!");
@@ -163,31 +142,16 @@ namespace SpecialShot
 
                 yield return null;
             }
-
-            // Wait for a while
-            yield return UbhUtil.WaitForSeconds(waitTime);
-
             bulletTrans.SetEulerAnglesZ(afterAngle - 90);
 
-            // Bullet movement after waiting, it will bouncing against the edge
-            int bounceTime = 0;
-            while (true)
-            {                                           
-                Vector3 newPosition = bulletTrans.position + bulletTrans.up * speedAfterWait * UbhTimer.Instance.DeltaTime;
+            // Wait for a while
+            yield return UbhUtil.WaitForSeconds(waitTime);            
 
-                if (edgeRect.Contains(newPosition) || bounceTime >= maxBounceTimes)
-                {
-                    bulletTrans.position = newPosition;
-                }
-                else // cross with edge 
-                {
-                    bulletTrans.position = GetIntersectWithRect(bulletTrans.position, newPosition, ref edgeRect, ref afterAngle);
-                    bulletTrans.SetEulerAnglesZ(afterAngle - 90);
-                    bounceTime++;
-                }
-
-                yield return null;
-            }
+            // Get bounce shot component
+            var bounceShot = bulletTrans.GetChild(0).GetComponent<LinearBounceShot>();
+            bounceShot.m_background = backgroundRect;
+            bounceShot.m_shotAngle = afterAngle;
+            bounceShot.Shot();
         }
 
 
@@ -237,7 +201,7 @@ namespace SpecialShot
             crossPoint = originDir * t + origin;
             newDir = new Vector2(-originDir.x, originDir.y);
             afterAngle = originDir.y > 0 ? 180 - afterAngle : 540 - afterAngle;
-            return crossPoint + newDir;
+            return crossPoint + newDir; 
         }
 
 

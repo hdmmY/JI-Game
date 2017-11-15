@@ -25,7 +25,7 @@ public class PlayerProperty : MonoBehaviour
     public enum PlayerStateType
     {
         Black,
-        Red
+        White
     };
     public PlayerStateType m_playerState;
 
@@ -37,4 +37,6 @@ public class PlayerProperty : MonoBehaviour
     };
 
     public PlayerMoveType m_playerMoveState;
+
+    public SpriteRenderer m_spriteReference;
 }

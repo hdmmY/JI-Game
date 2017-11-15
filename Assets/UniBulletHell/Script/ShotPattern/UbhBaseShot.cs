@@ -31,7 +31,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
     public bool m_useAutoRelease = true;
     // "Set a time to automatically release after the shot at using UseAutoRelease. (sec)"
     // "That is the bullet life time."
-    public float m_autoReleaseTime = 10f;
+    public float m_autoReleaseTime = 20f;
     // "Set a GameObject that receives callback method when shooting is over."
     [HideInInspector] public GameObject m_callbackReceiver;
     // "Set a name of callback method at using Call Back Receiver."
@@ -120,6 +120,36 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
 
         // get Bullet GameObject from ObjectPool
         var goBullet = UbhObjectPool.Instance.GetGameObject(m_bulletPrefab, position, rotation, forceInstantiate);
+        if (goBullet == null)
+        {
+            return null;
+        }
+
+        // get or add UbhBullet component
+        var bullet = goBullet.GetComponent<UbhBullet>();
+        if (bullet == null)
+        {
+            bullet = goBullet.AddComponent<UbhBullet>();
+        }
+
+        return bullet;
+    }
+
+    /// <summary>
+    /// Get bullet from object pool.
+    /// </summary>                        
+    /// <param name="forceInstantiate"> force the pool to return an instantiate bullet. </param>
+    /// <returns></returns>
+    protected UbhBullet GetBullet(GameObject bulletPrefab, Vector3 position, Quaternion rotation, bool forceInstantiate = false)
+    {
+        if (bulletPrefab == null)
+        {
+            Debug.LogWarning("Cannot generate a bullet because BulletPrefab is not set.");
+            return null;
+        }
+
+        // get Bullet GameObject from ObjectPool
+        var goBullet = UbhObjectPool.Instance.GetGameObject(bulletPrefab, position, rotation, forceInstantiate);
         if (goBullet == null)
         {
             return null;
