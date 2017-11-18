@@ -13,7 +13,12 @@ public class PlayerTakeDamage: MonoBehaviour
     // The player property. 
     public PlayerProperty m_playerProperty; 
 
-    public SpriteRenderer m_playerSprite;
+    private SpriteRenderer _playerSprite;
+
+    private void OnEnable()
+    {
+        _playerSprite = m_playerProperty.m_spriteReference;
+    }
 
     // Player Death.
     void OnTriggerEnter2D(Collider2D other)
@@ -33,9 +38,9 @@ public class PlayerTakeDamage: MonoBehaviour
 
     IEnumerator TurnOnGodMode()
     {
-        Color prevColor = m_playerSprite.color;
-  
-        m_playerSprite.color = new Color(prevColor.r, 
+        Color prevColor = _playerSprite.color;
+
+        _playerSprite.color = new Color(prevColor.r, 
                                          prevColor.g, 
                                          prevColor.b,
                                          0.3f);
@@ -43,8 +48,8 @@ public class PlayerTakeDamage: MonoBehaviour
 
         yield return new WaitForSeconds(m_godModeTime);
 
-        m_playerProperty.m_tgm = false;                         
-        m_playerSprite.color = prevColor;             
+        m_playerProperty.m_tgm = false;
+        _playerSprite.color = prevColor;             
     }
 
 }

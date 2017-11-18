@@ -11,7 +11,7 @@ public class PlayerShoot : MonoBehaviour
     public List<Transform> m_shootList = new List<Transform>();
 
     // Prefab of red status bullet
-    public GameObject m_redBulletPrefab;
+    public GameObject m_whiteBulletPrefab;
 
     // Prefab of black status bullet
     public GameObject m_blackBulletPrefab;
@@ -65,8 +65,7 @@ public class PlayerShoot : MonoBehaviour
                     0, 0, 
                     false, null, 0, 0, 
                     false, 0, 0, 
-                    false, 0, 0, 
-                    UbhUtil.AXIS.X_AND_Y, true);
+                    false, 0, 0, true);
             bullet.m_damage = _playerProperty.m_bulletDamage;
         }
 
@@ -81,7 +80,7 @@ public class PlayerShoot : MonoBehaviour
     // forceInstantiate: force to instantiate a bullet in object pool and get it.
     UbhBullet GetBullet(Vector3 position, Quaternion rotation, bool forceInstantiate = false)
     {
-        GameObject bulletPrefab = (_playerProperty.m_playerState == PlayerProperty.PlayerStateType.Black) ? m_blackBulletPrefab : m_redBulletPrefab;
+        GameObject bulletPrefab = (_playerProperty.m_playerState == PlayerProperty.PlayerStateType.Black) ? m_blackBulletPrefab : m_whiteBulletPrefab;
 
         if(bulletPrefab == null)
         {

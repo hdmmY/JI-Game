@@ -26,16 +26,16 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
     // "Set a time to resume bullet."
     public float m_resumeTime = 0f;
     // "This flag settings pooling bullet GameObject from object pool at initial awake."
-    public bool m_initialPooling = false;
+    [HideInInspector] public bool m_initialPooling = false;
     // "This flag is automatically release the bullet GameObject at the specified time."
-    public bool m_useAutoRelease = false;
+    public bool m_useAutoRelease = true;
     // "Set a time to automatically release after the shot at using UseAutoRelease. (sec)"
     // "That is the bullet life time."
-    public float m_autoReleaseTime = 10f;
+    public float m_autoReleaseTime = 20f;
     // "Set a GameObject that receives callback method when shooting is over."
-    public GameObject m_callbackReceiver;
+    [HideInInspector] public GameObject m_callbackReceiver;
     // "Set a name of callback method at using Call Back Receiver."
-    public string m_callbackMethod;
+    [HideInInspector] public string m_callbackMethod;
 
     protected UbhShotCtrl ShotCtrl
     {
@@ -136,6 +136,36 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
     }
 
     /// <summary>
+    /// Get bullet from object pool.
+    /// </summary>                        
+    /// <param name="forceInstantiate"> force the pool to return an instantiate bullet. </param>
+    /// <returns></returns>
+    protected UbhBullet GetBullet(GameObject bulletPrefab, Vector3 position, Quaternion rotation, bool forceInstantiate = false)
+    {
+        if (bulletPrefab == null)
+        {
+            Debug.LogWarning("Cannot generate a bullet because BulletPrefab is not set.");
+            return null;
+        }
+
+        // get Bullet GameObject from ObjectPool
+        var goBullet = UbhObjectPool.Instance.GetGameObject(bulletPrefab, position, rotation, forceInstantiate);
+        if (goBullet == null)
+        {
+            return null;
+        }
+
+        // get or add UbhBullet component
+        var bullet = goBullet.GetComponent<UbhBullet>();
+        if (bullet == null)
+        {
+            bullet = goBullet.AddComponent<UbhBullet>();
+        }
+
+        return bullet;
+    }
+
+    /// <summary>
     /// Abstract shot method.
     /// It is not the shot bullet method.
     /// </summary>
@@ -155,14 +185,13 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
         bullet.Shot(speed, angle, m_angleSpeed, m_accelerationSpeed,
                     homing, homingTarget, homingAngleSpeed, maxHomingAngle,
                     wave, waveSpeed, waveRangeSize,
-                    m_usePauseAndResume, m_pauseTime, m_resumeTime,
-                    ShotCtrl != null ? ShotCtrl.m_AxisMove : UbhUtil.AXIS.X_AND_Y);
+                    m_usePauseAndResume, m_pauseTime, m_resumeTime);
     }
 
 
     protected void ShotBullet(UbhBullet bullet, IEnumerator bulletMoveRoutine)
     {
-        if(bullet == null)
+        if (bullet == null)
         {
             return;
         }

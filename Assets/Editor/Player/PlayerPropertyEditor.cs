@@ -44,7 +44,7 @@ public class PlayerPropertyEditor : Editor
         _targetScript.m_slowHorizontalSpeed = EditorGUILayout.FloatField(_targetScript.m_slowHorizontalSpeed);
         EditorGUILayout.EndHorizontal();
 
-        
+
 
         EditorGUI.indentLevel--;
         #endregion
@@ -90,6 +90,16 @@ public class PlayerPropertyEditor : Editor
 
         EditorGUI.indentLevel--;
 
+        #endregion
+                           
+        #region Reference
+        EditorGUILayout.PrefixLabel("Reference");
+
+        EditorGUI.indentLevel++;
+
+        _targetScript.m_spriteReference = EditorGUILayout.ObjectField("Player SpriteRenderer", _targetScript.m_spriteReference, typeof(SpriteRenderer), true) as SpriteRenderer;
+
+        EditorGUI.indentLevel--;
         #endregion
     }
 }

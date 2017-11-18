@@ -7,7 +7,7 @@ public class PlayerChangeState : MonoBehaviour
 
     public KeyCode m_ChangeStateKey;
 
-    public Sprite m_redSprite;
+    public Sprite m_whiteSprite;
     public Sprite m_blackSprite;
 
     public float m_Radius;
@@ -24,13 +24,13 @@ public class PlayerChangeState : MonoBehaviour
     private void Start()
     {
         _property = GetComponent<PlayerProperty>();
-        _spriteRender = GetComponent<SpriteRenderer>();
+        _spriteRender = _property.m_spriteReference;
 
 
         switch (_property.m_playerState)
         {
-            case PlayerProperty.PlayerStateType.Red:
-                _spriteRender.sprite = m_redSprite;
+            case PlayerProperty.PlayerStateType.White:
+                _spriteRender.sprite = m_whiteSprite;
                 break;
 
             case PlayerProperty.PlayerStateType.Black:
@@ -56,14 +56,14 @@ public class PlayerChangeState : MonoBehaviour
         {
             switch (_property.m_playerState)
             {
-                case PlayerProperty.PlayerStateType.Red:
+                case PlayerProperty.PlayerStateType.White:
                     _property.m_playerState = PlayerProperty.PlayerStateType.Black;
                     _spriteRender.sprite = m_blackSprite;
                     break;
 
                 case PlayerProperty.PlayerStateType.Black:
-                    _property.m_playerState = PlayerProperty.PlayerStateType.Red;
-                    _spriteRender.sprite = m_redSprite;
+                    _property.m_playerState = PlayerProperty.PlayerStateType.White;
+                    _spriteRender.sprite = m_whiteSprite;
                     break;
             }
 
@@ -83,8 +83,8 @@ public class PlayerChangeState : MonoBehaviour
                         break;
 
 
-                    case PlayerProperty.PlayerStateType.Red:
-                        if (name.Contains("red"))
+                    case PlayerProperty.PlayerStateType.White:
+                        if (name.Contains("white"))
                         {
                             StartCoroutine(TriggerEnter());
                         }

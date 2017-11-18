@@ -28,7 +28,7 @@ public class UbhBullet : UbhMonoBehaviour
     public void Shot(float speed, float angle, float angleSpeed, float accelSpeed,
                       bool homing, Transform homingTarget, float homingAngleSpeed, float maxHomingAngle,
                       bool wave, float waveSpeed, float waveRangeSize,
-                      bool pauseAndResume, float pauseTime, float resumeTime, UbhUtil.AXIS axisMove, bool useRealTime = false)
+                      bool pauseAndResume, float pauseTime, float resumeTime, bool useRealTime = false)
     {
         if (_Shooting)
         {
@@ -39,7 +39,7 @@ public class UbhBullet : UbhMonoBehaviour
         StartCoroutine(MoveCoroutine(speed, angle, angleSpeed, accelSpeed,
                                     homing, homingTarget, homingAngleSpeed, maxHomingAngle,
                                     wave, waveSpeed, waveRangeSize,
-                                    pauseAndResume, pauseTime, resumeTime, axisMove, useRealTime));
+                                    pauseAndResume, pauseTime, resumeTime, useRealTime));
 
         //UbhBullet testBullet = new UbhBullet();
         //testBullet._Shooting = false;
@@ -63,18 +63,9 @@ public class UbhBullet : UbhMonoBehaviour
     IEnumerator MoveCoroutine(float speed, float angle, float angleSpeed, float accelSpeed,
                             bool homing, Transform homingTarget, float homingAngleSpeed, float maxHomingAngle,
                             bool wave, float waveSpeed, float waveRangeSize,
-                            bool pauseAndResume, float pauseTime, float resumeTime, UbhUtil.AXIS axisMove, bool useRealTime = false)
+                            bool pauseAndResume, float pauseTime, float resumeTime, bool useRealTime = false)
     {
-        if (axisMove == UbhUtil.AXIS.X_AND_Z)
-        {
-            // X and Z axis
-            transform.SetEulerAnglesY(-angle);
-        }
-        else
-        {
-            // X and Y axis
-            transform.SetEulerAnglesZ(angle);
-        }
+        transform.SetEulerAnglesZ(angle);
 
         float selfFrameCnt = 0f;
         float selfTimeCount = 0f;
@@ -87,34 +78,14 @@ public class UbhBullet : UbhMonoBehaviour
                 // homing target.
                 if (homingTarget != null && 0f < homingAngleSpeed)
                 {
-                    float rotAngle = UbhUtil.GetAngleFromTwoPosition(transform, homingTarget, axisMove);
-                    float myAngle = 0f;
-                    if (axisMove == UbhUtil.AXIS.X_AND_Z)
-                    {
-                        // X and Z axis
-                        myAngle = -transform.eulerAngles.y;
-                    }
-                    else
-                    {
-                        // X and Y axis
-                        myAngle = transform.eulerAngles.z;
-                    }
-
+                    float rotAngle = UbhUtil.GetAngleFromTwoPosition(transform, homingTarget);
+                    float myAngle = transform.eulerAngles.z;
                     float toAngle = Mathf.MoveTowardsAngle(myAngle, rotAngle, GetDeltTime(useRealTime) * homingAngleSpeed);
 
                     homingAngle += Mathf.Abs(myAngle - toAngle) >= 30 ? 0 : Mathf.Abs(myAngle - toAngle);
                     if (homingAngle >= maxHomingAngle) homing = false;
 
-                    if (axisMove == UbhUtil.AXIS.X_AND_Z)
-                    {
-                        // X and Z axis
-                        transform.SetEulerAnglesY(-toAngle);
-                    }
-                    else
-                    {
-                        // X and Y axis
-                        transform.SetEulerAnglesZ(toAngle);
-                    }
+                    transform.SetEulerAnglesZ(toAngle);
                 }
 
             }
@@ -126,50 +97,23 @@ public class UbhBullet : UbhMonoBehaviour
                 if (0f < waveSpeed && 0f < waveRangeSize)
                 {
                     float waveAngle = angle + (waveRangeSize / 2f * Mathf.Sin(selfFrameCnt * waveSpeed / 100f));
-                    if (axisMove == UbhUtil.AXIS.X_AND_Z)
-                    {
-                        // X and Z axis
-                        transform.SetEulerAnglesY(-waveAngle);
-                    }
-                    else
-                    {
-                        // X and Y axis
-                        transform.SetEulerAnglesZ(waveAngle);
-                    }
+                    transform.SetEulerAnglesZ(waveAngle);
                 }
                 selfFrameCnt++;
 
             }
             else
             {
-                // acceleration turning.
+                // turning.
                 float addAngle = angleSpeed * GetDeltTime(useRealTime);
-                if (axisMove == UbhUtil.AXIS.X_AND_Z)
-                {
-                    // X and Z axis
-                    transform.AddEulerAnglesY(-addAngle);
-                }
-                else
-                {
-                    // X and Y axis
-                    transform.AddEulerAnglesZ(addAngle);
-                }
+                transform.AddEulerAnglesZ(addAngle);
             }
 
             // acceleration speed.
             speed += (accelSpeed * GetDeltTime(useRealTime));
 
             // move.
-            if (axisMove == UbhUtil.AXIS.X_AND_Z)
-            {
-                // X and Z axis
-                transform.position += transform.forward.normalized * speed * GetDeltTime(useRealTime);
-            }
-            else
-            {
-                // X and Y axis
-                transform.position += transform.up.normalized * speed * GetDeltTime(useRealTime);
-            }
+            transform.position += transform.up * speed * GetDeltTime(useRealTime);
 
             yield return 0;
 

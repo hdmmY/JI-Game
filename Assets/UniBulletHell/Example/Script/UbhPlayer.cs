@@ -14,8 +14,6 @@ public class UbhPlayer : UbhMonoBehaviour
     GameObject m_bulletPrefab;
     [SerializeField]
     float _ShotDelay;
-    [SerializeField]
-    UbhUtil.AXIS _UseAxis = UbhUtil.AXIS.X_AND_Y;
     UbhSpaceship _Spaceship;
     UbhManager _Manager;
     Transform _BackgroundTransform;
@@ -97,20 +95,12 @@ public class UbhPlayer : UbhMonoBehaviour
         }
 
         Vector2 pos = transform.position;
-        if (_UseAxis == UbhUtil.AXIS.X_AND_Z) {
-            pos.y = transform.position.z;
-        }
 
         pos += direction * _Spaceship._Speed * Time.deltaTime;
-
         pos.x = Mathf.Clamp(pos.x, min.x, max.x);
         pos.y = Mathf.Clamp(pos.y, min.y, max.y);
 
-        if (_UseAxis == UbhUtil.AXIS.X_AND_Z) {
-            transform.SetPosition(pos.x, transform.position.y, pos.y);
-        } else {
-            transform.position = pos;
-        }
+        transform.position = pos;
     }
 
     void Shot ()
