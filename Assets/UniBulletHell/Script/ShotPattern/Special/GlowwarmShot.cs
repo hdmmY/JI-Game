@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 
-namespace Stage1Shot
+namespace SpecialShot
 {
     public class GlowwarmShot : UbhBaseShot
     {
@@ -52,11 +52,10 @@ namespace Stage1Shot
             _Shooting = true;
 
             float spiralWayShiftAngle = 360f / m_SpiralWayNum;
-            int spiralWayIndex = 0;
 
             for (int i = 0; i < m_bulletNum; i++)
             {
-                for (spiralWayIndex = 0; spiralWayIndex < m_SpiralWayNum; spiralWayIndex++)
+                for (int spiralWayIndex = 0; spiralWayIndex < m_SpiralWayNum; spiralWayIndex++)
                 {
                     var bullet = GetBullet(transform.position, transform.rotation);
                     if (bullet == null)

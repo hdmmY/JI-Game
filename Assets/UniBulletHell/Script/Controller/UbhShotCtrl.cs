@@ -42,7 +42,7 @@ public class UbhShotCtrl : UbhMonoBehaviour
 
     private void Start ()
     {
-        _timer = 0f;
+        _timer = -0.5f;
         _invokeNumber = 0;
 
         _delayTime = new List<float>(new float[_ShotList.Count]);
