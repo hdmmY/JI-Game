@@ -22,6 +22,7 @@ namespace SpecialShot
         [Tooltip("Use to determine the bouce rect")]
         public Transform m_background;
 
+        public bool m_showBackground = false;
 
         public override void Shot()
         {
@@ -71,8 +72,8 @@ namespace SpecialShot
             float angleSpeed = m_angleSpeed;
             float maxBounceTimes = m_bounceTimes;
 
-            Rect edgeRect = new Rect(m_background.position, m_background.localScale);
-            edgeRect.Set(edgeRect.x - edgeRect.width / 2, edgeRect.y - edgeRect.height / 2, edgeRect.width, edgeRect.height);
+            Rect edgeRect = new Rect();
+            Transform boundTrans = m_background;
 
             if (bulletTrans == null)
             {
@@ -94,6 +95,7 @@ namespace SpecialShot
 
                 // move
                 Vector3 newPosition = bulletTrans.position + bulletTrans.up * speed * UbhTimer.Instance.DeltaTime;
+                SetRectFromTranfrom(boundTrans, ref edgeRect);
                 if (edgeRect.Contains(newPosition) || bounceTime >= maxBounceTimes)
                 {
                     bulletTrans.position = newPosition;
@@ -159,13 +161,26 @@ namespace SpecialShot
         }
 
 
-
-        // Draw the shot direction
-        private void OnDrawGizmosSelected()
+        private void SetRectFromTranfrom(Transform boundTrans, ref Rect rect)
         {
+            Rect newRect = new Rect(boundTrans.position, boundTrans.localScale);
+            newRect.position -= new Vector2(boundTrans.localScale.x / 2, boundTrans.localScale.y / 2);
+            rect = newRect;
+        }
+
+
+        
+        private void OnDrawGizmos()
+        {
+            // Draw the shot direction
             Gizmos.color = Color.green;
             Gizmos.DrawLine(transform.position, transform.position +
                 new Vector3(Mathf.Cos(Mathf.Deg2Rad * m_shotAngle), Mathf.Sin(Mathf.Deg2Rad * m_shotAngle), 0) * 3);
+
+            // Draw the background rect
+            if (m_background == null || !m_showBackground) return;
+            Gizmos.color = new Color(Color.cyan.r, Color.cyan.g, Color.cyan.b, 0.2f);
+            Gizmos.DrawCube(m_background.position, m_background.localScale);
         }
     }
 }
