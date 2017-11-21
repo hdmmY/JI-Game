@@ -37,8 +37,6 @@ namespace SpecialShot
         [Tooltip("Use to determine the bouce rect")]
         public Transform m_background;
 
-        public bool m_showBackground = false;
-
         public override void Shot()
         {
             StartCoroutine(ShotCoroutine());
@@ -126,12 +124,6 @@ namespace SpecialShot
                 yield break;
             }
 
-            // Get bounce shot component
-            var bounceShot = bulletTrans.GetChild(0).GetComponent<LinearBounceShot>();
-            bounceShot.m_background = backgroundRect;
-            bounceShot.m_shotAngle = afterAngle;
-
-            // Set init bullet rotation
             bulletTrans.SetEulerAnglesZ(beforeAngle - 90f);
 
             Vector3 startPosition = bulletTrans.position;
@@ -155,7 +147,10 @@ namespace SpecialShot
             // Wait for a while
             yield return UbhUtil.WaitForSeconds(waitTime);            
 
-            // Shot the sub bullet
+            // Get bounce shot component
+            var bounceShot = bulletTrans.GetChild(0).GetComponent<LinearBounceShot>();
+            bounceShot.m_background = backgroundRect;
+            bounceShot.m_shotAngle = afterAngle;
             bounceShot.Shot();
         }
 
@@ -210,13 +205,13 @@ namespace SpecialShot
         }
 
 
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             // Draw the bounce edge
-            if (m_background != null && m_showBackground)
+            if (m_background != null)
             {
-                Gizmos.color = new Color(Color.cyan.r, Color.cyan.g, Color.cyan.b, 0.2f);
-                Gizmos.DrawCube(m_background.position, m_background.localScale);
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawWireCube(m_background.position, m_background.localScale);
             }
 
 

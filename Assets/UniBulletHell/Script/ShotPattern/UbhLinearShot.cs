@@ -51,14 +51,4 @@ public class UbhLinearShot : UbhBaseShot
 
         FinishedShot();
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        // Draw the shot direction
-        Gizmos.color = Color.green;
-        float angle = _Angle + 90;
-        float length = m_autoReleaseTime * m_bulletSpeed;
-        Gizmos.DrawLine(transform.position, transform.position +
-            new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle), 0) * length);
-    }
 }

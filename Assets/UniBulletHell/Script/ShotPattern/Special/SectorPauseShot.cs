@@ -75,9 +75,9 @@ namespace SpecialShot
 
 
             float startAngle = m_centreAngle - m_sectroRange / 2; // Start angle of the sector
-            for (int bulletNum = 0; bulletNum < m_bulletNum;)
+            for(int bulletNum = 0; bulletNum < m_bulletNum;)
             {
-                for (int i = 0; i < m_NWay; i++)
+                for(int i = 0; i < m_NWay; i++)
                 {
                     bulletNum++;
                     if (bulletNum >= m_bulletNum) break;
@@ -141,7 +141,7 @@ namespace SpecialShot
             yield return UbhUtil.WaitForSeconds(waitingTime);
 
             // Bullet movemnt after waiting
-            while (true)
+            while(true)
             {
                 // turning.
                 float addAngle = angleSpeedAfterWait * UbhTimer.Instance.DeltaTime;
@@ -161,7 +161,7 @@ namespace SpecialShot
         {
             float startAngle = m_centreAngle - m_sectroRange / 2; // Start angle of the sector
             float endAngle = m_centreAngle + m_sectroRange / 2;  // End angle of the sector
-
+            
             Vector3 startPoint = new Vector3(Mathf.Cos(Mathf.Deg2Rad * startAngle), Mathf.Sin(Mathf.Deg2Rad * startAngle), 0);
             startPoint *= m_sectorRadius;
             startPoint += transform.position;
@@ -170,46 +170,33 @@ namespace SpecialShot
             endPoint *= m_sectorRadius;
             endPoint += transform.position;
 
-
-            int pointNumber = Mathf.FloorToInt(m_sectroRange) / 5;
-
-            // Get the sector outline point
-            List<Vector3> points = new List<Vector3>(pointNumber + 2);        
+            List<Vector3> points = new List<Vector3>(m_NWay + 2);
             points.Add(startPoint);
-            for (int i = 0; i < pointNumber; i++)
-            {
-                float angle = (m_sectroRange / (pointNumber + 1)) * (i + 1) + startAngle;
-                Vector3 point = new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle), 0);
-                point *= m_sectorRadius;
-                point += transform.position;
-                points.Add(point);
-            }
-            points.Add(endPoint);
-
-            // Draw the sector outline
-            Gizmos.color = Color.green;
-            for (int i = 0; i < pointNumber + 1; i++)
-            {
-                Gizmos.DrawLine(points[i], points[i + 1]);
-            }
-            Gizmos.DrawLine(transform.position, startPoint);
-            Gizmos.DrawLine(transform.position, endPoint);
-
 
             // Draw the emit point
             Gizmos.color = Color.red;
             for (int i = 0; i < m_NWay; i++)
             {
                 float angle = (m_sectroRange / (m_NWay + 1)) * (i + 1) + startAngle;
+
                 Vector3 point = new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle), 0);
                 point *= m_sectorRadius;
                 point += transform.position;
+                points.Add(point);
+
                 Gizmos.DrawCube(point, Vector3.one * 0.05f);
             }
 
+            points.Add(endPoint);
 
-
-            
+            // Draw the sector outline
+            Gizmos.color = Color.green;
+            for(int i = 0; i < m_NWay + 1; i++)
+            {
+                Gizmos.DrawLine(points[i], points[i + 1]);
+            }
+            Gizmos.DrawLine(transform.position, startPoint);
+            Gizmos.DrawLine(transform.position, endPoint);
         }
 
     }

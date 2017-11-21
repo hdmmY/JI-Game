@@ -93,7 +93,6 @@ public class JiPathMoveCtrl : MonoBehaviour
         args.Add("name", pathInfo.m_PathData.m_pathName);
         args.Add("path", pathInfo.m_PathData.m_controlPoints.ToArray());
         args.Add("time", pathInfo.m_time);
-        args.Add("orienttopath", pathInfo.m_OrientToPath);
 
         args.Add("movetopath", pathInfo.m_MoveTo);
         args.Add("easetype", pathInfo.m_easeType);
@@ -135,7 +134,4 @@ public class JiPathInfo
 
     // The gameobject will move to the start of the path
     public bool m_MoveTo = false;
-
-    // The gameobject will orient to its path/velocity
-    public bool m_OrientToPath = false;
 }
