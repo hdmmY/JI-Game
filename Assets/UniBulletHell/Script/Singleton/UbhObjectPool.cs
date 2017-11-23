@@ -1,15 +1,6 @@
-﻿// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// *Please enable this define if you want to use the DarkTonic's CoreGameKit pooling system.
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// #define USING_CORE_GAME_KIT
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-#if USING_CORE_GAME_KIT
-using DarkTonic.CoreGameKit;
-#endif
 
 
 /// <summary>
@@ -21,13 +12,9 @@ public class UbhObjectPool : UbhSingletonMonoBehavior<UbhObjectPool>
 
     public int m_TotalGameObject;
 
-#if USING_CORE_GAME_KIT
-    // +++++ Replace PoolingSystem with DarkTonic's CoreGameKit. +++++
-    PoolBoss _PoolBoss = null;
-#else
+
     List<int> _PooledKeyList = new List<int>();
     Dictionary<int, List<GameObject>> _PooledGoDic = new Dictionary<int, List<GameObject>>();
-#endif
 
     protected override void Awake()
     {
@@ -44,18 +31,6 @@ public class UbhObjectPool : UbhSingletonMonoBehavior<UbhObjectPool>
             return null;
         }
 
-#if USING_CORE_GAME_KIT
-        // +++++ Replace PoolingSystem with DarkTonic's CoreGameKit. +++++
-        if (_PoolBoss == null) {
-            // PoolBoss Initialize
-            _PoolBoss = FindObjectOfType<PoolBoss>();
-            if (_PoolBoss == null) {
-                _PoolBoss = new GameObject(typeof(PoolBoss).Name).AddComponent<PoolBoss>();
-            }
-            _PoolBoss.autoAddMissingPoolItems = true;
-        }
-        return PoolBoss.Spawn(prefab.transform, position, rotation, _Transform).gameObject;
-#else
         int key = prefab.GetInstanceID();
 
         if (_PooledKeyList.Contains(key) == false && _PooledGoDic.ContainsKey(key) == false)
@@ -95,7 +70,6 @@ public class UbhObjectPool : UbhSingletonMonoBehavior<UbhObjectPool>
         goList.Add(go);
 
         return go;
-#endif
     }
 
     /// <summary>
@@ -103,17 +77,12 @@ public class UbhObjectPool : UbhSingletonMonoBehavior<UbhObjectPool>
     /// </summary>
     public void ReleaseGameObject(GameObject go, bool destroy = false)
     {
-#if USING_CORE_GAME_KIT
-        // +++++ Replace PoolingSystem with DarkTonic's CoreGameKit. +++++
-        PoolBoss.Despawn(go.transform);
-#else
         if (destroy)
         {
             Destroy(go);
             return;
         }
         go.SetActive(false);
-#endif
     }
 
     /// <summary>
@@ -121,10 +90,6 @@ public class UbhObjectPool : UbhSingletonMonoBehavior<UbhObjectPool>
     /// </summary>
     public int GetActivePooledObjectCount()
     {
-#if USING_CORE_GAME_KIT
-        var bullets = GetComponentsInChildren<UbhBullet>();
-        return bullets == null ? 0 : bullets.Length;
-#else
         int cnt = 0;
         for (int i = 0; i < _PooledKeyList.Count; i++)
         {
@@ -140,16 +105,11 @@ public class UbhObjectPool : UbhSingletonMonoBehavior<UbhObjectPool>
             }
         }
         return cnt;
-#endif
     }
 
 
     public int GetPooledObjectCount()
-    {
-#if USING_CORE_GAME_KIT
-        var bullets = GetComponentsInChildren<UbhBullet>();
-        return bullets == null ? 0 : bullets.Length;
-#else
+    {      
         int cnt = 0;
         for (int i = 0; i < _PooledKeyList.Count; i++)
         {
@@ -165,7 +125,6 @@ public class UbhObjectPool : UbhSingletonMonoBehavior<UbhObjectPool>
             }
         }
         return cnt;
-#endif
     }
 
     private void Update()
