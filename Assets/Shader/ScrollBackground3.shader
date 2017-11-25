@@ -6,7 +6,6 @@
 		_TextureMiddle("The Middle Texture", 2D) = "white" {}
 		_TextureDown("The Down Texture", 2D) = "white" {}
 		_ScrollSpeed("Scroll Speed", Float) = 0.1
-		_Mod3AddV("Mod3AddV", Float) = 0
 	}
 
 
@@ -14,12 +13,16 @@
 	{
 		Tags 
 		{ 
-			"RenderType"="Opaque" 
-			"Queue" = "Geometry"
+			"RenderType"="Transparent" 
+			"Queue" = "Transparent"
+			"IgnoreProjector" = "True"
 		}
 		
 		Pass 
 		{
+			ZWrite Off
+			Blend SrcAlpha OneMinusSrcAlpha  
+
 			CGPROGRAM
 
 			#pragma vertex vert
@@ -31,7 +34,6 @@
 			sampler2D _TextureMiddle;
 			sampler2D _TextureDown;
 			float _ScrollSpeed;
-			float _Mod3AddV;
 
 			struct vertexInput
 			{
@@ -61,26 +63,23 @@
 				
 				float mod3AddV = addV - floor(addV / 3) * 3;
 				float originV = input.uv.y;
-				_Mod3AddV = mod3AddV;
 
-				if(mod3AddV < originV)
+				if(mod3AddV < 1 - originV)
 				{
-					return tex2D(_TextureUp, float2(input.uv.x, originV - mod3AddV));
+					return tex2D(_TextureUp, float2(input.uv.x, originV + mod3AddV));
 				}
-				else if(mod3AddV < originV + 1)
+				else if(mod3AddV < 2 - originV)
 				{
-					return tex2D(_TextureMiddle, float2(input.uv.x, originV + 1 - mod3AddV));
+					return tex2D(_TextureDown, float2(input.uv.x, mod3AddV + originV - 1));
 				}
-				else if(mod3AddV < originV + 2)
+				else if(mod3AddV < 3 - originV)
 				{
-					return tex2D(_TextureDown, float2(input.uv.x, originV + 2 - mod3AddV));
+					return tex2D(_TextureMiddle, float2(input.uv.x, mod3AddV + originV - 2));
 				}
 				else
 				{
-					return tex2D(_TextureUp, float2(input.uv.x, originV + 3 - mod3AddV));
+					return tex2D(_TextureUp, float2(input.uv.x, mod3AddV + originV - 3));
 				}
-
-
 
 				//return fixed4(currentUV.y, currentUV.y, currentUV.y, 1);
 				return fixed4(1, 1, 1, 1);
