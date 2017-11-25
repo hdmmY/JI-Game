@@ -54,7 +54,10 @@ public class UbhLinearShot : UbhBaseShot
 
     private void OnDrawGizmos()
     {
-        Vector3 direction = new Vector3(Mathf.Cos(Mathf.Deg2Rad * m_shotAngle), Mathf.Sin(Mathf.Deg2Rad * m_shotAngle), 0);
-        Gizmos.DrawLine(transform.position, transform.position + direction * 10);   
+        Gizmos.color = Color.green;
+        float shotAngle = m_shotAngle + 90f;
+        float shotDistance = m_bulletSpeed * m_autoReleaseTime;
+        Vector3 direction = new Vector3(Mathf.Cos(Mathf.Deg2Rad * shotAngle), Mathf.Sin(Mathf.Deg2Rad * shotAngle), 0);
+        Gizmos.DrawLine(transform.position, transform.position + direction * shotDistance);   
     }
 }

@@ -19,7 +19,7 @@ public class UbhDestroyArea : UbhMonoBehaviour
     {
         string goTag = colTrans.tag;
 
-        if (goTag.Contains("Bullet"))
+        if (goTag == "EnemyBullet")
         {
             UbhObjectPool.Instance.ReleaseGameObject(colTrans.parent.gameObject);
             return;
