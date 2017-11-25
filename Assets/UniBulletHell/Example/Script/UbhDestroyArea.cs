@@ -24,5 +24,10 @@ public class UbhDestroyArea : UbhMonoBehaviour
             UbhObjectPool.Instance.ReleaseGameObject(colTrans.parent.gameObject);
             return;
         }
+        else if(goTag == "PlayerBullet")
+        {
+            UbhObjectPool.Instance.ReleaseGameObject(colTrans.parent.gameObject);
+            return;
+        }
     }
 }

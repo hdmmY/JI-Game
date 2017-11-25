@@ -33,6 +33,11 @@ namespace SpecialShot
         // The bullet speed after it change direction.
         public float m_BulletSpeedAfterChangeDir = 2f;
 
+        // The bullet will be destroy by player bullet when its velocity is zero
+        public bool m_destroyWhenVelocityZero;
+
+        [HideInInspector]
+        public int m_destroyBulletHealth;
 
         public override void Shot()
         {
@@ -68,6 +73,20 @@ namespace SpecialShot
 
                     float angle = m_StartAngle + (spiralWayShiftAngle * spiralWayIndex) + m_ShiftAngle * i;
 
+                    if(m_destroyWhenVelocityZero)
+                    {
+                        var bulletChild = bullet.transform.GetChild(0).gameObject;
+
+                        var destoryableScript = bulletChild.AddComponent<DestroyableBullet>();
+                        destoryableScript.m_bulletTag = "PlayerBullet";
+                        destoryableScript.m_destroyVelocity = 0;
+                        destoryableScript.CurrentBulletVelocity += () => { return 0; };
+                        destoryableScript.DestoryBullet += () =>
+                        {
+                            UbhObjectPool.Instance.ReleaseGameObject(bullet.gameObject);
+                        };
+                    }
+
                     ShotBullet(bullet, BulletMove(bullet, angle));
                     AutoReleaseBulletGameObject(bullet.gameObject);
                 }
@@ -96,10 +115,11 @@ namespace SpecialShot
             float pauseBeforeChangeDirection = m_PauseBeforeChangeDirection;
             float bulletSpeedAfterChangeDir = m_BulletSpeedAfterChangeDir;
 
-
             bool usePauseAndResume = m_usePauseAndResume;
             float pauseTime = m_pauseTime;
             float resumeTime = m_resumeTime;
+
+            bool destoryWhenVelocityZero = m_destroyWhenVelocityZero;
 
             if (bulletTrans == null)
             {
@@ -135,6 +155,7 @@ namespace SpecialShot
                     {
                         break;
                     }
+
                     ShotChildBullet(bulletUpper, bulletSpeed, angle + addAngleAfterChangeDirection);
                     ShotChildBullet(bulletUnder, bulletSpeed, angle - addAngleAfterChangeDirection);
                     AutoReleaseBulletGameObject(bulletUpper.gameObject);
