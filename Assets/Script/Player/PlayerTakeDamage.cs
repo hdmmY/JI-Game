@@ -15,8 +15,11 @@ public class PlayerTakeDamage: MonoBehaviour
 
     private SpriteRenderer _playerSprite;
 
+    private int _defaultPlayerHealth;
+
     private void OnEnable()
     {
+        _defaultPlayerHealth = m_playerProperty.m_playerHealth;
         _playerSprite = m_playerProperty.m_spriteReference;
     }
 
@@ -26,14 +29,36 @@ public class PlayerTakeDamage: MonoBehaviour
         string otherTag = other.tag;
 
         // Enemy bullet or Enemy
-        if(otherTag.Contains("Enemy"))
+        if(!m_playerProperty.m_tgm)
         {
-            if(! m_playerProperty.m_tgm)
+            switch(otherTag)
             {
-                Instantiate(m_Explosion, transform.position, Quaternion.identity, transform.parent);
-                StartCoroutine(TurnOnGodMode());
-            }  
+                case "Enemy":
+                    PlayerDeath();
+                    break;
+                case "EnemyBullet":
+                    PlayerProperty.PlayerStateType bulletType = other.transform.parent.name.Contains("Black") ? 
+                                    PlayerProperty.PlayerStateType.Black : 
+                                    PlayerProperty.PlayerStateType.White;
+                    DamagePlayerByState(bulletType, other.transform.parent.GetComponent<UbhBullet>());
+                    break;
+                case "EnemyLaser":
+                    PlayerDeath();
+                    break;
+                case "EnemyBullet_DontDestoryOutBound":
+                    PlayerDeath();
+                    break;
+                           
+            } 
         }   
+    }
+
+
+    void PlayerDeath()
+    {
+        Instantiate(m_Explosion, transform.position, Quaternion.identity, transform.parent);
+        StartCoroutine(TurnOnGodMode());
+        ResetPlayerHealth();
     }
 
     IEnumerator TurnOnGodMode()
@@ -50,6 +75,33 @@ public class PlayerTakeDamage: MonoBehaviour
 
         m_playerProperty.m_tgm = false;
         _playerSprite.color = prevColor;             
+    }
+
+    void ResetPlayerHealth()
+    {
+        m_playerProperty.m_playerHealth = _defaultPlayerHealth;
+    }
+
+
+    void DamagePlayerByState(PlayerProperty.PlayerStateType enemyType, UbhBullet enemyBullet)
+    {
+        if (enemyBullet == null) return;
+
+        Debug.Log(enemyType);
+
+        if(enemyType == m_playerProperty.m_playerState)
+        {
+            m_playerProperty.m_playerHealth--;
+            if(m_playerProperty.m_playerHealth <= 0)
+            {
+                PlayerDeath();
+            }
+            UbhObjectPool.Instance.ReleaseGameObject(enemyBullet.gameObject);
+        }
+        else
+        {
+            PlayerDeath();
+        }
     }
 
 }
