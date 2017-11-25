@@ -26,9 +26,14 @@ public class DestroyableBullet : MonoBehaviour
                 if(DestoryBullet != null)
                 {
                     if (m_bulletDestroyableHealth < 0)
+                    {
                         DestoryBullet();
+                    }
                     else
-                        m_bulletDestroyableHealth--;
+                    {
+                        int bulletDamage = collision.GetComponent<UbhBullet>().m_damage;
+                        m_bulletDestroyableHealth -= bulletDamage;
+                    }
                 }
 
                 UbhObjectPool.Instance.ReleaseGameObject(collision.transform.parent.gameObject);

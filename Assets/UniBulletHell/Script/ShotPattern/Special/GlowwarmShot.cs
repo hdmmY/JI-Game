@@ -119,8 +119,6 @@ namespace SpecialShot
             float pauseTime = m_pauseTime;
             float resumeTime = m_resumeTime;
 
-            bool destoryWhenVelocityZero = m_destroyWhenVelocityZero;
-
             if (bulletTrans == null)
             {
                 Debug.LogWarning("The shooting bullet is not exist!");
