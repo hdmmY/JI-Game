@@ -8,15 +8,15 @@ using System.Collections;
 public class UbhLinearLockOnShot : UbhLinearShot
 {
     // "Set a target with tag name."
-    public bool _SetTargetFromTag = true;
+    public bool m_setTargetFromTag = true;
     // "Set a unique tag name of target at using SetTargetFromTag."
-    public string _TargetTagName = "Player";
+    public string m_targetTagName = "Player";
     // "Transform of lock on target."
     // "It is not necessary if you want to specify target in tag."
     // "Overwrite Angle in direction of target to Transform.position."
-    public Transform _TargetTransform;
+    public Transform m_targetTransform;
     // "Always aim to target."
-    public bool _Aiming;
+    public bool m_aiming;
 
     protected override void Awake ()
     {
@@ -31,31 +31,31 @@ public class UbhLinearLockOnShot : UbhLinearShot
 
         AimTarget();
 
-        if (_TargetTransform == null) {
+        if (m_targetTransform == null) {
             Debug.LogWarning("Cannot shot because TargetTransform is not set.");
             return;
         }
 
         base.Shot();
 
-        if (_Aiming) {
+        if (m_aiming) {
             StartCoroutine(AimingCoroutine());
         }
     }
 
     void AimTarget ()
     {
-        if (_TargetTransform == null && _SetTargetFromTag) {
-            _TargetTransform = UbhUtil.GetTransformFromTagName(_TargetTagName);
+        if (m_targetTransform == null && m_setTargetFromTag) {
+            m_targetTransform = UbhUtil.GetTransformFromTagName(m_targetTagName);
         }
-        if (_TargetTransform != null) {
-            _Angle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform);
+        if (m_targetTransform != null) {
+            m_shotAngle = UbhUtil.GetAngleFromTwoPosition(transform, m_targetTransform);
         }
     }
 
     IEnumerator AimingCoroutine ()
     {
-        while (_Aiming) {
+        while (m_aiming) {
             if (_Shooting == false) {
                 yield break;
             }
