@@ -9,9 +9,9 @@ public class UbhLinearShot : UbhBaseShot
 {
     // "Set a angle of shot. (0 to 360)"
     [Range(0f, 360f)]
-    public float _Angle = 180f;
+    public float m_shotAngle = 180f;
     // "Set a delay time between bullet and next bullet. (sec)"
-    public float _BetweenDelay = 0.1f;
+    public float m_timeBetweenDelay = 0.1f;
 
     protected override void Awake ()
     {
@@ -35,8 +35,8 @@ public class UbhLinearShot : UbhBaseShot
         _Shooting = true;
 
         for (int i = 0; i < m_bulletNum; i++) {
-            if (0 < i && 0f < _BetweenDelay) {
-                yield return StartCoroutine(UbhUtil.WaitForSeconds(_BetweenDelay));
+            if (0 < i && 0f < m_timeBetweenDelay) {
+                yield return StartCoroutine(UbhUtil.WaitForSeconds(m_timeBetweenDelay));
             }
 
             var bullet = GetBullet(transform.position, transform.rotation);
@@ -44,11 +44,17 @@ public class UbhLinearShot : UbhBaseShot
                 break;
             }
 
-            ShotBullet(bullet, m_bulletSpeed, _Angle);
+            ShotBullet(bullet, m_bulletSpeed, m_shotAngle);
 
             AutoReleaseBulletGameObject(bullet.gameObject);
         }
 
         FinishedShot();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Vector3 direction = new Vector3(Mathf.Cos(Mathf.Deg2Rad * m_shotAngle), Mathf.Sin(Mathf.Deg2Rad * m_shotAngle), 0);
+        Gizmos.DrawLine(transform.position, transform.position + direction * 10);   
     }
 }
