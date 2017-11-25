@@ -14,7 +14,7 @@ public class GlowwarmShotEditor : Editor
 
         if(targetScript.m_destroyWhenVelocityZero)
         {
-            targetScript.m_destroyBulletHealth = EditorGUILayout.IntSlider("Destroyable Health", targetScript.m_destroyBulletHealth, 0, 100);
+            targetScript.m_destroyBulletHealth = EditorGUILayout.IntField("Destroyable Health", targetScript.m_destroyBulletHealth);
         }
     }
 }
