@@ -55,7 +55,7 @@ public class TimeManager : MonoBehaviour
     [HideInInspector]
     public float m_timer;
                                         
-    void OnEnable()
+    void Awake()
     {
         // Reset timer. The init _timer is a little below zero to aviod inaccuracy.
         m_timer = -0.5f;
