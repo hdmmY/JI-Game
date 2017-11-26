@@ -1,15 +1,18 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JiPathMoveCtrl : JiMoveCtrlBase
+public class JiPointMoveCtrl : JiMoveCtrlBase
 {
-    public List<JiPathInfo> m_Paths;
+    public Vector3 m_startPoint;
+
+    public List<JiPathPointInfo> m_Paths;
 
     private float _timer;
 
     private int _curPathIndex;
-    private bool _curPathInvoked;
+    private bool _curPathInvoked;             
 
     public override void Start()
     {
@@ -21,9 +24,10 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
         _curPathIndex = 0;
         _curPathInvoked = false;
 
+        m_targetGameObject.transform.position = m_startPoint;
+
         iTween.Init(m_targetGameObject);
     }
-
 
     private void Update()
     {
@@ -43,7 +47,7 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
             return;
         }
 
-        float startTime = m_Paths[_curPathIndex].m_DelayTime;
+        float startTime = m_Paths[_curPathIndex].m_delayTime;
         float endTime = m_Paths[_curPathIndex].m_time + startTime;
 
         if ((_timer >= startTime - 0.01f) && !_curPathInvoked)
@@ -72,7 +76,6 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
     }
 
 
-    // Lauch the itween variabeles
     public override Hashtable LauchArgs(int index)
     {
         if (m_Paths == null)
@@ -92,37 +95,40 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
         Hashtable args = new Hashtable();
 
         args.Add("axis", "z");   // restrict the rotation to z-axis only.
-        args.Add("name", pathInfo.m_PathData.m_pathName);
-        args.Add("path", pathInfo.m_PathData.m_controlPoints.ToArray());
+        args.Add("position", pathInfo.m_destination);
         args.Add("time", pathInfo.m_time);
-        args.Add("movetopath", pathInfo.m_MoveTo);
+        args.Add("movetopath", true);
         args.Add("easetype", pathInfo.m_easeType);
         args.Add("looptype", pathInfo.m_loopType);
 
         return args;
     }
 
+
     private void OnDrawGizmosSelected()
     {
-        for (int i = 0; i < m_Paths.Count; i++)
-        {
-            if (m_Paths[i].m_PathData != null)
+        Vector3 pointSize = Vector3.one * 0.2f;
 
-                iTween.DrawPath(m_Paths[i].m_PathData.m_controlPoints.ToArray());
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawCube(m_startPoint, pointSize);
+        foreach(var pointInfo in m_Paths)
+        {
+            Gizmos.DrawCube(pointInfo.m_destination, pointSize);
         }
     }
+
 }
 
 
-
 [System.Serializable]
-public class JiPathInfo
+public class JiPathPointInfo
 {
-    // Select a path that you will move on.
-    public JiPathData m_PathData;
+    // The destination you want to move to
+    public Vector3 m_destination;
 
     // Set a delay time to start move when this path is invoked
-    public float m_DelayTime;
+    public float m_delayTime;
 
     // Time in seconds the movement will take to complete.
     public float m_time = 0f;
@@ -132,7 +138,4 @@ public class JiPathInfo
 
     // The loop type of the movement.
     public iTween.LoopType m_loopType = iTween.LoopType.none;
-
-    // The gameobject will move to the start of the path
-    public bool m_MoveTo = false;
 }
