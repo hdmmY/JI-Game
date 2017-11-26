@@ -88,6 +88,12 @@ public class PlayerPropertyEditor : Editor
         _targetScript.m_playerMoveState = (PlayerProperty.PlayerMoveType)EditorGUILayout.EnumPopup(_targetScript.m_playerMoveState);
         EditorGUILayout.EndHorizontal();
 
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Player Health");
+        _targetScript.m_playerHealth = EditorGUILayout.IntField(_targetScript.m_playerHealth);
+        EditorGUILayout.EndHorizontal();
+
+
         EditorGUI.indentLevel--;
 
         #endregion

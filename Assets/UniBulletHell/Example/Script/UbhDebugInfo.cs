@@ -10,9 +10,14 @@ public class UbhDebugInfo : UbhMonoBehaviour
     GUIText _BulletNumGUIText;
     [SerializeField]
     GUIText _timerGUIText;
+    [SerializeField]
+    GUIText _playerHealthGUIText;
 
     [SerializeField]
     TimeManager _timeManager;
+
+    [SerializeField]
+    PlayerProperty _playerProperty;
 
     UbhObjectPool objectPool;
     
@@ -37,10 +42,14 @@ public class UbhDebugInfo : UbhMonoBehaviour
             _BulletNumGUIText.text = "Bullet Num : " + bulletNum.ToString();
         }
         
-        if(_timeManager != null && _timerGUIText)
+        if(_timeManager != null && _timerGUIText != null)
         {
             _timerGUIText.text = "Time : " + (int)_timeManager.m_timer;
         }
 
+        if(_playerProperty != null && _playerHealthGUIText != null)
+        {
+            _playerHealthGUIText.text = "PlayerHealth : " + _playerProperty.m_playerHealth;
+        }
     }
 }

@@ -38,5 +38,7 @@ public class PlayerProperty : MonoBehaviour
 
     public PlayerMoveType m_playerMoveState;
 
+    public int m_playerHealth;
+
     public SpriteRenderer m_spriteReference;
 }

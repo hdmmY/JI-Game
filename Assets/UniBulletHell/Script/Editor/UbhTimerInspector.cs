@@ -1,53 +1,23 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEditor;
+
 
 [CustomEditor(typeof(UbhTimer))]
 public class UbhTimerInspector : Editor
 {
-    float _OrgTimeScale;
+    private UbhTimer _targetScript;
 
-    public override void OnInspectorGUI ()
+    public override void OnInspectorGUI()
     {
-        serializedObject.Update();
-        DrawProperties();
-        serializedObject.ApplyModifiedProperties();
+        _targetScript = (UbhTimer)target;
+
+        base.OnInspectorGUI();
+
+        _targetScript.Pause = EditorGUILayout.Toggle("Pause", _targetScript.Pause);
+        _targetScript.TimeScale = EditorGUILayout.FloatField("Time Scale", _targetScript.TimeScale);
+        EditorGUILayout.IntField("Frame Count", _targetScript.FrameCount);                                          
     }
 
-    void DrawProperties ()
-    {
-        UbhTimer obj = target as UbhTimer;
-
-        EditorGUILayout.Space();
-
-        EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Pause UniBulletHell")) {
-            if (Application.isPlaying && obj.gameObject.activeInHierarchy) {
-                UbhTimer.Instance.Pause();
-            }
-        }
-        if (GUILayout.Button("Resume UniBulletHell")) {
-            if (Application.isPlaying && obj.gameObject.activeInHierarchy) {
-                UbhTimer.Instance.Resume();
-            }
-        }
-        EditorGUILayout.EndHorizontal();
-
-        EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Pause TimeScale")) {
-            if (Application.isPlaying && obj.gameObject.activeInHierarchy) {
-                _OrgTimeScale = Time.timeScale;
-                Time.timeScale = 0f;
-            }
-        }
-        if (GUILayout.Button("Resume TimeScale")) {
-            if (Application.isPlaying && obj.gameObject.activeInHierarchy && Time.timeScale == 0f) {
-                Time.timeScale = _OrgTimeScale;
-            }
-        }
-        EditorGUILayout.EndHorizontal();
-
-        EditorGUILayout.Space();
-
-        DrawDefaultInspector();
-    }
 }

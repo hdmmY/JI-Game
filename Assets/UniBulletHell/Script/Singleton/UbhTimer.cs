@@ -6,12 +6,22 @@ using System.Collections;
 /// </summary>
 public class UbhTimer : UbhSingletonMonoBehavior<UbhTimer>
 {
-    float _LastTime;
-    float _DeltaTime = 1f;
-    float _TimeScale;
-    float _FrameCount;
-    bool _Pausing;
+    float _lastTime;
+    float _deltTime = 1f;
+    
+    public int FrameCount
+    {
+        get;
+        private set;
+    }
 
+    public bool Pause
+    {
+        get;
+        set;
+    }
+
+    private float _timeScale;
 
     // Time scale.
     // 1 is the normal, 0 is the pause.
@@ -20,18 +30,18 @@ public class UbhTimer : UbhSingletonMonoBehavior<UbhTimer>
         get 
         {
             if(Time.timeSinceLevelLoad <= 0.01f)
-                _TimeScale = 1;
-            return _TimeScale;    
+                _timeScale = 1;
+            return _timeScale;    
         }
         set
         {
-            if(_TimeScale < 0)
+            if(_timeScale < 0)
             {
-                _TimeScale = 1;
+                _timeScale = 1;
             }
             else 
             {
-                _TimeScale = value;
+                _timeScale = value;
             }
         }
     }
@@ -43,24 +53,14 @@ public class UbhTimer : UbhSingletonMonoBehavior<UbhTimer>
     {
         get
         {
-            return _Pausing ? 0f : _DeltaTime * _TimeScale;
+            return Pause ? 0f : _deltTime * TimeScale;
         }
     }
 
-    /// <summary>
-    /// Get frame count of UniBulletHell.
-    /// </summary>
-    public float FrameCount
-    {
-        get
-        {
-            return _FrameCount;
-        }
-    }
 
     protected override void Awake ()
     {
-        _LastTime = Time.time;
+        _lastTime = Time.time;
 
         base.Awake();
     }
@@ -69,28 +69,11 @@ public class UbhTimer : UbhSingletonMonoBehavior<UbhTimer>
     void Update ()
     {
         float nowTime = Time.time;
-        _DeltaTime = nowTime - _LastTime;
-        _LastTime = nowTime;
+        _deltTime = nowTime - _lastTime;
+        _lastTime = nowTime;
 
-        if (_Pausing == false) {
-            _FrameCount++;
+        if (!Pause) {
+            FrameCount++;
         }
-    }
-
-    /// <summary>
-    /// Pause time of UniBulletHell.
-    /// </summary>
-    public void Pause ()
-    {
-        _Pausing = true;
-    }
-
-    /// <summary>
-    /// Resume time of UniBulletHell.
-    /// </summary>
-    public void Resume ()
-    {
-        _Pausing = false;
-        _LastTime = Time.time;
     }
 }
