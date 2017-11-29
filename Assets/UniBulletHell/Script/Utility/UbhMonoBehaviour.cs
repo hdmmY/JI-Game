@@ -11,7 +11,7 @@ public abstract class UbhMonoBehaviour : MonoBehaviour
     Rigidbody _Rigidbody;
     Rigidbody2D _Rigidbody2D;
 
-    public Transform transform
+    public new Transform transform
     {
         get
         {
@@ -22,7 +22,7 @@ public abstract class UbhMonoBehaviour : MonoBehaviour
         }
     }
 
-    public Renderer renderer
+    public new Renderer renderer
     {
         get
         {
@@ -33,7 +33,7 @@ public abstract class UbhMonoBehaviour : MonoBehaviour
         }
     }
 
-    public Rigidbody rigidbody
+    public new Rigidbody rigidbody
     {
         get
         {
@@ -44,7 +44,7 @@ public abstract class UbhMonoBehaviour : MonoBehaviour
         }
     }
 
-    public Rigidbody2D rigidbody2D
+    public new Rigidbody2D rigidbody2D
     {
         get
         {
