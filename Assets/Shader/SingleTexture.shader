@@ -1,18 +1,28 @@
-Shader "Custom/SingleTexture" {
+﻿Shader "Custom/SingleTexture" {
 	Properties 
 	{
+		_MainTex("Main Tex", 2D) = "white" {}
+
 		_Color ("Color Tint", Color) = (1, 1, 1, 1)
-		_MainTex ("Main Tex", 2D) = "white" {}
-		_AlphaScale ("Alpha Scale", Float) = 1.0
+		_AlphaScale ("Alpha Scale", Range(0, 1)) = 1
 	}
 
 	SubShader 
 	{		
+		Tags 
+		{
+			"Queue"="Transparent" 
+			"IgnoreProjector"="True" 
+			"RenderType"="Transparent"
+			"PreviewType"="Plane"
+		}
+
 		Pass 
 		{ 
 			ZTest Always
 			Cull Off
 			ZWrite Off
+			Blend SrcAlpha OneMinusSrcAlpha
 
 			CGPROGRAM
 			
@@ -20,10 +30,14 @@ Shader "Custom/SingleTexture" {
 			#pragma fragment frag
 
 			fixed4 _Color;
+			
+			fixed _AlphaScale;
+
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
-			float _AlphaScale;
 			
+
+
 			struct a2v 
 			{
 				float4 vertex : POSITION;
@@ -49,9 +63,11 @@ Shader "Custom/SingleTexture" {
 			fixed4 frag(v2f i) : SV_Target 
 			{
 				fixed4 textureColor = tex2D(_MainTex, i.uv);
-				fixed3 color = _Color * textureColor.rgb;	
+				
+				textureColor.rgb *= _Color;
+				textureColor.a *= _AlphaScale;
 
-				return fixed4(color, textureColor.a * _AlphaScale);
+				return textureColor;
 			}
 			
 			ENDCG

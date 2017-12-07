@@ -13,7 +13,7 @@ public class JITimerEditor : Editor
 
         JITimer targetScript = (JITimer)target;
 
-        targetScript.Pause = EditorGUILayout.Toggle("Pause", targetScript.Pause);
+        //  targetScript.Pause = EditorGUILayout.Toggle("Pause", targetScript.Pause);
 
         targetScript.TimeScale = EditorGUILayout.FloatField("Time Scale", targetScript.TimeScale);
 

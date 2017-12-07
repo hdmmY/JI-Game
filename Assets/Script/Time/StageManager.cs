@@ -13,12 +13,19 @@ public class StageManager : MonoBehaviour
         // Target stage gameobject
         public GameObject m_stageDataGO;
 
-        private JiPathMoveCtrl _pathMoveComponent;
-        public JiPathMoveCtrl PathMoveComponent
+        private JiMoveCtrlBase _pathMoveComponent;
+        public JiMoveCtrlBase PathMoveComponent
         {
             get
             {
-                return m_stageDataGO.GetComponent<JiPathMoveCtrl>();
+                var pathMoveCtrl = m_stageDataGO.GetComponent<JiPathMoveCtrl>();
+
+                if(pathMoveCtrl == null)
+                {
+                    return m_stageDataGO.GetComponent<JiPointMoveCtrl>();
+                }
+
+                return pathMoveCtrl;
             }
         }
 
