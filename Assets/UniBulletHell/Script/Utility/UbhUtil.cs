@@ -26,7 +26,7 @@ public static class UbhUtil
     {
         float elapsedTime = 0f;
         while (elapsedTime < waitTime) {
-            elapsedTime += UbhTimer.Instance.DeltaTime;
+            elapsedTime += JITimer.Instance.DeltTime;
             yield return 0;
         }
     }

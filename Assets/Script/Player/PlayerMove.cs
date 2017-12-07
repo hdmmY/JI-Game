@@ -39,7 +39,7 @@ public class PlayerMove : MonoBehaviour
         _verticalSpeed = _playerProperty.m_horizontalSpeed;
         _horizontalSpeed = _playerProperty.m_verticalSpeed;
 
-        UbhTimer.Instance.TimeScale = 1;
+        JITimer.Instance.TimeScale = 1;
     }
 
     private void Update()
@@ -50,7 +50,7 @@ public class PlayerMove : MonoBehaviour
 
         Vector2 playerPos = (Vector2)transform.position + new Vector2
                 (InputManager.Instance.HorizontalInput * _horizontalSpeed,
-                 InputManager.Instance.VerticalInput * _verticalSpeed) * UbhTimer.Instance.DeltaTime;
+                 InputManager.Instance.VerticalInput * _verticalSpeed) * JITimer.Instance.DeltTime;
 
         // player position is out of bound
         if (playerPos.x < m_moveAreaCentre.x - m_moveAreaShape.x / 2)
@@ -80,7 +80,7 @@ public class PlayerMove : MonoBehaviour
             {
                 _timeState = TimeState.Resume;
                 StopAllCoroutines();
-                StartCoroutine(Resuming(UbhTimer.Instance.TimeScale, m_resumeTime));
+                StartCoroutine(Resuming(JITimer.Instance.TimeScale, m_resumeTime));
             }
             else if (_timeState == TimeState.Normal || _timeState == TimeState.Resume)
             {
@@ -96,23 +96,23 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator Pausing(float endTimeScale, float lastTime)
     {
-        while (UbhTimer.Instance.TimeScale >= endTimeScale)
+        while (JITimer.Instance.TimeScale >= endTimeScale)
         {
-            UbhTimer.Instance.TimeScale -= (1 - endTimeScale) * Time.deltaTime / lastTime;
+            JITimer.Instance.TimeScale -= (1 - endTimeScale) * Time.deltaTime / lastTime;
             yield return null;
         }
 
-        UbhTimer.Instance.TimeScale = endTimeScale;
+        JITimer.Instance.TimeScale = endTimeScale;
     }
 
     IEnumerator Resuming(float curTimeScale, float lastTime)
     {
-        while (UbhTimer.Instance.TimeScale < 1f)
+        while (JITimer.Instance.TimeScale < 1f)
         {
-            UbhTimer.Instance.TimeScale += (1 - curTimeScale) * Time.deltaTime / lastTime;
+            JITimer.Instance.TimeScale += (1 - curTimeScale) * Time.deltaTime / lastTime;
             yield return null;
         }
-        UbhTimer.Instance.TimeScale = 1f;
+        JITimer.Instance.TimeScale = 1f;
         _timeState = TimeState.Normal;
     }
 

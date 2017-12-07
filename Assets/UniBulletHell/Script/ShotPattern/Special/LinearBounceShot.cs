@@ -86,14 +86,14 @@ namespace SpecialShot
             while (true)
             {
                 // turning.
-                angle += angleSpeed * UbhTimer.Instance.DeltaTime;
+                angle += angleSpeed * JITimer.Instance.DeltTime;
                 bulletTrans.SetEulerAnglesZ(angle - 90);
 
                 // acceleration speed
-                speed += accel * UbhTimer.Instance.DeltaTime;
+                speed += accel * JITimer.Instance.DeltTime;
 
                 // move
-                Vector3 newPosition = bulletTrans.position + bulletTrans.up * speed * UbhTimer.Instance.DeltaTime;
+                Vector3 newPosition = bulletTrans.position + bulletTrans.up * speed * JITimer.Instance.DeltTime;
                 if (edgeRect.Contains(newPosition) || bounceTime >= maxBounceTimes)
                 {
                     bulletTrans.position = newPosition;

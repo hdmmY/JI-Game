@@ -35,7 +35,7 @@ public class JiPointMoveCtrl : JiMoveCtrlBase
         if (m_targetGameObject == null) return;
         if (_curPathIndex > m_Paths.Count) return;
 
-        _timer += UbhTimer.Instance.DeltaTime;
+        _timer += JITimer.Instance.DeltTime;
 
         if (_curPathIndex == m_Paths.Count)
         {

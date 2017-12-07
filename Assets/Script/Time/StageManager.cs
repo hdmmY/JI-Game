@@ -66,7 +66,7 @@ public class StageManager : MonoBehaviour
 
     private void Update()
     {
-        _timer += UbhTimer.Instance.DeltaTime;
+        _timer += JITimer.Instance.DeltTime;
 
 
         // Check for stage condition

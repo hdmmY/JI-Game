@@ -48,7 +48,7 @@ public class UbhShotCtrl : UbhMonoBehaviour
 
     private void Update()
     {
-        _timer += UbhTimer.Instance.DeltaTime;
+        _timer += JITimer.Instance.DeltTime;
 
         while(_invokeNumber < _ShotList.Count && _timer >= _delayTime[_invokeNumber])
         {

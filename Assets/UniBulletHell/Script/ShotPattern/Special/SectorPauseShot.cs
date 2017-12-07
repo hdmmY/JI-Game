@@ -130,7 +130,7 @@ namespace SpecialShot
             {
                 float t = timer / timeToReachEdge;
                 bulletTrans.position = Vector3.Lerp(startPos, endPos, t);
-                timer += UbhTimer.Instance.DeltaTime;
+                timer += JITimer.Instance.DeltTime;
 
                 if (t >= 0.995f) break;
 
@@ -144,14 +144,14 @@ namespace SpecialShot
             while(true)
             {
                 // turning.
-                float addAngle = angleSpeedAfterWait * UbhTimer.Instance.DeltaTime;
+                float addAngle = angleSpeedAfterWait * JITimer.Instance.DeltTime;
                 bulletTrans.AddEulerAnglesZ(addAngle);
 
                 // acceleration speed
-                speedAfterWait += accelAfterWait * UbhTimer.Instance.DeltaTime;
+                speedAfterWait += accelAfterWait * JITimer.Instance.DeltTime;
 
                 // move
-                bulletTrans.position += bulletTrans.up * speedAfterWait * UbhTimer.Instance.DeltaTime;
+                bulletTrans.position += bulletTrans.up * speedAfterWait * JITimer.Instance.DeltTime;
                 yield return 0;
             }
         }

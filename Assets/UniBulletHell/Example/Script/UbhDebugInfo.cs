@@ -1,55 +1,48 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+
+
 
 public class UbhDebugInfo : UbhMonoBehaviour
 {
     const float INTERVAL_SEC = 1f;
-    [SerializeField]
-    GUIText _FpsGUIText;
-    [SerializeField]
-    GUIText _BulletNumGUIText;
-    [SerializeField]
-    GUIText _timerGUIText;
-    [SerializeField]
-    GUIText _playerHealthGUIText;
+
+    public Text m_fpsText;
+    public Text m_bulletNumText;
+    public Text m_timerText;
+    public Text m_playerHealthText;
 
     [SerializeField]
-    TimeManager _timeManager;
+    private TimeManager _timeManager;
 
     [SerializeField]
-    PlayerProperty _playerProperty;
+    private PlayerProperty _playerProperty;
 
-    UbhObjectPool objectPool;
-    
-    
-    void Update ()
+    void Update()
     {
         // Count FPS
-        if(_FpsGUIText != null)
+        if (m_fpsText != null)
         {
-            _FpsGUIText.text = "FPS : " + (int)(1f / Time.deltaTime);
+            m_fpsText.text = "FPS : " + (int)(1f / Time.deltaTime);
         }
 
 
         // Count Bullet Num
-        if (objectPool == null)
+        if (m_bulletNumText!= null)
         {
-            objectPool = FindObjectOfType<UbhObjectPool>();
-        }
-        if (objectPool != null && _BulletNumGUIText != null)
-        {
-            int bulletNum = objectPool.GetActivePooledObjectCount();
-            _BulletNumGUIText.text = "Bullet Num : " + bulletNum.ToString();
-        }
-        
-        if(_timeManager != null && _timerGUIText != null)
-        {
-            _timerGUIText.text = "Time : " + (int)_timeManager.m_timer;
+            int bulletNum = UbhObjectPool.Instance.GetActivePooledObjectCount();
+            m_bulletNumText.text = "Bullet Num : " + bulletNum.ToString();
         }
 
-        if(_playerProperty != null && _playerHealthGUIText != null)
+        if (_timeManager != null && m_timerText != null)
         {
-            _playerHealthGUIText.text = "PlayerHealth : " + _playerProperty.m_playerHealth;
+            m_timerText.text = "Time : " + (int)_timeManager.m_timer;
+        }
+
+        if (_playerProperty != null && m_playerHealthText != null)
+        {
+            m_playerHealthText.text = "PlayerHealth : " + _playerProperty.m_playerHealth;
         }
     }
 }

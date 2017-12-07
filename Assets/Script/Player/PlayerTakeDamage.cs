@@ -60,10 +60,10 @@ public class PlayerTakeDamage : MonoBehaviour
         switch (m_playerProperty.m_playerState)
         {
             case PlayerProperty.PlayerStateType.White:
-                explositionAnim.Play("Player_White_Destroy");
+                explositionAnim.Play("Player_White_Destory", 0);
                 break;
             case PlayerProperty.PlayerStateType.Black:
-                explositionAnim.Play("Player_Black_Destory");
+                explositionAnim.Play("Player_Black_Destory", 0);
                 break;
         }             
         StartCoroutine(TurnOnGodMode());
@@ -95,8 +95,6 @@ public class PlayerTakeDamage : MonoBehaviour
     void DamagePlayerByState(PlayerProperty.PlayerStateType enemyType, UbhBullet enemyBullet)
     {
         if (enemyBullet == null) return;
-
-        Debug.Log(enemyType);
 
         if (enemyType == m_playerProperty.m_playerState)
         {

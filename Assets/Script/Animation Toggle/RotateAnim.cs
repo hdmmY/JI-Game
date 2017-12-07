@@ -14,7 +14,7 @@ namespace AnimationToggle
 
         private void Update()
         {
-            float rotateAngle = m_rotateSpeed * UbhTimer.Instance.DeltaTime;
+            float rotateAngle = m_rotateSpeed * JITimer.Instance.DeltTime;
             rotateAngle = m_clockwise ? rotateAngle : -rotateAngle;
 
             if(m_target == null)

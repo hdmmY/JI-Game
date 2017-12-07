@@ -129,15 +129,15 @@ namespace SpecialShot
 
             while (true)
             {
-                float addAngle = angleSpeed * UbhTimer.Instance.DeltaTime;
+                float addAngle = angleSpeed * JITimer.Instance.DeltTime;
                 bulletTrans.AddEulerAnglesZ(addAngle);
 
-                bulletSpeed += accelerationSpeed * UbhTimer.Instance.DeltaTime;
-                bulletTrans.position += bulletTrans.up * bulletSpeed * UbhTimer.Instance.DeltaTime;
+                bulletSpeed += accelerationSpeed * JITimer.Instance.DeltTime;
+                bulletTrans.position += bulletTrans.up * bulletSpeed * JITimer.Instance.DeltTime;
 
                 yield return 0;
 
-                selfTimeCount += UbhTimer.Instance.DeltaTime;
+                selfTimeCount += JITimer.Instance.DeltTime;
 
                 // When the speed == 0, shoot two other bullet
                 if (selfTimeCount > Mathf.Abs(bulletSpeed / accelerationSpeed))
@@ -172,7 +172,7 @@ namespace SpecialShot
                     while (pauseTime <= selfTimeCount && selfTimeCount < resumeTime)
                     {
                         yield return 0;
-                        selfTimeCount += UbhTimer.Instance.DeltaTime;
+                        selfTimeCount += JITimer.Instance.DeltTime;
                     }
                 }
             }

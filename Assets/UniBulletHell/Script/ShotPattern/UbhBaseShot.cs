@@ -234,7 +234,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
 
             yield return 0;
 
-            countUpTime += UbhTimer.Instance.DeltaTime;
+            countUpTime += JITimer.Instance.DeltTime;
         }
 
         UbhObjectPool.Instance.ReleaseGameObject(goBullet);

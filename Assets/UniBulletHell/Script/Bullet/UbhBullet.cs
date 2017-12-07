@@ -136,6 +136,6 @@ public class UbhBullet : UbhMonoBehaviour
     // 
     private float GetDeltTime(bool useRealTime)
     {
-        return UbhTimer.Instance.DeltaTime;
+        return JITimer.Instance.DeltTime;
     }
 }

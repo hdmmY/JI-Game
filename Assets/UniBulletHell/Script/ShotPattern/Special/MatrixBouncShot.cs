@@ -133,7 +133,7 @@ namespace SpecialShot
             {
                 float t = timer / timeToReachRect;
                 bulletTrans.position = Vector3.Lerp(startPosition, destination, t);
-                timer += UbhTimer.Instance.DeltaTime;
+                timer += JITimer.Instance.DeltTime;
 
                 if(t >= 0.995f)
                 {

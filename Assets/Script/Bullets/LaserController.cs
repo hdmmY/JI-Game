@@ -37,7 +37,7 @@ public class LaserController : MonoBehaviour {
 
     private void Update()
     {
-        _timer += UbhTimer.Instance.DeltaTime;
+        _timer += JITimer.Instance.DeltTime;
 
         if(_timer > (_appearAnimLength + m_laserLife))
         {

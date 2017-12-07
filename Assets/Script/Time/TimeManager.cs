@@ -75,7 +75,7 @@ public class TimeManager : MonoBehaviour
 
     void Update()
     {
-        m_timer += UbhTimer.Instance.DeltaTime;
+        m_timer += JITimer.Instance.DeltTime;
 
         for (int i = 0; i < m_timeGos.Count; i++)
         {

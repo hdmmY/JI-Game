@@ -98,12 +98,12 @@ public class PlayerChangeState : MonoBehaviour
 
     IEnumerator TriggerEnter()
     {
-        UbhTimer.Instance.TimeScale = 0f;
+        JITimer.Instance.TimeScale = 0f;
         _property.m_tgm = true;
 
         yield return new WaitForSeconds(0.5f);
 
-        UbhTimer.Instance.TimeScale = 1f;
+        JITimer.Instance.TimeScale = 1f;
         _property.m_tgm = false;
 
         Transform ChangeStateTras = UbhObjectPool.Instance.GetGameObject
@@ -129,7 +129,7 @@ public class PlayerChangeState : MonoBehaviour
             }
             else
             {
-                UbhTimer.Instance.TimeScale = 1f;
+                JITimer.Instance.TimeScale = 1f;
                 ChangeStateTras.localScale = Vector3.one;
                 spriteRender.enabled = false;
                 collider.enabled = false;

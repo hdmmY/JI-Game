@@ -8064,7 +8064,7 @@ void TweenComplete()
         }
         else
         {
-            runningTime += UbhTimer.Instance.DeltaTime;
+            runningTime += JITimer.Instance.DeltTime;
         }
 
         if (reverse)
