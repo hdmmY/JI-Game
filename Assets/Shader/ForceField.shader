@@ -1,48 +1,117 @@
 ﻿Shader "Custom/ForceField" {
-	Properties {
-		_Color ("Color", Color) = (1,1,1,1)
-		_MainTex ("Albedo (RGB)", 2D) = "white" {}
-		_Glossiness ("Smoothness", Range(0,1)) = 0.5
-		_Metallic ("Metallic", Range(0,1)) = 0.0
+	Properties 
+	{
+		_Tint ("Tint Color", Color) = (0, 0, 0, 0)
+		_MainTex ("Main Tex", 2D) = "white" {}
+
+		_Fresnel ("Fresnel Intensity", Range(0, 200)) = 3.0
+		_FresnelWidth ("Fresnel Width", Range(0, 2)) = 3.0
+
+		_Distort ("Distort", Range(0, 100)) = 1.0
+
+		_ScrollSpeedU ("U Scroll Speed", Float) = 2
+		_ScrollSpeedV ("V Scroll Speed", Float) = 2
 	}
-	SubShader {
-		Tags { "RenderType"="Opaque" }
-		LOD 200
-		
-		CGPROGRAM
-		// Physically based Standard lighting model, and enable shadows on all light types
-		#pragma surface surf Standard fullforwardshadows
 
-		// Use shader model 3.0 target, to get nicer looking lighting
-		#pragma target 3.0
 
-		sampler2D _MainTex;
+	SubShader 
+	{
+		Tags
+		{
+			"Queue" = "Overlay"
+			"IgnoreProjector" = "True"
+			"RenderType" = "Transparent"
+		}	
 
-		struct Input {
-			float2 uv_MainTex;
-		};
-
-		half _Glossiness;
-		half _Metallic;
-		fixed4 _Color;
-
-		// Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
-		// See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
-		// #pragma instancing_options assumeuniformscaling
-		UNITY_INSTANCING_CBUFFER_START(Props)
-			// put more per-instance properties here
-		UNITY_INSTANCING_CBUFFER_END
-
-		void surf (Input IN, inout SurfaceOutputStandard o) {
-			// Albedo comes from a texture tinted by color
-			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-			o.Albedo = c.rgb;
-			// Metallic and smoothness come from slider variables
-			o.Metallic = _Metallic;
-			o.Smoothness = _Glossiness;
-			o.Alpha = c.a;
+		GrabPass
+		{
+			"_GrabTexture"
 		}
-		ENDCG
+
+		Pass 
+		{
+			Cull Off
+			Lighting Off
+			ZWrite Off
+			Blend SrcAlpha OneMinusSrcAlpha
+
+			CGPROGRAM
+
+			#pragma vertex vert
+			#pragma fragment frag
+
+			#include "UnityCG.cginc"
+
+			struct a2v
+			{
+				fixed4 vertex : POSITION;
+				fixed4 normal : NORMAL;
+				fixed3 uv : TEXCOORD0; 
+			};
+
+			struct v2f
+			{
+				fixed2 uv : TEXCOORD0;
+				fixed4 vertex : SV_POSITION;
+				fixed3 rimColor : TEXCOORD1;
+				fixed4 screenPos : TEXCOORD2; 
+			};
+
+			fixed4 _Tint;
+
+			sampler2D _MainTex;
+			float4 _MainTex_ST;
+
+			sampler2D _CameraDepthTexture;
+			
+			sampler2D _GrabTexture;
+			fixed4 _GrabTexture_TexelSize;
+
+			fixed _Fresnel;
+			fixed _FresnelWidth;
+
+			fixed _Distort;
+
+			fixed _ScrollSpeedU;
+			fixed _ScrollSpeedV;
+
+
+			v2f vert(a2v v)
+			{
+				v2f o;
+
+				o.vertex = UnityObjectToClipPos(v.vertex);
+				o.uv = v.uv * _MainTex_ST.xy + _MainTex_ST.zw;
+
+				// Scroll uv
+				o.uv.x += _Time * _ScrollSpeedU;
+				o.uv.y += _Time * _ScrollSpeedV;
+
+				// Fresnel
+				fixed3 viewDir = normalize(ObjSpaceViewDir(v.vertex));
+				fixed dotProduct = 1 - saturate(dot(v.normal, viewDir));
+				o.rimColor = smoothstep(1 - _FresnelWidth, 1, dotProduct) * 0.5;
+				o.screenPos = ComputeScreenPos(v.vertex);
+
+				return o;
+			}
+
+
+			fixed4 frag(v2f i) : SV_Target
+			{
+				fixed3 texColor = tex2D(_MainTex, i.uv);
+				texColor = texColor * _Tint.rgb;
+
+				// Distrotion
+				i.screenPos.xy += (texColor.rg * 2 - 1) * _Distort * _GrabTexture_TexelSize;  // Soft Additive
+				fixed3 distortColor = tex2Dproj(_GrabTexture, i.screenPos).rgb * _Tint.rgb;
+
+				return fixed4(lerp(distortColor, texColor, texColor.r), 0.9);
+				
+			}
+
+
+			ENDCG
+		}
 	}
-	FallBack "Diffuse"
 }

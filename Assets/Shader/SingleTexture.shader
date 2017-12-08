@@ -2,9 +2,12 @@
 	Properties 
 	{
 		_MainTex("Main Tex", 2D) = "white" {}
-
+		
 		_Color ("Color Tint", Color) = (1, 1, 1, 1)
 		_AlphaScale ("Alpha Scale", Range(0, 1)) = 1
+	
+		_NoiseTex("Noise Tex", 2D) = "white" {}
+		_NoiseFactor("Noise Fator", Range(0, 1)) = 0
 	}
 
 	SubShader 
@@ -28,6 +31,7 @@
 			
 			#pragma vertex vert
 			#pragma fragment frag
+			#include "UnityCG.cginc"
 
 			fixed4 _Color;
 			
@@ -36,6 +40,8 @@
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
 			
+			sampler2D _NoiseTex;
+			float _NoiseFactor;
 
 
 			struct a2v 
@@ -47,7 +53,7 @@
 			struct v2f
 			 {
 				float4 pos : SV_POSITION;
-				float2 uv : TEXCOORD2;
+				float2 uv : TEXCOORD0;
 			};
 			
 			v2f vert(a2v v) 
@@ -55,8 +61,9 @@
 				v2f o;
 
 				o.pos = UnityObjectToClipPos(v.vertex);		
+
 				o.uv = v.texcoord.xy * _MainTex_ST.xy + _MainTex_ST.zw;
-				
+
 				return o;
 			}
 			
@@ -66,6 +73,9 @@
 				
 				textureColor.rgb *= _Color;
 				textureColor.a *= _AlphaScale;
+
+				fixed4 noiseColor = tex2D(_NoiseTex, i.uv);
+				clip(Luminance(noiseColor.rgb - _NoiseFactor));
 
 				return textureColor;
 			}
