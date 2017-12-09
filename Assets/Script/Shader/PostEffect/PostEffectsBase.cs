@@ -42,24 +42,20 @@ public class PostEffectsBase : MonoBehaviour
     {
         if(shader == null)
         {
-            Debug.Log(0);
             return null;
         }
 
         if(shader.isSupported && material && material.shader == shader)
         {
-            Debug.Log(123);
             return material;
         }
 
         if(!shader.isSupported)
         {
-            Debug.Log(456);
             return null;
         }
         else
         {
-            Debug.Log(789);
             material = new Material(shader);
             material.hideFlags = HideFlags.DontSave;
 
