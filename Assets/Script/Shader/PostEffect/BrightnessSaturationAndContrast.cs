@@ -41,7 +41,6 @@ public class BrightnessSaturationAndContrast : PostEffectsBase {
         else
         {
             Graphics.Blit(source, destination);
-            Debug.Log("there!");
         }
     }
 }

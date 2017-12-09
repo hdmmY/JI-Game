@@ -73,17 +73,17 @@ Shader "Unlit/ShieldFX"
 
 				fixed4 main = tex2D(_MainTex, i.uv);
 				//distortion
-				i.screenPos.xy += (main.aa - 0.5) * _Distort * 0.5 * _GrabTexture_TexelSize.xy;
+				i.screenPos.xy += (main.aa - 0.5) * _Distort * 0.2* _GrabTexture_TexelSize.xy;
 				fixed3 distortColor = tex2Dproj(_GrabTexture, i.screenPos);
-				distortColor *= _MainColor * _MainColor.a;
+				//distortColor *= _MainColor * _MainColor.a;
 
 				//intersect hightlight
 				i.rimColor *= intersect;
 				main.rgb *= _MainColor * pow(_Fresnel,i.rimColor) ;
 				
 				//lerp distort color & fresnel color
-				main.rgb = lerp(distortColor, main, i.rimColor.r);
-				main.rgb += (1 - intersect) * 0.03 * _MainColor * _Fresnel;
+				main.rgb = lerp(distortColor, main, 0.3);
+				main.rgb += (1 - intersect) * _MainColor * _Fresnel;
 				return fixed4(main.rgb, _MainColor.a);
 			}
 
