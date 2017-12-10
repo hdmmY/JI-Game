@@ -1,26 +1,9 @@
 ﻿using UnityEngine;
 
-public class InputManager : MonoBehaviour {
-
-    static InputManager _instance;
-
-    public static InputManager Instance
-    {
-        get
-        {
-            if(_instance == null)
-            {
-                _instance = FindObjectOfType<InputManager>();
-
-                if(_instance == null)
-                    _instance = new GameObject("InputManager").AddComponent<InputManager>();
-            }
-            return _instance;
-        }
-    }
-
+public class InputManager : JISingletonMonoBehavior<InputManager>
+{
     private float _HorizontalInput;
-    private float _VerticalInput;         
+    private float _VerticalInput;
 
     public float HorizontalInput
     {
@@ -40,32 +23,33 @@ public class InputManager : MonoBehaviour {
 
     private void Update()
     {
-        if(Input.GetKey(KeyCode.RightArrow))  // 玩家想要向右移动
+        bool goRight = Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D);
+        bool goLeft = Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A);
+        bool goUp = Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W);
+        bool goDown = Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S);
+
+        if (goRight)  
         {
             _HorizontalInput = 1;
-        } 
-
-        if(Input.GetKey(KeyCode.LeftArrow))
+        }
+        else if (goLeft)
         {
             _HorizontalInput = -1;
         }
-
-        if(!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
+        else
         {
             _HorizontalInput = 0;
         }
 
-        if(Input.GetKey(KeyCode.UpArrow))
+        if (goUp)
         {
             _VerticalInput = 1;
         }
-
-        if(Input.GetKey(KeyCode.DownArrow))
+        else if (goDown)
         {
             _VerticalInput = -1;
         }
-
-        if(!Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.DownArrow))
+        else
         {
             _VerticalInput = 0;
         }

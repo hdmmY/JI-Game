@@ -55,18 +55,26 @@ public class ShockWaveEffect : PostEffectsBase
         }
     }
 
-    private void Update()
+    public void StartShockWave(Vector3 worldPos, float radius)
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 mouseScreenPos = m_mainCamera.ScreenToViewportPoint(Input.mousePosition);
-            material.SetVector("_Centre", mouseScreenPos);
+        Vector2 mouseScreenPos = m_mainCamera.WorldToViewportPoint(worldPos);
+        material.SetVector("_Centre", mouseScreenPos);
 
-            ResetMaterial();
-            //StopCoroutine(StartShockWave());
-            StartCoroutine(StartShockWave());
-        }
+        Vector2 endPoint = m_mainCamera.WorldToViewportPoint(Vector2.up * radius);
+        Vector2 startPoint = m_mainCamera.WorldToViewportPoint(Vector2.one);
+        radius = (endPoint - startPoint).magnitude;
+        Debug.Log(radius);
+
+        m_maxRadius = radius;
+
+        ResetMaterial();
+        StopCoroutine(StartShockWave());
+        StartCoroutine(StartShockWave());
     }
+
+    
+
+
 
 
     private void ResetMaterial()
@@ -93,10 +101,7 @@ public class ShockWaveEffect : PostEffectsBase
 
         float deltWidth = (m_endWidth - m_startWidth) / m_totalTime;
         float deltRadius = m_maxRadius / m_totalTime;
-
-        Debug.Log(deltWidth);
-        Debug.Log(deltRadius);
-
+                                
         while (_timer < m_totalTime)
         {
             _timer += JITimer.Instance.RealDeltTime;
@@ -106,6 +111,9 @@ public class ShockWaveEffect : PostEffectsBase
 
             yield return null;
         }
+
+        _curRadius = 0;
+        _curWidth = m_endWidth;
 
         ResetTimeScale();
     }

@@ -1,115 +1,116 @@
-﻿Shader "Custom/ForceField" {
-	Properties 
+Shader "Custom/ForceField"
+{
+	Properties
 	{
-		_Tint ("Tint Color", Color) = (0, 0, 0, 0)
 		_MainTex ("Main Tex", 2D) = "white" {}
+		_DistortTex ("Distort Tex", 2D) = "white" {}
 
-		_Fresnel ("Fresnel Intensity", Range(0, 200)) = 3.0
-		_FresnelWidth ("Fresnel Width", Range(0, 2)) = 3.0
+		_MainColor("MainColor", Color) = (1,1,1,1)
+				
+		_Distort("Distort", Range(0, 100)) = 1.0
+		_DistortRadio ("Distort Radio", Range(0, 1)) = 0.5
 
-		_Distort ("Distort", Range(0, 100)) = 1.0
-
-		_ScrollSpeedU ("U Scroll Speed", Float) = 2
-		_ScrollSpeedV ("V Scroll Speed", Float) = 2
+		_ScrollSpeedU("Scroll U Speed",float) = 2
+		_ScrollSpeedV("Scroll V Speed",float) = 0
 	}
-
-
-	SubShader 
-	{
+	SubShader
+	{ 
 		Tags
-		{
-			"Queue" = "Overlay"
-			"IgnoreProjector" = "True"
-			"RenderType" = "Transparent"
-		}	
-
-		GrabPass
-		{
-			"_GrabTexture"
+		{ 
+			"Queue" = "Transparent" 
+			"IgnoreProjector" = "True" 
+			"RenderType" = "Transparent" 
 		}
 
-		Pass 
+		GrabPass{ "_GrabTexture" }
+
+		Pass
 		{
+			Lighting Off 
+			ZWrite On
 			Cull Off
-			Lighting Off
-			ZWrite Off
 			Blend SrcAlpha OneMinusSrcAlpha
+			
 
 			CGPROGRAM
-
 			#pragma vertex vert
 			#pragma fragment frag
-
 			#include "UnityCG.cginc"
 
-			struct a2v
+			struct appdata
 			{
 				fixed4 vertex : POSITION;
-				fixed4 normal : NORMAL;
-				fixed3 uv : TEXCOORD0; 
+				fixed4 normal: NORMAL;
+				fixed3 uv : TEXCOORD0;
 			};
 
 			struct v2f
 			{
-				fixed2 uv : TEXCOORD0;
 				fixed4 vertex : SV_POSITION;
-				fixed3 rimColor : TEXCOORD1;
-				fixed4 screenPos : TEXCOORD2; 
+				fixed2 uv : TEXCOORD0;
+				fixed3 worldNormal: TEXCOORD1;
+				fixed3 worldViewDir: TEXCOORD2;
+				fixed2 srceenPos : TEXCOORD3;
 			};
 
-			fixed4 _Tint;
+			sampler2D _MainTex; 
+			fixed4 _MainTex_ST;
 
-			sampler2D _MainTex;
-			float4 _MainTex_ST;
-
-			sampler2D _CameraDepthTexture;
-			
 			sampler2D _GrabTexture;
+			fixed4 _GrabTexture_ST;
 			fixed4 _GrabTexture_TexelSize;
+			
+			fixed4 _MainColor;
 
-			fixed _Fresnel;
-			fixed _FresnelWidth;
-
+			sampler2D _DistortTex;
 			fixed _Distort;
+			fixed _DistortRadio;
 
 			fixed _ScrollSpeedU;
 			fixed _ScrollSpeedV;
 
-
-			v2f vert(a2v v)
+			v2f vert (appdata v)
 			{
 				v2f o;
-
 				o.vertex = UnityObjectToClipPos(v.vertex);
-				o.uv = v.uv * _MainTex_ST.xy + _MainTex_ST.zw;
+				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
-				// Scroll uv
+				//scroll uv
 				o.uv.x += _Time * _ScrollSpeedU;
 				o.uv.y += _Time * _ScrollSpeedV;
+				o.srceenPos = ComputeScreenPos(o.vertex);
 
-				// Fresnel
-				fixed3 viewDir = normalize(ObjSpaceViewDir(v.vertex));
-				fixed dotProduct = 1 - saturate(dot(v.normal, viewDir));
-				o.rimColor = smoothstep(1 - _FresnelWidth, 1, dotProduct) * 0.5;
-				o.screenPos = ComputeScreenPos(v.vertex);
+				//fresnel 
+				fixed3 worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+				o.worldNormal = mul(v.normal, (float3x3)unity_WorldToObject); 
+				o.worldViewDir = UnityWorldSpaceViewDir(worldPos);
 
 				return o;
 			}
-
-
-			fixed4 frag(v2f i) : SV_Target
+			
+			fixed4 frag (v2f i) : SV_Target
 			{
-				fixed3 texColor = tex2D(_MainTex, i.uv);
-				texColor = texColor * _Tint.rgb;
+				i.worldNormal = normalize(i.worldNormal);
+				i.worldViewDir = normalize(i.worldViewDir);
 
-				// Distrotion
-				i.screenPos.xy += (texColor.rg * 2 - 1) * _Distort * _GrabTexture_TexelSize;  // Soft Additive
-				fixed3 distortColor = tex2Dproj(_GrabTexture, i.screenPos).rgb * _Tint.rgb;
+				fixed4 main = tex2D(_MainTex, i.uv);
+				main.rgb *= _MainColor.rgb * main.a;
 
-				return fixed4(lerp(distortColor, texColor, texColor.r), 0.9);
-				
+				//distortion
+				fixed2 dsitortionUV = tex2D(_DistortTex, i.uv).rg;
+				i.srceenPos += (dsitortionUV - 0.5) * _Distort * _GrabTexture_TexelSize.xy;
+				fixed3 distortColor = tex2D(_GrabTexture, i.srceenPos);
+
+				// fresnel 
+				fixed3 fresnelColor = pow((1 - dot(i.worldViewDir, i.worldNormal)), 5);
+				fresnelColor *= _MainColor;
+
+				//lerp distort color & fresnel color
+				main.rgb = lerp(distortColor, main, _DistortRadio);
+				main.rgb += fresnelColor;
+
+				return fixed4(main.rgb, _MainColor.a);
 			}
-
 
 			ENDCG
 		}

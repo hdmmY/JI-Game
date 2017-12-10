@@ -4,147 +4,201 @@ using UnityEngine;
 
 public class PlayerChangeState : MonoBehaviour
 {
-
-    public KeyCode m_ChangeStateKey;
-
+    [Header("Reference")]
     public Sprite m_whiteSprite;
     public Sprite m_blackSprite;
 
-    public float m_Radius;
+    [Space]
 
-    public GameObject m_ChangeStateExplosion;
-    public float m_Velocity;
-    public float m_Time;
+    [Header("Shield Force Field")]
+    public GameObject m_forceField;
+    public Material m_whiteForceFieldMaterial;
+    public Material m_blackForceFieldMaterial;
 
-    public GameObject m_JudgePoint;
+    public float m_forceFieldTime;
 
-    private PlayerProperty _property;
-    private SpriteRenderer _spriteRender;
+    [Space]
+
+    [Header("Shock Wave Distortion")]
+    public ShockWaveEffect m_shockWaveEffectCamera;
+    public float m_shockWaveRadius;
+
+
+
+    //public GameObject m_ChangeStateExplosion;
+    //public float m_Velocity;
+    //public float m_Time;
+
+
+
+    private PlayerProperty _playerProperty;
+    private SpriteRenderer _playerSpriteRender;
+    private MeshRenderer _forceFieldRender;
 
     private void Start()
     {
-        _property = GetComponent<PlayerProperty>();
-        _spriteRender = _property.m_spriteReference;
+        _playerProperty = GetComponent<PlayerProperty>();
+        _playerSpriteRender = _playerProperty.m_spriteReference;
+        _forceFieldRender = m_forceField.GetComponent<MeshRenderer>();
 
-
-        switch (_property.m_playerState)
-        {
-            case PlayerProperty.PlayerStateType.White:
-                _spriteRender.sprite = m_whiteSprite;
-                break;
-
-            case PlayerProperty.PlayerStateType.Black:
-                _spriteRender.sprite = m_blackSprite;
-                break;
-        }
+        RenderForceField();
     }
 
     private void Update()
     {
-        if(Input.GetKey(m_ChangeStateKey))
+        if(Input.GetButton("Change State"))
         {
-            _property.m_playerMoveState = PlayerProperty.PlayerMoveType.SlowSpeed;
-            m_JudgePoint.SetActive(true);
+            _playerProperty.m_playerMoveState = PlayerProperty.PlayerMoveType.SlowSpeed;
         }
         else
         {
-            _property.m_playerMoveState = PlayerProperty.PlayerMoveType.HighSpeed;
-            m_JudgePoint.SetActive(false);
+            _playerProperty.m_playerMoveState = PlayerProperty.PlayerMoveType.HighSpeed;
         }
 
-        if (Input.GetKeyDown(m_ChangeStateKey))
+
+        if (Input.GetButtonDown("Change State"))
         {
-            switch (_property.m_playerState)
+
+            if (_playerProperty.m_playerState == PlayerProperty.PlayerStateType.Black)
             {
-                case PlayerProperty.PlayerStateType.White:
-                    _property.m_playerState = PlayerProperty.PlayerStateType.Black;
-                    _spriteRender.sprite = m_blackSprite;
-                    break;
-
-                case PlayerProperty.PlayerStateType.Black:
-                    _property.m_playerState = PlayerProperty.PlayerStateType.White;
-                    _spriteRender.sprite = m_whiteSprite;
-                    break;
-            }
-
-            RaycastHit2D[] rayhits = Physics2D.CircleCastAll(transform.position, m_Radius, Vector2.zero);
-
-            foreach (RaycastHit2D rayhit in rayhits)
-            {
-                string name = (rayhit.collider.gameObject.name).ToLower();
-
-                switch (_property.m_playerState)
-                {
-                    case PlayerProperty.PlayerStateType.Black:
-                        if (name.Contains("black"))
-                        {
-                            StartCoroutine(TriggerEnter());
-                        }
-                        break;
-
-
-                    case PlayerProperty.PlayerStateType.White:
-                        if (name.Contains("white"))
-                        {
-                            StartCoroutine(TriggerEnter());
-                        }
-                        break;
-                }
-            }
-
-        }
-    }
-
-
-    IEnumerator TriggerEnter()
-    {
-        JITimer.Instance.TimeScale = 0f;
-        _property.m_tgm = true;
-
-        yield return new WaitForSeconds(0.5f);
-
-        JITimer.Instance.TimeScale = 1f;
-        _property.m_tgm = false;
-
-        Transform ChangeStateTras = UbhObjectPool.Instance.GetGameObject
-            (m_ChangeStateExplosion, transform.position, Quaternion.identity).transform;
-
-        SpriteRenderer spriteRender = ChangeStateTras.GetComponent<SpriteRenderer>();
-        spriteRender.enabled = true;
-
-        CircleCollider2D collider = ChangeStateTras.GetComponent<CircleCollider2D>();
-        collider.enabled = true;
-
-        float timer = 0f;
-
-        while (true)
-        {
-            timer += Time.deltaTime;
-
-            ChangeStateTras.localScale += Vector3.one * Time.deltaTime * m_Velocity;
-
-            if (timer < m_Time)
-            {
-                yield return null;
+                StartCoroutine(ChangeStateToWhite());
             }
             else
             {
-                JITimer.Instance.TimeScale = 1f;
-                ChangeStateTras.localScale = Vector3.one;
-                spriteRender.enabled = false;
-                collider.enabled = false;
-                UbhObjectPool.Instance.ReleaseGameObject(ChangeStateTras.gameObject);
-                yield break;
+                StartCoroutine(ChangeStateToBlack());
             }
         }
     }
 
 
 
-    private void OnDrawGizmos()
+    private void RenderForceField()
     {
-        Gizmos.DrawWireSphere(transform.position, m_Radius);
+        m_forceField.SetActive(true);
+
+        if(_playerProperty.m_playerState == PlayerProperty.PlayerStateType.Black)
+        {
+            _forceFieldRender.material = m_blackForceFieldMaterial;    
+        }
+        else
+        {
+            _forceFieldRender.material = m_whiteForceFieldMaterial;
+        }
     }
 
+    private void RenderPlayerSprite()
+    {
+        if (_playerProperty.m_playerState == PlayerProperty.PlayerStateType.Black)
+        {
+            _playerSpriteRender.sprite = m_blackSprite;
+        }
+        else
+        {
+            _playerSpriteRender.sprite = m_whiteSprite;
+        }
+    }
+
+
+
+
+    private IEnumerator ChangeStateToBlack()
+    {
+        _playerProperty.m_playerState = PlayerProperty.PlayerStateType.Black;
+
+        m_shockWaveEffectCamera.StartShockWave(_playerProperty.transform.position, m_shockWaveRadius);   
+
+        RenderForceField();
+        RenderPlayerSprite();
+
+        float timer = 0;
+        while(timer < m_forceFieldTime)
+        {
+            timer += JITimer.Instance.RealDeltTime;
+            yield return null;
+        }
+
+        m_forceField.SetActive(false);
+    }
+
+
+
+    private IEnumerator ChangeStateToWhite()
+    {
+        _playerProperty.m_playerState = PlayerProperty.PlayerStateType.White;
+
+        m_shockWaveEffectCamera.StartShockWave(_playerProperty.transform.position, m_shockWaveRadius);
+
+        RenderForceField();
+        RenderPlayerSprite();
+
+        float timer = 0;
+        while (timer < m_forceFieldTime)
+        {
+            timer += JITimer.Instance.RealDeltTime;
+            yield return null;
+        }
+
+        m_forceField.SetActive(false);
+    }
+
+
+
+
+
+
+
+
+
+
+
+    //IEnumerator TriggerEnter()
+    //{
+    //    JITimer.Instance.TimeScale = 0f;
+    //    _property.m_tgm = true;
+
+    //    yield return new WaitForSeconds(0.5f);
+
+    //    JITimer.Instance.TimeScale = 1f;
+    //    _property.m_tgm = false;
+
+    //    Transform ChangeStateTras = UbhObjectPool.Instance.GetGameObject
+    //        (m_ChangeStateExplosion, transform.position, Quaternion.identity).transform;
+
+    //    SpriteRenderer spriteRender = ChangeStateTras.GetComponent<SpriteRenderer>();
+    //    spriteRender.enabled = true;
+
+    //    CircleCollider2D collider = ChangeStateTras.GetComponent<CircleCollider2D>();
+    //    collider.enabled = true;
+
+    //    float timer = 0f;
+
+    //    while (true)
+    //    {
+    //        timer += Time.deltaTime;
+
+    //        ChangeStateTras.localScale += Vector3.one * Time.deltaTime * m_Velocity;
+
+    //        if (timer < m_Time)
+    //        {
+    //            yield return null;
+    //        }
+    //        else
+    //        {
+    //            JITimer.Instance.TimeScale = 1f;
+    //            ChangeStateTras.localScale = Vector3.one;
+    //            spriteRender.enabled = false;
+    //            collider.enabled = false;
+    //            UbhObjectPool.Instance.ReleaseGameObject(ChangeStateTras.gameObject);
+    //            yield break;
+    //        }
+    //    }
+    //}
+
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, m_shockWaveRadius);
+    }
 
 }

@@ -82,7 +82,7 @@
 				}
 
 				//return fixed4(currentUV.y, currentUV.y, currentUV.y, 1);
-				return fixed4(1, 1, 1, 1);
+				return fixed4(1, 1, 1, 0);
 			}
 
 			ENDCG
