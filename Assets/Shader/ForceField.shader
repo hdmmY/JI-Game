@@ -10,6 +10,8 @@ Shader "Custom/ForceField"
 		_Distort("Distort", Range(0, 100)) = 1.0
 		_DistortRadio ("Distort Radio", Range(0, 1)) = 0.5
 
+		_LambertColor ("Lambert Color", Color) = (1, 1, 1, 1)
+
 		_ScrollSpeedU("Scroll U Speed",float) = 2
 		_ScrollSpeedV("Scroll V Speed",float) = 0
 	}
@@ -20,6 +22,7 @@ Shader "Custom/ForceField"
 			"Queue" = "Transparent" 
 			"IgnoreProjector" = "True" 
 			"RenderType" = "Transparent" 
+			"LightMode"="ForwardBase"
 		}
 
 		GrabPass{ "_GrabTexture" }
@@ -28,7 +31,7 @@ Shader "Custom/ForceField"
 		{
 			Lighting Off 
 			ZWrite On
-			Cull Off
+			Cull Back
 			Blend SrcAlpha OneMinusSrcAlpha
 			
 
@@ -36,6 +39,7 @@ Shader "Custom/ForceField"
 			#pragma vertex vert
 			#pragma fragment frag
 			#include "UnityCG.cginc"
+			#include "Lighting.cginc"
 
 			struct appdata
 			{
@@ -49,7 +53,7 @@ Shader "Custom/ForceField"
 				fixed4 vertex : SV_POSITION;
 				fixed2 uv : TEXCOORD0;
 				fixed3 worldNormal: TEXCOORD1;
-				fixed3 worldViewDir: TEXCOORD2;
+				fixed3 worldPos: TEXCOORD2;
 				fixed2 srceenPos : TEXCOORD3;
 			};
 
@@ -66,6 +70,8 @@ Shader "Custom/ForceField"
 			fixed _Distort;
 			fixed _DistortRadio;
 
+			fixed4 _LambertColor;
+
 			fixed _ScrollSpeedU;
 			fixed _ScrollSpeedV;
 
@@ -81,17 +87,16 @@ Shader "Custom/ForceField"
 				o.srceenPos = ComputeScreenPos(o.vertex);
 
 				//fresnel 
-				fixed3 worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+				o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 				o.worldNormal = mul(v.normal, (float3x3)unity_WorldToObject); 
-				o.worldViewDir = UnityWorldSpaceViewDir(worldPos);
 
 				return o;
 			}
 			
 			fixed4 frag (v2f i) : SV_Target
 			{
-				i.worldNormal = normalize(i.worldNormal);
-				i.worldViewDir = normalize(i.worldViewDir);
+				fixed3 worldNormal = normalize(i.worldNormal);
+				fixed3 worldViewDir = normalize(UnityWorldSpaceViewDir(i.worldPos));
 
 				fixed4 main = tex2D(_MainTex, i.uv);
 				main.rgb *= _MainColor.rgb * main.a;
@@ -102,12 +107,26 @@ Shader "Custom/ForceField"
 				fixed3 distortColor = tex2D(_GrabTexture, i.srceenPos);
 
 				// fresnel 
-				fixed3 fresnelColor = pow((1 - dot(i.worldViewDir, i.worldNormal)), 5);
+				fixed3 fresnelColor = pow((1 - dot(worldViewDir, worldNormal)), 5);
 				fresnelColor *= _MainColor;
+
+				// // Specular light
+				// fixed3 worldLightDir = normalize(_WorldSpaceLightPos0.xyz);
+				// fixed3 reflectDir = normalize(reflect(-worldLightDir, worldNormal));
+				// fixed3 viewDir = normalize(_WorldSpaceCameraPos.xyz - i.worldPos);
+				// fixed3 specularColor = _LightColor0.rgb * _Specular.rgb * pow(saturate(dot(reflectDir, viewDir)), _Gloss);
+
+				// Half Lambert
+				fixed3 worldLightDir = normalize(_WorldSpaceLightPos0.xyz);
+				fixed lambertFactor = saturate(dot(worldNormal, worldLightDir));
+				fixed3 lambertColor = _LightColor0.rgb * _LambertColor.rgb * lambertFactor;
 
 				//lerp distort color & fresnel color
 				main.rgb = lerp(distortColor, main, _DistortRadio);
 				main.rgb += fresnelColor;
+				main.rgb += lambertColor;
+
+				_MainColor.a *= lambertFactor * 2;
 
 				return fixed4(main.rgb, _MainColor.a);
 			}

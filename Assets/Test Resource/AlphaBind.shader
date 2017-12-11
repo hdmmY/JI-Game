@@ -8,15 +8,16 @@
 
 		_HoleWidth ("Hole Width", Range(0, 0.5)) = 0.1
 		_HoleRadius ("Hole Radius", Range(0, 1)) = 0
-		//_HoleDisappearRadius ("Hole DisappearRadius", Range(0, 0.5)) = 0.1
+		_HoleDisappearRadius ("Hole DisappearRadius", Range(0, 0.5)) = 0.1
 	}
 	
 	SubShader 
 	{
 		Tags
-		{
-			"RenderType" = "Transparent"
-			"IgnoreProjector" = "True"
+		{ 
+			"Queue" = "Transparent" 
+			"IgnoreProjector" = "True" 
+			"RenderType" = "Transparent" 
 		}
 
 		Pass 
@@ -44,6 +45,7 @@
 
 			fixed _HoleWidth;
 			fixed _HoleRadius;
+			fixed _HoleDisappearRadius;
 
 			struct vertexInput
 			{
@@ -74,20 +76,19 @@
 				fixed bindFactor = saturate(((abs(radius - _HoleRadius)) / _HoleWidth));
 
 				// 
-				fixed amplitude = tex2D(_MainTex, input.uv).r;
-				if(radius < _HoleRadius)
-				{
-					fixed holeDisappearRadius = _HoleRadius * 0.5;
-					amplitude *= 1 - saturate((_HoleRadius - radius) / (_HoleRadius - holeDisappearRadius));
-				}
+				fixed4 texColor = tex2D(_MainTex, input.uv);
+
+				// 
+				fixed amplitude = texColor.a;
+				amplitude *= 1 - saturate(abs(_HoleRadius - radius) / _HoleDisappearRadius);
 
 				//
-				fixed3 baseColor = _Color * amplitude;
+				fixed3 baseColor = texColor.rgb * _Color;
 				fixed3 holeColor = tex2D(_HoleTex, input.uv).rgb;
 
-				fixed3 finalCOlor = lerp(holeColor, baseColor, bindFactor);
+				fixed3 finalColor = lerp(holeColor, baseColor, bindFactor);
 
-				return fixed4(finalCOlor, amplitude);
+				return fixed4(finalColor, amplitude);
 			}
 
 

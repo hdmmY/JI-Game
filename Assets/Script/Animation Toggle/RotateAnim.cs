@@ -8,22 +8,21 @@ namespace AnimationToggle
     {
         public Transform m_target;
 
-        public bool m_clockwise;
+        public Vector3 m_eularVelocity;
 
         public float m_rotateSpeed;
 
         private void Update()
         {
-            float rotateAngle = m_rotateSpeed * JITimer.Instance.DeltTime;
-            rotateAngle = m_clockwise ? rotateAngle : -rotateAngle;
+            Vector3 rotateAngle = m_eularVelocity * JITimer.Instance.RealDeltTime;
 
             if(m_target == null)
             {
-                transform.Rotate(new Vector3(0, 0, rotateAngle));
+                transform.Rotate(rotateAngle);
             }
             else
             {
-                m_target.Rotate(new Vector3(0, 0, rotateAngle));
+                m_target.Rotate(rotateAngle);
             }
         }
 

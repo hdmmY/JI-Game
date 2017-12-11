@@ -16,13 +16,18 @@ public class PlayerChangeState : MonoBehaviour
     public Material m_blackForceFieldMaterial;
 
     public float m_forceFieldTime;
+    public Transform m_lightTransform;
 
     [Space]
 
     [Header("Shock Wave Distortion")]
     public ShockWaveEffect m_shockWaveEffectCamera;
+    public MeshRenderer m_shockWaveMesh;
+    public Material m_whiteShockWaveMaterial;
+    public Material m_blackShockWaveMaterial;
     [Range(0, 1)]
     public float m_shockWaveRadius;
+    public float m_shockWaveTime;
 
 
 
@@ -41,13 +46,11 @@ public class PlayerChangeState : MonoBehaviour
         _playerProperty = GetComponent<PlayerProperty>();
         _playerSpriteRender = _playerProperty.m_spriteReference;
         _forceFieldRender = m_forceField.GetComponent<MeshRenderer>();
-
-        RenderForceField();
     }
 
     private void Update()
     {
-        if(Input.GetButton("Change State"))
+        if (Input.GetButton("Change State"))
         {
             _playerProperty.m_playerMoveState = PlayerProperty.PlayerMoveType.SlowSpeed;
         }
@@ -62,10 +65,12 @@ public class PlayerChangeState : MonoBehaviour
 
             if (_playerProperty.m_playerState == PlayerProperty.PlayerStateType.Black)
             {
+                StopAllCoroutines();
                 StartCoroutine(ChangeStateToWhite());
             }
             else
             {
+                StopAllCoroutines();
                 StartCoroutine(ChangeStateToBlack());
             }
         }
@@ -77,9 +82,9 @@ public class PlayerChangeState : MonoBehaviour
     {
         m_forceField.SetActive(true);
 
-        if(_playerProperty.m_playerState == PlayerProperty.PlayerStateType.Black)
+        if (_playerProperty.m_playerState == PlayerProperty.PlayerStateType.Black)
         {
-            _forceFieldRender.material = m_blackForceFieldMaterial;    
+            _forceFieldRender.material = m_blackForceFieldMaterial;
         }
         else
         {
@@ -99,6 +104,17 @@ public class PlayerChangeState : MonoBehaviour
         }
     }
 
+    private void RenderShockWave()
+    {
+        if (_playerProperty.m_playerState == PlayerProperty.PlayerStateType.Black)
+        {
+            m_shockWaveMesh.material = m_blackShockWaveMaterial;
+        }
+        else
+        {
+            m_shockWaveMesh.material = m_whiteShockWaveMaterial;
+        }
+    }
 
 
 
@@ -106,19 +122,25 @@ public class PlayerChangeState : MonoBehaviour
     {
         _playerProperty.m_playerState = PlayerProperty.PlayerStateType.Black;
 
-        m_shockWaveEffectCamera.StartShockWave(_playerProperty.transform.position, m_shockWaveRadius);   
+        m_shockWaveEffectCamera.StartShockWave(_playerProperty.transform.position, m_shockWaveRadius, m_shockWaveTime);
+
+        m_shockWaveMesh.gameObject.SetActive(true);
+        m_shockWaveMesh.material.SetFloat("_HoleRadius", 0);
 
         RenderForceField();
+        RenderShockWave();
         RenderPlayerSprite();
 
         float timer = 0;
-        while(timer < m_forceFieldTime)
+        while (timer < m_forceFieldTime)
         {
             timer += JITimer.Instance.RealDeltTime;
+            m_shockWaveMesh.material.SetFloat("_HoleRadius", timer / m_forceFieldTime * 0.6f); 
             yield return null;
         }
 
         m_forceField.SetActive(false);
+        m_shockWaveMesh.gameObject.SetActive(false);
     }
 
 
@@ -127,22 +149,26 @@ public class PlayerChangeState : MonoBehaviour
     {
         _playerProperty.m_playerState = PlayerProperty.PlayerStateType.White;
 
-        m_shockWaveEffectCamera.StartShockWave(_playerProperty.transform.position, m_shockWaveRadius);
+        m_shockWaveEffectCamera.StartShockWave(_playerProperty.transform.position, m_shockWaveRadius, m_shockWaveTime);
+
+        m_shockWaveMesh.gameObject.SetActive(true);
+        m_shockWaveMesh.material.SetFloat("_HoleRadius", 0);
 
         RenderForceField();
+        RenderShockWave();
         RenderPlayerSprite();
 
         float timer = 0;
         while (timer < m_forceFieldTime)
         {
             timer += JITimer.Instance.RealDeltTime;
+            m_shockWaveMesh.material.SetFloat("_HoleRadius", timer / m_forceFieldTime * 0.6f);
             yield return null;
         }
 
         m_forceField.SetActive(false);
+        m_shockWaveMesh.gameObject.SetActive(false);
     }
 
 
-       
-                       
 }

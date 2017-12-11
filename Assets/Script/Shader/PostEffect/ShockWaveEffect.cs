@@ -63,12 +63,13 @@ public class ShockWaveEffect : PostEffectsBase
     /// </summary>
     /// <param name="worldPos"></param>
     /// <param name="radius"></param>
-    public void StartShockWave(Vector3 worldPos, float radius)
+    public void StartShockWave(Vector3 worldPos, float radius, float time)
     {
         Vector2 mouseScreenPos = m_mainCamera.WorldToViewportPoint(worldPos);
         material.SetVector("_Centre", mouseScreenPos);
                                 
         m_maxRadius = radius;
+        m_totalTime = time;
 
         ResetMaterial();
         StopCoroutine(StartShockWave());
