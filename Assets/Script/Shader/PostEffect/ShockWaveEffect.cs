@@ -10,13 +10,15 @@ public class ShockWaveEffect : PostEffectsBase
     public Camera m_mainCamera;
 
     [Range(0, 1)]
+    [HideInInspector]
     public float m_maxRadius;
 
     [Range(0, 1)]
     public float m_startWidth;
 
     [Range(0, 1)]
-    public float m_endWidth;
+    [HideInInspector]
+    public float m_endWidth = 0.02f;
 
     [Range(0.1f, 5f)]
     public float m_totalTime;
@@ -55,26 +57,23 @@ public class ShockWaveEffect : PostEffectsBase
         }
     }
 
+
+    /// <summary>
+    /// Start a shock wave on specific position.
+    /// </summary>
+    /// <param name="worldPos"></param>
+    /// <param name="radius"></param>
     public void StartShockWave(Vector3 worldPos, float radius)
     {
         Vector2 mouseScreenPos = m_mainCamera.WorldToViewportPoint(worldPos);
         material.SetVector("_Centre", mouseScreenPos);
-
-        Vector2 endPoint = m_mainCamera.WorldToViewportPoint(Vector2.up * radius);
-        Vector2 startPoint = m_mainCamera.WorldToViewportPoint(Vector2.one);
-        radius = (endPoint - startPoint).magnitude;
-        Debug.Log(radius);
-
+                                
         m_maxRadius = radius;
 
         ResetMaterial();
         StopCoroutine(StartShockWave());
         StartCoroutine(StartShockWave());
     }
-
-    
-
-
 
 
     private void ResetMaterial()

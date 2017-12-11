@@ -21,6 +21,7 @@ public class PlayerChangeState : MonoBehaviour
 
     [Header("Shock Wave Distortion")]
     public ShockWaveEffect m_shockWaveEffectCamera;
+    [Range(0, 1)]
     public float m_shockWaveRadius;
 
 
@@ -142,63 +143,6 @@ public class PlayerChangeState : MonoBehaviour
     }
 
 
-
-
-
-
-
-
-
-
-
-    //IEnumerator TriggerEnter()
-    //{
-    //    JITimer.Instance.TimeScale = 0f;
-    //    _property.m_tgm = true;
-
-    //    yield return new WaitForSeconds(0.5f);
-
-    //    JITimer.Instance.TimeScale = 1f;
-    //    _property.m_tgm = false;
-
-    //    Transform ChangeStateTras = UbhObjectPool.Instance.GetGameObject
-    //        (m_ChangeStateExplosion, transform.position, Quaternion.identity).transform;
-
-    //    SpriteRenderer spriteRender = ChangeStateTras.GetComponent<SpriteRenderer>();
-    //    spriteRender.enabled = true;
-
-    //    CircleCollider2D collider = ChangeStateTras.GetComponent<CircleCollider2D>();
-    //    collider.enabled = true;
-
-    //    float timer = 0f;
-
-    //    while (true)
-    //    {
-    //        timer += Time.deltaTime;
-
-    //        ChangeStateTras.localScale += Vector3.one * Time.deltaTime * m_Velocity;
-
-    //        if (timer < m_Time)
-    //        {
-    //            yield return null;
-    //        }
-    //        else
-    //        {
-    //            JITimer.Instance.TimeScale = 1f;
-    //            ChangeStateTras.localScale = Vector3.one;
-    //            spriteRender.enabled = false;
-    //            collider.enabled = false;
-    //            UbhObjectPool.Instance.ReleaseGameObject(ChangeStateTras.gameObject);
-    //            yield break;
-    //        }
-    //    }
-    //}
-
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, m_shockWaveRadius);
-    }
-
+       
+                       
 }
