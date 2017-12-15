@@ -80,7 +80,7 @@ public class PlayerPropertyEditor : Editor
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Player State");
-        _targetScript.m_playerState = (PlayerProperty.PlayerStateType)EditorGUILayout.EnumPopup(_targetScript.m_playerState);
+        _targetScript.m_playerState = (JIState)EditorGUILayout.EnumPopup(_targetScript.m_playerState);
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();

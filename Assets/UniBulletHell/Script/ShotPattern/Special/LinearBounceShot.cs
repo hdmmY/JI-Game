@@ -62,7 +62,7 @@ namespace SpecialShot
         }
 
 
-        IEnumerator BulletMove(UbhBullet bullet, float angle)
+        IEnumerator BulletMove(JIBulletController bullet, float angle)
         {
             Transform bulletTrans = bullet.transform;
 

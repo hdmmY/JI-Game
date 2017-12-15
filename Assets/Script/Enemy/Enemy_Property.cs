@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class Enemy_Property: MonoBehaviour
 {
-    public enum EnemyState
-    {
-        Black,
-        White
-    };
-
-    public EnemyState m_enemyState;
+    public JIState m_enemyState;
 
     [HideInInspector]
     public string m_enemyBulletTag = "Untagged";

@@ -110,7 +110,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
     /// </summary>                        
     /// <param name="forceInstantiate"> force the pool to return an instantiate bullet. </param>
     /// <returns></returns>
-    protected UbhBullet GetBullet(Vector3 position, Quaternion rotation, bool forceInstantiate = false)
+    protected JIBulletController GetBullet(Vector3 position, Quaternion rotation, bool forceInstantiate = false)
     {
         if (m_bulletPrefab == null)
         {
@@ -125,11 +125,11 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
             return null;
         }
 
-        // get or add UbhBullet component
-        var bullet = goBullet.GetComponent<UbhBullet>();
+        // get or add JIBulletController component
+        var bullet = goBullet.GetComponent<JIBulletController>();
         if (bullet == null)
         {
-            bullet = goBullet.AddComponent<UbhBullet>();
+            bullet = goBullet.AddComponent<JIBulletController>();
         }
 
         return bullet;
@@ -140,7 +140,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
     /// </summary>                        
     /// <param name="forceInstantiate"> force the pool to return an instantiate bullet. </param>
     /// <returns></returns>
-    protected UbhBullet GetBullet(GameObject bulletPrefab, Vector3 position, Quaternion rotation, bool forceInstantiate = false)
+    protected JIBulletController GetBullet(GameObject bulletPrefab, Vector3 position, Quaternion rotation, bool forceInstantiate = false)
     {
         if (bulletPrefab == null)
         {
@@ -155,11 +155,11 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
             return null;
         }
 
-        // get or add UbhBullet component
-        var bullet = goBullet.GetComponent<UbhBullet>();
+        // get or add JIBulletController component
+        var bullet = goBullet.GetComponent<JIBulletController>();
         if (bullet == null)
         {
-            bullet = goBullet.AddComponent<UbhBullet>();
+            bullet = goBullet.AddComponent<JIBulletController>();
         }
 
         return bullet;
@@ -172,9 +172,9 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
     public abstract void Shot();
 
     /// <summary>
-    /// Shot UbhBullet object.
+    /// Shot JIBulletController object.
     /// </summary>
-    protected void ShotBullet(UbhBullet bullet, float speed, float angle,
+    protected void ShotBullet(JIBulletController bullet, float speed, float angle,
                                bool homing = false, Transform homingTarget = null, float homingAngleSpeed = 0f, float maxHomingAngle = 0f,
                                bool wave = false, float waveSpeed = 0f, float waveRangeSize = 0f)
     {
@@ -189,7 +189,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
     }
 
 
-    protected void ShotBullet(UbhBullet bullet, IEnumerator bulletMoveRoutine)
+    protected void ShotBullet(JIBulletController bullet, IEnumerator bulletMoveRoutine)
     {
         if (bullet == null)
         {

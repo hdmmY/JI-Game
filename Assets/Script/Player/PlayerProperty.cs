@@ -22,12 +22,7 @@ public class PlayerProperty : MonoBehaviour
     
     
     // state
-    public enum PlayerStateType
-    {
-        Black,
-        White
-    };
-    public PlayerStateType m_playerState;
+    public JIState m_playerState;
 
     
     public enum PlayerMoveType

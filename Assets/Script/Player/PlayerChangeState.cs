@@ -21,7 +21,6 @@ public class PlayerChangeState : MonoBehaviour
     [Space]
 
     [Header("Shock Wave Distortion")]
-    public ShockWaveEffect m_shockWaveEffectCamera;
     public MeshRenderer m_shockWaveMesh;
     public Material m_whiteShockWaveMaterial;
     public Material m_blackShockWaveMaterial;
@@ -63,7 +62,7 @@ public class PlayerChangeState : MonoBehaviour
         if (Input.GetButtonDown("Change State"))
         {
 
-            if (_playerProperty.m_playerState == PlayerProperty.PlayerStateType.Black)
+            if (_playerProperty.m_playerState == JIState.Black)
             {
                 StopAllCoroutines();
                 StartCoroutine(ChangeStateToWhite());
@@ -82,7 +81,7 @@ public class PlayerChangeState : MonoBehaviour
     {
         m_forceField.SetActive(true);
 
-        if (_playerProperty.m_playerState == PlayerProperty.PlayerStateType.Black)
+        if (_playerProperty.m_playerState == JIState.Black)
         {
             _forceFieldRender.material = m_blackForceFieldMaterial;
         }
@@ -94,7 +93,7 @@ public class PlayerChangeState : MonoBehaviour
 
     private void RenderPlayerSprite()
     {
-        if (_playerProperty.m_playerState == PlayerProperty.PlayerStateType.Black)
+        if (_playerProperty.m_playerState == JIState.Black)
         {
             _playerSpriteRender.sprite = m_blackSprite;
         }
@@ -106,7 +105,7 @@ public class PlayerChangeState : MonoBehaviour
 
     private void RenderShockWave()
     {
-        if (_playerProperty.m_playerState == PlayerProperty.PlayerStateType.Black)
+        if (_playerProperty.m_playerState == JIState.Black)
         {
             m_shockWaveMesh.material = m_blackShockWaveMaterial;
         }
@@ -120,9 +119,7 @@ public class PlayerChangeState : MonoBehaviour
 
     private IEnumerator ChangeStateToBlack()
     {
-        _playerProperty.m_playerState = PlayerProperty.PlayerStateType.Black;
-
-        m_shockWaveEffectCamera.StartShockWave(_playerProperty.transform.position, m_shockWaveRadius, m_shockWaveTime);
+        _playerProperty.m_playerState = JIState.Black;
 
         m_shockWaveMesh.gameObject.SetActive(true);
         m_shockWaveMesh.material.SetFloat("_HoleRadius", 0);
@@ -147,9 +144,7 @@ public class PlayerChangeState : MonoBehaviour
 
     private IEnumerator ChangeStateToWhite()
     {
-        _playerProperty.m_playerState = PlayerProperty.PlayerStateType.White;
-
-        m_shockWaveEffectCamera.StartShockWave(_playerProperty.transform.position, m_shockWaveRadius, m_shockWaveTime);
+        _playerProperty.m_playerState = JIState.White;
 
         m_shockWaveMesh.gameObject.SetActive(true);
         m_shockWaveMesh.material.SetFloat("_HoleRadius", 0);

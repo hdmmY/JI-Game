@@ -37,10 +37,10 @@ public class PlayerTakeDamage : MonoBehaviour
                     PlayerDeath();
                     break;
                 case "EnemyBullet":
-                    PlayerProperty.PlayerStateType bulletType = other.transform.parent.name.Contains("Black") ?
-                                    PlayerProperty.PlayerStateType.Black :
-                                    PlayerProperty.PlayerStateType.White;
-                    DamagePlayerByState(bulletType, other.transform.parent.GetComponent<UbhBullet>());
+                    JIState bulletType = other.transform.parent.name.Contains("Black") ?
+                                    JIState.Black :
+                                    JIState.White;
+                    DamagePlayerByState(bulletType, other.transform.parent.GetComponent<JIBulletController>());
                     break;
                 case "EnemyLaser":
                     PlayerDeath();
@@ -59,10 +59,10 @@ public class PlayerTakeDamage : MonoBehaviour
         Animator explositionAnim = Instantiate(m_Explosion, transform.position, Quaternion.identity, transform.parent).GetComponent<Animator>();
         switch (m_playerProperty.m_playerState)
         {
-            case PlayerProperty.PlayerStateType.White:
+            case JIState.White:
                 explositionAnim.Play("Player_White_Destory", 0);
                 break;
-            case PlayerProperty.PlayerStateType.Black:
+            case JIState.Black:
                 explositionAnim.Play("Player_Black_Destory", 0);
                 break;
         }             
@@ -92,7 +92,7 @@ public class PlayerTakeDamage : MonoBehaviour
     }
 
 
-    void DamagePlayerByState(PlayerProperty.PlayerStateType enemyType, UbhBullet enemyBullet)
+    void DamagePlayerByState(JIState enemyType, JIBulletController enemyBullet)
     {
         if (enemyBullet == null) return;
 

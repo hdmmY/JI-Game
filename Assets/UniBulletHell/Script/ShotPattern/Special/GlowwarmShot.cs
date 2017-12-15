@@ -101,7 +101,7 @@ namespace SpecialShot
 
 
         // The method for bullet move
-        IEnumerator BulletMove(UbhBullet bullet, float angle)
+        IEnumerator BulletMove(JIBulletController bullet, float angle)
         {
             Transform bulletTrans = bullet.transform;
 
@@ -180,7 +180,7 @@ namespace SpecialShot
 
 
         // Different from ShotBullet Method(in UbhBaseShot Class), it just care about bullet angle and speed
-        private void ShotChildBullet(UbhBullet bullet, float speed, float angle)
+        private void ShotChildBullet(JIBulletController bullet, float speed, float angle)
         {
             if (bullet == null) return;
 

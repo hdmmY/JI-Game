@@ -59,14 +59,17 @@ public class PlayerShoot : MonoBehaviour
 
         for(int i = 0; i < m_shootList.Count; i++)
         {
-            UbhBullet bullet = GetBullet(m_shootList[i].position, Quaternion.identity);
-            if(bullet == null)  break;
-            bullet.Shot(_playerProperty.m_bulletSpeed, m_shootList[i].rotation.z, 
+            JIBulletController bulletController = GetBullet(m_shootList[i].position, Quaternion.identity);
+            JIBulletProperty bulletProperty = bulletController.GetComponent<JIBulletProperty>();
+
+            if(bulletController == null || bulletProperty)  break;
+
+            bulletProperty.m_damage = _playerProperty.m_bulletDamage;
+            bulletController.Shot(_playerProperty.m_bulletSpeed, m_shootList[i].rotation.z, 
                     0, 0, 
                     false, null, 0, 0, 
                     false, 0, 0, 
                     false, 0, 0, true);
-            bullet.m_damage = _playerProperty.m_bulletDamage;
         }
 
         // finish a shot, reset timer
@@ -78,9 +81,9 @@ public class PlayerShoot : MonoBehaviour
     // position: bullet worldspace position.
     // rotation: bullet worldspace rotation.
     // forceInstantiate: force to instantiate a bullet in object pool and get it.
-    UbhBullet GetBullet(Vector3 position, Quaternion rotation, bool forceInstantiate = false)
+    JIBulletController GetBullet(Vector3 position, Quaternion rotation, bool forceInstantiate = false)
     {
-        GameObject bulletPrefab = (_playerProperty.m_playerState == PlayerProperty.PlayerStateType.Black) ? m_blackBulletPrefab : m_whiteBulletPrefab;
+        GameObject bulletPrefab = (_playerProperty.m_playerState == JIState.Black) ? m_blackBulletPrefab : m_whiteBulletPrefab;
 
         if(bulletPrefab == null)
         {
@@ -96,14 +99,21 @@ public class PlayerShoot : MonoBehaviour
             return null;
         }    
 
-        // Get or add UbhBullet component
-        var bullet = goBullet.GetComponent<UbhBullet>();
-        if(bullet == null)
+        // Get or add JIBulletController component
+        var bulletController = goBullet.GetComponent<JIBulletController>();
+        if(bulletController == null)
         {
-            bullet = goBullet.AddComponent<UbhBullet>();
+            bulletController = goBullet.AddComponent<JIBulletController>();
         }
 
-        return bullet;
+        // Get or add JIBulletProperty component
+        var bulletProperty = goBullet.GetComponent<JIBulletProperty>();
+        if (bulletProperty == null)
+        {
+            bulletProperty = goBullet.AddComponent<JIBulletProperty>();
+        }
+
+        return bulletController;
     }
 
 }

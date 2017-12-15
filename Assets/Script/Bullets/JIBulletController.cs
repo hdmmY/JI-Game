@@ -1,25 +1,19 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-/// <summary>
-/// Ubh bullet.
-/// </summary>
-public class UbhBullet : UbhMonoBehaviour
+public class JIBulletController : MonoBehaviour
 {
-    public int m_damage;
+    private bool _shooting;
 
-    public bool _Shooting
+    private void OnEnable()
     {
-        get;
-        private set;
+        _shooting = true;
     }
-
-    void OnDisable()
+                       
+    private void OnDisable()
     {
         StopAllCoroutines();
-        //transform.ResetPosition();
-        //transform.ResetRotation();
-        _Shooting = false;
     }
 
     /// <summary>
@@ -30,40 +24,40 @@ public class UbhBullet : UbhMonoBehaviour
                       bool wave, float waveSpeed, float waveRangeSize,
                       bool pauseAndResume, float pauseTime, float resumeTime, bool useRealTime = false)
     {
-        if (_Shooting)
+        if (_shooting)
         {
             return;
         }
-        _Shooting = true;
+        _shooting = true;
 
         StartCoroutine(MoveCoroutine(speed, angle, angleSpeed, accelSpeed,
                                     homing, homingTarget, homingAngleSpeed, maxHomingAngle,
                                     wave, waveSpeed, waveRangeSize,
                                     pauseAndResume, pauseTime, resumeTime, useRealTime));
-
-        //UbhBullet testBullet = new UbhBullet();
-        //testBullet._Shooting = false;
     }
 
-
-    // 
+    /// <summary>
+    /// Bullet Shot
+    /// </summary>
+    /// <param name="bulletMoveRoutine"></param>
     public void Shot(IEnumerator bulletMoveRoutine)
     {
-        if (_Shooting)
+        if (_shooting)
         {
             return;
         }
-        _Shooting = true;
+        _shooting = true;
 
         StartCoroutine(bulletMoveRoutine);
     }
 
 
 
+
     IEnumerator MoveCoroutine(float speed, float angle, float angleSpeed, float accelSpeed,
-                            bool homing, Transform homingTarget, float homingAngleSpeed, float maxHomingAngle,
-                            bool wave, float waveSpeed, float waveRangeSize,
-                            bool pauseAndResume, float pauseTime, float resumeTime, bool useRealTime = false)
+                        bool homing, Transform homingTarget, float homingAngleSpeed, float maxHomingAngle,
+                        bool wave, float waveSpeed, float waveRangeSize,
+                        bool pauseAndResume, float pauseTime, float resumeTime, bool useRealTime = false)
     {
         transform.SetEulerAnglesZ(angle);
 
@@ -80,7 +74,7 @@ public class UbhBullet : UbhMonoBehaviour
                 {
                     float rotAngle = UbhUtil.GetAngleFromTwoPosition(transform, homingTarget);
                     float myAngle = transform.eulerAngles.z;
-                    float toAngle = Mathf.MoveTowardsAngle(myAngle, rotAngle, GetDeltTime(useRealTime) * homingAngleSpeed);
+                    float toAngle = Mathf.MoveTowardsAngle(myAngle, rotAngle, JITimer.Instance.RealDeltTime * homingAngleSpeed);
 
                     homingAngle += Mathf.Abs(myAngle - toAngle) >= 30 ? 0 : Mathf.Abs(myAngle - toAngle);
                     if (homingAngle >= maxHomingAngle) homing = false;
@@ -92,7 +86,7 @@ public class UbhBullet : UbhMonoBehaviour
             else if (wave)
             {
                 // acceleration turning.
-                angle += (angleSpeed * GetDeltTime(useRealTime));
+                angle += (angleSpeed * JITimer.Instance.RealDeltTime);
                 // wave.
                 if (0f < waveSpeed && 0f < waveRangeSize)
                 {
@@ -105,19 +99,19 @@ public class UbhBullet : UbhMonoBehaviour
             else
             {
                 // turning.
-                float addAngle = angleSpeed * GetDeltTime(useRealTime);
+                float addAngle = angleSpeed * JITimer.Instance.RealDeltTime;
                 transform.AddEulerAnglesZ(addAngle);
             }
 
             // acceleration speed.
-            speed += (accelSpeed * GetDeltTime(useRealTime));
+            speed += (accelSpeed * JITimer.Instance.RealDeltTime);
 
             // move.
-            transform.position += transform.up * speed * GetDeltTime(useRealTime);
+            transform.position += transform.up * speed * JITimer.Instance.RealDeltTime;
 
             yield return 0;
 
-            selfTimeCount += GetDeltTime(useRealTime);
+            selfTimeCount += JITimer.Instance.RealDeltTime;
 
             // pause and resume.
             if (pauseAndResume && pauseTime >= 0f && resumeTime > pauseTime)
@@ -125,17 +119,11 @@ public class UbhBullet : UbhMonoBehaviour
                 while (pauseTime <= selfTimeCount && selfTimeCount < resumeTime)
                 {
                     yield return 0;
-                    selfTimeCount += GetDeltTime(useRealTime);
+                    selfTimeCount += JITimer.Instance.RealDeltTime;
                 }
             }
         }
     }
 
 
-    // Simplifed to return deltaTime. It will let for further coding.
-    // 
-    private float GetDeltTime(bool useRealTime)
-    {
-        return JITimer.Instance.DeltTime;
-    }
 }

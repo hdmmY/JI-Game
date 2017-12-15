@@ -110,7 +110,7 @@ namespace SpecialShot
         /// <param name="afterAngle"> bullet move angle after waiting </param>
         /// <param name="destination"> bullet waiting destination </param>
         /// <returns></returns>
-        IEnumerator BulletMove(UbhBullet bullet, float beforeAngle, float afterAngle, Vector3 destination)
+        IEnumerator BulletMove(JIBulletController bullet, float beforeAngle, float afterAngle, Vector3 destination)
         {
             Transform bulletTrans = bullet.transform;
 
