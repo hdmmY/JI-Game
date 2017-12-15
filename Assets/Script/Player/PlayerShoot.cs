@@ -62,7 +62,7 @@ public class PlayerShoot : MonoBehaviour
             JIBulletController bulletController = GetBullet(m_shootList[i].position, Quaternion.identity);
             JIBulletProperty bulletProperty = bulletController.GetComponent<JIBulletProperty>();
 
-            if(bulletController == null || bulletProperty)  break;
+            if(bulletController == null || bulletProperty == null)  break;
 
             bulletProperty.m_damage = _playerProperty.m_bulletDamage;
             bulletController.Shot(_playerProperty.m_bulletSpeed, m_shootList[i].rotation.z, 

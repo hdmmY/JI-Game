@@ -132,7 +132,7 @@ public class PlayerChangeState : MonoBehaviour
         while (timer < m_forceFieldTime)
         {
             timer += JITimer.Instance.RealDeltTime;
-            m_shockWaveMesh.material.SetFloat("_HoleRadius", timer / m_forceFieldTime * 0.6f); 
+            m_shockWaveMesh.material.SetFloat("_HoleRadius", timer / m_shockWaveTime); 
             yield return null;
         }
 
@@ -157,7 +157,7 @@ public class PlayerChangeState : MonoBehaviour
         while (timer < m_forceFieldTime)
         {
             timer += JITimer.Instance.RealDeltTime;
-            m_shockWaveMesh.material.SetFloat("_HoleRadius", timer / m_forceFieldTime * 0.6f);
+            m_shockWaveMesh.material.SetFloat("_HoleRadius", timer / m_shockWaveTime);
             yield return null;
         }
 

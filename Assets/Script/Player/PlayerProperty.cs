@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerProperty : MonoBehaviour
 {
-
     // god mode -- from Skyrim.
     public bool m_tgm = false;
 
@@ -35,5 +34,13 @@ public class PlayerProperty : MonoBehaviour
 
     public int m_playerHealth;
 
+    public int m_playerNeutralization;
+
     public SpriteRenderer m_spriteReference;
+
+
+    public void AddNeutralization(int value)
+    {
+        m_playerNeutralization = Mathf.Clamp(m_playerNeutralization + value, 0, 100);
+    }
 }

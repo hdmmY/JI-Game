@@ -8,7 +8,7 @@ public class JIBulletController : MonoBehaviour
 
     private void OnEnable()
     {
-        _shooting = true;
+        _shooting = false;
     }
                        
     private void OnDisable()
@@ -26,6 +26,7 @@ public class JIBulletController : MonoBehaviour
     {
         if (_shooting)
         {
+            Debug.Log("Here!");
             return;
         }
         _shooting = true;
