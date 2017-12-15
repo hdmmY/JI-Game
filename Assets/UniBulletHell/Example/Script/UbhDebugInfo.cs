@@ -12,6 +12,7 @@ public class UbhDebugInfo : UbhMonoBehaviour
     public Text m_bulletNumText;
     public Text m_timerText;
     public Text m_playerHealthText;
+    public Text m_playerNeutralizationText;
 
     [SerializeField]
     private TimeManager _timeManager;
@@ -43,6 +44,7 @@ public class UbhDebugInfo : UbhMonoBehaviour
         if (_playerProperty != null && m_playerHealthText != null)
         {
             m_playerHealthText.text = "PlayerHealth : " + _playerProperty.m_playerHealth;
+            m_playerNeutralizationText.text = "PlayerNeutralization : " + _playerProperty.m_playerNeutralization;
         }
     }
 }

@@ -93,6 +93,11 @@ public class PlayerPropertyEditor : Editor
         _targetScript.m_playerHealth = EditorGUILayout.IntField(_targetScript.m_playerHealth);
         EditorGUILayout.EndHorizontal();
 
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Player Neutralization");
+        _targetScript.m_playerNeutralization = EditorGUILayout.IntField(_targetScript.m_playerNeutralization);
+        EditorGUILayout.EndHorizontal();
+
 
         EditorGUI.indentLevel--;
 
