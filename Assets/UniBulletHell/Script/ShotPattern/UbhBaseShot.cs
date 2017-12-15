@@ -112,27 +112,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
     /// <returns></returns>
     protected JIBulletController GetBullet(Vector3 position, Quaternion rotation, bool forceInstantiate = false)
     {
-        if (m_bulletPrefab == null)
-        {
-            Debug.LogWarning("Cannot generate a bullet because BulletPrefab is not set.");
-            return null;
-        }
-
-        // get Bullet GameObject from ObjectPool
-        var goBullet = UbhObjectPool.Instance.GetGameObject(m_bulletPrefab, position, rotation, forceInstantiate);
-        if (goBullet == null)
-        {
-            return null;
-        }
-
-        // get or add JIBulletController component
-        var bullet = goBullet.GetComponent<JIBulletController>();
-        if (bullet == null)
-        {
-            bullet = goBullet.AddComponent<JIBulletController>();
-        }
-
-        return bullet;
+        return GetBullet(m_bulletPrefab, position, rotation, forceInstantiate);    
     }
 
     /// <summary>
@@ -155,14 +135,21 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
             return null;
         }
 
-        // get or add JIBulletController component
-        var bullet = goBullet.GetComponent<JIBulletController>();
-        if (bullet == null)
+        // Get or add JIBulletController component
+        var bulletController = goBullet.GetComponent<JIBulletController>();
+        if (bulletController == null)
         {
-            bullet = goBullet.AddComponent<JIBulletController>();
+            bulletController = goBullet.AddComponent<JIBulletController>();
         }
 
-        return bullet;
+        // Get or add JIBulletProperty component
+        var bulletProperty = goBullet.GetComponent<JIBulletProperty>();
+        if (bulletProperty == null)
+        {
+            bulletProperty = goBullet.AddComponent<JIBulletProperty>();
+        }
+
+        return bulletController;
     }
 
     /// <summary>
