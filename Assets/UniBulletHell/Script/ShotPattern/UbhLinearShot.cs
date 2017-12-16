@@ -49,6 +49,8 @@ public class UbhLinearShot : UbhBaseShot
             AutoReleaseBulletGameObject(bullet.gameObject);
         }
 
+
+
         FinishedShot();
     }
 

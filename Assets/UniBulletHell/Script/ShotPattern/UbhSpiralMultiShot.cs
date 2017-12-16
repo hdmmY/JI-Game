@@ -65,6 +65,7 @@ public class UbhSpiralMultiShot : UbhBaseShot
             spiralWayIndex++;
         }
 
+
         FinishedShot();
     }
 }

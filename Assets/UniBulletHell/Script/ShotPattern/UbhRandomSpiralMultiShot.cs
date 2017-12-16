@@ -83,6 +83,8 @@ public class UbhRandomSpiralMultiShot : UbhBaseShot
             wayIndex++;
         }
 
+
+
         FinishedShot();
     }
 }

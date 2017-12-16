@@ -70,6 +70,7 @@ public class AngleHomingShot : UbhBaseShot
             AutoReleaseBulletGameObject(bullet.gameObject);
         }
 
+
         FinishedShot();
     }
 }

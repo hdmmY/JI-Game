@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseEnemyState : MonoBehaviour
 {
-    private EnemyAIController _AIController;
+    protected EnemyAIController _AIController;
              
     public virtual void Initialize(Enemy_Property enemyProperty)
     {

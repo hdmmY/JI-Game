@@ -72,6 +72,7 @@ public class UbhSinWaveBulletNwayShot : UbhBaseShot
             wayIndex++;
         }
 
+
         FinishedShot();
     }
 }

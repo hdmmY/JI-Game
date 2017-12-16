@@ -20,11 +20,12 @@ namespace SpecialShot
         public float m_emitInterval;
 
         [Tooltip("Use to determine the bouce rect")]
-        public Transform m_background;
+        public Rect m_bounceBound;
 
 
         public override void Shot()
         {
+            Debug.Log(string.Format("parent position : {0}, parent name : {1}", transform.position, transform.name));
             StartCoroutine(ShotCoroutine());
         }
 
@@ -71,8 +72,7 @@ namespace SpecialShot
             float angleSpeed = m_angleSpeed;
             float maxBounceTimes = m_bounceTimes;
 
-            Rect edgeRect = new Rect(m_background.position, m_background.localScale);
-            edgeRect.Set(edgeRect.x - edgeRect.width / 2, edgeRect.y - edgeRect.height / 2, edgeRect.width, edgeRect.height);
+            Rect bounceBound = m_bounceBound;
 
             if (bulletTrans == null)
             {
@@ -94,13 +94,13 @@ namespace SpecialShot
 
                 // move
                 Vector3 newPosition = bulletTrans.position + bulletTrans.up * speed * JITimer.Instance.DeltTime;
-                if (edgeRect.Contains(newPosition) || bounceTime >= maxBounceTimes)
+                if (bounceBound.Contains(newPosition) || bounceTime >= maxBounceTimes)
                 {
                     bulletTrans.position = newPosition;
                 }
                 else // cross with edge 
                 {
-                    bulletTrans.position = GetIntersectWithRect(bulletTrans.position, newPosition, ref edgeRect, ref angle);
+                    bulletTrans.position = GetIntersectWithRect(bulletTrans.position, newPosition, ref bounceBound, ref angle);
                     bulletTrans.SetEulerAnglesZ(angle - 90);
                     bounceTime++;
                 }

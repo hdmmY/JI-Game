@@ -73,6 +73,7 @@ public class UbhPaintShot : UbhBaseShot
             }
         }
 
+
         FinishedShot();
     }
 

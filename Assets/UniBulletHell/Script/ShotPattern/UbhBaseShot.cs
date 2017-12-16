@@ -11,6 +11,8 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
 {
     // "Set a bullet prefab for the shot. (ex. sprite or model)"
     public GameObject m_bulletPrefab;
+    //  
+    public Transform m_bindTransform = null;
     // "Set a bullet number of shot."
     public int m_bulletNum = 10;
     // "Set a bullet base speed of shot."
@@ -147,6 +149,12 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
         if (bulletProperty == null)
         {
             bulletProperty = goBullet.AddComponent<JIBulletProperty>();
+        }
+
+        // Bind transfrom
+        if(m_bindTransform != null)
+        {
+            goBullet.transform.parent = m_bindTransform;
         }
 
         return bulletController;

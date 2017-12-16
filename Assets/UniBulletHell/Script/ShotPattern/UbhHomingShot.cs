@@ -69,6 +69,7 @@ public class UbhHomingShot : UbhBaseShot
             AutoReleaseBulletGameObject(bullet.gameObject);
         }
 
+        
         FinishedShot();
     }
 }
