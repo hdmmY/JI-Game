@@ -19,11 +19,11 @@ namespace BossLevel2
         // Time to wait after all shot done
         public int m_timeToWaitAfterShotDone;
 
-        private int _curShotTimes;
+        protected int _curShotTimes;
+        protected float _timer;
+
+
         private bool _allShotDone;
-        private float _timer;
-
-
 
         public override void Initialize(Enemy_Property enemyProperty)
         {

@@ -28,11 +28,7 @@ namespace BossLevel2
         // Control first, second, third sub state
         private bool _moveToCenterDone;
         private bool _alignShotDone;
-        private bool _shotPatternDone;
-
-        // Other local variables
-        private float _timer;
-        private float _curShotTimes;
+        private bool _shotPatternDone;  
 
         public override void Initialize(Enemy_Property enemyProperty)
         {
