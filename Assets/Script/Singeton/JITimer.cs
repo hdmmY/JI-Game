@@ -10,11 +10,11 @@ public class JITimer : JISingletonMonoBehavior<JITimer>
         get
         {
             return _timeScale == 0;
-        }             
+        }
         set
         {
             if (value)
-                _timeScale = 0;    
+                _timeScale = 0;
         }
     }
 
@@ -26,7 +26,7 @@ public class JITimer : JISingletonMonoBehavior<JITimer>
     {
         get
         {
-            return _timeScale;    
+            return _timeScale;
         }
         set
         {
@@ -54,6 +54,13 @@ public class JITimer : JISingletonMonoBehavior<JITimer>
         }
     }
 
+    /// <summary>
+    /// Total Frame Count.Not affect by JITimer.Instance.TimeScale
+    /// </summary>
+    public float FrameCount
+    {
+        get; private set;
+    }
 
 
     private float _lastTime;
@@ -72,5 +79,10 @@ public class JITimer : JISingletonMonoBehavior<JITimer>
 
         _deltTime = nowTime - _lastTime;
         _lastTime = nowTime;
-    }                   
+
+        if (!Pause)
+        {
+            FrameCount++;
+        }
+    }
 }

@@ -69,6 +69,6 @@ public class UbhSpreadNwayShot : UbhBaseShot
             wayIndex++;
         }
 
-        FinishedShot();
+        FinishedShot(this);
     }
 }

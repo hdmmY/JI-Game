@@ -34,10 +34,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
     // "Set a time to automatically release after the shot at using UseAutoRelease. (sec)"
     // "That is the bullet life time."
     public float m_autoReleaseTime = 20f;
-    // "Set a GameObject that receives callback method when shooting is over."
-    [HideInInspector] public GameObject m_callbackReceiver;
-    // "Set a name of callback method at using Call Back Receiver."
-    [HideInInspector] public string m_callbackMethod;
+    [HideInInspector] public System.Action<UbhBaseShot> OnShotFinish;
 
     protected UbhShotCtrl ShotCtrl
     {
@@ -98,11 +95,11 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
     /// <summary>
     /// Finished shot.
     /// </summary>
-    protected void FinishedShot()
+    protected void FinishedShot(UbhBaseShot shotPattern)
     {
-        if (m_callbackReceiver != null && string.IsNullOrEmpty(m_callbackMethod) == false)
+        if (OnShotFinish != null)
         {
-            m_callbackReceiver.SendMessage(m_callbackMethod, SendMessageOptions.DontRequireReceiver);
+            OnShotFinish(shotPattern);
         }
         _Shooting = false;
     }
@@ -204,7 +201,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
         {
             return;
         }
-        UbhCoroutine.StartIE(AutoReleaseBulletGameObjectCoroutine(goBullet));
+        JICoroutine.StartIE(AutoReleaseBulletGameObjectCoroutine(goBullet));
     }
 
 

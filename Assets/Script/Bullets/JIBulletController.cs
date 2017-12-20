@@ -6,14 +6,46 @@ public class JIBulletController : MonoBehaviour
 {
     private bool _shooting;
 
+    #region Events
+    // Call on bullet destroy
+    public System.Action<JIBulletController> OnBulletDestroy;
+
+    private void CallOnBulletDestroy()
+    {
+        if (OnBulletDestroy != null)
+        {
+            OnBulletDestroy(this);
+        }
+    }
+
+    // Clear all delegates in OnBulletDestroy 
+    private void ClearOnBulletDestroyList()
+    {
+        if (OnBulletDestroy != null)
+        {
+            var del = OnBulletDestroy.GetInvocationList();
+
+            for (int i = 0; i < del.Length; i++)
+            {
+                OnBulletDestroy -= del[i] as System.Action<JIBulletController>;
+            }
+        }
+    }
+    #endregion
+
+
     private void OnEnable()
     {
         _shooting = false;
+
+        ClearOnBulletDestroyList();
     }
-                       
+
     private void OnDisable()
     {
         StopAllCoroutines();
+
+        CallOnBulletDestroy();
     }
 
     /// <summary>

@@ -51,6 +51,6 @@ public class UbhHoleCircleShot : UbhBaseShot
 
 
 
-        FinishedShot();
+        FinishedShot(this);
     }
 }

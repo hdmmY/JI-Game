@@ -89,6 +89,6 @@ public class UbhRandomShot : UbhBaseShot
             }
         }
 
-        FinishedShot();
+        FinishedShot(this);
     }
 }

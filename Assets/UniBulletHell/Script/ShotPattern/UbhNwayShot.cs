@@ -69,6 +69,6 @@ public class UbhNwayShot : UbhBaseShot
         }
 
 
-        FinishedShot();
+        FinishedShot(this);
     }
 }

@@ -4,11 +4,11 @@ using System.Collections;
 /// <summary>
 /// Ubh coroutine.
 /// </summary>
-public class UbhCoroutine : UbhSingletonMonoBehavior<UbhCoroutine>
+public class JICoroutine : JISingletonMonoBehavior<JICoroutine>
 {
-    protected override void Awake ()
+    protected override void Start ()
     {
-        base.Awake();
+        base.Start();
     }
 
     /// <summary>

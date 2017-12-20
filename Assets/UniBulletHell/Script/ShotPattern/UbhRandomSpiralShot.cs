@@ -72,6 +72,6 @@ public class UbhRandomSpiralShot : UbhBaseShot
         }
 
 
-        FinishedShot();
+        FinishedShot(this);
     }
 }

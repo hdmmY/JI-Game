@@ -81,6 +81,6 @@ public class UbhSpiralMultiNwayShot : UbhBaseShot
             wayIndex++;
         }
 
-        FinishedShot();
+        FinishedShot(this);
     }
 }

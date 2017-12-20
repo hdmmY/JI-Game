@@ -71,6 +71,6 @@ public class AngleHomingShot : UbhBaseShot
         }
 
 
-        FinishedShot();
+        FinishedShot(this);
     }
 }

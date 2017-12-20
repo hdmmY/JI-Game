@@ -73,6 +73,6 @@ public class UbhSinWaveBulletNwayShot : UbhBaseShot
         }
 
 
-        FinishedShot();
+        FinishedShot(this);
     }
 }

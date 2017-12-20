@@ -66,6 +66,6 @@ public class UbhSpiralMultiShot : UbhBaseShot
         }
 
 
-        FinishedShot();
+        FinishedShot(this);
     }
 }

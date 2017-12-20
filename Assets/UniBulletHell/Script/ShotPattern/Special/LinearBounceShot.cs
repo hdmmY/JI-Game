@@ -25,7 +25,6 @@ namespace SpecialShot
 
         public override void Shot()
         {
-            Debug.Log(string.Format("parent position : {0}, parent name : {1}", transform.position, transform.name));
             StartCoroutine(ShotCoroutine());
         }
 
@@ -66,12 +65,10 @@ namespace SpecialShot
         IEnumerator BulletMove(JIBulletController bullet, float angle)
         {
             Transform bulletTrans = bullet.transform;
-
             float speed = m_bulletSpeed;
             float accel = m_accelerationSpeed;
             float angleSpeed = m_angleSpeed;
             float maxBounceTimes = m_bounceTimes;
-
             Rect bounceBound = m_bounceBound;
 
             if (bulletTrans == null)
@@ -109,7 +106,15 @@ namespace SpecialShot
             }
         }
 
-        private Vector2 GetIntersectWithRect(Vector2 origin, Vector2 end, ref Rect rect, ref float afterAngle)
+        /// <summary>
+        /// Change the bouce bullet when it intersection with the rect
+        /// </summary>
+        /// <param name="origin"> origin bullet postiion </param>
+        /// <param name="end"> origin bullet destination </param>
+        /// <param name="rect"> rect that bullet will intersect with </param>
+        /// <param name="afterAngle"> bullet angle after it intersect with rect </param>
+        /// <returns> new bullet position </returns>
+        public static Vector2 GetIntersectWithRect(Vector2 origin, Vector2 end, ref Rect rect, ref float afterAngle)
         {
             float up = rect.center.y + rect.height / 2;
             float right = rect.center.x + rect.width / 2;

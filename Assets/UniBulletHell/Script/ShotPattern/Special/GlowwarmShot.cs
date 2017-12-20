@@ -160,7 +160,7 @@ namespace SpecialShot
                     AutoReleaseBulletGameObject(bulletUnder.gameObject);
 
                     UbhObjectPool.Instance.ReleaseGameObject(bulletTrans.gameObject);
-                    FinishedShot();
+                    FinishedShot(this);
 
                     yield break;
                 }

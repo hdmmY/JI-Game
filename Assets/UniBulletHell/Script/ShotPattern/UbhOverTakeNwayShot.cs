@@ -79,6 +79,6 @@ public class UbhOverTakeNwayShot : UbhBaseShot
 
 
 
-        FinishedShot();
+        FinishedShot(this);
     }
 }

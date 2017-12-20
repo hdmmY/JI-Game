@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class BaseEnemyState : MonoBehaviour
 {
-    protected EnemyAIController _AIController;
-             
+    protected BaseAIController _AIController;
+
+    // The state is end. UpdateState will be never called after a state is end.
+    protected bool _stateEnd;
+
+    /// <summary>
+    /// Initialize a state. Call once.
+    /// </summary>
+    /// <param name="enemyProperty"></param>
     public virtual void Initialize(Enemy_Property enemyProperty)
     {
         if (enemyProperty == null)
@@ -13,19 +20,50 @@ public class BaseEnemyState : MonoBehaviour
             Debug.LogError("Enemy Property for AI is null!\n");
         }
 
-        _AIController = enemyProperty.GetComponent<EnemyAIController>();
-        if(_AIController == null)
+        _AIController = enemyProperty.GetComponent<BaseAIController>();
+        if (_AIController == null)
         {
             Debug.LogError("Enemy AI Controller is null!\n");
         }
-    }             
 
+        _stateEnd = false;
+    }
+
+
+    /// <summary>
+    /// Excute every frame to update state.
+    /// </summary>
+    /// <param name="enemyProperty"></param>
     public virtual void UpdateState(Enemy_Property enemyProperty)
     {
-        if(enemyProperty == null)
+        if (enemyProperty == null)
         {
             Debug.LogError("Enemy Property for AI is null!\n");
+        }                       
+    }
+
+    /// <summary>
+    /// Call to force to end the state.
+    /// </summary>
+    public virtual void EndState(Enemy_Property enemyProperty)
+    {
+        _stateEnd = true;
+
+        CallOnStateEnd();
+    }
+
+
+
+
+    // Method will called when state end
+    public System.Action OnStateEnd;
+
+    protected void CallOnStateEnd()
+    {
+        if (OnStateEnd != null)
+        {
+            OnStateEnd();
         }
-    }     
+    }
 
 }

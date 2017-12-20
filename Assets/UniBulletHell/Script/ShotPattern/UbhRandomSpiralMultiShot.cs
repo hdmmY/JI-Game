@@ -85,6 +85,6 @@ public class UbhRandomSpiralMultiShot : UbhBaseShot
 
 
 
-        FinishedShot();
+        FinishedShot(this);
     }
 }

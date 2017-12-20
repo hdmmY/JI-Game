@@ -51,7 +51,7 @@ public class UbhLinearShot : UbhBaseShot
 
 
 
-        FinishedShot();
+        FinishedShot(this);
     }
 
     private void OnDrawGizmos()

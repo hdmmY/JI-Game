@@ -54,6 +54,6 @@ public class UbhSpiralShot : UbhBaseShot
             AutoReleaseBulletGameObject(bullet.gameObject);
         }
 
-        FinishedShot();
+        FinishedShot(this);
     }
 }

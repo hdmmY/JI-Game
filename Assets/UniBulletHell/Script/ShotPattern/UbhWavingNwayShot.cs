@@ -59,7 +59,7 @@ public class UbhWavingNwayShot : UbhBaseShot
                 break;
             }
 
-            float centerAngle = _WaveCenterAngle + (_WaveRangeSize / 2f * Mathf.Sin(UbhTimer.Instance.FrameCount * _WaveSpeed / 100f));
+            float centerAngle = _WaveCenterAngle + (_WaveRangeSize / 2f * Mathf.Sin(JITimer.Instance.FrameCount * _WaveSpeed / 100f));
 
             float baseAngle = _WayNum % 2 == 0 ? centerAngle - (_BetweenAngle / 2f) : centerAngle;
 
@@ -72,6 +72,6 @@ public class UbhWavingNwayShot : UbhBaseShot
             wayIndex++;
         }
 
-        FinishedShot();
+        FinishedShot(this);
     }
 }

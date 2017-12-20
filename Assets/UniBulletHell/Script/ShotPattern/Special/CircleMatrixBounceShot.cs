@@ -86,7 +86,7 @@ namespace SpecialShot
             }
 
             _Shooting = false;
-            FinishedShot();
+            FinishedShot(this);
         }
 
 
@@ -135,7 +135,7 @@ namespace SpecialShot
         }
 
 
-        private void OnDrawGizmosSelected()
+        protected virtual void  OnDrawGizmosSelected()
         {
             // Draw the bounce edge
             Gizmos.color = Color.cyan;

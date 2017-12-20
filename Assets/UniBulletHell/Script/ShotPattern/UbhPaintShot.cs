@@ -74,7 +74,7 @@ public class UbhPaintShot : UbhBaseShot
         }
 
 
-        FinishedShot();
+        FinishedShot(this);
     }
 
     List<List<int>> LoadPaintData ()

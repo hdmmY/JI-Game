@@ -72,6 +72,6 @@ public class UbhSpiralNwayShot : UbhBaseShot
         }
 
 
-        FinishedShot();
+        FinishedShot(this);
     }
 }

@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Boss2
+namespace BossLevel2
 {
     public class MoveEnemyState : BaseEnemyState
     {
+        // Total move time for one state
+        public float m_totalMoveTime;
+
         // Enemy move speed
         public float m_moveSpeed;
 
@@ -21,6 +24,7 @@ namespace Boss2
         // Move direction, normalized
         private Vector3 _moveDir;
 
+        private float _timer;
 
         public override void Initialize(Enemy_Property enemyProperty)
         {
@@ -37,12 +41,26 @@ namespace Boss2
             // Initialize destination
             _destination = FindNextPosition();
             _moveDir = _destination.normalized;
+
+            _timer = 0;
         }
 
 
         public override void UpdateState(Enemy_Property enemyProperty)
         {
             base.UpdateState(enemyProperty);
+            if(_stateEnd)
+            {
+                return;
+            }          
+
+            // Add _timer to check if it is end.
+            _timer += JITimer.Instance.DeltTime;
+            if(_timer >= m_totalMoveTime)
+            {
+                CallOnStateEnd();
+                _stateEnd = true;
+            }
 
             Vector3 nextPosition = enemyProperty.transform.position + _moveDir * m_moveSpeed * JITimer.Instance.DeltTime;
 
@@ -54,6 +72,12 @@ namespace Boss2
 
             enemyProperty.transform.position = nextPosition;
         }
+
+        public override void EndState(Enemy_Property enemyProperty)
+        {
+            base.EndState(enemyProperty);
+        }
+
 
 
         // Find the next position that enemy will move to
@@ -80,9 +104,7 @@ namespace Boss2
             }
 
             return dest;
-        }
-
-
+        }                            
 
 
         private void OnDrawGizmosSelected()

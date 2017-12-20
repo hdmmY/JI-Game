@@ -70,6 +70,6 @@ public class UbhHomingShot : UbhBaseShot
         }
 
         
-        FinishedShot();
+        FinishedShot(this);
     }
 }
