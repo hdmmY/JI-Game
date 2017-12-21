@@ -34,6 +34,8 @@ public class PlayerProperty : MonoBehaviour
 
     public int m_playerHealth;
 
+    public float m_checkBound;
+
     public int m_playerNeutralization;
 
     public SpriteRenderer m_spriteReference;
@@ -43,4 +45,10 @@ public class PlayerProperty : MonoBehaviour
     {
         m_playerNeutralization = Mathf.Clamp(m_playerNeutralization + value, 0, 100);
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, m_checkBound);
+    }
+
 }

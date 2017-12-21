@@ -107,7 +107,7 @@ public class JIBulletController : MonoBehaviour
                 {
                     float rotAngle = UbhUtil.GetAngleFromTwoPosition(transform, homingTarget);
                     float myAngle = transform.eulerAngles.z;
-                    float toAngle = Mathf.MoveTowardsAngle(myAngle, rotAngle, JITimer.Instance.RealDeltTime * homingAngleSpeed);
+                    float toAngle = Mathf.MoveTowardsAngle(myAngle, rotAngle, GetTime(useRealTime) * homingAngleSpeed);
 
                     homingAngle += Mathf.Abs(myAngle - toAngle) >= 30 ? 0 : Mathf.Abs(myAngle - toAngle);
                     if (homingAngle >= maxHomingAngle) homing = false;
@@ -119,7 +119,7 @@ public class JIBulletController : MonoBehaviour
             else if (wave)
             {
                 // acceleration turning.
-                angle += (angleSpeed * JITimer.Instance.RealDeltTime);
+                angle += (angleSpeed * GetTime(useRealTime));
                 // wave.
                 if (0f < waveSpeed && 0f < waveRangeSize)
                 {
@@ -132,19 +132,19 @@ public class JIBulletController : MonoBehaviour
             else
             {
                 // turning.
-                float addAngle = angleSpeed * JITimer.Instance.RealDeltTime;
+                float addAngle = angleSpeed * GetTime(useRealTime);
                 transform.AddEulerAnglesZ(addAngle);
             }
 
             // acceleration speed.
-            speed += (accelSpeed * JITimer.Instance.RealDeltTime);
+            speed += (accelSpeed * GetTime(useRealTime));
 
             // move.
-            transform.position += transform.up * speed * JITimer.Instance.RealDeltTime;
+            transform.position += transform.up * speed * GetTime(useRealTime);
 
             yield return 0;
 
-            selfTimeCount += JITimer.Instance.RealDeltTime;
+            selfTimeCount += GetTime(useRealTime);
 
             // pause and resume.
             if (pauseAndResume && pauseTime >= 0f && resumeTime > pauseTime)
@@ -152,11 +152,16 @@ public class JIBulletController : MonoBehaviour
                 while (pauseTime <= selfTimeCount && selfTimeCount < resumeTime)
                 {
                     yield return 0;
-                    selfTimeCount += JITimer.Instance.RealDeltTime;
+                    selfTimeCount += GetTime(useRealTime);
                 }
             }
         }
     }
 
+
+    float GetTime(bool useRealTime)
+    {
+        return useRealTime ? JITimer.Instance.RealDeltTime : JITimer.Instance.DeltTime;
+    }
 
 }

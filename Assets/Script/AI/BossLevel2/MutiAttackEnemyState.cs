@@ -5,10 +5,9 @@ using UnityEngine;
 
 namespace BossLevel2
 {
-    public class AttackEnemyState : BaseEnemyState
+    public class MutiAttackEnemyState : BaseEnemyState
     {
-        // Matrix shot pattern that will be use
-        public UbhBaseShot m_shotPattern;
+        public List<UbhBaseShot> m_shotPatterns;
 
         // Total Shot times
         public int m_shotTimes = 2;
@@ -19,10 +18,8 @@ namespace BossLevel2
         // Time to wait after all shot done
         public int m_timeToWaitAfterShotDone;
 
-        protected int _curShotTimes;
-        protected float _timer;
-
-
+        private int _curShotTimes;
+        private float _timer;     
         private bool _allShotDone;
 
         public override void Initialize(Enemy_Property enemyProperty)
@@ -31,7 +28,7 @@ namespace BossLevel2
 
             _curShotTimes = m_shotTimes;
             _allShotDone = false;
-            _timer = 0f;         
+            _timer = 0f;
         }
 
 
@@ -44,10 +41,10 @@ namespace BossLevel2
             }
 
             // Shot 
-            if(_curShotTimes > 0)
+            if (_curShotTimes > 0)
             {
                 Shot();
-            }         
+            }
 
             // After m_timeTWaitAfterShot seconds, end the state.
             if (_allShotDone)
@@ -75,9 +72,12 @@ namespace BossLevel2
         {
             _timer += JITimer.Instance.DeltTime;
 
-            if(_timer >= m_shotInterval)
-            {               
-                m_shotPattern.Shot();
+            if (_timer >= m_shotInterval)
+            {
+                foreach(var shotPattern in m_shotPatterns)
+                {
+                    shotPattern.Shot();
+                }
                 _curShotTimes--;
 
                 _timer -= m_shotInterval;
@@ -85,7 +85,7 @@ namespace BossLevel2
 
 
             // Shot Done
-            if(_curShotTimes == 0)
+            if (_curShotTimes == 0)
             {
                 _allShotDone = true;
                 _timer = 0;

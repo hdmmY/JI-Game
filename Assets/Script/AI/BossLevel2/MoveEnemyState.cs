@@ -49,14 +49,14 @@ namespace BossLevel2
         public override void UpdateState(Enemy_Property enemyProperty)
         {
             base.UpdateState(enemyProperty);
-            if(_stateEnd)
+            if (_stateEnd)
             {
                 return;
-            }          
+            }
 
             // Add _timer to check if it is end.
             _timer += JITimer.Instance.DeltTime;
-            if(_timer >= m_totalMoveTime)
+            if (_timer >= m_totalMoveTime)
             {
                 CallOnStateEnd();
                 _stateEnd = true;
@@ -64,13 +64,16 @@ namespace BossLevel2
 
             Vector3 nextPosition = enemyProperty.transform.position + _moveDir * m_moveSpeed * JITimer.Instance.DeltTime;
 
-            if (Vector3.Dot(nextPosition - _destination, _moveDir) > 0)      // move overhead, end move
+            // Move overhead, find next destination
+            if (Vector3.Dot(nextPosition - _destination, _moveDir) > 0)  
             {
                 _destination = FindNextPosition();
                 _moveDir = (_destination - nextPosition).normalized;
             }
-
-            enemyProperty.transform.position = nextPosition;
+            else
+            {
+                enemyProperty.transform.position = nextPosition;
+            }                                                              
         }
 
         public override void EndState(Enemy_Property enemyProperty)
@@ -82,7 +85,7 @@ namespace BossLevel2
 
         // Find the next position that enemy will move to
         private Vector3 FindNextPosition()
-        {                                   
+        {
             // Range that enemy can't move
             Vector2 forbidenX = JIGlobalRef.Player.transform.position;
             forbidenX.x -= _colBound.size.x * 0.5f;
@@ -93,18 +96,10 @@ namespace BossLevel2
                 dest.x = Random.Range(m_bound.xMin, m_bound.xMax);
                 dest.y = Random.Range(m_bound.yMin, m_bound.yMax);
 
-                if (dest.x > forbidenX.x && dest.x < forbidenX.y)
-                {
-                    continue;
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            return dest;
-        }                            
+                if (dest.x < forbidenX.x || dest.x > forbidenX.y)
+                    return dest;
+            }          
+        }
 
 
         private void OnDrawGizmosSelected()

@@ -80,7 +80,7 @@ namespace SpecialShot
                 for(int i = 0; i < m_NWay; i++)
                 {
                     bulletNum++;
-                    if (bulletNum >= m_bulletNum) break;
+                    if (bulletNum > m_bulletNum) break;
 
                     var bullet = GetBullet(transform.position, transform.rotation);
                     if (bullet == null)

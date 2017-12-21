@@ -104,6 +104,7 @@ namespace BossLevel2
             if (moveDir.sqrMagnitude <= 0.1)  // End movement
             {
                 _moveToCenterDone = true;
+                enemyProperty.transform.position = destination;
             }
             else  // Move
             {

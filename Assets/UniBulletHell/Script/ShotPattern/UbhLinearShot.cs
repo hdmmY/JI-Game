@@ -54,7 +54,7 @@ public class UbhLinearShot : UbhBaseShot
         FinishedShot(this);
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         float shotAngle = m_shotAngle + 90f;

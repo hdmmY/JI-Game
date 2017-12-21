@@ -12,7 +12,7 @@ public class BaseAIController : MonoBehaviour
     // All AI params. Like Unity animation params. 
     [HideInInspector] public List<AIParam> m_totalParams;
 
-    [SerializeField] protected BaseEnemyState _currentEnemyAI;
+    protected BaseEnemyState _currentEnemyAI;
 
     protected Enemy_Property _enemyProperty;
 

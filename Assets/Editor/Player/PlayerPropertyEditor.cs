@@ -94,6 +94,11 @@ public class PlayerPropertyEditor : Editor
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Check Circle");
+        _targetScript.m_checkBound = EditorGUILayout.FloatField(_targetScript.m_checkBound);
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Player Neutralization");
         _targetScript.m_playerNeutralization = EditorGUILayout.IntField(_targetScript.m_playerNeutralization);
         EditorGUILayout.EndHorizontal();
