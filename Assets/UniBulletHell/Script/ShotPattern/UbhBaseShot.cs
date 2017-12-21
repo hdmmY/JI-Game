@@ -82,6 +82,8 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
     protected virtual void OnDisable()
     {
         _Shooting = false;
+
+        StopAllCoroutines();
     }
 
     /// <summary>

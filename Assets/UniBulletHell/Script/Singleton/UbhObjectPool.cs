@@ -82,6 +82,8 @@ public class UbhObjectPool : UbhSingletonMonoBehavior<UbhObjectPool>
             Destroy(go);
             return;
         }
+
+        go.transform.SetParent(transform);
         go.SetActive(false);
     }
 

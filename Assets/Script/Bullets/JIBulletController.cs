@@ -92,12 +92,13 @@ public class JIBulletController : MonoBehaviour
                         bool wave, float waveSpeed, float waveRangeSize,
                         bool pauseAndResume, float pauseTime, float resumeTime, bool useRealTime = false)
     {
-        transform.SetEulerAnglesZ(angle);
+        angle = angle - 90;
 
         float selfFrameCnt = 0f;
         float selfTimeCount = 0f;
         float homingAngle = 0f;
 
+        transform.SetEulerAnglesZ(angle);
         while (true)
         {
             if (homing)
@@ -105,14 +106,16 @@ public class JIBulletController : MonoBehaviour
                 // homing target.
                 if (homingTarget != null && 0f < homingAngleSpeed)
                 {
-                    float rotAngle = UbhUtil.GetAngleFromTwoPosition(transform, homingTarget);
-                    float myAngle = transform.eulerAngles.z;
-                    float toAngle = Mathf.MoveTowardsAngle(myAngle, rotAngle, GetTime(useRealTime) * homingAngleSpeed);
+                    float targetRoateZ = UbhUtil.Get360Angle(UbhUtil.GetAngleFromTwoPosition(transform, homingTarget) - 90);
+                    float curRotateZ = UbhUtil.Get360Angle(transform.eulerAngles.z);
+                    float destRoateZ = UbhUtil.Get360Angle(Mathf.MoveTowards(curRotateZ, targetRoateZ, GetTime(useRealTime) * homingAngleSpeed));
 
-                    homingAngle += Mathf.Abs(myAngle - toAngle) >= 30 ? 0 : Mathf.Abs(myAngle - toAngle);
+                    // Since curAngle and toAngle both between [0, 360], so when wrap the 360 or 0 degree, the abs(curAngle - toAngle) will be very big.
+                    // To simple deal with this situation, I make the result to 0.       -- HDM 2017.12.21
+                    homingAngle += Mathf.Abs(curRotateZ - destRoateZ) >= 30 ? 0 : Mathf.Abs(curRotateZ - destRoateZ);
                     if (homingAngle >= maxHomingAngle) homing = false;
 
-                    transform.SetEulerAnglesZ(toAngle);
+                    transform.SetEulerAnglesZ(destRoateZ);
                 }
 
             }

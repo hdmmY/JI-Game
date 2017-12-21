@@ -18,45 +18,52 @@ public class UbhSpreadNwayLockOnShot : UbhSpreadNwayShot
     // "Always aim to target."
     public bool _Aiming;
 
-    protected override void Awake ()
+    protected override void Awake()
     {
         base.Awake();
     }
 
-    public override void Shot ()
+    public override void Shot()
     {
-        if (_Shooting) {
+        if (_Shooting)
+        {
             return;
         }
 
         AimTarget();
 
-        if (_TargetTransform == null) {
+        if (_TargetTransform == null)
+        {
             Debug.LogWarning("Cannot shot because TargetTransform is not set.");
             return;
         }
 
         base.Shot();
 
-        if (_Aiming) {
+        if (_Aiming)
+        {
             StartCoroutine(AimingCoroutine());
         }
     }
 
-    void AimTarget ()
+    void AimTarget()
     {
-        if (_TargetTransform == null && _SetTargetFromTag) {
+        if (_TargetTransform == null && _SetTargetFromTag)
+        {
             _TargetTransform = UbhUtil.GetTransformFromTagName(_TargetTagName);
         }
-        if (_TargetTransform != null) {
-            _CenterAngle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform);
+        if (_TargetTransform != null)
+        {
+            _CenterAngle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform);         
         }
     }
 
-    IEnumerator AimingCoroutine ()
+    IEnumerator AimingCoroutine()
     {
-        while (_Aiming) {
-            if (_Shooting == false) {
+        while (_Aiming)
+        {
+            if (_Shooting == false)
+            {
                 yield break;
             }
 

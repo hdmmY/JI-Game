@@ -65,7 +65,7 @@ public class PlayerShoot : MonoBehaviour
             if(bulletController == null || bulletProperty == null)  break;
 
             bulletProperty.m_damage = _playerProperty.m_bulletDamage;
-            bulletController.Shot(_playerProperty.m_bulletSpeed, m_shootList[i].rotation.z, 
+            bulletController.Shot(_playerProperty.m_bulletSpeed, m_shootList[i].rotation.z + 90f, 
                     0, 0, 
                     false, null, 0, 0, 
                     false, 0, 0, 

@@ -56,7 +56,7 @@ public class UbhLinearShot : UbhBaseShot
     {
         Gizmos.color = Color.green;
 
-        float shotAngle = m_shotAngle + 90f;
+        float shotAngle = m_shotAngle;
         float shotDistance = m_bulletSpeed * m_autoReleaseTime;
         Vector3 direction = new Vector3(Mathf.Cos(Mathf.Deg2Rad * shotAngle), Mathf.Sin(Mathf.Deg2Rad * shotAngle), 0);
         Gizmos.DrawLine(transform.position, transform.position + direction * shotDistance);   

@@ -79,40 +79,16 @@ public static class UbhUtil
         if(fromTrans == null || toTrans == null)
             return 0f;
 
-        return GetZangleFromTwoPosition(fromTrans.position, toTrans.position);
+        return GetAngleFromTwoPosition(fromTrans.position, toTrans.position);
     }
 
     /// <summary>
     /// Get angle from two transforms position.
     /// </summary>
-    public static float GetAngleFromTwoPosition (Vector3 fromPos, Vector3 toPos)
-    {
-        return GetZangleFromTwoPosition(fromPos, toPos);
-    }
+    public static float GetAngleFromTwoPosition (Vector2 fromPos, Vector2 toPos)
+    {                                          
+        var angle = Vector2.SignedAngle(Vector2.right, toPos - fromPos);
 
-
-    /// <summary>
-    /// Get Z angle from two transforms position.
-    /// </summary>
-    private static float GetZangleFromTwoPosition (Vector3 fromPos, Vector3 toPos)
-    {
-        var xDistance = toPos.x - fromPos.x;
-        var yDistance = toPos.y - fromPos.y;
-        var angle = Vector3.SignedAngle(new Vector3(xDistance, yDistance, 0), Vector3.right, Vector3.up);
-
-        return angle;
-    }
-
-    /// <summary>
-    /// Get Y angle from two transforms position.
-    /// </summary>
-    private static float GetYangleFromTwoPosition (Vector3 fromPos, Vector3 toPos)
-    {
-        var xDistance = toPos.x - fromPos.x;
-        var zDistance = toPos.z - fromPos.z;
-        var angle = Mathf.Atan2(xDistance, zDistance) * Mathf.Rad2Deg;
-        angle = -Get360Angle(angle);
-
-        return angle;
-    }
+        return Get360Angle(angle);
+    } 
 }

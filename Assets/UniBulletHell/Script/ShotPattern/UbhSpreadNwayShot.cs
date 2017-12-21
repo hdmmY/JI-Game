@@ -18,23 +18,25 @@ public class UbhSpreadNwayShot : UbhBaseShot
     // "Set a difference speed between shot and next line shot."
     public float _DiffSpeed = 0.5f;
 
-    protected override void Awake ()
+    protected override void Awake()
     {
         base.Awake();
     }
 
-    public override void Shot ()
+    public override void Shot()
     {
         StartCoroutine(ShotCoroutine());
     }
 
-    IEnumerator ShotCoroutine ()
+    IEnumerator ShotCoroutine()
     {
-        if (m_bulletNum<= 0 || _WayNum <= 0) {
+        if (m_bulletNum <= 0 || _WayNum <= 0)
+        {
             Debug.LogWarning("Cannot shot because BulletNum or WayNum is not set.");
             yield break;
         }
-        if (_Shooting) {
+        if (_Shooting)
+        {
             yield break;
         }
         _Shooting = true;
@@ -43,18 +45,22 @@ public class UbhSpreadNwayShot : UbhBaseShot
 
         float bulletSpeed = m_bulletSpeed;
 
-        for (int i = 0; i < m_bulletNum; i++) {
-            if (_WayNum <= wayIndex) {
+        for (int i = 0; i < m_bulletNum; i++)
+        {
+            if (_WayNum <= wayIndex)
+            {
                 wayIndex = 0;
 
                 bulletSpeed -= _DiffSpeed;
-                while (bulletSpeed <= 0) {
+                while (bulletSpeed <= 0)
+                {
                     bulletSpeed += Mathf.Abs(_DiffSpeed);
                 }
             }
 
             var bullet = GetBullet(transform.position, transform.rotation);
-            if (bullet == null) {
+            if (bullet == null)
+            {
                 break;
             }
 
