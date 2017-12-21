@@ -90,8 +90,7 @@ namespace BossLevel2
                 _allShotDone = true;
                 _timer = 0;
             }
-        }
-
+        }           
     }
 
 }

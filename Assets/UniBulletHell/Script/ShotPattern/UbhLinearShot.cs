@@ -6,7 +6,7 @@ using System.Collections;
 /// </summary>
 [AddComponentMenu("UniBulletHell/Shot Pattern/Linear Shot")]
 public class UbhLinearShot : UbhBaseShot
-{
+{                                        
     // "Set a angle of shot. (0 to 360)"
     [Range(0f, 360f)]
     public float m_shotAngle = 180f;
@@ -40,13 +40,11 @@ public class UbhLinearShot : UbhBaseShot
             }
 
             var bullet = GetBullet(transform.position, transform.rotation);
-            if (bullet == null) {
-                break;
-            }
-
-            ShotBullet(bullet, m_bulletSpeed, m_shotAngle);
-
-            AutoReleaseBulletGameObject(bullet.gameObject);
+            if (bullet != null)
+            {
+                ShotBullet(bullet, m_bulletSpeed, m_shotAngle);
+                AutoReleaseBulletGameObject(bullet.gameObject);
+            }                                                  
         }
 
 
@@ -57,6 +55,7 @@ public class UbhLinearShot : UbhBaseShot
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
+
         float shotAngle = m_shotAngle + 90f;
         float shotDistance = m_bulletSpeed * m_autoReleaseTime;
         Vector3 direction = new Vector3(Mathf.Cos(Mathf.Deg2Rad * shotAngle), Mathf.Sin(Mathf.Deg2Rad * shotAngle), 0);

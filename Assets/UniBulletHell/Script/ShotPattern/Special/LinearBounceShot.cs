@@ -96,7 +96,7 @@ namespace SpecialShot
                     bulletTrans.position = newPosition;
                 }
                 else // cross with edge 
-                {
+                {                        
                     bulletTrans.position = GetIntersectWithRect(bulletTrans.position, newPosition, ref bounceBound, ref angle);
                     bulletTrans.SetEulerAnglesZ(angle - 90);
                     bounceTime++;
@@ -114,53 +114,35 @@ namespace SpecialShot
         /// <param name="rect"> rect that bullet will intersect with </param>
         /// <param name="afterAngle"> bullet angle after it intersect with rect </param>
         /// <returns> new bullet position </returns>
-        public static Vector2 GetIntersectWithRect(Vector2 origin, Vector2 end, ref Rect rect, ref float afterAngle)
+        public static Vector2 GetIntersectWithRect(Vector2 origin, Vector2 end, ref Rect rect, ref float angle)
         {
-            float up = rect.center.y + rect.height / 2;
-            float right = rect.center.x + rect.width / 2;
-            float left = rect.center.x - rect.width / 2;
-            float down = rect.center.y - rect.height / 2;
-
-            Vector2 crossPoint;
-            Vector2 originDir = end - origin;
-            Vector2 newDir;
-            float t;
-
-            afterAngle = UbhUtil.Get360Angle(afterAngle);
-
-            if (origin.y < up && end.y > up)      // Cross against with up segment of rect
+            // Origin point outside the rect, give it up
+            if(!rect.Contains(origin))
             {
-                t = (up - origin.y) / (end.y - origin.y);
-                crossPoint = originDir * t + origin;
-                newDir = new Vector2(originDir.x, -originDir.y);
-                afterAngle = 360 - afterAngle;
-                return crossPoint + newDir;
+                return end;
             }
 
-            if (origin.x < right && end.x > right)    // Cross against with right segment of rect
+            Vector2 inDirection = end - origin;
+            Vector2 inNormal;
+
+            if (origin.y < rect.yMax && end.y > rect.yMax)
+                inNormal = Vector2.down;
+            else if (origin.y > rect.yMin && end.y < rect.yMin)
+                inNormal = Vector2.up;
+            else if (origin.x > rect.xMin && end.x < rect.xMin)
+                inNormal = Vector2.right;
+            else 
+                inNormal = Vector2.left;
+
+            Vector2 outDirction = Vector2.Reflect(inDirection, inNormal);
+
+            if(inNormal == Vector2.up)
             {
-                t = (right - origin.x) / (end.x - origin.x);
-                crossPoint = originDir * t + origin;
-                newDir = new Vector2(-originDir.x, originDir.y);
-                afterAngle = originDir.y > 0 ? 180 - afterAngle : 540 - afterAngle;
-                return crossPoint + newDir;
+                inNormal = Vector2.up;
             }
 
-            if (origin.y > down && end.y < down)      // Cross against with down segment of rect
-            {
-                t = (down - origin.y) / (end.y - origin.y);
-                crossPoint = originDir * t + origin;
-                newDir = new Vector2(originDir.x, -originDir.y);
-                afterAngle = 360 - afterAngle;
-                return crossPoint + newDir;
-            }
-
-            // Cross against with left segment of rect
-            t = (left - origin.x) / (end.x - origin.x);
-            crossPoint = originDir * t + origin;
-            newDir = new Vector2(-originDir.x, originDir.y);
-            afterAngle = originDir.y > 0 ? 180 - afterAngle : 540 - afterAngle;
-            return crossPoint + newDir;
+            angle = Vector2.SignedAngle(Vector2.right, outDirction);
+            return outDirction + end;
         }
 
 

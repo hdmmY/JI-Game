@@ -98,8 +98,7 @@ public static class UbhUtil
     {
         var xDistance = toPos.x - fromPos.x;
         var yDistance = toPos.y - fromPos.y;
-        var angle = Mathf.Atan2(xDistance, yDistance) * Mathf.Rad2Deg;
-        angle = -Get360Angle(angle);
+        var angle = Vector3.SignedAngle(new Vector3(xDistance, yDistance, 0), Vector3.right, Vector3.up);
 
         return angle;
     }

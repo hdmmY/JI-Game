@@ -60,13 +60,12 @@
 			fixed4 frag(vertexOutput input) : SV_Target
 			{
 				float addV = _ScrollSpeed * _Time.y;
-				
-				float mod3AddV = addV - floor(addV / 3) * 3;
+				float mod3AddV = fmod(addV, 3);
 				float originV = input.uv.y;
 
 				if(mod3AddV < 1 - originV)
 				{
-					return tex2D(_TextureUp, float2(input.uv.x, originV + mod3AddV));
+					return tex2D(_TextureUp, float2(input.uv.x, mod3AddV + originV));
 				}
 				else if(mod3AddV < 2 - originV)
 				{
