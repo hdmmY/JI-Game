@@ -4,12 +4,20 @@ using UnityEngine;
 
 namespace AnimationToggle
 {
+    [RequireComponent(typeof(Animator))]
     public class ExplosionAnimHelper : MonoBehaviour
     {
-        void DestroyExposion()
+        public void PlayAnimation(string name)
         {
-            Destroy(this.gameObject);
+            GetComponent<Animator>().Play(name);
         }
+
+        public void DestroyExplosion()
+        {
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+
 
     }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerTakeDamage : MonoBehaviour
 {
     // The animation Object that used to show player death animation.
-    public GameObject m_Explosion;
+    public AnimationToggle.ExplosionAnimHelper m_Explosion;
 
     // The player's god mode time after it destroied.
     public float m_godModeTime;
@@ -56,16 +56,16 @@ public class PlayerTakeDamage : MonoBehaviour
 
     void PlayerDeath()
     {
-        Animator explositionAnim = Instantiate(m_Explosion, transform.position, Quaternion.identity, transform.parent).GetComponent<Animator>();
+        var explHelper = Instantiate(m_Explosion, transform.position, Quaternion.identity, transform.parent);
         switch (m_playerProperty.m_playerState)
         {
             case JIState.White:
-                explositionAnim.Play("Player_White_Destory", 0);
+                explHelper.PlayAnimation("Magic_White");
                 break;
             case JIState.Black:
-                explositionAnim.Play("Player_Black_Destory", 0);
+                explHelper.PlayAnimation("Magic_Black");
                 break;
-        }             
+        }
         StartCoroutine(TurnOnGodMode());
         ResetPlayerHealth();
     }
