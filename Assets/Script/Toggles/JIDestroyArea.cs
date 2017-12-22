@@ -13,7 +13,7 @@ public class JIDestroyArea : UbhMonoBehaviour
         HitCheck(c.transform);
     }
 
-    void OnTriggerEnter(Collider c)
+    private void OnTriggerStay2D(Collider2D c)
     {
         HitCheck(c.transform);
     }

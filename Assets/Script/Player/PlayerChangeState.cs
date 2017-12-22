@@ -16,7 +16,6 @@ public class PlayerChangeState : MonoBehaviour
     public Material m_blackForceFieldMaterial;
 
     public float m_forceFieldTime;
-    public Transform m_lightTransform;
 
     [Space]
 
@@ -24,21 +23,28 @@ public class PlayerChangeState : MonoBehaviour
     public GameObject m_shockWavePrefab;
     public Material m_whiteShockWaveMaterial;
     public Material m_blackShockWaveMaterial;
+
+    [Space]
+    [Header("Shock Wave Destroy")]
     [Range(0, 1)]
     public float m_shockWaveRadius;
     public float m_shockWaveTime;
     public AnimationCurve m_shockWaveSpeedCurve;
+    [Range(0, 1)]
+    public float m_timeSlowTime;
+    [Range(0, 1)]
+    public float m_timeScaleWhenSlow;
 
 
     private PlayerProperty _playerProperty;
     private SpriteRenderer _playerSpriteRender;
-    private MeshRenderer _forceFieldRender;          
+    private MeshRenderer _forceFieldRender;
 
     private void Start()
     {
         _playerProperty = GetComponent<PlayerProperty>();
         _playerSpriteRender = _playerProperty.m_spriteReference;
-        _forceFieldRender = m_forceField.GetComponent<MeshRenderer>();            
+        _forceFieldRender = m_forceField.GetComponent<MeshRenderer>();
     }
 
     private void Update()
@@ -57,7 +63,7 @@ public class PlayerChangeState : MonoBehaviour
         {
 
             if (_playerProperty.m_playerState == JIState.Black)
-            {                         
+            {
                 ChangeState(JIState.White);
             }
             else
@@ -65,20 +71,24 @@ public class PlayerChangeState : MonoBehaviour
                 ChangeState(JIState.Black);
             }
         }
-    }                    
+    }
 
 
+    // Use this variable so that prev unfinished UpdateForceField coroutin will be shut down when next UpdateForceField coroutin will be apply.
+    private Coroutine _prevUpdateForceFieldCoroutin;
     private void ChangeState(JIState state)
     {
         _playerProperty.m_playerState = state;
-        
+
         UpdatePlayerSprite();
-                           
-        StopCoroutine("UpdateForceField");
-        StartCoroutine(UpdateForceField());
+
+        if (_prevUpdateForceFieldCoroutin != null)
+        {
+            StopCoroutine(_prevUpdateForceFieldCoroutin);
+        }
+        _prevUpdateForceFieldCoroutin = StartCoroutine(UpdateForceField());
 
         StartCoroutine(UpdateShockWave());
-
     }
 
     private IEnumerator UpdateForceField()
@@ -98,15 +108,18 @@ public class PlayerChangeState : MonoBehaviour
         while (timer < m_forceFieldTime)
         {
             timer += JITimer.Instance.DeltTime;
-            _forceFieldRender.material.SetFloat("_LightDirFactor", Mathf.Clamp(timer / m_forceFieldTime, 0, 0.75f));
+
+            float targetValue = timer / m_forceFieldTime * 0.5f;  // Value is between [0, 0.5f]
+            _forceFieldRender.material.SetFloat("_LightDirFactor", Mathf.Clamp(targetValue, 0, 0.5f));
+                     
             yield return null;
         }
 
         m_forceField.SetActive(false);
-    } 
+    }
 
     private IEnumerator UpdateShockWave()
-    {          
+    {
         // Create a shockwave collider
         GameObject shockWave = Instantiate(m_shockWavePrefab, transform);
         var shockWaveMesh = shockWave.GetComponent<MeshRenderer>();
@@ -119,7 +132,7 @@ public class PlayerChangeState : MonoBehaviour
             shockWave.SetActive(false);
             Destroy(shockWave);
             yield break;
-        }               
+        }
 
         // Update shock wave material
         if (_playerProperty.m_playerState == JIState.Black)
@@ -137,20 +150,26 @@ public class PlayerChangeState : MonoBehaviour
 
         // Update collider and material
         float timer = 0;
+        JITimer.Instance.TimeScale = m_timeScaleWhenSlow;
         while (timer < m_shockWaveTime)
         {
             timer += JITimer.Instance.RealDeltTime;
 
-            float percent = Mathf.Clamp01(timer / m_shockWaveTime) ;
+            float percent = Mathf.Clamp01(timer / m_shockWaveTime);
             shockWaveMesh.material.SetFloat("_HoleRadius", m_shockWaveSpeedCurve.Evaluate(percent));
-            waveCollider.radius = percent * 0.5f;
+            waveCollider.radius = Mathf.Clamp((percent + 0.1f) * 0.5f, 0, 0.5f);
+
+            if (timer > m_timeSlowTime)
+            {
+                JITimer.Instance.TimeScale = 1;
+            }
 
             yield return null;
         }
 
         shockWave.SetActive(false);
         Destroy(shockWave);
-    }  
+    }
 
     private void UpdatePlayerSprite()
     {
@@ -164,7 +183,7 @@ public class PlayerChangeState : MonoBehaviour
         }
     }
 
-    
+
 
 
     /// <summary>
@@ -217,5 +236,5 @@ public class PlayerChangeState : MonoBehaviour
         }
 
         return false;
-    }                     
+    }
 }
