@@ -105,13 +105,15 @@ public class PlayerChangeState : MonoBehaviour
         }
 
         float timer = 0f;
+        float targetValue = 0f;
         while (timer < m_forceFieldTime)
         {
             timer += JITimer.Instance.DeltTime;
 
-            float targetValue = timer / m_forceFieldTime * 0.5f;  // Value is between [0, 0.5f]
-            _forceFieldRender.material.SetFloat("_LightDirFactor", Mathf.Clamp(targetValue, 0, 0.5f));
-                     
+            // Value is between [0, 1f]
+            targetValue = Mathf.Clamp01(timer / m_forceFieldTime) * 0.5f;
+            _forceFieldRender.material.SetFloat("_LightDirFactor", targetValue);
+
             yield return null;
         }
 
