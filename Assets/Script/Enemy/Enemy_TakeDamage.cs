@@ -39,7 +39,6 @@ public class Enemy_TakeDamage : MonoBehaviour
     {
         if (bulletState != _property.m_enemyState && !_isDead)
         {
-            Debug.Log("Add Neutrilization!");
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerProperty>().AddNeutralization(GlobalStaticVariable.AddedNeutralization);
         }
         _isDead = true;

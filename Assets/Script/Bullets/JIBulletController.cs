@@ -58,7 +58,6 @@ public class JIBulletController : MonoBehaviour
     {
         if (_shooting)
         {
-            Debug.Log("Here!");
             return;
         }
         _shooting = true;

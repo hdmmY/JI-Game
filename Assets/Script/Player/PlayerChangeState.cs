@@ -21,29 +21,24 @@ public class PlayerChangeState : MonoBehaviour
     [Space]
 
     [Header("Shock Wave Distortion")]
-    public MeshRenderer m_shockWaveMesh;
+    public GameObject m_shockWavePrefab;
     public Material m_whiteShockWaveMaterial;
     public Material m_blackShockWaveMaterial;
     [Range(0, 1)]
     public float m_shockWaveRadius;
     public float m_shockWaveTime;
+    public AnimationCurve m_shockWaveSpeedCurve;
 
 
     private PlayerProperty _playerProperty;
     private SpriteRenderer _playerSpriteRender;
-    private MeshRenderer _forceFieldRender;
-
-    private CircleCollider2D _waveCricleCollider;
-    private JIDestroyArea _waevDestroyAreaScript;
+    private MeshRenderer _forceFieldRender;          
 
     private void Start()
     {
         _playerProperty = GetComponent<PlayerProperty>();
         _playerSpriteRender = _playerProperty.m_spriteReference;
-        _forceFieldRender = m_forceField.GetComponent<MeshRenderer>();
-
-        _waveCricleCollider = m_shockWaveMesh.GetComponent<CircleCollider2D>();
-        _waevDestroyAreaScript = m_shockWaveMesh.GetComponent<JIDestroyArea>();
+        _forceFieldRender = m_forceField.GetComponent<MeshRenderer>();            
     }
 
     private void Update()
@@ -62,52 +57,31 @@ public class PlayerChangeState : MonoBehaviour
         {
 
             if (_playerProperty.m_playerState == JIState.Black)
-            {
-                StopAllCoroutines();
-
-                _playerProperty.m_playerState = JIState.White;
-                StartCoroutine(ChangeState());
+            {                         
+                ChangeState(JIState.White);
             }
             else
             {
-                StopAllCoroutines();
-
-                _playerProperty.m_playerState = JIState.Black;
-                StartCoroutine(ChangeState());
+                ChangeState(JIState.Black);
             }
         }
-    }
+    }                    
 
-    private IEnumerator ChangeState()
+
+    private void ChangeState(JIState state)
     {
-        InitWaveDestroy();
+        _playerProperty.m_playerState = state;
+        
+        UpdatePlayerSprite();
+                           
+        StopCoroutine("UpdateForceField");
+        StartCoroutine(UpdateForceField());
 
-        _waveCricleCollider.radius = 0.0001f;
+        StartCoroutine(UpdateShockWave());
 
-        m_shockWaveMesh.gameObject.SetActive(true);
-        m_shockWaveMesh.material.SetFloat("_HoleRadius", 0);
-
-        RenderForceField();
-        RenderShockWave();
-        RenderPlayerSprite();
-
-        float timer = 0;
-        while (timer < m_shockWaveTime)
-        {
-            timer += JITimer.Instance.RealDeltTime;
-
-            m_shockWaveMesh.material.SetFloat("_HoleRadius", timer / m_shockWaveTime * 0.7f);
-            _waveCricleCollider.radius = timer / m_shockWaveTime * 0.5f;
-
-            yield return null;
-        }
-
-        m_forceField.SetActive(false);
-        m_shockWaveMesh.gameObject.SetActive(false);
     }
 
-
-    private void RenderForceField()
+    private IEnumerator UpdateForceField()
     {
         m_forceField.SetActive(true);
 
@@ -119,9 +93,66 @@ public class PlayerChangeState : MonoBehaviour
         {
             _forceFieldRender.material = m_whiteForceFieldMaterial;
         }
-    }
 
-    private void RenderPlayerSprite()
+        float timer = 0f;
+        while (timer < m_forceFieldTime)
+        {
+            timer += JITimer.Instance.DeltTime;
+            _forceFieldRender.material.SetFloat("_LightDirFactor", Mathf.Clamp(timer / m_forceFieldTime, 0, 0.75f));
+            yield return null;
+        }
+
+        m_forceField.SetActive(false);
+    } 
+
+    private IEnumerator UpdateShockWave()
+    {          
+        // Create a shockwave collider
+        GameObject shockWave = Instantiate(m_shockWavePrefab, transform);
+        var shockWaveMesh = shockWave.GetComponent<MeshRenderer>();
+        var waveCollider = shockWave.GetComponent<CircleCollider2D>();
+
+        // Break if detect none bullet
+        bool canDestory = InitWaveDestroy(shockWave.GetComponent<JIDestroyArea>());
+        if (!canDestory)
+        {
+            shockWave.SetActive(false);
+            Destroy(shockWave);
+            yield break;
+        }               
+
+        // Update shock wave material
+        if (_playerProperty.m_playerState == JIState.Black)
+        {
+            shockWaveMesh.material = m_blackShockWaveMaterial;
+        }
+        else
+        {
+            shockWaveMesh.material = m_whiteShockWaveMaterial;
+        }
+
+        // Initialize collider and material
+        waveCollider.radius = 0.0001f;
+        shockWaveMesh.material.SetFloat("_HoleRadius", 0);
+
+        // Update collider and material
+        float timer = 0;
+        while (timer < m_shockWaveTime)
+        {
+            timer += JITimer.Instance.RealDeltTime;
+
+            float percent = Mathf.Clamp01(timer / m_shockWaveTime) ;
+            shockWaveMesh.material.SetFloat("_HoleRadius", m_shockWaveSpeedCurve.Evaluate(percent));
+            waveCollider.radius = percent * 0.5f;
+
+            yield return null;
+        }
+
+        shockWave.SetActive(false);
+        Destroy(shockWave);
+    }  
+
+    private void UpdatePlayerSprite()
     {
         if (_playerProperty.m_playerState == JIState.Black)
         {
@@ -133,36 +164,28 @@ public class PlayerChangeState : MonoBehaviour
         }
     }
 
-    private void RenderShockWave()
-    {
-        if (_playerProperty.m_playerState == JIState.Black)
-        {
-            m_shockWaveMesh.material = m_blackShockWaveMaterial;
-        }
-        else
-        {
-            m_shockWaveMesh.material = m_whiteShockWaveMaterial;
-        }
-    }       
+    
+
 
     /// <summary>
-    /// Init wave destroy area
+    ///  Init wave destroy area
     /// </summary>
-    private void InitWaveDestroy()
+    /// <returns> Return true means can trigger destroy. Return false means cann't </returns>
+    private bool InitWaveDestroy(JIDestroyArea destroyArea)
     {
-        _waevDestroyAreaScript.m_destroyBulletType = JIState.None;
+        destroyArea.m_destroyBulletType = JIState.None;
 
         var cols = Physics2D.CircleCastAll(transform.position, _playerProperty.m_checkBound, Vector2.zero);
         foreach (var col in cols)
         {
             if (CheckBulletType(col.transform.parent.name))
             {
-                _waevDestroyAreaScript.m_destroyBulletType = _playerProperty.m_playerState;
+                destroyArea.m_destroyBulletType = _playerProperty.m_playerState;
                 break;
             }
         }
 
-        if (_waevDestroyAreaScript.m_destroyBulletType != JIState.None)
+        if (destroyArea.m_destroyBulletType != JIState.None)
         {
             for (int i = 0; i < cols.Length; i++)             // Destroy all bullets that detected
             {
@@ -171,7 +194,11 @@ public class PlayerChangeState : MonoBehaviour
                     UbhObjectPool.Instance.ReleaseGameObject(cols[i].transform.parent.gameObject);
                 }
             }
+
+            return true;
         }
+
+        return false;
     }
 
     // Check whether a bullet's state is equals to player state
@@ -190,6 +217,5 @@ public class PlayerChangeState : MonoBehaviour
         }
 
         return false;
-    }
-
+    }                     
 }

@@ -51,6 +51,12 @@ namespace BossLevel2
         #region Events
         private void InitEventCallBack()
         {
+            MovePointEnemyState initMoveState = GetState("P0_MoveToUpCenter") as MovePointEnemyState;
+            if(initMoveState != null)
+            {
+                initMoveState.OnStateEnd += P0_MoveToUpCenter;
+            }
+
             MoveEnemyState moveState = GetState("P1_Move") as MoveEnemyState;
             if (moveState != null)
             {
@@ -120,6 +126,12 @@ namespace BossLevel2
 
 
         #region State Transition
+        private void P0_MoveToUpCenter()
+        {
+            _currentEnemyAI = GetState("P1_MatrixAttack");
+            _currentEnemyAI.Initialize(_enemyProperty);
+        }                              
+
         private void P1_MoveTransition()
         {
             if (GetInt("P1_AttackTimes") < m_P1attackTimes)

@@ -11,6 +11,8 @@ Shader "Custom/ForceField"
 		_DistortRadio ("Distort Radio", Range(0, 1)) = 0.5
 
 		_LambertColor ("Lambert Color", Color) = (1, 1, 1, 1)
+		_LightDirFactor ("Light Direction Factor", Range(0, 1)) = 0.5
+
 
 		_ScrollSpeedU("Scroll U Speed",float) = 2
 		_ScrollSpeedV("Scroll V Speed",float) = 0
@@ -71,6 +73,7 @@ Shader "Custom/ForceField"
 			fixed _DistortRadio;
 
 			fixed4 _LambertColor;
+			fixed _LightDirFactor;
 
 			fixed _ScrollSpeedU;
 			fixed _ScrollSpeedV;
@@ -92,6 +95,19 @@ Shader "Custom/ForceField"
 
 				return o;
 			}
+
+
+			fixed3 lightDir()
+			{
+				float t = _LightDirFactor * UNITY_TWO_PI;
+
+				fixed x = -0.707 * cos(t);
+				fixed y = 0.707 * cos(t);
+				fixed z = 1 - 2 * sin(t);
+					
+				return fixed3(x, y, z);
+			}
+
 			
 			fixed4 frag (v2f i) : SV_Target
 			{
@@ -110,14 +126,8 @@ Shader "Custom/ForceField"
 				fixed3 fresnelColor = pow((1 - dot(worldViewDir, worldNormal)), 5);
 				fresnelColor *= _MainColor;
 
-				// // Specular light
-				// fixed3 worldLightDir = normalize(_WorldSpaceLightPos0.xyz);
-				// fixed3 reflectDir = normalize(reflect(-worldLightDir, worldNormal));
-				// fixed3 viewDir = normalize(_WorldSpaceCameraPos.xyz - i.worldPos);
-				// fixed3 specularColor = _LightColor0.rgb * _Specular.rgb * pow(saturate(dot(reflectDir, viewDir)), _Gloss);
-
 				// Half Lambert
-				fixed3 worldLightDir = normalize(_WorldSpaceLightPos0.xyz);
+				fixed3 worldLightDir = lightDir();
 				fixed lambertFactor = saturate(dot(worldNormal, worldLightDir));
 				fixed3 lambertColor = _LightColor0.rgb * _LambertColor.rgb * lambertFactor;
 
