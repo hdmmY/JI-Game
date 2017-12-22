@@ -105,18 +105,20 @@ public class JIBulletController : MonoBehaviour
                 // homing target.
                 if (homingTarget != null && 0f < homingAngleSpeed)
                 {
-                    float targetRoateZ = UbhUtil.Get360Angle(UbhUtil.GetAngleFromTwoPosition(transform, homingTarget) - 90);
-                    float curRotateZ = UbhUtil.Get360Angle(transform.eulerAngles.z);
-                    float destRoateZ = UbhUtil.Get360Angle(Mathf.MoveTowards(curRotateZ, targetRoateZ, GetTime(useRealTime) * homingAngleSpeed));
+                    if(transform.position.y < homingTarget.position.y - 0.2f)
+                    {
+                        float targetRoateZ = UbhUtil.GetAngleFromTwoPosition(transform, homingTarget);
+                        float curRotateZ = UbhUtil.GetAngleFromTwoPosition(Vector2.zero, transform.up);
 
-                    // Since curAngle and toAngle both between [0, 360], so when wrap the 360 or 0 degree, the abs(curAngle - toAngle) will be very big.
-                    // To simple deal with this situation, I make the result to 0.       -- HDM 2017.12.21
-                    homingAngle += Mathf.Abs(curRotateZ - destRoateZ) >= 30 ? 0 : Mathf.Abs(curRotateZ - destRoateZ);
-                    if (homingAngle >= maxHomingAngle) homing = false;
+                        float delt = Mathf.DeltaAngle(curRotateZ, targetRoateZ);
+                        delt = Mathf.Min(homingAngleSpeed * GetTime(useRealTime), Mathf.Abs(delt)) * Mathf.Sign(delt);
+                      
+                        homingAngle += Mathf.Abs(delt);
+                        if (homingAngle >= maxHomingAngle) homing = false;
 
-                    transform.SetEulerAnglesZ(destRoateZ);
-                }
-
+                        transform.SetEulerAnglesZ(delt + curRotateZ - 90);
+                    }                                     
+                }         
             }
             else if (wave)
             {
@@ -165,5 +167,4 @@ public class JIBulletController : MonoBehaviour
     {
         return useRealTime ? JITimer.Instance.RealDeltTime : JITimer.Instance.DeltTime;
     }
-
 }

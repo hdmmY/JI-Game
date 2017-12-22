@@ -1,4 +1,4 @@
-﻿Shader "Custom/Sprite_Dissolve_EdgeOutline" {
+Shader "Custom/Sprite/Flicker" {
 	
 	Properties {		
 		[PerRendererData] 
@@ -6,12 +6,6 @@
 		
 		[MaterialToggle] 
 		PixelSnap ("Pixel snap", Float) = 0
-
-		[PerRendererData]
-		_DissolveMap("Dissolve Map", 2D) = "white" {}
-
-		[PerRendererData]
-		_DissolveAmount ("Dissolve Amount", Range(0, 1)) = 0
 
 		[PerRendererData]
 		_EdgeColor("Edge Color", Color) = (0.0, 0.0, 0.0, 0.0)
@@ -48,13 +42,8 @@
 			#pragma multi_compile DUMMY PIXELSNAP_ON
 			#include "UnityCG.cginc"
 
-			fixed _DissolveAmount;
-
 			sampler2D _MainTex;
 			float4 _MainTex_TexelSize;
-
-			sampler2D _DissolveMap;
-			float4 _DissolveMap_ST;
 
 			float4 _EdgeColor;
 			float _EdgeWidth;
@@ -69,7 +58,6 @@
 			{
 				float4 vertex : SV_POSITION;
 				float2 texcoord : TEXCOORD0;
-				float2 uvDissolveMap : TEXCOORD1;
 				half2  uv[9] : TEXCOORD2;
 			};
 
@@ -79,7 +67,6 @@
 
 				o.vertex = UnityObjectToClipPos(i.vertex);
 				o.texcoord = i.uv;
-				o.uvDissolveMap = TRANSFORM_TEX(i.uv, _DissolveMap);
 
 				#ifdef PIXELSNAP_ON
 				o.vertex = UnityPixelSnap (o.vertex);
@@ -122,13 +109,10 @@
 
 			fixed4 frag(vertexOutput i) : SV_Target
 			{
-				fixed3 dissolve = tex2D(_DissolveMap, i.uvDissolveMap).rgb;
-
 				fixed4 texColor = tex2D(_MainTex, i.texcoord);
 
-				clip(dissolve.g - _DissolveAmount);
-
 				fixed edge = Sobel(i);
+				
 				return lerp(_EdgeColor, texColor, edge);
 			}
 

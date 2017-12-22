@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[RequireComponent(typeof(Enemy_Property))]
+[RequireComponent(typeof(EnemyProperty))]
 public class BaseAIController : MonoBehaviour
 {
     // All AI status
@@ -14,11 +14,11 @@ public class BaseAIController : MonoBehaviour
 
     protected BaseEnemyState _currentEnemyAI;
 
-    protected Enemy_Property _enemyProperty;
+    protected EnemyProperty _enemyProperty;
 
     protected virtual void Start()
     {
-        _enemyProperty = GetComponent<Enemy_Property>();
+        _enemyProperty = GetComponent<EnemyProperty>();
     }
 
     protected virtual void Update()

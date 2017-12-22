@@ -26,10 +26,9 @@ namespace AnimationToggle
             }
         }
 
-        public float targetAngle;
         public void Update()
         {
-            targetAngle = m_rotateSpeed * JITimer.Instance.TimeScale + _targetShot.m_shotAngle;
+            float targetAngle = m_rotateSpeed * JITimer.Instance.TimeScale + _targetShot.m_shotAngle;
 
             if(targetAngle < m_minAngle)
             {

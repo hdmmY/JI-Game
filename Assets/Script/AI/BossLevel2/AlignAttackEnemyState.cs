@@ -30,7 +30,7 @@ namespace BossLevel2
         private bool _alignShotDone;
         private bool _shotPatternDone;  
 
-        public override void Initialize(Enemy_Property enemyProperty)
+        public override void Initialize(EnemyProperty enemyProperty)
         {
             base.Initialize(enemyProperty);
 
@@ -45,7 +45,7 @@ namespace BossLevel2
         }
 
 
-        public override void UpdateState(Enemy_Property enemyProperty)
+        public override void UpdateState(EnemyProperty enemyProperty)
         {
             if (_stateEnd) return;    
 
@@ -88,13 +88,13 @@ namespace BossLevel2
         }
 
 
-        public override void EndState(Enemy_Property enemyProperty)
+        public override void EndState(EnemyProperty enemyProperty)
         {
             base.EndState(enemyProperty);
         }       
     
                                           
-        private void MoveToCentre(Enemy_Property enemyProperty)
+        private void MoveToCentre(EnemyProperty enemyProperty)
         {
             Vector3 destination = JIGlobalRef.Player.transform.position;
             destination.y = m_bossPositionY;

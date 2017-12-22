@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[RequireComponent(typeof(Enemy_Property))]
+[RequireComponent(typeof(EnemyProperty))]
 public class StageManager : MonoBehaviour
 {
 
@@ -51,7 +51,7 @@ public class StageManager : MonoBehaviour
 
     private float _timer;
 
-    private Enemy_Property _property;
+    private EnemyProperty _property;
 
 
     private void Start()
@@ -59,7 +59,7 @@ public class StageManager : MonoBehaviour
         // Reset timer. The init _timer is a little below zero to aviod inaccuracy.
         _timer = -0.5f;
 
-        _property = GetComponent<Enemy_Property>();
+        _property = GetComponent<EnemyProperty>();
 
         for (int i = 0; i < m_stages.Count; i++)
         {

@@ -13,14 +13,14 @@ namespace BossLevel2
 
         private Vector3 _moveDir;
 
-        public override void Initialize(Enemy_Property enemyProperty)
+        public override void Initialize(EnemyProperty enemyProperty)
         {
             base.Initialize(enemyProperty);
 
             _moveDir = (m_destination - enemyProperty.transform.position).normalized;
         }
 
-        public override void UpdateState(Enemy_Property enemyProperty)
+        public override void UpdateState(EnemyProperty enemyProperty)
         {
             base.UpdateState(enemyProperty);
 
@@ -36,7 +36,7 @@ namespace BossLevel2
             enemyProperty.transform.position = nextPosition;
         }
 
-        public override void EndState(Enemy_Property enemyProperty)
+        public override void EndState(EnemyProperty enemyProperty)
         {
             base.EndState(enemyProperty);
         }

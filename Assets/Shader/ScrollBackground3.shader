@@ -1,4 +1,4 @@
-﻿Shader "Custom/ScrollBackground3" {
+Shader "Custom/ScrollBackground3" {
 	
 	Properties 
 	{
@@ -61,6 +61,7 @@
 			{
 				float addV = _ScrollSpeed * _Time.y;
 				float mod3AddV = fmod(addV, 3);
+
 				float originV = input.uv.y;
 
 				if(mod3AddV < 1 - originV)

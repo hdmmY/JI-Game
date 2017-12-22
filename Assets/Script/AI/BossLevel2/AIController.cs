@@ -52,7 +52,7 @@ namespace BossLevel2
         private void InitEventCallBack()
         {
             MovePointEnemyState initMoveState = GetState("P0_MoveToUpCenter") as MovePointEnemyState;
-            if(initMoveState != null)
+            if (initMoveState != null)
             {
                 initMoveState.OnStateEnd += P0_MoveToUpCenter;
             }
@@ -84,13 +84,19 @@ namespace BossLevel2
                 sectorMoveAttState.OnStateEnd += AddSectorMoveAttackTimes;
                 sectorMoveAttState.OnStateEnd += P2_SectorMoveAttackTransition;
             }
+
+            MovePointEnemyState P3InitMoveState = GetState("P3_MoveToUpCenter") as MovePointEnemyState;
+            if (initMoveState != null)
+            {
+                P3InitMoveState.OnStateEnd += P3_MoveToUpCenterTransition;
+            }
         }
 
         private void ReleaseCallBack()
         {
             foreach (var state in m_totalEnemyAIStates)
             {
-                if(state.OnStateEnd != null)
+                if (state.OnStateEnd != null)
                 {
                     var dels = state.OnStateEnd.GetInvocationList();
                     foreach (var del in dels)
@@ -98,7 +104,7 @@ namespace BossLevel2
                         state.OnStateEnd -= del as System.Action;
                     }
                 }
-               
+
             }
         }
         #endregion                                          
@@ -130,7 +136,7 @@ namespace BossLevel2
         {
             _currentEnemyAI = GetState("P1_MatrixAttack");
             _currentEnemyAI.Initialize(_enemyProperty);
-        }                              
+        }
 
         private void P1_MoveTransition()
         {
@@ -162,13 +168,35 @@ namespace BossLevel2
 
         private void P2_AlignAttackTransition()
         {
-            _currentEnemyAI = GetState("P2_SectorMoveAttack");
-            _currentEnemyAI.Initialize(_enemyProperty);
+            if (GetInt("P2_AlignAttackTimes") < m_P2alignAttackTimes)
+            {
+                _currentEnemyAI = GetState("P2_SectorMoveAttack");
+                _currentEnemyAI.Initialize(_enemyProperty);
+            }
+            else
+            {
+                _currentEnemyAI = GetState("P3_MutiLinearAttack");
+                _currentEnemyAI.Initialize(_enemyProperty);
+            }
         }
 
         private void P2_SectorMoveAttackTransition()
         {
-            _currentEnemyAI = GetState("P2_AlignAttack");
+            if (GetInt("P2_SectorMoveAttackTimes") < m_P2sectorMoveAttackTimes)
+            {
+                _currentEnemyAI = GetState("P3_MoveToUpCenter");
+                _currentEnemyAI.Initialize(_enemyProperty);
+            }
+            else
+            {
+                _currentEnemyAI = GetState("P3_MoveToUpCenter");
+                _currentEnemyAI.Initialize(_enemyProperty);
+            }
+        }
+
+        private void P3_MoveToUpCenterTransition()
+        {
+            _currentEnemyAI = GetState("P3_MutiLinearAttack");
             _currentEnemyAI.Initialize(_enemyProperty);
         }
 

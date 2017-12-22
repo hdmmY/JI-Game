@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosionAnimController : MonoBehaviour {
 
-	public void DestroyExplosion()
+namespace AnimationToggle
+{
+    public class ExplosionAnimController : MonoBehaviour
     {
-        Destroy(this.gameObject);
+
+        public void DestroyExplosion()
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
+

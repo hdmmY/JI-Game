@@ -145,7 +145,6 @@ namespace SpecialShot
                     yield return UbhUtil.WaitForSeconds(pauseBeforeChangeDirection);
 
                     bulletSpeed = bulletSpeedAfterChangeDir;
-                    //angle = UbhUtil.GetAngleFromTwoPosition(bulletTrans, transform, axisMove) - 90;
 
                     var bulletUpper = GetBullet(bulletTrans.position, bulletTrans.rotation);
                     var bulletUnder = GetBullet(bulletTrans.position, bulletTrans.rotation);
@@ -184,8 +183,10 @@ namespace SpecialShot
         {
             if (bullet == null) return;
 
-            bullet.Shot(speed, angle,
-                    0, 0, false, null, 0, 0, false, 0, 0, false, 0, 0);
+            bullet.Shot(speed, angle, 0, 0, 
+                false, null, 0, 0, 
+                false, 0, 0, 
+                false, 0, 0);
         }
     }
 }

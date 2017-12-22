@@ -1,4 +1,4 @@
-﻿Shader "Custom/SpriteDissolve" {
+﻿Shader "Custom/Sprite/Dissolve" {
 	
 	Properties {
 		_DissolveAmount ("Dissolve Amount", Range(0, 1)) = 0

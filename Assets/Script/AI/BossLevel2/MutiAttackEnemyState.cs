@@ -22,7 +22,7 @@ namespace BossLevel2
         private float _timer;     
         private bool _allShotDone;
 
-        public override void Initialize(Enemy_Property enemyProperty)
+        public override void Initialize(EnemyProperty enemyProperty)
         {
             base.Initialize(enemyProperty);
 
@@ -32,7 +32,7 @@ namespace BossLevel2
         }
 
 
-        public override void UpdateState(Enemy_Property enemyProperty)
+        public override void UpdateState(EnemyProperty enemyProperty)
         {
             base.UpdateState(enemyProperty);
             if (_stateEnd)
@@ -62,7 +62,7 @@ namespace BossLevel2
         /// <summary>
         /// Call to force to end the state.
         /// </summary>
-        public override void EndState(Enemy_Property enemyProperty)
+        public override void EndState(EnemyProperty enemyProperty)
         {
             base.EndState(enemyProperty);
         }

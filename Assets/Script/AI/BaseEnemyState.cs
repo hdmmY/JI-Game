@@ -13,7 +13,7 @@ public class BaseEnemyState : MonoBehaviour
     /// Initialize a state. Call once.
     /// </summary>
     /// <param name="enemyProperty"></param>
-    public virtual void Initialize(Enemy_Property enemyProperty)
+    public virtual void Initialize(EnemyProperty enemyProperty)
     {
         if (enemyProperty == null)
         {
@@ -34,7 +34,7 @@ public class BaseEnemyState : MonoBehaviour
     /// Excute every frame to update state.
     /// </summary>
     /// <param name="enemyProperty"></param>
-    public virtual void UpdateState(Enemy_Property enemyProperty)
+    public virtual void UpdateState(EnemyProperty enemyProperty)
     {
         if (enemyProperty == null)
         {
@@ -45,7 +45,7 @@ public class BaseEnemyState : MonoBehaviour
     /// <summary>
     /// Call to force to end the state.
     /// </summary>
-    public virtual void EndState(Enemy_Property enemyProperty)
+    public virtual void EndState(EnemyProperty enemyProperty)
     {
         _stateEnd = true;
 

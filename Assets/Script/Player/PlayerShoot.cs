@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour 
 {
-    // The bullet shot key in keyboard.
-	public KeyCode m_ShotKey = KeyCode.Z;
-
     // The position of the bullet emit point.
     public List<Transform> m_shootList = new List<Transform>();
 
@@ -15,6 +12,13 @@ public class PlayerShoot : MonoBehaviour
 
     // Prefab of black status bullet
     public GameObject m_blackBulletPrefab;
+
+    [Space]
+    [Header("Homing")]
+    public bool m_homing;
+    public float m_homingSpeed;
+    public LayerMask m_homingLayer;
+        
 
     // Use this property to control damage and shot interval.
     private PlayerProperty _playerProperty;
@@ -31,7 +35,7 @@ public class PlayerShoot : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKey(m_ShotKey))
+        if(Input.GetButton("Shot"))
         {
             Shot();
         }
@@ -64,12 +68,8 @@ public class PlayerShoot : MonoBehaviour
 
             if(bulletController == null || bulletProperty == null)  break;
 
-            bulletProperty.m_damage = _playerProperty.m_bulletDamage;
-            bulletController.Shot(_playerProperty.m_bulletSpeed, m_shootList[i].rotation.z + 90f, 
-                    0, 0, 
-                    false, null, 0, 0, 
-                    false, 0, 0, 
-                    false, 0, 0, true);
+            bulletProperty.m_damage = _playerProperty.m_bulletDamage;    
+            ShotBullet(bulletController, _playerProperty.m_bulletSpeed, m_shootList[i].rotation.z + 90f, m_homing);
         }
 
         // finish a shot, reset timer
@@ -114,6 +114,30 @@ public class PlayerShoot : MonoBehaviour
         }
 
         return bulletController;
+    }
+
+
+    private void ShotBullet(JIBulletController bullet, float speed, float angle, bool homing)
+    {
+        if(homing)
+        {                                                               
+            var enemy = Physics2D.CircleCast(transform.position, 20, Vector2.one, 0, m_homingLayer).transform;
+
+            if(enemy != null)
+            {
+                bullet.Shot(speed, angle, 0, 0,
+                    true, enemy, m_homingSpeed, 10000,
+                    false, 0, 0,
+                    false, 0, 0);
+                return;
+            }
+        }
+
+        bullet.Shot(speed, angle, 0, 0,
+            false, null, 0, 0,
+            false, 0, 0,
+            false, 0, 0);
+
     }
 
 }

@@ -39,7 +39,7 @@ namespace BossLevel2
         // Attack relative local variable
         private float _attackTimer;
 
-        public override void Initialize(Enemy_Property enemyProperty)
+        public override void Initialize(EnemyProperty enemyProperty)
         {
             base.Initialize(enemyProperty);
 
@@ -47,7 +47,7 @@ namespace BossLevel2
             InitializeMove(enemyProperty);
         }
 
-        public override void UpdateState(Enemy_Property enemyProperty)
+        public override void UpdateState(EnemyProperty enemyProperty)
         {
             base.UpdateState(enemyProperty);
             if(_stateEnd)
@@ -74,13 +74,13 @@ namespace BossLevel2
             }
         }
 
-        public override void EndState(Enemy_Property enemyProperty)
+        public override void EndState(EnemyProperty enemyProperty)
         {
             base.EndState(enemyProperty);
         }
 
 
-        private void InitializeMove(Enemy_Property enemyProperty)
+        private void InitializeMove(EnemyProperty enemyProperty)
         {
             var boxCol = enemyProperty.GetComponent<BoxCollider2D>();
             if (boxCol == null)
@@ -98,12 +98,12 @@ namespace BossLevel2
             _moveDone = false;
         }
 
-        private void InitializeAttack(Enemy_Property enemyProperty)
+        private void InitializeAttack(EnemyProperty enemyProperty)
         {
             _attackTimer = 0f;
         }
 
-        private void UpdateAttack(Enemy_Property enemyProperty)
+        private void UpdateAttack(EnemyProperty enemyProperty)
         {
             // Move done, after m_timeTWaitAfterShot seconds, end the state.
             if (_moveDone)
@@ -124,7 +124,7 @@ namespace BossLevel2
             
         }
 
-        private void UpdateMove(Enemy_Property enemyProperty)
+        private void UpdateMove(EnemyProperty enemyProperty)
         {
             Vector3 nextPosition = enemyProperty.transform.position + _moveDir * m_moveSpeed * JITimer.Instance.DeltTime;
 
