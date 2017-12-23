@@ -1,8 +1,11 @@
+// Postprocess.
+// Bind the light color with current rendertexture
+// Use the _EdgePoint to determine the background edge. Anly abs(uv) that out of the _EdgePoint will be discard
+
 Shader "Custom/LightColorBind" {
 	Properties {
 		_MainTex ("Base (RGB)", 2D) = "white" {}
 		_LightTex ("Light Tex", 2D) = "white" {}
-
 		_Brightness("Brightness", Float) = 2	
 	}
 	SubShader {
@@ -24,6 +27,8 @@ Shader "Custom/LightColorBind" {
 			sampler2D _LightTex;
 
 			fixed _Brightness;
+
+			fixed _EdgeXMax;
 
 			struct vertexInput{
 				float4 vertex : POSITION;
@@ -71,6 +76,12 @@ Shader "Custom/LightColorBind" {
 				fixed4 screenColor = tex2D(_MainTex, input.uv);
 				fixed4 lightColor = tex2D(_LightTex, input.uv);
 		
+				float edge = (_EdgeXMax - 0.5) - abs(input.uv.x - 0.5);
+				if(edge < 0)	
+				{
+					return screenColor;
+				}
+
 				fixed luminane = Luminance(lightColor.rgb);
 				fixed3 lightHSB = rgb2hsb(lightColor.rgb);
 

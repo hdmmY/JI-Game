@@ -7,6 +7,20 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class PostEffectsBase : MonoBehaviour
 {
+    private Camera _camera;
+    protected Camera camera
+    {
+        get
+        {
+            if(_camera == null)
+            {
+                _camera = GetComponent<Camera>();
+            }
+
+            return _camera;
+        }
+    }
+
     private void Start()
     {
         CheckResources();

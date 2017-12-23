@@ -12,7 +12,7 @@ public class AddSelfComponent : MonoBehaviour
         {
             foreach (var sprite in go.Go.GetComponentsInChildren<SpriteRenderer>(true))
             {
-                sprite.maskInteraction = SpriteMaskInteraction.None;
+                sprite.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
             }
         }
 
