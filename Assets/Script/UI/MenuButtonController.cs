@@ -27,18 +27,33 @@ public class MenuButtonController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
             HideButton(_curIndex);
-
             _curIndex = (_curIndex + 1) % m_buttons.Count;
             HighLightButton(_curIndex);
         }
         else if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             HideButton(_curIndex);
-
             _curIndex = _curIndex - 1 < 0 ? m_buttons.Count - 1 : _curIndex - 1;
             HighLightButton(_curIndex);
         }
 
+
+        // Hard code  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if(Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Return))
+        {
+            if(_curIndex == 0)
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Stage1", UnityEngine.SceneManagement.LoadSceneMode.Single);
+            }
+            else if(_curIndex == 1)
+            {
+                
+            }
+            else if(_curIndex == 2)
+            {
+                Application.Quit();
+            }
+        }     
     }              
 
     private void HighLightButton(int index)
@@ -57,7 +72,5 @@ public class MenuButtonController : MonoBehaviour
 
         var image = m_buttons[index].GetComponentInChildren<Image>(true);
         image.gameObject.SetActive(false);
-    }
-
-
+    }         
 }

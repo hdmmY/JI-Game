@@ -1,0 +1,639 @@
+fileFormatVersion: 2
+guid: 62f55e207696d95458c9085ea94424ba
+timeCreated: 1514020045
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: "BOSS02 \u9AA8\u9ABC(1)_0"
+    21300002: "BOSS02 \u9AA8\u9ABC(1)_1"
+    21300004: "BOSS02 \u9AA8\u9ABC(1)_2"
+    21300006: "BOSS02 \u9AA8\u9ABC(1)_3"
+    21300008: "BOSS02 \u9AA8\u9ABC(1)_4"
+    21300010: "BOSS02 \u9AA8\u9ABC(1)_5"
+    21300012: "BOSS02 \u9AA8\u9ABC(1)_6"
+    21300014: "BOSS02 \u9AA8\u9ABC(1)_7"
+    21300016: "BOSS02 \u9AA8\u9ABC(1)_8"
+    21300018: "BOSS02 \u9AA8\u9ABC(1)_9"
+    21300020: "BOSS02 \u9AA8\u9ABC(1)_10"
+    21300022: "BOSS02 \u9AA8\u9ABC(1)_11"
+    21300024: "BOSS02 \u9AA8\u9ABC(1)_12"
+    21300026: "BOSS02 \u9AA8\u9ABC(1)_13"
+    21300028: "BOSS02 \u9AA8\u9ABC(1)_14"
+    21300030: "BOSS02 \u9AA8\u9ABC(1)_15"
+    21300032: "BOSS02 \u9AA8\u9ABC(1)_16"
+    21300034: "BOSS02 \u9AA8\u9ABC(1)_17"
+    21300036: "BOSS02 \u9AA8\u9ABC(1)_18"
+    21300038: "BOSS02 \u9AA8\u9ABC(1)_19"
+    21300040: "BOSS02 \u9AA8\u9ABC(1)_20"
+    21300042: "BOSS02 \u9AA8\u9ABC(1)_21"
+    21300044: "BOSS02 \u9AA8\u9ABC(1)_22"
+    21300046: "BOSS02 \u9AA8\u9ABC(1)_23"
+    21300048: "BOSS02 \u9AA8\u9ABC(1)_24"
+    21300050: "BOSS02 \u9AA8\u9ABC(1)_25"
+    21300052: Leg-R-1-3
+    21300054: Leg-R-1-2
+    21300056: Body
+    21300058: Leg-L-1-1
+    21300060: Leg-L-1-2
+    21300062: Leg-L-1-3
+    21300064: Leg-R-2-3
+    21300066: Leg-R-2-2
+    21300068: Leg-R-1-1
+    21300070: Leg-L-2-1
+    21300072: Leg-L-2-2
+    21300074: Leg-L-2-3
+    21300076: Leg-R-2-1
+    21300078: BOSS02-Bones-Final_13
+    21300080: Leg-L-3-2
+    21300082: Leg-R-3-3
+    21300084: Leg-R-3-2
+    21300086: Leg-R-3-1
+    21300088: Leg-L-3-1
+    21300090: Leg-L-4-2
+    21300092: Leg-L-3-3
+    21300094: Leg-R-4-2
+    21300096: BOSS02-Bones-Final_22
+    21300098: Leg-R-4-1
+    21300100: Leg-L-4-1
+    21300102: Leg-R-4-3
+    21300104: Leg-L-4-3
+    21300106: Mouth-R-1
+    21300108: BOSS02-Bones_0
+    21300110: Mouth-R-2
+    21300112: Mouth-L-1
+    21300114: Mouth-L-2
+    21300116: Mouth-R-Inside
+    21300118: Mouth-L-Inside
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Leg-R-1-3
+      rect:
+        serializedVersion: 2
+        x: 56.999996
+        y: 994
+        width: 168
+        height: 190
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-R-1-2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1057
+        width: 200
+        height: 93
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Body
+      rect:
+        serializedVersion: 2
+        x: 733
+        y: 522
+        width: 297
+        height: 570
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-L-1-1
+      rect:
+        serializedVersion: 2
+        x: 1168
+        y: 891
+        width: 111
+        height: 208
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-L-1-2
+      rect:
+        serializedVersion: 2
+        x: 1357
+        y: 992
+        width: 209
+        height: 99
+      alignment: 9
+      pivot: {x: 0.49999997, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-L-1-3
+      rect:
+        serializedVersion: 2
+        x: 1611
+        y: 920
+        width: 166
+        height: 190
+      alignment: 9
+      pivot: {x: 0.49999997, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-R-2-3
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 702
+        width: 132
+        height: 275
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-R-2-2
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 798
+        width: 224
+        height: 130
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-R-1-1
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 854
+        width: 120
+        height: 203
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49999982}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-L-2-1
+      rect:
+        serializedVersion: 2
+        x: 1140
+        y: 722
+        width: 162
+        height: 171
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-L-2-2
+      rect:
+        serializedVersion: 2
+        x: 1337
+        y: 835
+        width: 229
+        height: 126
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-L-2-3
+      rect:
+        serializedVersion: 2
+        x: 1605
+        y: 653
+        width: 154
+        height: 258
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-R-2-1
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 693
+        width: 173
+        height: 161
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BOSS02-Bones-Final_13
+      rect:
+        serializedVersion: 2
+        x: 1142
+        y: 777
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-L-3-2
+      rect:
+        serializedVersion: 2
+        x: 1372
+        y: 578
+        width: 151
+        height: 229
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-R-3-3
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 429
+        width: 91
+        height: 237
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49999997}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-R-3-2
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 421
+        width: 156
+        height: 247
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-R-3-1
+      rect:
+        serializedVersion: 2
+        x: 486.99997
+        y: 501
+        width: 158.00003
+        height: 186
+      alignment: 9
+      pivot: {x: 0.5000001, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-L-3-1
+      rect:
+        serializedVersion: 2
+        x: 1142
+        y: 513
+        width: 150
+        height: 188
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49999997}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-L-4-2
+      rect:
+        serializedVersion: 2
+        x: 1353
+        y: 194
+        width: 138
+        height: 378
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49999997}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-L-3-3
+      rect:
+        serializedVersion: 2
+        x: 1617
+        y: 406
+        width: 116
+        height: 235.99994
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5000001}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-R-4-2
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 20
+        width: 129
+        height: 382
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BOSS02-Bones-Final_22
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 391
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-R-4-1
+      rect:
+        serializedVersion: 2
+        x: 488.99997
+        y: 278
+        width: 145.00003
+        height: 166
+      alignment: 9
+      pivot: {x: 0.5000001, y: 0.49999997}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-L-4-1
+      rect:
+        serializedVersion: 2
+        x: 1149
+        y: 347.99997
+        width: 154
+        height: 164
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5000002}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-R-4-3
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 202
+        width: 284
+        height: 168
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Leg-L-4-3
+      rect:
+        serializedVersion: 2
+        x: 1564
+        y: 217
+        width: 292
+        height: 161
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Mouth-R-1
+      rect:
+        serializedVersion: 2
+        x: 727
+        y: 405
+        width: 84
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BOSS02-Bones_0
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 247
+        width: 103
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Mouth-R-2
+      rect:
+        serializedVersion: 2
+        x: 738
+        y: 251
+        width: 102
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Mouth-L-1
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 413
+        width: 66
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Mouth-L-2
+      rect:
+        serializedVersion: 2
+        x: 892
+        y: 258
+        width: 94
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Mouth-R-Inside
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 186
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Mouth-L-Inside
+      rect:
+        serializedVersion: 2
+        x: 884
+        y: 190
+        width: 74
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

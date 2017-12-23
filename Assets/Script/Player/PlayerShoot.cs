@@ -23,6 +23,8 @@ public class PlayerShoot : MonoBehaviour
     // Use this property to control damage and shot interval.
     private PlayerProperty _playerProperty;
 
+    private PlayerEventMaster _playerEventMaster;
+
     // Timer for count whether it is enough time after last shot.
     private float _timer;
 
@@ -30,6 +32,7 @@ public class PlayerShoot : MonoBehaviour
     void OnEnable()
     {
         _playerProperty = GetComponent<PlayerProperty>();
+        _playerEventMaster = _playerProperty.m_eventMaster;
     }
 
 
@@ -70,6 +73,7 @@ public class PlayerShoot : MonoBehaviour
 
             bulletProperty.m_damage = _playerProperty.m_bulletDamage;    
             ShotBullet(bulletController, _playerProperty.m_bulletSpeed, m_shootList[i].rotation.z + 90f, m_homing);
+            _playerEventMaster.CallOnShot(bulletController);  
         }
 
         // finish a shot, reset timer

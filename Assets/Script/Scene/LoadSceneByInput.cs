@@ -25,7 +25,7 @@ public class LoadSceneByInput : MonoBehaviour
         {
             if(Input.GetKey(sceneInput.m_input))
             {
-                SceneManager.LoadScene(sceneInput.m_sceneName, LoadSceneMode.Single);
+                SceneManager.LoadSceneAsync(sceneInput.m_sceneName, LoadSceneMode.Single);
             }
         }
     }

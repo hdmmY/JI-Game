@@ -40,6 +40,9 @@ public class PlayerProperty : MonoBehaviour
 
     public SpriteRenderer m_spriteReference;
 
+    public PlayerEventMaster m_eventMaster;
+
+    public AudioSource m_playerAudio;
 
     public void AddNeutralization(int value)
     {

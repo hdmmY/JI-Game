@@ -30,7 +30,6 @@ namespace BossLevel2
 
 
         // Move relative local variable                                               
-        private Bounds _colBound;            // The enemy box2D collider bound        
         private Vector3 _destination;        // Destination you want to move to        
         private Vector3 _moveDir;            // Move direction, normalized
         private float _moveTimer;
@@ -81,15 +80,7 @@ namespace BossLevel2
 
 
         private void InitializeMove(EnemyProperty enemyProperty)
-        {
-            var boxCol = enemyProperty.GetComponent<BoxCollider2D>();
-            if (boxCol == null)
-            {
-                Debug.LogWarning("Cannot get enemy box collider");
-                return;
-            }
-            _colBound = boxCol.bounds;
-
+        {                                    
             // Initialize destination
             _destination = FindNextPosition();
             _moveDir = _destination.normalized;
@@ -144,20 +135,13 @@ namespace BossLevel2
 
         // Find the next position that enemy will move to
         private Vector3 FindNextPosition()
-        {
-            // Range that enemy can't move
-            Vector2 forbidenX = JIGlobalRef.Player.transform.position;
-            forbidenX.x -= _colBound.size.x * 0.5f;
-
+        {                                                  
             Vector3 dest = new Vector3();
-            while (true)
-            {
-                dest.x = Random.Range(m_bound.xMin, m_bound.xMax);
-                dest.y = Random.Range(m_bound.yMin, m_bound.yMax);
 
-                if (dest.x < forbidenX.x || dest.x > forbidenX.y)
-                    return dest;
-            }
+            dest.x = Random.Range(m_bound.xMin, m_bound.xMax);
+            dest.y = Random.Range(m_bound.yMin, m_bound.yMax);
+
+            return dest;
         }
 
         private void OnDrawGizmosSelected()

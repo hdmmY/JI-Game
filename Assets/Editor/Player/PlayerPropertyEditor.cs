@@ -114,6 +114,8 @@ public class PlayerPropertyEditor : Editor
         EditorGUI.indentLevel++;
 
         _targetScript.m_spriteReference = EditorGUILayout.ObjectField("Player SpriteRenderer", _targetScript.m_spriteReference, typeof(SpriteRenderer), true) as SpriteRenderer;
+        _targetScript.m_eventMaster = EditorGUILayout.ObjectField("Player EventMaster", _targetScript.m_eventMaster, typeof(PlayerEventMaster), true) as PlayerEventMaster;
+        _targetScript.m_playerAudio = EditorGUILayout.ObjectField("Player Audio", _targetScript.m_playerAudio, typeof(AudioSource), true) as AudioSource;
 
         EditorGUI.indentLevel--;
         #endregion

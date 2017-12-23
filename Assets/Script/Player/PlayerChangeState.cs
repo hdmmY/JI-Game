@@ -159,7 +159,7 @@ public class PlayerChangeState : MonoBehaviour
 
             float percent = Mathf.Clamp01(timer / m_shockWaveTime);
             shockWaveMesh.material.SetFloat("_HoleRadius", m_shockWaveSpeedCurve.Evaluate(percent));
-            waveCollider.radius = Mathf.Clamp((percent + 0.1f) * 0.5f, 0, 0.5f);
+            waveCollider.radius = Mathf.Clamp((percent + 0.2f) * 0.5f, 0, 0.5f);
 
             if (timer > m_timeSlowTime)
             {

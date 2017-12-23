@@ -14,10 +14,7 @@ namespace BossLevel2
 
         // Move bound
         public Rect m_bound;
-
-        // The enemy box2D collider bound
-        private Bounds _colBound;
-
+                                            
         // Destination you want to move to
         private Vector3 _destination;
 
@@ -28,15 +25,7 @@ namespace BossLevel2
 
         public override void Initialize(EnemyProperty enemyProperty)
         {
-            base.Initialize(enemyProperty);
-
-            var boxCol = enemyProperty.GetComponent<BoxCollider2D>();
-            if (boxCol == null)
-            {
-                Debug.LogWarning("Cannot get enemy box collider");
-                return;
-            }
-            _colBound = boxCol.bounds;
+            base.Initialize(enemyProperty);   
 
             // Initialize destination
             _destination = FindNextPosition();
@@ -85,20 +74,13 @@ namespace BossLevel2
 
         // Find the next position that enemy will move to
         private Vector3 FindNextPosition()
-        {
-            // Range that enemy can't move
-            Vector2 forbidenX = JIGlobalRef.Player.transform.position;
-            forbidenX.x -= _colBound.size.x * 0.5f;
-
+        {                                               
             Vector3 dest = new Vector3();
-            while (true)
-            {
-                dest.x = Random.Range(m_bound.xMin, m_bound.xMax);
-                dest.y = Random.Range(m_bound.yMin, m_bound.yMax);
 
-                if (dest.x < forbidenX.x || dest.x > forbidenX.y)
-                    return dest;
-            }          
+            dest.x = Random.Range(m_bound.xMin, m_bound.xMax);
+            dest.y = Random.Range(m_bound.yMin, m_bound.yMax);;
+
+            return dest;
         }
 
 
