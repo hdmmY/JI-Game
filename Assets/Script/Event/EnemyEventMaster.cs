@@ -12,7 +12,7 @@ public class EnemyEventMaster : BaseEventMaster
 
     public void CallOnDamage(EnemyProperty enemyProperty)
     {
-        if (enemyProperty != null)
+        if (enemyProperty != null && OnDamage != null)
         {
             OnDamage(enemyProperty);
         }

@@ -37,10 +37,7 @@ public class PlayerTakeDamage : MonoBehaviour
                     PlayerDeath();
                     break;
                 case "EnemyBullet":
-                    JIState bulletType = other.transform.parent.name.Contains("Black") ?
-                                    JIState.Black :
-                                    JIState.White;
-                    DamagePlayerByState(bulletType, other.transform.parent.GetComponent<JIBulletController>());
+                    DamagePlayerByState(other.transform.parent.name, other.transform.parent.GetComponent<JIBulletController>());
                     break;
                 case "EnemyLaser":
                     PlayerDeath();
@@ -92,9 +89,25 @@ public class PlayerTakeDamage : MonoBehaviour
     }
 
 
-    void DamagePlayerByState(JIState enemyType, JIBulletController enemyBullet)
+    void DamagePlayerByState(string enemyName, JIBulletController enemyBullet)
     {
         if (enemyBullet == null) return;
+
+        enemyName = enemyName.ToLower();
+        JIState enemyType;
+
+        if (enemyName.Contains("black"))
+        {
+            enemyType = JIState.Black;
+        }
+        else if (enemyName.Contains("white"))
+        {
+            enemyType = JIState.White;
+        }
+        else
+        {
+            enemyType = JIState.All;
+        }
 
         if (enemyType == m_playerProperty.m_playerState)
         {

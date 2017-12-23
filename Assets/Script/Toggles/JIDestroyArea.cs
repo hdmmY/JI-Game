@@ -46,6 +46,8 @@ public class JIDestroyArea : UbhMonoBehaviour
         {
             if (bulletName.Contains("white")) return true;
         }
+        if (m_destroyBulletType == JIState.All)
+            return true;
 
         return false;
     }

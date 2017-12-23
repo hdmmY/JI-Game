@@ -10,12 +10,10 @@ public class AddSelfComponent : MonoBehaviour
 
     public void AddEventMaster()
     {
-        foreach(var enemyProperty in m_parent.GetComponentsInChildren<EnemyProperty>(true))
-        {
-            enemyProperty.m_enemySprite.sprite = m_targetSprite;
 
-            enemyProperty.GetComponent<CircleCollider2D>().radius = 0.13f;
+        foreach(var toggle in m_parent.GetComponentsInChildren<LaserHomingShotToggle>())
+        {
+            toggle.m_aimingTargetCompo = toggle.transform.parent.GetComponent<AnimationToggle.AimingTarget>();
         }
     }
-
 }

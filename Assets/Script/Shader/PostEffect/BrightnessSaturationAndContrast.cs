@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BrightnessSaturationAndContrast : PostEffectsBase {
+public class BrightnessSaturationAndContrast : PostEffectsBase
+{
 
     public Shader m_BriSatConShader;
 
@@ -30,7 +31,7 @@ public class BrightnessSaturationAndContrast : PostEffectsBase {
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if(material != null)
+        if (material != null)
         {
             material.SetFloat("_Brightness", m_brightness);
             material.SetFloat("_Saturation", m_saturation);

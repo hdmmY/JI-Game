@@ -105,20 +105,16 @@ public class JIBulletController : MonoBehaviour
                 // homing target.
                 if (homingTarget != null && 0f < homingAngleSpeed)
                 {
-                    if(transform.position.y < homingTarget.position.y - 0.2f)
+                    float rotateAngle = UbhUtil.GetAngleFromTwoPosition(transform, homingTarget) - 90;
+                    float myAngle = transform.eulerAngles.z;
+                    float toAngle = Mathf.MoveTowardsAngle(myAngle, rotateAngle, JITimer.Instance.DeltTime * homingAngleSpeed);
+
+                    homingAngle += Mathf.Abs(toAngle - myAngle);
+                    if (homingAngle <= maxHomingAngle)
                     {
-                        float targetRoateZ = UbhUtil.GetAngleFromTwoPosition(transform, homingTarget);
-                        float curRotateZ = UbhUtil.GetAngleFromTwoPosition(Vector2.zero, transform.up);
-
-                        float delt = Mathf.DeltaAngle(curRotateZ, targetRoateZ);
-                        delt = Mathf.Min(homingAngleSpeed * GetTime(useRealTime), Mathf.Abs(delt)) * Mathf.Sign(delt);
-                      
-                        homingAngle += Mathf.Abs(delt);
-                        if (homingAngle >= maxHomingAngle) homing = false;
-
-                        transform.SetEulerAnglesZ(delt + curRotateZ - 90);
-                    }                                     
-                }         
+                        transform.SetEulerAnglesZ(toAngle);
+                    }
+                }
             }
             else if (wave)
             {

@@ -40,7 +40,6 @@ namespace AnimationToggle
 
         private IEnumerator Flickering(SpriteFlicker flicker)
         {
-            Debug.Log("Start!");
             flicker.m_bindFactor = m_flickerBindFactor;
             flicker.m_flickerColor = m_flickerColor;
 

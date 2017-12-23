@@ -21,7 +21,23 @@ public class JIBulletProperty : MonoBehaviour
             return JIState.Black;
         }
     }
-        
-    
 
+
+    // Is this bullet lighting?
+    public bool Lighting
+    {
+        get
+        {
+            return m_lightingMesh.activeInHierarchy;
+        }
+        set
+        {
+            m_lightingMesh.SetActive(value);
+        }
+    }
+
+
+    [Space]
+    [Header("Reference")]
+    public GameObject m_lightingMesh;
 }
