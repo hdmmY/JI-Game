@@ -89,6 +89,11 @@ public class PlayerPropertyEditor : Editor
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Player Life");
+        _targetScript.m_playerLife = EditorGUILayout.IntField(_targetScript.m_playerLife);
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Player Health");
         _targetScript.m_playerHealth = EditorGUILayout.IntField(_targetScript.m_playerHealth);
         EditorGUILayout.EndHorizontal();

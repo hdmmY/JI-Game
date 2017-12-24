@@ -32,6 +32,8 @@ public class PlayerProperty : MonoBehaviour
 
     public PlayerMoveType m_playerMoveState;
 
+    public int m_playerLife;   // Each life have muti health
+
     public int m_playerHealth;
 
     public float m_checkBound;

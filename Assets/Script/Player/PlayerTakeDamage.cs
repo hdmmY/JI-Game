@@ -64,7 +64,18 @@ public class PlayerTakeDamage : MonoBehaviour
                 break;
         }
         StartCoroutine(TurnOnGodMode());
-        ResetPlayerHealth();
+
+        if(m_playerProperty.m_playerLife == 0)
+        {
+            JITimer.Instance.TimeScale = 0;
+            StartCoroutine(GameOver());    
+        }
+        else
+        {
+            m_playerProperty.m_playerLife--;
+            ResetPlayerHealth();
+        }
+        
     }
 
     IEnumerator TurnOnGodMode()
@@ -122,6 +133,14 @@ public class PlayerTakeDamage : MonoBehaviour
         {
             PlayerDeath();
         }
+    }
+
+
+    private IEnumerator GameOver()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Menu", UnityEngine.SceneManagement.LoadSceneMode.Single);
+
+        yield return null;
     }
 
 }

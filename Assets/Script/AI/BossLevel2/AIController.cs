@@ -89,7 +89,7 @@ namespace BossLevel2
             if (initMoveState != null)
             {
                 P3InitMoveState.OnStateEnd += P3_MoveToUpCenterTransition;
-            }
+            }         
         }
 
         private void ReleaseCallBack()
@@ -175,7 +175,7 @@ namespace BossLevel2
             }
             else
             {
-                _currentEnemyAI = GetState("P3_MutiLinearAttack");
+                _currentEnemyAI = GetState("P3_MoveToUpCenter");
                 _currentEnemyAI.Initialize(_enemyProperty);
             }
         }
@@ -184,7 +184,7 @@ namespace BossLevel2
         {
             if (GetInt("P2_SectorMoveAttackTimes") < m_P2sectorMoveAttackTimes)
             {
-                _currentEnemyAI = GetState("P3_MoveToUpCenter");
+                _currentEnemyAI = GetState("P2_AlignAttack");
                 _currentEnemyAI.Initialize(_enemyProperty);
             }
             else

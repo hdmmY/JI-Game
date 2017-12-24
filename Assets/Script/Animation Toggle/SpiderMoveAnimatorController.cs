@@ -42,7 +42,6 @@ namespace AnimationToggle
             {
                 m_spiderAnimator.SetBool("Moving", true);
             }
-            Debug.Log(velocity);
 
             m_spiderAnimator.SetFloat("Horizontal", velocity.x);
             m_spiderAnimator.SetFloat("Vertical", velocity.y);
