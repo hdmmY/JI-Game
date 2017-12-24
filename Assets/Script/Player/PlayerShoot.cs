@@ -13,6 +13,10 @@ public class PlayerShoot : MonoBehaviour
     // Prefab of black status bullet
     public GameObject m_blackBulletPrefab;
 
+    public GameObject m_superWhiteBulletPrefab;
+    public GameObject m_superBlackBulletPrefab;
+
+
     [Space]
     [Header("Homing")]
     public bool m_homing;
@@ -87,7 +91,17 @@ public class PlayerShoot : MonoBehaviour
     // forceInstantiate: force to instantiate a bullet in object pool and get it.
     JIBulletController GetBullet(Vector3 position, Quaternion rotation, bool forceInstantiate = false)
     {
-        GameObject bulletPrefab = (_playerProperty.m_playerState == JIState.Black) ? m_blackBulletPrefab : m_whiteBulletPrefab;
+        GameObject bulletPrefab = null;
+        if (_playerProperty.m_superState && _playerProperty.m_playerState == JIState.Black)
+            bulletPrefab = m_superBlackBulletPrefab;
+        else if (_playerProperty.m_superState && _playerProperty.m_playerState == JIState.White)
+            bulletPrefab = m_superWhiteBulletPrefab;
+        else if (!_playerProperty.m_superState && _playerProperty.m_playerState == JIState.Black)
+            bulletPrefab = m_blackBulletPrefab;
+        else
+            bulletPrefab = m_whiteBulletPrefab;
+        
+
 
         if(bulletPrefab == null)
         {

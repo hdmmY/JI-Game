@@ -7,6 +7,8 @@ public class PlayerProperty : MonoBehaviour
     // god mode -- from Skyrim.
     public bool m_tgm = false;
 
+    public bool m_superState = false;
+
     // movement
     public float m_verticalSpeed;
     public float m_horizontalSpeed;
@@ -18,12 +20,12 @@ public class PlayerProperty : MonoBehaviour
     public float m_shootInterval;
     public int m_bulletDamage;
     public float m_bulletSpeed;
-    
-    
+
+
     // state
     public JIState m_playerState;
 
-    
+
     public enum PlayerMoveType
     {
         HighSpeed,
@@ -38,7 +40,7 @@ public class PlayerProperty : MonoBehaviour
 
     public float m_checkBound;
 
-    public int m_playerNeutralization;
+    public float m_playerNeutralization;
 
     public SpriteRenderer m_spriteReference;
 
@@ -46,9 +48,13 @@ public class PlayerProperty : MonoBehaviour
 
     public AudioSource m_playerAudio;
 
-    public void AddNeutralization(int value)
+    public void AddNeutralization(float value)
     {
-        m_playerNeutralization = Mathf.Clamp(m_playerNeutralization + value, 0, 100);
+        if (!m_superState)
+        {
+            m_playerNeutralization += value;
+            m_playerNeutralization = Mathf.Clamp(m_playerNeutralization, 0, 100);
+        }
     }
 
     private void OnDrawGizmosSelected()

@@ -19,6 +19,11 @@ public class PlayerPropertyEditor : Editor
         _targetScript.m_tgm = EditorGUILayout.Toggle(_targetScript.m_tgm);
         EditorGUILayout.EndHorizontal();
 
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.PrefixLabel("Max Balance");
+        EditorGUILayout.Toggle(_targetScript.m_superState);
+        EditorGUILayout.EndHorizontal();
+
         #region movement
         EditorGUILayout.PrefixLabel("Movement");
 
@@ -105,7 +110,7 @@ public class PlayerPropertyEditor : Editor
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Player Neutralization");
-        _targetScript.m_playerNeutralization = EditorGUILayout.IntField(_targetScript.m_playerNeutralization);
+        _targetScript.m_playerNeutralization = EditorGUILayout.FloatField(_targetScript.m_playerNeutralization);
         EditorGUILayout.EndHorizontal();
 
 

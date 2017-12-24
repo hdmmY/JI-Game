@@ -1,9 +1,11 @@
 fileFormatVersion: 2
-guid: cad3fd5543a32dc4d83cd7f736df71ce
-timeCreated: 1514042512
+guid: 52afef4d0f1b3c044bcaf642f86878d0
+timeCreated: 1514076873
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: "\u5B57\u4F53 STAGE_0"
+    21300002: "\u5B57\u4F53 STAGE_1"
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -40,9 +42,9 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 0
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
@@ -85,7 +87,35 @@ TextureImporter:
     overridden: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: "\u5B57\u4F53 STAGE_0"
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 256
+        width: 941
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u5B57\u4F53 STAGE_1"
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 59
+        width: 979
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
     outline: []
     physicsShape: []
   spritePackingTag: 

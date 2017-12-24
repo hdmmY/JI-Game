@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class WarningAnim : MonoBehaviour
 {
-    public float m_totalTime = 8f;
-
-    public Vector3 m_startPos;
-    public Vector3 m_endPos;
+    public float m_totalTime = 8f;         
 
     private SpriteRenderer _sprite;
     private Color _spriteColor;
@@ -18,30 +15,25 @@ public class WarningAnim : MonoBehaviour
         _sprite = GetComponent<SpriteRenderer>();
 
         // Reset
-        _sprite.color = new Color(_spriteColor.r, _spriteColor.g, _spriteColor.b, 1);
+        _sprite.color = new Color(_spriteColor.r, _spriteColor.g, _spriteColor.b, 0);
 
         StartCoroutine(Move());
     }
 
     private IEnumerator Move()
-    {
+    {                   
+        // Fade in
         float timer = 0;
-
-        transform.position = m_startPos;
-
-        Vector3 speed = (m_endPos - m_startPos) / (m_totalTime - 4);
-
-        // Move
-        while (timer < m_totalTime - 4)
+        while (timer < 1)
         {
-            transform.position += speed * JITimer.Instance.DeltTime;
+            _sprite.color = new Color(_spriteColor.r, _spriteColor.g, _spriteColor.b, timer);
             timer += JITimer.Instance.DeltTime;
             yield return null;
         }
 
         // Last
         timer = 0;
-        while(timer < 2)
+        while(timer < m_totalTime - 2)
         {
             timer += JITimer.Instance.DeltTime;
             yield return null;
@@ -50,14 +42,12 @@ public class WarningAnim : MonoBehaviour
 
         // Fade
         timer = 0;
-        while (timer < 2)
+        while (timer < 1)
         {
-            _sprite.color = new Color(_spriteColor.r, _spriteColor.g, _spriteColor.b, 1 - timer / 2f);
+            _sprite.color = new Color(_spriteColor.r, _spriteColor.g, _spriteColor.b, 1 - timer);
             timer += JITimer.Instance.DeltTime;
             yield return null;
-        }
-
-
+        }            
     }
 
 

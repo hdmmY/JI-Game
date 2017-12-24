@@ -24,7 +24,7 @@ public class GuessBlur : MonoBehaviour
     public int m_iterations = 1;
 
     // Blur speed for each iteration => large number means more blur
-    [Range(0.2f, 3.0f)]
+    [Range(0f, 3.0f)]
     public float m_blueSpeed = 0.6f;
 
     [Range(1, 8)]

@@ -76,7 +76,7 @@ public class PlayerChangeState : MonoBehaviour
 
     // Use this variable so that prev unfinished UpdateForceField coroutin will be shut down when next UpdateForceField coroutin will be apply.
     private Coroutine _prevUpdateForceFieldCoroutin;
-    private void ChangeState(JIState state)
+    public void ChangeState(JIState state, bool forceWaveEffect = false)
     {
         _playerProperty.m_playerState = state;
 
@@ -88,7 +88,7 @@ public class PlayerChangeState : MonoBehaviour
         }
         _prevUpdateForceFieldCoroutin = StartCoroutine(UpdateForceField());
 
-        StartCoroutine(UpdateShockWave());
+        StartCoroutine(UpdateShockWave(forceWaveEffect));
     }
 
     private IEnumerator UpdateForceField()
@@ -120,20 +120,28 @@ public class PlayerChangeState : MonoBehaviour
         m_forceField.SetActive(false);
     }
 
-    private IEnumerator UpdateShockWave()
+    private IEnumerator UpdateShockWave(bool forceWaveEffect)
     {
         // Create a shockwave collider
         GameObject shockWave = Instantiate(m_shockWavePrefab, transform);
         var shockWaveMesh = shockWave.GetComponent<MeshRenderer>();
         var waveCollider = shockWave.GetComponent<CircleCollider2D>();
 
+
         // Break if detect none bullet
-        bool canDestory = InitWaveDestroy(shockWave.GetComponent<JIDestroyArea>());
-        if (!canDestory)
+        if (!forceWaveEffect)
         {
-            shockWave.SetActive(false);
-            Destroy(shockWave);
-            yield break;
+            bool canDestory = InitWaveDestroy(shockWave.GetComponent<JIDestroyArea>());
+            if (!canDestory)
+            {
+                shockWave.SetActive(false);
+                Destroy(shockWave);
+                yield break;
+            }
+        }
+        else
+        {
+            shockWave.GetComponent<JIDestroyArea>().m_destroyBulletType = JIState.All;
         }
 
         // Update shock wave material

@@ -4,6 +4,6 @@ using UnityEngine;
 
 public static class GlobalStaticVariable
 {
-    public static int AddedNeutralization = 1;
+    public static int AddedNeutralization = 3;
 	
 }
