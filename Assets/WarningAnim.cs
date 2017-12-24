@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class WarningAnim : MonoBehaviour
 {
-    public float m_totalTime = 8f;         
+    public float m_totalTime = 8f;
+
+    public AudioSource m_backgroundAudio;
+    public AudioSource m_warningAudio;
 
     private SpriteRenderer _sprite;
     private Color _spriteColor;
@@ -21,7 +24,10 @@ public class WarningAnim : MonoBehaviour
     }
 
     private IEnumerator Move()
-    {                   
+    {
+        m_backgroundAudio.Pause();
+        m_warningAudio.Play();
+
         // Fade in
         float timer = 0;
         while (timer < 1)
@@ -47,7 +53,11 @@ public class WarningAnim : MonoBehaviour
             _sprite.color = new Color(_spriteColor.r, _spriteColor.g, _spriteColor.b, 1 - timer);
             timer += JITimer.Instance.DeltTime;
             yield return null;
-        }            
+        }
+
+        m_backgroundAudio.Play();
+        m_warningAudio.Pause();
+        m_warningAudio.enabled = false;
     }
 
 

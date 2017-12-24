@@ -8,6 +8,11 @@ public class LoadSceneWhenAllDestroy : MonoBehaviour
 
     public string m_loadSceneName;
 
+    private void Awake()
+    {
+        StartCoroutine(OnSceneLoad());
+    }
+
     private void Update()
     {
         bool allDead = true;
@@ -23,8 +28,45 @@ public class LoadSceneWhenAllDestroy : MonoBehaviour
 
         if (allDead)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(m_loadSceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
+            StartCoroutine(LoadOtherScene());
         }
+    }
+
+    IEnumerator LoadOtherScene()
+    {
+        var effect = JIGlobalRef.MainCamera.GetComponent<BrightnessSaturationAndContrast>();
+
+        float timer = 0;
+        while (timer < 1)
+        {
+            JITimer.Instance.TimeScale = 0;
+            timer += JITimer.Instance.RealDeltTime;
+            effect.m_brightness = 1 - timer;
+            yield return null;
+        }
+        effect.m_brightness = 0;
+
+        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(m_loadSceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
+    }
+
+    IEnumerator OnSceneLoad()
+    {
+        JITimer.Instance.TimeScale = 0;
+
+        var effect = JIGlobalRef.MainCamera.GetComponent<BrightnessSaturationAndContrast>();
+
+        float timer = 0;
+        while (timer < 1)
+        {
+            JITimer.Instance.TimeScale = 0;
+            timer += JITimer.Instance.RealDeltTime;
+            effect.m_brightness = timer;
+            yield return null;
+        }
+
+        effect.m_brightness = 1;
+
+        JITimer.Instance.TimeScale = 1;
     }
 
 }
