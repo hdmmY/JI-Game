@@ -15,6 +15,8 @@ public class JITimer : JISingletonMonoBehavior<JITimer>
         {
             if (value)
                 _timeScale = 0;
+            else
+                _timeScale = 1;
         }
     }
 

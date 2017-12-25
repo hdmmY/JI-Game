@@ -10,12 +10,10 @@ public class AddSelfComponent : MonoBehaviour
     {
         foreach(var go in m_timeManager.m_timeGos)
         {
-            foreach (var sprite in go.Go.GetComponentsInChildren<SpriteRenderer>(true))
+            foreach (var script in go.Go.GetComponentsInChildren<ChangeTimeWhenDestroy>())
             {
-                sprite.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-            }
-        }
-
-        
+                Debug.Log(script.gameObject.name);
+            }  
+        }                                    
     }
 }

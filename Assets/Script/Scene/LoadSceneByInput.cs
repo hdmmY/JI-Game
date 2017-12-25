@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class LoadSceneByInput : MonoBehaviour
 {
-
     // Load the scene correspond to the keyboard input
     [System.Serializable]
 	public struct SceneInput
@@ -25,7 +24,7 @@ public class LoadSceneByInput : MonoBehaviour
         {
             if(Input.GetKey(sceneInput.m_input))
             {
-                SceneManager.LoadSceneAsync(sceneInput.m_sceneName, LoadSceneMode.Single);
+                SceneUtil.LoadSceneAsync(sceneInput.m_sceneName);
             }
         }
     }

@@ -17,8 +17,6 @@ namespace JIUI
         public GameObject m_keyboardSprite;
 
         private bool _showingOption;
-
-
         private int _curIndex;
 
         private void Start()
@@ -63,7 +61,7 @@ namespace JIUI
             }
 
 
-            // Hard code  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // Hard code  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  Will be fixed other day
             if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Return))
             {
                 if (_curIndex == 0)
@@ -103,7 +101,7 @@ namespace JIUI
         #region Button Event
         private void LoadStage1()
         {
-            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Stage1", UnityEngine.SceneManagement.LoadSceneMode.Single);
+            SceneUtil.LoadSceneAsync("Stage1");
         }
 
         private void ShowOptions()
@@ -117,7 +115,7 @@ namespace JIUI
 
         private void Exit()
         {
-            Application.Quit();
+            SceneUtil.Exit();
         }
         #endregion
     }
