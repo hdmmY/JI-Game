@@ -121,6 +121,8 @@ public class JiPathInfo
     // Select a path that you will move on.
     public JiPathData m_PathData;
 
+    public List<Vector3> m_controlPoints;
+
     // Set a delay time to start move when this path is invoked
     public float m_DelayTime;
 
