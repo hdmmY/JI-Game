@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
-public class ChangeTimeWhenDestroy : MonoBehaviour {
-
+public class ChangeTimeWhenDestroy : MonoBehaviour
+{
+    [SceneObjectsOnly]
     public List<GameObject> m_monitedGameobject;
 
     public TimeManager m_timeManager;
@@ -30,5 +32,5 @@ public class ChangeTimeWhenDestroy : MonoBehaviour {
             this.enabled = false;
             Destroy(this);
         }
-    }     
+    }
 }

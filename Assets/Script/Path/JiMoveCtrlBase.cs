@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public abstract class JiMoveCtrlBase : MonoBehaviour
 {
     // GameObject that move on the path
+    [SceneObjectsOnly]
+    [InlineEditor(InlineEditorModes.LargePreview)]
     public GameObject m_targetGameObject;
 
     // Destroy the m_targetGameObject when at the end of the last m_Paths

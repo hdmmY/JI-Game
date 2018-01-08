@@ -6,8 +6,7 @@ using Sirenix.OdinInspector;
 public class JiPathMoveCtrl : JiMoveCtrlBase
 {
     [ListDrawerSettings(ShowIndexLabels = true, DraggableItems = true, Expanded = false)]
-    public List<TmpPathInfo> m_tmpPath;
-
+    [SerializeField]
     public List<JIPathInfo> m_Paths;
 
     [ReadOnly]
@@ -117,51 +116,6 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
     }
 }
 
-
-[System.Serializable]
-public struct TmpPathInfo
-{
-    /// <summary>
-    /// Path nodes
-    /// </summary>
-    [ListDrawerSettings(NumberOfItemsPerPage = 4, Expanded = false)]
-    public List<Vector3> m_controlPoints;
-
-    /// <summary>
-    /// Set a delay time to start move when this path is invoked
-    /// </summary>
-    [CustomValueDrawer("ClampToNoneNagative")]
-    public float m_delayTime;
-
-    /// <summary>
-    /// Time in seconds the movement will take to complete. 
-    /// </summary>
-    [CustomValueDrawer("ClampToNoneNagative")]
-    public float m_time;
-
-    /// <summary>
-    /// The ease type of the movement.
-    /// </summary>
-    public iTween.EaseType m_easeType;
-
-    /// <summary>
-    /// The loop type of the movement.
-    /// </summary>
-    public iTween.LoopType m_loopType;
-
-    /// <summary>
-    /// The gameobject will move to the start of the path
-    /// </summary>
-    public bool m_moveTo;
-
-    private static float ClampToNoneNagative(float value, GUIContent label)
-    {
-        value = value < 0.01f ? 0.01f : value;
-        return UnityEditor.EditorGUILayout.FloatField(label, value);
-    }
-}
-
-
 [System.Serializable]
 public struct JIPathInfo
 {
@@ -169,6 +123,7 @@ public struct JIPathInfo
     /// Path nodes
     /// </summary>
     [ListDrawerSettings(NumberOfItemsPerPage = 4, Expanded = false)]
+    [SerializeField]
     public List<Vector3> m_controlPoints;
 
     /// <summary>

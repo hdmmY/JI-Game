@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class TimeManager : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class TimeManager : MonoBehaviour
         public GameObject Go;
 
         // The time before the Go active.
-        public float _activeTime = 0f;
+        [SerializeField, HideInInspector]
+        private float _activeTime = 0f;
+        [ShowInInspector]
         public float ActiveTime
         {
             get
@@ -25,8 +28,10 @@ public class TimeManager : MonoBehaviour
         }
 
         // Whether the game object is active.
-        [HideInInspector]
-        public bool _active = false;
+        [SerializeField, HideInInspector]
+        private bool _active = false;
+        [ReadOnly]
+        [ShowInInspector]
         public bool Active
         {
             get
@@ -42,17 +47,21 @@ public class TimeManager : MonoBehaviour
 
     // Use constant interval to active gameobject.
     public bool m_useConstantInterval;
+    [ShowIf("m_useConstantInterval")]
+    [Range(0.01f, 5)]
     public float m_ConstantInterval;
 
     public bool m_destroySelfReachEndTime = true;
 
     // A list of the time controled gameobject.
+    [ListDrawerSettings(DraggableItems = true, Expanded = true, ShowIndexLabels = true)]
     public List<TimeGameobject> m_timeGos;
 
     private List<bool> _activedTimeGos;
 
     // A timer for active or disactive gameobject.
-    [HideInInspector]
+    [ShowInInspector]
+    [ReadOnly]
     public float m_timer;
                                         
     void Awake()
@@ -67,7 +76,7 @@ public class TimeManager : MonoBehaviour
         {
             for (int i = 1; i < m_timeGos.Count; i++)
             {
-                m_timeGos[i]._activeTime += m_timeGos[i - 1]._activeTime + m_ConstantInterval;
+                m_timeGos[i].ActiveTime += m_timeGos[i - 1].ActiveTime + m_ConstantInterval;
             }
         }
     }
