@@ -10,20 +10,27 @@ public class HDMToggle : MonoBehaviour
     [Button("OnClick", ButtonSizes.Medium)]
     public void OnClick()
     {
-        foreach(var timeGameObject in m_timeManager.m_timeGos)
+        foreach (var timeGameObject in m_timeManager.m_timeGos)
         {
-            foreach(var pathControl in timeGameObject.Go.GetComponentsInChildren<JiPathMoveCtrl>())
+            foreach(var pathControl in timeGameObject.Go.GetComponentsInChildren<JiPathMoveCtrl>(true))
             {
-                foreach(var pathInfo in pathControl.m_Paths)
+                if (pathControl.m_Paths == null) pathControl.m_Paths = new List<JIPathInfo>();
+                pathControl.m_Paths.Clear();
+
+                foreach(var tmpPath in pathControl.m_tmpPath)
                 {
-                    if(pathInfo.m_controlPoints == null)
+                    var path = new JIPathInfo();
+                    path.m_controlPoints = new List<Vector3>();
+                    foreach(var node in tmpPath.m_controlPoints)
                     {
-                        pathInfo.m_controlPoints = new List<Vector3>();
+                        path.m_controlPoints.Add(new Vector3(node.x, node.y, node.z));
                     }
-                    foreach(var point in pathInfo.m_PathData.m_controlPoints)
-                    {
-                        pathInfo.m_controlPoints.Add(point);
-                    }
+                    path.m_delayTime = tmpPath.m_delayTime;
+                    path.m_time = tmpPath.m_time;
+                    path.m_easeType = tmpPath.m_easeType;
+                    path.m_loopType = tmpPath.m_loopType;
+                    path.m_moveTo = tmpPath.m_moveTo;
+                    pathControl.m_Paths.Add(path);
                 }
             }
         }
