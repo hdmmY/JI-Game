@@ -165,7 +165,6 @@ public class PlayerTakeDamage : MonoBehaviour
         targetDeathColor.a = 0;
         while(timer < 2)
         {
-            Debug.Log(targetDeathColor.a);
             targetDeathColor.a += timer / 2f;
             deathSprite.color = targetDeathColor;
             timer += JITimer.Instance.RealDeltTime;

@@ -126,4 +126,34 @@ public class TimeManager : MonoBehaviour
                 Destroy(this);
         }
     }
+
+    [ButtonGroup("ActiveGroup")]
+    [Button("SetActive", ButtonSizes.Small)]
+    public void SetAllTimeGameobjectActive()
+    {
+        if(m_timeGos == null || m_timeGos.Count == 0)
+        {
+            return;
+        }
+
+        foreach(var timeGameobject in m_timeGos)
+        {
+            timeGameobject.Active = true;
+        }
+    }
+
+    [ButtonGroup("ActiveGroup")]
+    [Button("SetDeactive", ButtonSizes.Small)]
+    public void SetAllTimeGameobjectDeactive()
+    {
+        if(m_timeGos == null || m_timeGos.Count == 0)
+        {
+            return;
+        }
+
+        foreach(var timeGameobject in m_timeGos)
+        {
+            timeGameobject.Active = false;
+        }
+    }
 }

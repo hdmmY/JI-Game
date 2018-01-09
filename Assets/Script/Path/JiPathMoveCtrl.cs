@@ -6,7 +6,6 @@ using Sirenix.OdinInspector;
 public class JiPathMoveCtrl : JiMoveCtrlBase
 {
     [ListDrawerSettings(ShowIndexLabels = true, DraggableItems = true, Expanded = false)]
-    [SerializeField]
     public List<JIPathInfo> m_Paths;
 
     [ReadOnly]
@@ -107,12 +106,14 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
 
     private void OnDrawGizmosSelected()
     {
-        for (int i = 0; i < m_Paths.Count; i++)
+        foreach (var pathInfo in m_Paths)
         {
-            if (m_Paths[i].m_controlPoints != null)
-
-                iTween.DrawPath(m_Paths[i].m_controlPoints.ToArray());
-        }
+            if (pathInfo.m_controlPoints == null || pathInfo.m_controlPoints.Count < 2)
+                continue;
+            Gizmos.DrawIcon(pathInfo.m_controlPoints[0], "Point", true);
+            Gizmos.DrawIcon(pathInfo.m_controlPoints[pathInfo.m_controlPoints.Count - 1], "Point", true);
+            iTween.DrawPathGizmos(pathInfo.m_controlPoints.ToArray());
+        }                                                            
     }
 }
 
@@ -123,7 +124,6 @@ public struct JIPathInfo
     /// Path nodes
     /// </summary>
     [ListDrawerSettings(NumberOfItemsPerPage = 4, Expanded = false)]
-    [SerializeField]
     public List<Vector3> m_controlPoints;
 
     /// <summary>

@@ -19,12 +19,6 @@ public class StageManager : MonoBehaviour
             get
             {
                 var pathMoveCtrl = m_stageDataGO.GetComponent<JiPathMoveCtrl>();
-
-                if(pathMoveCtrl == null)
-                {
-                    return m_stageDataGO.GetComponent<JiPointMoveCtrl>();
-                }
-
                 return pathMoveCtrl;
             }
         }
