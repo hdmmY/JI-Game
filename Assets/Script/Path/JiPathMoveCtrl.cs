@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class JiPathMoveCtrl : JiMoveCtrlBase
 {
-    public List<JiPathInfo> m_Paths;
+    [ListDrawerSettings(ShowIndexLabels = true, DraggableItems = true, Expanded = false)]
+    [SerializeField]
+    public List<JIPathInfo> m_Paths;
 
+    [ReadOnly]
+    [ShowInInspector]
     private float _timer;
 
     private int _curPathIndex;
@@ -43,7 +48,7 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
             return;
         }
 
-        float startTime = m_Paths[_curPathIndex].m_DelayTime;
+        float startTime = m_Paths[_curPathIndex].m_delayTime;
         float endTime = m_Paths[_curPathIndex].m_time + startTime;
 
         if ((_timer >= startTime - 0.01f) && !_curPathInvoked)
@@ -71,7 +76,6 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
         }
     }
 
-
     // Lauch the itween variabeles
     public override Hashtable LauchArgs(int index)
     {
@@ -92,10 +96,9 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
         Hashtable args = new Hashtable();
 
         args.Add("axis", "z");   // restrict the rotation to z-axis only.
-        args.Add("name", pathInfo.m_PathData.m_pathName);
-        args.Add("path", pathInfo.m_PathData.m_controlPoints.ToArray());
+        args.Add("path", pathInfo.m_controlPoints.ToArray());
         args.Add("time", pathInfo.m_time);
-        args.Add("movetopath", pathInfo.m_MoveTo);
+        args.Add("movetopath", pathInfo.m_moveTo);
         args.Add("easetype", pathInfo.m_easeType);
         args.Add("looptype", pathInfo.m_loopType);
 
@@ -106,33 +109,53 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
     {
         for (int i = 0; i < m_Paths.Count; i++)
         {
-            if (m_Paths[i].m_PathData != null)
+            if (m_Paths[i].m_controlPoints != null)
 
-                iTween.DrawPath(m_Paths[i].m_PathData.m_controlPoints.ToArray());
+                iTween.DrawPath(m_Paths[i].m_controlPoints.ToArray());
         }
     }
 }
 
-
-
 [System.Serializable]
-public class JiPathInfo
+public struct JIPathInfo
 {
-    // Select a path that you will move on.
-    public JiPathData m_PathData;
+    /// <summary>
+    /// Path nodes
+    /// </summary>
+    [ListDrawerSettings(NumberOfItemsPerPage = 4, Expanded = false)]
+    [SerializeField]
+    public List<Vector3> m_controlPoints;
 
-    // Set a delay time to start move when this path is invoked
-    public float m_DelayTime;
+    /// <summary>
+    /// Set a delay time to start move when this path is invoked
+    /// </summary>
+    [CustomValueDrawer("ClampToNoneNagative")]
+    public float m_delayTime;
 
-    // Time in seconds the movement will take to complete.
-    public float m_time = 0f;
+    /// <summary>
+    /// Time in seconds the movement will take to complete. 
+    /// </summary>
+    [CustomValueDrawer("ClampToNoneNagative")]
+    public float m_time;
 
-    // The ease type of the movement.
-    public iTween.EaseType m_easeType = iTween.EaseType.linear;
+    /// <summary>
+    /// The ease type of the movement.
+    /// </summary>
+    public iTween.EaseType m_easeType;
 
-    // The loop type of the movement.
-    public iTween.LoopType m_loopType = iTween.LoopType.none;
+    /// <summary>
+    /// The loop type of the movement.
+    /// </summary>
+    public iTween.LoopType m_loopType;
 
-    // The gameobject will move to the start of the path
-    public bool m_MoveTo = false;
+    /// <summary>
+    /// The gameobject will move to the start of the path
+    /// </summary>
+    public bool m_moveTo;
+
+    private static float ClampToNoneNagative(float value, GUIContent label)
+    {
+        value = value < 0.01f ? 0.01f : value;
+        return UnityEditor.EditorGUILayout.FloatField(label, value);
+    }
 }
