@@ -5,6 +5,7 @@ using Sirenix.OdinInspector;
 
 public class JiPathMoveCtrl : JiMoveCtrlBase
 {
+    
     [ListDrawerSettings(ShowIndexLabels = true, DraggableItems = true, Expanded = false)]
     public List<JIPathInfo> m_Paths;
 
@@ -12,6 +13,7 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
     [ShowInInspector]
     private float _timer;
 
+    [ReadOnly, ShowInInspector]
     private int _curPathIndex;
     private bool _curPathInvoked;
 
@@ -47,8 +49,11 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
             return;
         }
 
-        float startTime = m_Paths[_curPathIndex].m_delayTime;
-        float endTime = m_Paths[_curPathIndex].m_time + startTime;
+        float startTime, endTime;
+        startTime = m_Paths[_curPathIndex].m_delayTime;
+        endTime = m_Paths[_curPathIndex].m_time + startTime;
+        if (m_Paths[_curPathIndex].m_loopType != iTween.LoopType.none)
+            endTime += m_Paths[_curPathIndex].m_time * (m_Paths[_curPathIndex].m_loopTimes - 1);
 
         if ((_timer >= startTime - 0.01f) && !_curPathInvoked)
         {
@@ -62,6 +67,7 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
             _timer = 0f;
             _curPathIndex++;
             _curPathInvoked = false;
+            iTween.Stop(m_targetGameObject);
             return;
         }
     }
@@ -96,10 +102,10 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
 
         args.Add("axis", "z");   // restrict the rotation to z-axis only.
         args.Add("path", pathInfo.m_controlPoints.ToArray());
-        args.Add("time", pathInfo.m_time);
         args.Add("movetopath", pathInfo.m_moveTo);
         args.Add("easetype", pathInfo.m_easeType);
         args.Add("looptype", pathInfo.m_loopType);
+        args.Add("time", pathInfo.m_time);
 
         return args;
     }
@@ -113,7 +119,7 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
             Gizmos.DrawIcon(pathInfo.m_controlPoints[0], "Point", true);
             Gizmos.DrawIcon(pathInfo.m_controlPoints[pathInfo.m_controlPoints.Count - 1], "Point", true);
             iTween.DrawPathGizmos(pathInfo.m_controlPoints.ToArray());
-        }                                                            
+        }
     }
 }
 
@@ -129,13 +135,13 @@ public struct JIPathInfo
     /// <summary>
     /// Set a delay time to start move when this path is invoked
     /// </summary>
-    [CustomValueDrawer("ClampToNoneNagative")]
+    [CustomValueDrawer("ClampToNoneNagativeFloat")]
     public float m_delayTime;
 
     /// <summary>
     /// Time in seconds the movement will take to complete. 
     /// </summary>
-    [CustomValueDrawer("ClampToNoneNagative")]
+    [CustomValueDrawer("ClampToNoneNagativeFloat")]
     public float m_time;
 
     /// <summary>
@@ -148,14 +154,24 @@ public struct JIPathInfo
     /// </summary>
     public iTween.LoopType m_loopType;
 
+    [HideIf("m_loopType", iTween.LoopType.none)]
+    [CustomValueDrawer("ClampToNoneNegativeInt")]
+    public int m_loopTimes;
+
     /// <summary>
     /// The gameobject will move to the start of the path
     /// </summary>
     public bool m_moveTo;
 
-    private static float ClampToNoneNagative(float value, GUIContent label)
+    private static float ClampToNoneNagativeFloat(float value, GUIContent label)
     {
         value = value < 0.01f ? 0.01f : value;
         return UnityEditor.EditorGUILayout.FloatField(label, value);
+    }
+
+    private static int ClampToNoneNegativeInt(int value, GUIContent label)
+    {
+        value = value < 1 ? 1 : value;
+        return UnityEditor.EditorGUILayout.IntField(label, value);
     }
 }

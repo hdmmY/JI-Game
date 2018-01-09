@@ -125,7 +125,7 @@ public class JiPathCreator : MonoBehaviour
         endAngle = m_reverse ? m_startAngle : m_endAngle;
         deltAngle = m_reverse ? -m_deltAngle : m_deltAngle;
 
-        for (float angle = startAngle, i = 0; i < times; angle += deltAngle, i++)
+        for (float angle = startAngle, i = 0; i <= times; angle += deltAngle, i++)
         {
             rad = angle * Mathf.Deg2Rad;
             m_controlNode.Add(m_circleCentre + new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)) * m_radius);
@@ -152,7 +152,9 @@ public class JiPathCreator : MonoBehaviour
 
     private void CircleModeDrawer()
     {
-        SimpleModeDrawer();
+        Gizmos.DrawIcon(m_controlNode[0], "Start", true);
+        Gizmos.DrawIcon(m_controlNode[m_controlNode.Count - 1], "End", true);
+        iTween.DrawPathGizmos(m_controlNode.ToArray(), m_pathColor);
     }
 
     private void PointModeDrawer()
