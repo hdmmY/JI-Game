@@ -36,11 +36,18 @@ public class TimeManager : MonoBehaviour
         {
             get
             {
-                return Go.activeInHierarchy;
+                if (Go != null)
+                {
+                    return Go.activeInHierarchy;
+                }
+                return false;
             }
             set
             {
-                Go.SetActive(value);
+                if (Go != null)
+                {
+                    Go.SetActive(value);
+                }
             }
         }
     }
@@ -63,7 +70,7 @@ public class TimeManager : MonoBehaviour
     [ShowInInspector]
     [ReadOnly]
     public float m_timer;
-                                        
+
     void Awake()
     {
         // Reset timer. The init _timer is a little below zero to aviod inaccuracy.
@@ -101,19 +108,19 @@ public class TimeManager : MonoBehaviour
             }
 
             // Reach the active time.
-            if(m_timer >= m_timeGos[i].ActiveTime)
+            if (m_timer >= m_timeGos[i].ActiveTime)
             {
                 if (!m_timeGos[i].Active)
                 {
                     m_timeGos[i].Active = true;
                     _activedTimeGos[i] = true;
-                }                                                 
+                }
             }
-        }    
-        
+        }
+
 
         // Destroy this component when all object has been actived.
-        if(m_destroySelfReachEndTime)
+        if (m_destroySelfReachEndTime)
         {
             if (!_activedTimeGos.Contains(false))
                 Destroy(this);
