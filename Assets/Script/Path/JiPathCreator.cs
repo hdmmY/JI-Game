@@ -62,7 +62,7 @@ public class JiPathCreator : MonoBehaviour
     [ListDrawerSettings(NumberOfItemsPerPage = 10)]
     public List<Vector3> m_controlNode;
 
-    public Color m_pathColor;
+    public Color m_pathColor = new Color(0, 0.743f, 1, 1);
 
     [Button("Add To Path", ButtonSizes.Medium)]
     public void SavePathData()
@@ -86,6 +86,7 @@ public class JiPathCreator : MonoBehaviour
                 pathMoveCtrl.m_Paths.Add(pathInfo);
             }
         }
+        DestroyImmediate(this);
     }
 
     public void OnChangeCreateMode()
@@ -174,7 +175,7 @@ public class JiPathCreator : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        if (m_controlNode.Count >= 2)
+        if (m_controlNode != null && m_controlNode.Count >= 2)
         {
             if (m_currentCreateMode == CreateMode.Simple)
                 SimpleModeDrawer();

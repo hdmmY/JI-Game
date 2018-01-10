@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System;
+using Sirenix.OdinInspector;
+
 
 /// <summary>
 /// Ubh base shot.
@@ -9,32 +10,86 @@ using System;
 /// </summary>
 public abstract class UbhBaseShot : UbhMonoBehaviour
 {
-    // "Set a bullet prefab for the shot. (ex. sprite or model)"
+    /// <summary>
+    /// Set a bullet prefab for the shot. (ex. sprite or model)
+    /// </summary>
+    [ValidateInput("HasBulletPrefab", "BulletPrefab is not set!")]
     public GameObject m_bulletPrefab;
-    //  
+
+    public bool m_bind;
+
+    /// <summary>
+    /// Bind the bullet transform to other
+    /// </summary>
+    [ShowIf("m_bind")]
+    [ValidateInput("CorrectBindTranform", "BindTransform is not set!")]
     public Transform m_bindTransform = null;
-    // "Set a bullet number of shot."
+
+    /// <summary>
+    /// Set a bullet number of shot.
+    /// </summary>
+    [BoxGroup("Base")]
     public int m_bulletNum = 10;
-    // "Set a bullet base speed of shot."
+
+    /// <summary>
+    /// Set a bullet base speed of shot.
+    /// </summary>
+    [BoxGroup("Base")]
     public float m_bulletSpeed = 2f;
-    // "Set an acceleration of bullet speed."
+
+    /// <summary>
+    /// Set an acceleration of bullet speed.
+    /// </summary>
+    [BoxGroup("Base")]
     public float m_accelerationSpeed = 0f;
-    // "Set an speed of bullet turning."
+
+    /// <summary>
+    /// Set an speed of bullet turning.
+    /// </summary>
+    [BoxGroup("Base")]
     public float m_angleSpeed = 0f;
-    // "This flag is pause and resume bullet at specified time."
+
+
+    /// <summary>
+    /// This flag is pause and resume bullet at specified time.
+    /// </summary>
+    [BoxGroup("Pause")]
     public bool m_usePauseAndResume = false;
-    // "Set a time to pause bullet."
+
+    /// <summary>
+    /// Set a time to pause bullet.
+    /// </summary>
+    [BoxGroup("Pause")]
     public float m_pauseTime = 0f;
-    // "Set a time to resume bullet."
+
+    /// <summary>
+    /// Set a time to resume bullet.
+    /// </summary>
+    [BoxGroup("Pause")]
     public float m_resumeTime = 0f;
-    // "This flag settings pooling bullet GameObject from object pool at initial awake."
-    [HideInInspector] public bool m_initialPooling = false;
-    // "This flag is automatically release the bullet GameObject at the specified time."
+
+    /// <summary>
+    /// This flag settings pooling bullet GameObject from object pool at initial awake.
+    /// </summary>
+    public bool m_initialPooling = false;
+
+    /// <summary>
+    /// This flag is automatically release the bullet GameObject at the specified time.
+    /// </summary>
     public bool m_useAutoRelease = true;
-    // "Set a time to automatically release after the shot at using UseAutoRelease. (sec)"
-    // "That is the bullet life time."
+
+    /// <summary>
+    /// Set a time to automatically release after the shot at using UseAutoRelease. (sec)
+    /// That is the bullet life time."
+    /// </summary>
+    [ShowIf("m_useAutoRelease")]
     public float m_autoReleaseTime = 20f;
-    [HideInInspector] public System.Action<UbhBaseShot> OnShotFinish;
+
+    /// <summary>
+    /// Call when the shot is finish
+    /// </summary>
+    [HideInInspector]
+    public System.Action<UbhBaseShot> OnShotFinish;
 
     protected UbhShotCtrl ShotCtrl
     {
@@ -113,7 +168,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
     /// <returns></returns>
     protected JIBulletController GetBullet(Vector3 position, Quaternion rotation, bool forceInstantiate = false)
     {
-        return GetBullet(m_bulletPrefab, position, rotation, forceInstantiate);    
+        return GetBullet(m_bulletPrefab, position, rotation, forceInstantiate);
     }
 
     /// <summary>
@@ -151,7 +206,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
         }
 
         // Bind transfrom
-        if(m_bindTransform != null)
+        if (m_bindTransform != null)
         {
             goBullet.transform.parent = m_bindTransform;
         }
@@ -233,4 +288,18 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
 
         UbhObjectPool.Instance.ReleaseGameObject(goBullet);
     }
+
+    #region Inspector Function
+    private bool HasBulletPrefab(GameObject bulletPrefab)
+    {
+        return bulletPrefab != null;
+    }
+
+    private bool CorrectBindTranform(Transform bindTransform)
+    {
+        if (m_bind)
+            return bindTransform != null;
+        return true;
+    }
+    #endregion
 }

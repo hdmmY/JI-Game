@@ -5,7 +5,8 @@ using Sirenix.OdinInspector;
 
 public class JiPathMoveCtrl : JiMoveCtrlBase
 {
-    
+    public bool m_alwaysShowPath = false;
+
     [ListDrawerSettings(ShowIndexLabels = true, DraggableItems = true, Expanded = false)]
     public List<JIPathInfo> m_Paths;
 
@@ -121,6 +122,13 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
             iTween.DrawPathGizmos(pathInfo.m_controlPoints.ToArray());
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        if (!m_alwaysShowPath) return;
+
+        OnDrawGizmosSelected();
+    }
 }
 
 [System.Serializable]
@@ -165,7 +173,7 @@ public struct JIPathInfo
 
     private static float ClampToNoneNagativeFloat(float value, GUIContent label)
     {
-        value = value < 0.01f ? 0.01f : value;
+        value = value < 0.001f ? 0.001f : value;
         return UnityEditor.EditorGUILayout.FloatField(label, value);
     }
 

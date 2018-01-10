@@ -10,12 +10,13 @@ namespace AnimationToggle
     {
         public BrightnessSaturationAndContrast m_brightnessEffect;
 
+        [Range(0.01f, 3f)]
+        public float m_fadeTime = 1;
 
         private void Awake()
         {
             StartCoroutine(OnSceneLoad());
-        }
-
+        }                  
 
         private IEnumerator OnSceneLoad()
         {
@@ -24,7 +25,7 @@ namespace AnimationToggle
             m_brightnessEffect.enabled = true;
 
             float timer = 0;
-            while (timer < 1)
+            while (timer < m_fadeTime)
             {
                 JITimer.Instance.TimeScale = 0;
                 timer += JITimer.Instance.RealDeltTime;

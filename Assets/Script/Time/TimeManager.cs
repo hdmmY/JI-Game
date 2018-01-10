@@ -9,6 +9,7 @@ public class TimeManager : MonoBehaviour
     [System.Serializable]
     public class TimeGameobject
     {
+        [ValidateInput("NotNull", "The gameobject is not set!")]
         public GameObject Go;
 
         // The time before the Go active.
@@ -50,23 +51,36 @@ public class TimeManager : MonoBehaviour
                 }
             }
         }
+
+        private bool NotNull(GameObject go)
+        {
+            return go != null;
+        }
     }
 
-    // Use constant interval to active gameobject.
+    /// <summary>
+    /// Use constant interval to active gameobject.
+    /// </summary>
     public bool m_useConstantInterval;
+
     [ShowIf("m_useConstantInterval")]
     [Range(0.01f, 5)]
     public float m_ConstantInterval;
 
     public bool m_destroySelfReachEndTime = true;
 
-    // A list of the time controled gameobject.
-    [ListDrawerSettings(DraggableItems = true, Expanded = true, ShowIndexLabels = true)]
+
+    /// <summary>
+    /// A list of the time controled gameobject.
+    /// </summary>
+    [ListDrawerSettings(DraggableItems = true, Expanded = true, ShowIndexLabels = true, NumberOfItemsPerPage = 20)]
     public List<TimeGameobject> m_timeGos;
 
     private List<bool> _activedTimeGos;
 
-    // A timer for active or disactive gameobject.
+    /// <summary>
+    /// A timer for active or disactive gameobject.
+    /// </summary>
     [ShowInInspector]
     [ReadOnly]
     public float m_timer;
@@ -141,6 +155,7 @@ public class TimeManager : MonoBehaviour
             timeGameobject.Active = true;
         }
     }
+
 
     [ButtonGroup("ActiveGroup")]
     [Button("SetDeactive", ButtonSizes.Small)]
