@@ -22,7 +22,7 @@ public class LoadSceneByInput : MonoBehaviour
 
         foreach(var sceneInput in m_SceneInputs)
         {
-            if(Input.GetKey(sceneInput.m_input))
+            if(Input.GetKeyDown(sceneInput.m_input))
             {
                 SceneUtil.LoadSceneAsync(sceneInput.m_sceneName);
             }
