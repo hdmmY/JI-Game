@@ -27,6 +27,7 @@ public class UbhShotCtrl : UbhMonoBehaviour
         public float _DelayTime;
 
         #region Inspector Func
+#if UNITY_EDITOR
         private bool NotNull(UbhBaseShot shotComponent)
         {
             return shotComponent != null;
@@ -37,6 +38,7 @@ public class UbhShotCtrl : UbhMonoBehaviour
             value = value < 0 ? 0 : value;
             return UnityEditor.EditorGUILayout.FloatField(label, value);
         }
+#endif
         #endregion
     }
 

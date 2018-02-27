@@ -8,7 +8,7 @@ using UnityEngine;
 public class PostEffectsBase : MonoBehaviour
 {
     private Camera _camera;
-    protected Camera camera
+    protected Camera Camera
     {
         get
         {

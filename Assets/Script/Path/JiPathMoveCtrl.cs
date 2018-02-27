@@ -171,6 +171,7 @@ public struct JIPathInfo
     /// </summary>
     public bool m_moveTo;
 
+#if UNITY_EDITOR
     private static float ClampToNoneNagativeFloat(float value, GUIContent label)
     {
         value = value < 0.001f ? 0.001f : value;
@@ -182,4 +183,6 @@ public struct JIPathInfo
         value = value < 1 ? 1 : value;
         return UnityEditor.EditorGUILayout.IntField(label, value);
     }
+#endif
+
 }

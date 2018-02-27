@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 public class ShowStageUI : MonoBehaviour
-{                                    
+{
     public SpriteRenderer m_stageUI;
 
     [CustomValueDrawer("ValidTimeValue")]
@@ -32,7 +32,7 @@ public class ShowStageUI : MonoBehaviour
         float timer = 0;
 
         // Fade in 
-        while(timer < m_fadeInTime)
+        while (timer < m_fadeInTime)
         {
             m_stageUI.color = new Color(_stageUIColor.r, _stageUIColor.g, _stageUIColor.b, timer / m_fadeInTime);
             timer += JITimer.Instance.DeltTime;
@@ -41,7 +41,7 @@ public class ShowStageUI : MonoBehaviour
 
         // Last
         timer = 0;
-        while(timer < m_lastTime)
+        while (timer < m_lastTime)
         {
             timer += JITimer.Instance.DeltTime;
             yield return null;
@@ -59,10 +59,11 @@ public class ShowStageUI : MonoBehaviour
         m_stageUI.gameObject.SetActive(false);
     }
 
-
+#if UNITY_EDITOR
     private static float ValidTimeValue(float value, GUIContent label)
     {
         value = value < 0.01f ? 0.01f : value;
         return UnityEditor.EditorGUILayout.FloatField(label, value);
     }
+#endif
 }

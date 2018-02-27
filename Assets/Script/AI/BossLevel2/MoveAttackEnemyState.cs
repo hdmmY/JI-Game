@@ -101,8 +101,8 @@ namespace BossLevel2
             {
                 if (_attackTimer >= m_timeToWaitAfterShotDone)
                 {
-                    CallOnStateEnd();
                     _stateEnd = true;
+                    CallOnStateEnd();
                 }          
             }
             // move not done, shot bullet

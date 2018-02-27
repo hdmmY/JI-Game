@@ -459,6 +459,11 @@
             Icon for using in editor GUI.
             </summary>
         </member>
+        <member name="P:Sirenix.Utilities.Editor.EditorIcon.Raw">
+            <summary>
+            Gets the raw input icon texture.
+            </summary>
+        </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcon.Highlighted">
             <summary>
             Gets the icon's highlighted texture.
@@ -514,272 +519,277 @@
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Airplane">
             <summary>
-            Gets an icon of an airplane.
+            Gets an icon of an airplane symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.AlertCircle">
             <summary>
-            Gets an icon of an alertcircle.
+            Gets an icon of an alert circle symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.AlertTriangle">
             <summary>
-            Gets an icon of an alerttriangle.
+            Gets an icon of an alert triangle symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.ArrowDown">
             <summary>
-            Gets an icon of an arrowdown.
+            Gets an icon of an arrow down symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.ArrowLeft">
             <summary>
-            Gets an icon of an arrowleft.
+            Gets an icon of an arrow left symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.ArrowRight">
             <summary>
-            Gets an icon of an arrowright.
+            Gets an icon of an arrow right symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.ArrowUp">
             <summary>
-            Gets an icon of an arrowup.
+            Gets an icon of an arrow up symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Bell">
             <summary>
-            Gets an icon of a bell.
+            Gets an icon of a bell symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Car">
             <summary>
-            Gets an icon of a car.
+            Gets an icon of a car symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Char1">
             <summary>
-            Gets an icon of a char1.
+            Gets an icon of a char1 symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Char2">
             <summary>
-            Gets an icon of a char2.
+            Gets an icon of a char2 symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Char3">
             <summary>
-            Gets an icon of a char3.
+            Gets an icon of a char3 symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.CharGraph">
             <summary>
-            Gets an icon of a chargraph.
+            Gets an icon of a char graph symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Checkmark">
             <summary>
-            Gets an icon of a checkmark.
+            Gets an icon of a checkmark symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Clock">
             <summary>
-            Gets an icon of a clock.
+            Gets an icon of a clock symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Clouds">
             <summary>
-            Gets an icon of a clouds.
+            Gets an icon of a clouds symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.CloudsRainy">
             <summary>
-            Gets an icon of a cloudsrainy.
+            Gets an icon of a clouds rainy symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.CloudsRainySunny">
             <summary>
-            Gets an icon of a cloudsrainysunny.
+            Gets an icon of a clouds rainy sunny symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.CloudsRainyThunder">
             <summary>
-            Gets an icon of a cloudsrainythunder.
+            Gets an icon of a clouds rainy thunder symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.CloudsThunder">
             <summary>
-            Gets an icon of a cloudsthunder.
+            Gets an icon of a clouds thunder symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Crosshair">
             <summary>
-            Gets an icon of a crosshair.
+            Gets an icon of a crosshair symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Cut">
             <summary>
-            Gets an icon of a cut.
+            Gets an icon of a cut symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.DayCalendar">
             <summary>
-            Gets an icon of a daycalendar.
+            Gets an icon of a day calendar symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Download">
             <summary>
-            Gets an icon of a download.
+            Gets an icon of a download symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Eject">
             <summary>
-            Gets an icon of an eject.
+            Gets an icon of an eject symbol.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.EditorIcons.EyeDropper">
+            <summary>
+            Gets an icon of an eye dropper symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Female">
             <summary>
-            Gets an icon of a female.
+            Gets an icon of a female symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.File">
             <summary>
-            Gets an icon of a file.
+            Gets an icon of a file symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.FileCabinet">
             <summary>
-            Gets an icon of a filecabinet.
+            Gets an icon of a file cabinet symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.FinnishBanner">
             <summary>
-            Gets an icon of a finnishbanner.
+            Gets an icon of a finnish banner symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Flag">
             <summary>
-            Gets an icon of a flag.
+            Gets an icon of a flag symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.FlagFinnish">
             <summary>
-            Gets an icon of a flagfinnish.
+            Gets an icon of a flag finnish symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Folder">
             <summary>
-            Gets an icon of a folder.
+            Gets an icon of a folder symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.FolderBack">
             <summary>
-            Gets an icon of a folderback.
+            Gets an icon of a folder back symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.GKey">
             <summary>
-            Gets an icon of a gkey.
+            Gets an icon of a gKey symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Globe">
             <summary>
-            Gets an icon of a globe.
+            Gets an icon of a globe symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.GridBlocks">
             <summary>
-            Gets an icon of a gridblocks.
+            Gets an icon of a grid blocks symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.GridImageText">
             <summary>
-            Gets an icon of a gridimagetext.
+            Gets an icon of a grid image text symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.GridImageTextList">
             <summary>
-            Gets an icon of a gridimagetextlist.
+            Gets an icon of a grid image text list symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.GridLayout">
             <summary>
-            Gets an icon of a gridlayout.
+            Gets an icon of a grid layout symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.HamburgerMenu">
             <summary>
-            Gets an icon of a hamburgermenu.
+            Gets an icon of a hamburger menu symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.House">
             <summary>
-            Gets an icon of a house.
+            Gets an icon of a house symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Image">
             <summary>
-            Gets an icon of an image.
+            Gets an icon of an image symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.ImageCollection">
             <summary>
-            Gets an icon of an image collection.
+            Gets an icon of an image collection symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Info">
             <summary>
-            Gets an icon of an info.
+            Gets an icon of an info symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Letter">
             <summary>
-            Gets an icon of a letter.
+            Gets an icon of a letter symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.LightBulb">
             <summary>
-            Gets an icon of a light bulb.
+            Gets an icon of a light bulb symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Link">
             <summary>
-            Gets an icon of a link.
+            Gets an icon of a link symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.List">
             <summary>
-            Gets an icon of a list.
+            Gets an icon of a list symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.LoadingBar">
             <summary>
-            Gets an icon of a loadingbar.
+            Gets an icon of a loading bar symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.LockLocked">
             <summary>
-            Gets an icon of a locked lock.
+            Gets an icon of a lock locked symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.LockUnloacked">
             <summary>
-            Gets an icon of an unloacked lock.
+            Gets an icon of a lock unloacked symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.MagnifyingGlass">
             <summary>
-            Gets an icon of a magnifying glass.
+            Gets an icon of a magnifying glass symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Male">
             <summary>
-            Gets an icon of a male.
+            Gets an icon of a male symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Marker">
             <summary>
-            Gets an icon of a marker.
+            Gets an icon of a marker symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Maximize">
@@ -789,7 +799,7 @@
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Microphone">
             <summary>
-            Gets an icon of a microphone.
+            Gets an icon of a microphone symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Minimize">
@@ -804,7 +814,7 @@
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.MobilePhone">
             <summary>
-            Gets an icon of a mobilephone.
+            Gets an icon of a mobile phone symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Money">
@@ -819,7 +829,7 @@
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.MultiUser">
             <summary>
-            Gets an icon of a multiuser symbol.
+            Gets an icon of a multi user symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Next">
@@ -829,7 +839,7 @@
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.PacmanGhost">
             <summary>
-            Gets an icon of a pacman ghost.
+            Gets an icon of a pacman ghost symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Paperclip">
@@ -837,19 +847,19 @@
             Gets an icon of a paperclip symbol.
             </summary>
         </member>
+        <member name="P:Sirenix.Utilities.Editor.EditorIcons.Pause">
+            <summary>
+            Gets an icon of a pause symbol.
+            </summary>
+        </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Pen">
             <summary>
-            Gets an icon of a pen.
+            Gets an icon of a pen symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.PenAdd">
             <summary>
             Gets an icon of a pen add symbol.
-            </summary>
-        </member>
-        <member name="P:Sirenix.Utilities.Editor.EditorIcons.PenDelete">
-            <summary>
-            Gets an icon of a pen delete symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.PenMinus">
@@ -869,7 +879,7 @@
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Podium">
             <summary>
-            Gets an icon of a podium.
+            Gets an icon of a podium symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Previous">
@@ -879,47 +889,47 @@
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.ReceptionSignal">
             <summary>
-            Gets an icon of a reception signal.
+            Gets an icon of a reception signal symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Redo">
             <summary>
-            Gets an icon of a redo.
+            Gets an icon of a redo symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Refresh">
             <summary>
-            Gets an icon of a refresh.
+            Gets an icon of a refresh symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Rotate">
             <summary>
-            Gets an icon of a rotate.
+            Gets an icon of a rotate symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Ruler">
             <summary>
-            Gets an icon of a ruler.
+            Gets an icon of a ruler symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.RulerRect">
             <summary>
-            Gets an icon of a rulerrect.
+            Gets an icon of a ruler rect symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.SettingsCog">
             <summary>
-            Gets an icon of a settings cog.
+            Gets an icon of a settings cog symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.ShoppingBasket">
             <summary>
-            Gets an icon of a shopping basket.
+            Gets an icon of a shopping basket symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.ShoppingCart">
             <summary>
-            Gets an icon of a shopping cart.
+            Gets an icon of a shopping cart symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.SingleUser">
@@ -929,37 +939,37 @@
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.SmartPhone">
             <summary>
-            Gets an icon of a smartphone.
+            Gets an icon of a smart phone symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Sound">
             <summary>
-            Gets an icon of a sound.
+            Gets an icon of a sound symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.SpeechBubbleRound">
             <summary>
-            Gets an icon of a round speech bubble.
+            Gets an icon of a speech bubble round symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.SpeechBubbleSquare">
             <summary>
-            Gets an icon of a quare speech bubble.
+            Gets an icon of a speech bubble square symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.SpeechBubblesRound">
             <summary>
-            Gets an icon of a speechbubblesround.
+            Gets an icon of a speech bubbles round symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.SpeechBubblesSquare">
             <summary>
-            Gets an icon of a speechbubblessquare.
+            Gets an icon of a speech bubbles square symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.StarPointer">
             <summary>
-            Gets an icon of a starpointer.
+            Gets an icon of a star pointer symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Stop">
@@ -974,7 +984,7 @@
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Table">
             <summary>
-            Gets an icon of a table.
+            Gets an icon of a table symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Tag">
@@ -984,27 +994,27 @@
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.TestTube">
             <summary>
-            Gets an icon of a test tube.
+            Gets an icon of a test tube symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Timer">
             <summary>
-            Gets an icon of a timer.
+            Gets an icon of a timer symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.TrafficStopLight">
             <summary>
-            Gets an icon of a trafficstoplight.
+            Gets an icon of a traffic stop light symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Transparent">
             <summary>
-            Gets a Transparent image.
+            Gets an icon of a transparent symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Tree">
             <summary>
-            Gets an icon of a tree.
+            Gets an icon of a tree symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.TriangleDown">
@@ -1029,12 +1039,12 @@
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Undo">
             <summary>
-            Gets an icon of a undo symbol.
+            Gets an icon of an undo symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.Upload">
             <summary>
-            Gets an icon of a upload symbol.
+            Gets an icon of an upload symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.WifiSignal">
@@ -1044,7 +1054,12 @@
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.X">
             <summary>
-            Gets an icon of a x symbol.
+            Gets an icon of an x symbol.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.EditorIcons.OdinInspectorLogo">
+            <summary>
+            Gets a texture of an odin inspector logo symbol.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.EditorIcons.UnityInfoIcon">
@@ -1062,9 +1077,9 @@
             Gets an icon of a unity error icon.
             </summary>
         </member>
-        <member name="P:Sirenix.Utilities.Editor.EditorIcons.AngleKnob">
+        <member name="P:Sirenix.Utilities.Editor.EditorIcons.UnityFolderIcon">
             <summary>
-            Gets an icon of a unity error icon.
+            Gets an icon of a unity folder.
             </summary>
         </member>
         <member name="T:Sirenix.Utilities.Editor.LazyEditorIcon">
@@ -1072,7 +1087,7 @@
             Lazy loading Editor Icon.
             </summary>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.LazyEditorIcon.#ctor(System.String)">
+        <member name="M:Sirenix.Utilities.Editor.LazyEditorIcon.#ctor(System.Int32,System.Int32,System.String)">
             <summary>
             Loads an EditorIcon from the spritesheet.
             </summary>
@@ -1092,9 +1107,9 @@
             Gets the icon's inactive texture.
             </summary>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.LazyEditorIcon.ToString">
+        <member name="P:Sirenix.Utilities.Editor.LazyEditorIcon.Raw">
             <summary>
-            Gets the name of the icon.
+            Not yet documented.
             </summary>
         </member>
         <member name="T:Sirenix.Utilities.Editor.AsyncProgressBar">
@@ -1137,32 +1152,32 @@
             Gets a more percistent id for drag and drop.
             </summary>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.ObjectPickerZone(UnityEngine.Rect,System.Object,System.Type,System.Boolean,UnityEngine.GUIStyle)">
+        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.ObjectPickerZone(UnityEngine.Rect,System.Object,System.Type,System.Boolean,System.Int32)">
             <summary>
             Draws a objectpicker butter, in the given rect. This one is designed to look good on top of DrawDropZone().
             </summary>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.ObjectPickerZone``1(UnityEngine.Rect,``0,System.Boolean)">
+        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.ObjectPickerZone``1(UnityEngine.Rect,``0,System.Boolean,System.Int32)">
             <summary>
             Draws a objectpicker butter, in the given rect. This one is designed to look good on top of DrawDropZone().
             </summary>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DrawDropZone``1(UnityEngine.Rect,``0,UnityEngine.GUIContent,System.Int32)">
+        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DrawDropZone(UnityEngine.Rect,System.Object,UnityEngine.GUIContent,System.Int32)">
             <summary>
             Draws the graphics for a DropZone.
             </summary>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DropZone(UnityEngine.Rect,System.Object,System.Type,System.Int32)">
-            <summary>
-            A drop zone area for bot Unity and non-unity objects.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DragZone(UnityEngine.Rect,System.Object,System.Type,System.Boolean,System.Boolean,System.Int32)">
+        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DragAndDropZone(UnityEngine.Rect,System.Object,System.Type,System.Boolean,System.Boolean)">
             <summary>
             A draggable zone for both Unity and non-unity objects.
             </summary>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DropZone``1(UnityEngine.Rect,``0,System.Int32)">
+        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DropZone(UnityEngine.Rect,System.Object,System.Type,System.Boolean,System.Int32)">
+            <summary>
+            A drop zone area for bot Unity and non-unity objects.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DropZone(UnityEngine.Rect,System.Object,System.Type,System.Int32)">
             <summary>
             A drop zone area for bot Unity and non-unity objects.
             </summary>
@@ -1172,12 +1187,32 @@
             A drop zone area for bot Unity and non-unity objects.
             </summary>
         </member>
+        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DropZone(UnityEngine.Rect,System.Object,System.Type,System.Boolean)">
+            <summary>
+            A drop zone area for bot Unity and non-unity objects.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DropZone``1(UnityEngine.Rect,``0,System.Boolean,System.Int32)">
+            <summary>
+            A drop zone area for bot Unity and non-unity objects.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DropZone``1(UnityEngine.Rect,``0,System.Int32)">
+            <summary>
+            A drop zone area for bot Unity and non-unity objects.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DropZone``1(UnityEngine.Rect,``0,System.Boolean)">
+            <summary>
+            A drop zone area for bot Unity and non-unity objects.
+            </summary>
+        </member>
         <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DropZone``1(UnityEngine.Rect,``0)">
             <summary>
             A drop zone area for bot Unity and non-unity objects.
             </summary>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DragZone``1(UnityEngine.Rect,``0,System.Boolean,System.Boolean,System.Int32)">
+        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DragZone(UnityEngine.Rect,System.Object,System.Type,System.Boolean,System.Boolean,System.Int32)">
             <summary>
             A draggable zone for both Unity and non-unity objects.
             </summary>
@@ -1187,7 +1222,7 @@
             A draggable zone for both Unity and non-unity objects.
             </summary>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DragAndDropZone(UnityEngine.Rect,System.Object,System.Type,System.Boolean,System.Boolean)">
+        <member name="M:Sirenix.Utilities.Editor.DragAndDropUtilities.DragZone``1(UnityEngine.Rect,``0,System.Boolean,System.Boolean,System.Int32)">
             <summary>
             A draggable zone for both Unity and non-unity objects.
             </summary>
@@ -1360,6 +1395,27 @@
         <member name="M:Sirenix.Utilities.Editor.GUIContext`1.op_Implicit(Sirenix.Utilities.Editor.GUIContext{`0})~`0">
             <summary>
             Performs an implicit conversion from <see cref="T:Sirenix.Utilities.Editor.GUIContext`1"/> to <see cref="!:T"/>.
+            </summary>
+        </member>
+        <member name="T:Sirenix.Utilities.Editor.ObjectFieldAlignment">
+            <summary>
+            How the square object field should be aligned.
+            </summary>
+            <seealso cref="!:PreviewFieldAttribute"/>
+        </member>
+        <member name="F:Sirenix.Utilities.Editor.ObjectFieldAlignment.Left">
+            <summary>
+            Left aligned.
+            </summary>
+        </member>
+        <member name="F:Sirenix.Utilities.Editor.ObjectFieldAlignment.Center">
+            <summary>
+            Centered.
+            </summary>
+        </member>
+        <member name="F:Sirenix.Utilities.Editor.ObjectFieldAlignment.Right">
+            <summary>
+            Right aligned.
             </summary>
         </member>
         <member name="T:Sirenix.Utilities.Editor.OdinInspectorValidationChecker">
@@ -1607,6 +1663,11 @@
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.DragHandle.MouseDownPostionOffset">
+            <summary>
+            Not yet documented.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.DragHandle.DragHandleRect">
             <summary>
             Not yet documented.
             </summary>
@@ -2206,6 +2267,11 @@
             Gets the bold default font.
             </summary>
         </member>
+        <member name="M:Sirenix.Utilities.Editor.GUIHelper.RemoveFocusControl">
+            <summary>
+            An alternative to GUI.FocusControl(null), which does not take focus away from the current GUI.Window.
+            </summary>
+        </member>
         <member name="P:Sirenix.Utilities.Editor.GUIHelper.IsDrawingDictionaryKey">
             <summary>
             Whether the inspector is currently in the progress of drawing a dictionary key.
@@ -2391,15 +2457,16 @@
             Pops the state pushed by <see cref="M:Sirenix.Utilities.Editor.GUIHelper.PushIsDrawingDictionaryKey(System.Boolean)"/>
             </summary>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.GUIHelper.PushHierarchyMode(System.Boolean)">
+        <member name="M:Sirenix.Utilities.Editor.GUIHelper.PushHierarchyMode(System.Boolean,System.Boolean)">
             <summary>
             Pushes the hierarchy mode to the stack. Remember to pop the state with <see cref="M:Sirenix.Utilities.Editor.GUIHelper.PopHierarchyMode"/>.
             </summary>
             <param name="hierarchyMode">The hierachy mode state to push.</param>
+            <param name="preserveCurrentLabelWidth">Changing hierachy mode also changes how label-widths are calcualted. By default, we try to keep the current label width.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.GUIHelper.PopHierarchyMode">
             <summary>
-            Pops the hierarchy mode pushed by <see cref="M:Sirenix.Utilities.Editor.GUIHelper.PushHierarchyMode(System.Boolean)"/>.
+            Pops the hierarchy mode pushed by <see cref="!:PushHierarchyMode(bool)"/>.
             </summary>
         </member>
         <member name="M:Sirenix.Utilities.Editor.GUIHelper.PushIsBoldLabel(System.Boolean)">
@@ -2687,6 +2754,15 @@
             </summary>
             <param name="editor">The editor to repaint.</param>
         </member>
+        <member name="M:Sirenix.Utilities.Editor.GUIHelper.GetAssetThumbnail(UnityEngine.Object,System.Type,System.Boolean)">
+            <summary>
+            Gets the a thumbnail icon for the given object.
+            </summary>
+            <param name="obj"></param>
+            <param name="type"></param>
+            <param name="preferObjectPreviewOverFileIcon"></param>
+            <returns></returns>
+        </member>
         <member name="T:Sirenix.Utilities.Editor.QuaternionDrawMode">
             <summary>
             Draw mode of quaternion fields.
@@ -2712,6 +2788,16 @@
         <member name="T:Sirenix.Utilities.Editor.SirenixEditorFields">
             <summary>
             Field drawing functions for various types.
+            </summary>
+        </member>
+        <member name="F:Sirenix.Utilities.Editor.SirenixEditorFields.SingleLetterStructLabelWidth">
+            <summary>
+            The width of the X, Y and Z labels in structs.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixEditorFields.ResponsiveVectorComponentFields">
+            <summary>
+            When <c>true</c> the component labels, for vector fields, will be hidden when the field is too narrow.
             </summary>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.UnityObjectField(UnityEngine.Rect,UnityEngine.GUIContent,UnityEngine.Object,System.Type,System.Boolean)">
@@ -2751,6 +2837,7 @@
             <param name="value">The Unity object.</param>
             <param name="objectType">The Unity object type. This supports inheritance.</param>
             <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
+            <param name="options">Layout options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.UnityObjectField(System.String,UnityEngine.Object,System.Type,System.Boolean,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -2760,6 +2847,7 @@
             <param name="value">The Unity object.</param>
             <param name="objectType">The Unity object type. This supports inheritance.</param>
             <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
+            <param name="options">Layout options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.UnityObjectField(UnityEngine.Object,System.Type,System.Boolean,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -2768,6 +2856,104 @@
             <param name="value">The Unity object.</param>
             <param name="objectType">The Unity object type. This supports inheritance.</param>
             <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
+            <param name="options">Layout options.</param>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.PreviewObjectField``1(UnityEngine.Rect,``0,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Draws a square ObjectField which renders a preview for UnityEngine.Object types.
+            This object field also adds support for drag and drop, dragging an object to another square object field, swaps the values. 
+            If you hold down control while letting go it will replace the value, And you can control + click the object field to quickly delete the value it holds.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(UnityEngine.Rect,UnityEngine.GUIContent,UnityEngine.Object,System.Type,Sirenix.Utilities.Editor.ObjectFieldAlignment,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Draws a square ObjectField which renders a preview for UnityEngine.Object types.
+            This object field also adds support for drag and drop, dragging an object to another square object field, swaps the values. 
+            If you hold down control while letting go it will replace the value, And you can control + click the object field to quickly delete the value it holds.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(UnityEngine.Rect,UnityEngine.Object,System.Type,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Draws a square ObjectField which renders a preview for UnityEngine.Object types.
+            This object field also adds support for drag and drop, dragging an object to another square object field, swaps the values. 
+            If you hold down control while letting go it will replace the value, And you can control + click the object field to quickly delete the value it holds.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(UnityEngine.Rect,UnityEngine.GUIContent,UnityEngine.Object,System.Type,System.Boolean,Sirenix.Utilities.Editor.ObjectFieldAlignment)">
+            <summary>
+            Draws a square ObjectField which renders a preview for UnityEngine.Object types.
+            This object field also adds support for drag and drop, dragging an object to another square object field, swaps the values. 
+            If you hold down control while letting go it will replace the value, And you can control + click the object field to quickly delete the value it holds.
+            </summary>
+            <param name="rect">Position and size of the field.</param>
+            <param name="label">The label to use, or null if no label should be used.</param>
+            <param name="value">The Unity object.</param>
+            <param name="objectType">The Unity object type. This supports inheritance.</param>
+            <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
+            <param name="alignment">How the square object field should be aligned.</param>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(UnityEngine.Rect,System.String,UnityEngine.Object,System.Type,System.Boolean,Sirenix.Utilities.Editor.ObjectFieldAlignment)">
+            <summary>
+            Draws a square ObjectField which renders a preview for UnityEngine.Object types.
+            This object field also adds support for drag and drop, dragging an object to another square object field, swaps the values. 
+            If you hold down control while letting go it will replace the value, And you can control + click the object field to quickly delete the value it holds.
+            </summary>
+            <param name="rect">Position and size of the field.</param>
+            <param name="label">The label to use, or null if no label should be used.</param>
+            <param name="value">The Unity object.</param>
+            <param name="objectType">The Unity object type. This supports inheritance.</param>
+            <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
+            <param name="alignment">How the square object field should be aligned.</param>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(UnityEngine.Rect,UnityEngine.Object,System.Type,System.Boolean,Sirenix.Utilities.Editor.ObjectFieldAlignment)">
+            <summary>
+            Draws a square ObjectField which renders a preview for UnityEngine.Object types.
+            This object field also adds support for drag and drop, dragging an object to another square object field, swaps the values. 
+            If you hold down control while letting go it will replace the value, And you can control + click the object field to quickly delete the value it holds.
+            </summary>
+            <param name="rect">Position and size of the field.</param>
+            <param name="value">The Unity object.</param>
+            <param name="objectType">The Unity object type. This supports inheritance.</param>
+            <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
+            <param name="alignment">How the square object field should be aligned.</param>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(UnityEngine.GUIContent,UnityEngine.Object,System.Type,System.Boolean,System.Single,Sirenix.Utilities.Editor.ObjectFieldAlignment)">
+            <summary>
+            Draws a square ObjectField which renders a preview for UnityEngine.Object types.
+            This object field also adds support for drag and drop, dragging an object to another square object field, swaps the values. 
+            If you hold down control while letting go it will replace the value, And you can control + click the object field to quickly delete the value it holds.
+            </summary>
+            <param name="label">The label to use, or null if no label should be used.</param>
+            <param name="value">The Unity object.</param>
+            <param name="objectType">The Unity object type. This supports inheritance.</param>
+            <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
+            <param name="height">The height or size of the square object field.</param>
+            <param name="alignment">How the square object field should be aligned.</param>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(System.String,UnityEngine.Object,System.Type,System.Boolean,System.Single,Sirenix.Utilities.Editor.ObjectFieldAlignment)">
+            <summary>
+            Draws a square ObjectField which renders a preview for UnityEngine.Object types.
+            This object field also adds support for drag and drop, dragging an object to another square object field, swaps the values. 
+            If you hold down control while letting go it will replace the value, And you can control + click the object field to quickly delete the value it holds.
+            </summary>
+            <param name="label">The label to use, or null if no label should be used.</param>
+            <param name="value">The Unity object.</param>
+            <param name="objectType">The Unity object type. This supports inheritance.</param>
+            <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
+            <param name="height">The height or size of the square object field.</param>
+            <param name="alignment">How the square object field should be aligned.</param>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.UnityPreviewObjectField(UnityEngine.Object,System.Type,System.Boolean,System.Single,Sirenix.Utilities.Editor.ObjectFieldAlignment)">
+            <summary>
+            Draws a square ObjectField which renders a preview for UnityEngine.Object types.
+            This object field also adds support for drag and drop, dragging an object to another square object field, swaps the values. 
+            If you hold down control while letting go it will replace the value, And you can control + click the object field to quickly delete the value it holds.
+            </summary>
+            <param name="value">The Unity object.</param>
+            <param name="objectType">The Unity object type. This supports inheritance.</param>
+            <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
+            <param name="height">The height or size of the square object field.</param>
+            <param name="alignment">How the square object field should be aligned.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.PolymorphicObjectField(UnityEngine.GUIContent,System.Object,System.Type,System.Boolean,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -2777,6 +2963,7 @@
             <param name="value">The value.</param>
             <param name="type">The object type. This supports inheritance.</param>
             <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
+            <param name="options">Layout options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.PolymorphicObjectField(System.String,System.Object,System.Type,System.Boolean,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -2786,6 +2973,7 @@
             <param name="value">The value.</param>
             <param name="type">The object type. This supports inheritance.</param>
             <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
+            <param name="options">Layout options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.PolymorphicObjectField(System.Object,System.Type,System.Boolean,UnityEngine.GUILayoutOption[])">
             <summary>
@@ -2794,11 +2982,7 @@
             <param name="value">The value.</param>
             <param name="type">The object type. This supports inheritance.</param>
             <param name="allowSceneObjects">Wheather or not to allow scene objects.</param>
-        </member>
-        <member name="P:Sirenix.Utilities.Editor.SirenixEditorFields.ResponsiveVectorComponentFields">
-            <summary>
-            When <c>true</c> the component labels, for vector fields, will be hidden when the field is too narrow.
-            </summary>
+            <param name="options">Layout options.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.LayerMaskField(UnityEngine.Rect,UnityEngine.GUIContent,UnityEngine.LayerMask)">
             <summary>
@@ -3868,6 +4052,102 @@
             <param name="options">Layout options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.FilePathField(UnityEngine.Rect,UnityEngine.GUIContent,System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Draws a field that lets the user select a path to a file.
+            </summary>
+            <param name="rect">Position and size of the field.</param>
+            <param name="label">Label of field. Set to <c>null</c> for no label.</param>
+            <param name="path">The current value.</param>
+            <param name="parentPath">A parent path the path needs to be relative to. Use <c>null</c> for Unity project directory.</param>
+            <param name="extensions">Comma separated list of allowed file extensions. Use <c>null</c> to allow any file extension.</param>
+            <param name="absolutePath">If <c>true</c> the path will be absolute. Otherwise the path will be relative to parentPath or to the Unity project directory.</param>
+            <param name="useBackslashes">If <c>true</c> the path will be enforced to use backslashes. Otherwise the path will be enforced to use forward slashes.</param>
+            <returns>A path to a file.</returns>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.FilePathField(UnityEngine.Rect,System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Draws a field that lets the user select a path to a file.
+            </summary>
+            <param name="rect">Position and size of the field.</param>
+            <param name="path">The current value.</param>
+            <param name="parentPath">A parent path the path needs to be relative to. Use <c>null</c> for Unity project directory.</param>
+            <param name="extensions">Comma separated list of allowed file extensions. Use <c>null</c> to allow any file extension.</param>
+            <param name="absolutePath">If <c>true</c> the path will be absolute. Otherwise the path will be relative to parentPath or to the Unity project directory.</param>
+            <param name="useBackslashes">If <c>true</c> the path will be enforced to use backslashes. Otherwise the path will be enforced to use forward slashes.</param>
+            <returns>A path to a file.</returns>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.FilePathField(UnityEngine.GUIContent,System.String,System.String,System.String,System.Boolean,System.Boolean,UnityEngine.GUILayoutOption[])">
+            <summary>
+            Draws a field that lets the user select a path to a file.
+            </summary>
+            <param name="label">Label of field. Set to <c>null</c> for no label.</param>
+            <param name="path">The current value.</param>
+            <param name="parentPath">A parent path the path needs to be relative to. Use <c>null</c> for Unity project directory.</param>
+            <param name="extensions">Comma separated list of allowed file extensions. Use <c>null</c> to allow any file extension.</param>
+            <param name="absolutePath">If <c>true</c> the path will be absolute. Otherwise the path will be relative to parentPath or to the Unity project directory.</param>
+            <param name="useBackslashes">If <c>true</c> the path will be enforced to use backslashes. Otherwise the path will be enforced to use forward slashes.</param>
+            <param name="options">Layout options.</param>
+            <returns>A path to a file.</returns>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.FilePathField(System.String,System.String,System.String,System.Boolean,System.Boolean,UnityEngine.GUILayoutOption[])">
+            <summary>
+            Draws a field that lets the user select a path to a file.
+            </summary>
+            <param name="path">The current value.</param>
+            <param name="parentPath">A parent path the path needs to be relative to. Use <c>null</c> for Unity project directory.</param>
+            <param name="extensions">Comma separated list of allowed file extensions. Use <c>null</c> to allow any file extension.</param>
+            <param name="absolutePath">If <c>true</c> the path will be absolute. Otherwise the path will be relative to parentPath or to the Unity project directory.</param>
+            <param name="useBackslashes">If <c>true</c> the path will be enforced to use backslashes. Otherwise the path will be enforced to use forward slashes.</param>
+            <param name="options">Layout options.</param>
+            <returns>A path to a file.</returns>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.FolderPathField(UnityEngine.Rect,UnityEngine.GUIContent,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Draws a field that lets the user select a path to a folder.
+            </summary>
+            <param name="rect">Position and size of the field.</param>
+            <param name="label">Label of field. Set to <c>null</c> for no label.</param>
+            <param name="path">The current value.</param>
+            <param name="parentPath">A parent path the path needs to be relative to. Use <c>null</c> for Unity project directory.</param>
+            <param name="absolutePath">If <c>true</c> the path will be absolute. Otherwise the path will be relative to parentPath or to the Unity project directory.</param>
+            <param name="useBackslashes">If <c>true</c> the path will be enforced to use backslashes. Otherwise the path will be enforced to use forward slashes.</param>
+            <returns>A path to a folder.</returns>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.FolderPathField(UnityEngine.Rect,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Draws a field that lets the user select a path to a folder.
+            </summary>
+            <param name="rect">Position and size of the field.</param>
+            <param name="path">The current value.</param>
+            <param name="parentPath">A parent path the path needs to be relative to. Use <c>null</c> for Unity project directory.</param>
+            <param name="absolutePath">If <c>true</c> the path will be absolute. Otherwise the path will be relative to parentPath or to the Unity project directory.</param>
+            <param name="useBackslashes">If <c>true</c> the path will be enforced to use backslashes. Otherwise the path will be enforced to use forward slashes.</param>
+            <returns>A path to a folder.</returns>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.FolderPathField(UnityEngine.GUIContent,System.String,System.String,System.Boolean,System.Boolean,UnityEngine.GUILayoutOption[])">
+            <summary>
+            Draws a field that lets the user select a path to a folder.
+            </summary>
+            <param name="label">Label of field. Set to <c>null</c> for no label.</param>
+            <param name="path">The current value.</param>
+            <param name="parentPath">A parent path the path needs to be relative to. Use <c>null</c> for Unity project directory.</param>
+            <param name="absolutePath">If <c>true</c> the path will be absolute. Otherwise the path will be relative to parentPath or to the Unity project directory.</param>
+            <param name="useBackslashes">If <c>true</c> the path will be enforced to use backslashes. Otherwise the path will be enforced to use forward slashes.</param>
+            <param name="options">Layout options.</param>
+            <returns>A path to a folder.</returns>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.FolderPathField(System.String,System.String,System.Boolean,System.Boolean,UnityEngine.GUILayoutOption[])">
+            <summary>
+            Draws a field that lets the user select a path to a folder.
+            </summary>
+            <param name="path">The current value.</param>
+            <param name="parentPath">A parent path the path needs to be relative to. Use <c>null</c> for Unity project directory.</param>
+            <param name="absolutePath">If <c>true</c> the path will be absolute. Otherwise the path will be relative to parentPath or to the Unity project directory.</param>
+            <param name="useBackslashes">If <c>true</c> the path will be enforced to use backslashes. Otherwise the path will be enforced to use forward slashes.</param>
+            <param name="options">Layout options.</param>
+            <returns>A path to a folder.</returns>
+        </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.VectorPrefixLabel(UnityEngine.Rect@,UnityEngine.GUIContent,UnityEngine.Vector4)">
             <summary>
             Draws a prefix label for a vector field, that implements label dragging.
@@ -4538,6 +4818,27 @@
             <param name="options">Layout options.</param>
             <returns>Value assigned to the field.</returns>
         </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Dropdown``1(UnityEngine.Rect,UnityEngine.GUIContent,``0,System.Collections.Generic.IList{``0})">
+            <summary>
+            Draws a generic dropdown.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="rect">Position and size of the field.</param>
+            <param name="label">Label of field. Set to <c>null</c> for no label.</param>
+            <param name="selected">Current value.</param>
+            <param name="items">Selectable items.</param>
+            <returns>Value assigned to the field.</returns>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Dropdown``1(UnityEngine.GUIContent,``0,System.Collections.Generic.IList{``0})">
+            <summary>
+            Draws a generic dropdown.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="label">Label of field. Set to <c>null</c> for no label.</param>
+            <param name="selected">Current value.</param>
+            <param name="items">Selectable items.</param>
+            <returns>Value assigned to the field.</returns>
+        </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorFields.Dropdown``1(UnityEngine.Rect,UnityEngine.GUIContent,``0,``0[],System.String[],UnityEngine.GUIStyle)">
             <summary>
             Draws a generic dropdown.
@@ -4909,34 +5210,10 @@
             The object assigned to the field.
             </returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.ObjectField``1(System.Object,UnityEngine.GUIContent,``0,System.Boolean)">
-            <summary>
-            Draws an GUI field for objects.
-            </summary>
-            <typeparam name="T">The object type for the field.</typeparam>
-            <param name="key">The key for the field.</param>
-            <param name="label">The label for the field.</param>
-            <param name="value">The current value for the field.</param>
-            <param name="allowSceneObjects">If set to <c>true</c> then allow scene objects to be assigned to the field.</param>
-            <returns>The object assigned to the field.</returns>
-        </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.Title(System.String,System.String,UnityEngine.TextAlignment,System.Boolean,System.Boolean)">
             <summary>
             Draws a nicely formatted title with an optinal sub-title and horizontal ruler.
             </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.DrawOpenInspector(UnityEngine.Rect,UnityEngine.Object)">
-            <summary>
-            Draws an open inspector button.
-            </summary>
-            <param name="rect">The rect to draw the buton in.</param>
-            <param name="obj">The object to open an inspector for..</param>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.DrawOpenInspector(UnityEngine.Object)">
-            <summary>
-            Draws an open inspector button.
-            </summary>
-            <param name="obj">The object to open the inspector for.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.DrawColorField(UnityEngine.Rect,UnityEngine.Color,System.Boolean,System.Boolean)">
             <summary>
@@ -4988,12 +5265,15 @@
             </summary>
             <param name="message">The message.</param>
             <param name="messageType">Type of the message.</param>
+            <param name="wide">If set to <c>true</c> the message box will be wide.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.PrivateMessageBox(System.String,UnityEditor.MessageType,UnityEngine.GUIStyle,System.Boolean)">
             <summary>
             Draws a message box.
             </summary>
             <param name="message">The message.</param>
+            <param name="messageType">Type of the message.</param>
+            <param name="messageBoxStyle">The style of the message box.</param>
             <param name="wide">If set to <c>true</c> the message box will be wide.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.DetailedMessageBox(System.String,System.String,UnityEditor.MessageType,System.Boolean,System.Boolean)">
@@ -5270,7 +5550,7 @@
             <param name="marginLeftRight">The left and right margin.</param>
             <returns>The current search text.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginHorizontalToolbar(System.Int32,System.Int32)">
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginHorizontalToolbar(System.Single,System.Int32)">
             <summary>
             Begins a horizontal toolbar. Remember to end with <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndHorizontalToolbar"/>.
             </summary>
@@ -5278,7 +5558,7 @@
             <param name="paddingTop">Padding for the top of the toolbar.</param>
             <returns>The rect of the horizontal toolbar.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginHorizontalToolbar(UnityEngine.GUIStyle,System.Int32,System.Int32)">
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginHorizontalToolbar(UnityEngine.GUIStyle,System.Single,System.Int32)">
             <summary>
             Begins a horizontal toolbar. Remember to end with <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndHorizontalToolbar" />.
             </summary>
@@ -5291,7 +5571,7 @@
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndHorizontalToolbar">
             <summary>
-            Ends a horizontal toolbar started by <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginHorizontalToolbar(System.Int32,System.Int32)"/>.
+            Ends a horizontal toolbar started by <see cref="!:BeginHorizontalToolbar(int, int)"/>.
             </summary>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginIndentedHorizontal(UnityEngine.GUILayoutOption[])">
@@ -5428,7 +5708,7 @@
             </summary>
             <param name="isVisible">The current state of the foldout.</param>
             <param name="label">The label of the foldout.</param>
-            <param name="guiStyle">The GUI style.</param>
+            <param name="style">The GUI style.</param>
             <returns>
             The current state of the foldout.
             </returns>
@@ -5682,7 +5962,7 @@
             The current value.
             </returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.SlideRect(UnityEngine.Rect)">
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.SlideRect(UnityEngine.Rect,UnityEditor.MouseCursor)">
             <summary>
             Creates a rect that can be grabbed and pulled
             </summary>
@@ -5744,9 +6024,19 @@
             Editor window background color.
             </summary>
         </member>
+        <member name="F:Sirenix.Utilities.Editor.SirenixGUIStyles.MenuBackgroundColor">
+            <summary>
+            Menu background color.
+            </summary>
+        </member>
         <member name="F:Sirenix.Utilities.Editor.SirenixGUIStyles.HeaderBoxBackgroundColor">
             <summary>
             Header box background color.
+            </summary>
+        </member>
+        <member name="F:Sirenix.Utilities.Editor.SirenixGUIStyles.HighlightedButtonColor">
+            <summary>
+            Highlighted Button Color.
             </summary>
         </member>
         <member name="F:Sirenix.Utilities.Editor.SirenixGUIStyles.HighlightedTextColor">
@@ -5824,6 +6114,11 @@
             A light border color.
             </summary>
         </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.TagButton">
+            <summary>
+            Tag Button style.
+            </summary>
+        </member>
         <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.BoldLabel">
             <summary>
             Bold label style.
@@ -5884,6 +6179,46 @@
             Right button selected style.
             </summary>
         </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.MiniButton">
+            <summary>
+            Left button style.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.MiniButtonSelected">
+            <summary>
+            Left button selected style.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.MiniButtonLeft">
+            <summary>
+            Left button style.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.MiniButtonLeftSelected">
+            <summary>
+            Left button selected style.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.MiniButtonMid">
+            <summary>
+            Mid button style.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.MiniButtonMidSelected">
+            <summary>
+            Mid button selected style.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.MiniButtonRight">
+            <summary>
+            Right button style.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.MiniButtonRightSelected">
+            <summary>
+            Right button selected style.
+            </summary>
+        </member>
         <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.ColorFieldBackground">
             <summary>
             Color field background style.
@@ -5904,6 +6239,16 @@
             Label style.
             </summary>
         </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.WhiteLabel">
+            <summary>
+            White label style.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.BlackLabel">
+            <summary>
+            Black label style.
+            </summary>
+        </member>
         <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.LabelCentered">
             <summary>
             Centered label style.
@@ -5912,6 +6257,11 @@
         <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.LeftAlignedGreyMiniLabel">
             <summary>
             Left aligned grey mini label style.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.CenteredGreyMiniLabel">
+            <summary>
+            Centered grey mini label
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.LeftRightAlignedWhiteMiniLabel">
@@ -5935,9 +6285,9 @@
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.OdinEditorWrapper">
-             <summary>
-            
-             </summary>
+            <summary>
+            Odin Editor Wrapper.
+            </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.PaddingLessBox">
             <summary>
@@ -5975,6 +6325,11 @@
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.SectionHeader">
+            <summary>
+            Section header style.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.SectionHeaderCentered">
             <summary>
             Section header style.
             </summary>
@@ -6087,6 +6442,11 @@
         <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.MultiLineLabel">
             <summary>
             Multiline Label
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.CenteredTextField">
+            <summary>
+            Centered Text Field
             </summary>
         </member>
         <member name="T:Sirenix.Utilities.Editor.GUITabPage">
@@ -6461,17 +6821,22 @@
             Collection of texture functions.
             </summary>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.TextureUtilities.CropTexture(UnityEngine.Texture2D,UnityEngine.Rect)">
+        <member name="M:Sirenix.Utilities.Editor.TextureUtilities.LoadImage(System.Int32,System.Int32,System.Byte[])">
+            <summary>
+            Loads an image from bytes with the specified width and height. Use this instead of someTexture.LoadImage() if you're compiling to an assembly. Unity has moved the method in 2017, 
+            and Unity's assembly updater is not able to fix it for you. This searches for a prober LoadImage method in multiple locations, and also handles type name conflicts.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.TextureUtilities.CropTexture(UnityEngine.Texture,UnityEngine.Rect)">
             <summary>
             Crops a Texture2D into a new Texture2D.
             </summary>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.TextureUtilities.ConvertSpriteToTexture(UnityEngine.Sprite,UnityEngine.Material[])">
+        <member name="M:Sirenix.Utilities.Editor.TextureUtilities.ConvertSpriteToTexture(UnityEngine.Sprite)">
             <summary>
-            Converts a Sprite to a Texture.
+            Converts a Sprite to a Texture2D.
             </summary>
             <param name="sprite"></param>
-            <param name="posProcessPasses"></param>
             <returns></returns>
         </member>
     </members>

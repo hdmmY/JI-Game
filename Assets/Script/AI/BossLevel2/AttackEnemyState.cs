@@ -21,8 +21,7 @@ namespace BossLevel2
 
         protected int _curShotTimes;
         protected float _timer;
-
-
+        
         private bool _allShotDone;
 
         public override void Initialize(EnemyProperty enemyProperty)

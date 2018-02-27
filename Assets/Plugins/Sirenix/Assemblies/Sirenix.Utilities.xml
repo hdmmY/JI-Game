@@ -801,6 +801,7 @@
             </summary>
             <param name="rect">The original Rect.</param>
             <param name="width">The desired width of the new Rect.</param>
+            <param name="height">The desired height of the new Rect.</param>
         </member>
         <member name="M:Sirenix.Utilities.RectExtensions.AlignRight(UnityEngine.Rect,System.Single)">
             <summary>
@@ -871,6 +872,16 @@
             <param name="index">The index for the subrect. Includes 0, and excludes count.</param>
             <param name="count">The amount of subrects the Rect should be split into.</param>
         </member>
+        <member name="M:Sirenix.Utilities.RectExtensions.SplitGrid(UnityEngine.Rect,System.Single,System.Single,System.Int32)">
+            <summary>
+            Splits a Rect into a grid from left to right and then down.
+            </summary>
+            <param name="rect">The original rect.</param>
+            <param name="width">The width of a grid cell.</param>
+            <param name="height">The height of a grid cell.</param>
+            <param name="index">The index of the grid cell.</param>
+            <returns></returns>
+        </member>
         <member name="M:Sirenix.Utilities.RectExtensions.SetCenterX(UnityEngine.Rect,System.Single)">
             <summary>
             Moves a Rect to the specified center X position.
@@ -919,6 +930,14 @@
             </summary>
             <param name="rect">The original Rect.</param>
             <param name="move">The change in position.</param>
+        </member>
+        <member name="M:Sirenix.Utilities.RectExtensions.AddPosition(UnityEngine.Rect,System.Single,System.Single)">
+            <summary>
+            Moves a Rect's position by the specified amount.
+            </summary>
+            <param name="rect">The original Rect.</param>
+            <param name="x">The x.</param>
+            <param name="y">The y.</param>
         </member>
         <member name="M:Sirenix.Utilities.RectExtensions.SetX(UnityEngine.Rect,System.Single)">
             <summary>
@@ -1316,7 +1335,7 @@
         </member>
         <member name="M:Sirenix.Utilities.TypeExtensions.GetAllMembers(System.Type,System.Reflection.BindingFlags)">
             <summary>
-            Gets all members from a given type, including members from all base types.
+            Gets all members from a given type, including members from all base types if the <see cref="F:System.Reflection.BindingFlags.DeclaredOnly"/> flag isn't set.
             </summary>
         </member>
         <member name="M:Sirenix.Utilities.TypeExtensions.GetAllMembers(System.Type,System.String,System.Reflection.BindingFlags)">
@@ -1326,7 +1345,7 @@
         </member>
         <member name="M:Sirenix.Utilities.TypeExtensions.GetAllMembers``1(System.Type,System.Reflection.BindingFlags)">
             <summary>
-            Gets all members of a specific type from a type, including members from all base types.
+            Gets all members of a specific type from a type, including members from all base types, if the <see cref="F:System.Reflection.BindingFlags.DeclaredOnly"/> flag isn't set.
             </summary>
         </member>
         <member name="M:Sirenix.Utilities.TypeExtensions.GetGenericBaseType(System.Type,System.Type)">
@@ -1674,12 +1693,17 @@
             <returns>The <see cref="T:Sirenix.Utilities.AssemblyTypeFlags"/> for a given assembly.</returns>
             <exception cref="T:System.NullReferenceException"><paramref name="assembly"/> is null.</exception>
         </member>
-        <member name="M:Sirenix.Utilities.AssemblyUtilities.GetType(System.String)">
+        <member name="M:Sirenix.Utilities.AssemblyUtilities.GetTypeByCachedFullName(System.String)">
             <summary>
             Gets the type.
             </summary>
             <param name="fullName">The full name of the type without any assembly information.</param>
             <returns></returns>
+        </member>
+        <member name="M:Sirenix.Utilities.AssemblyUtilities.GetType(System.String)">
+            <summary>
+            Gets the type.
+            </summary>
         </member>
         <member name="M:Sirenix.Utilities.AssemblyUtilities.IsDependentOn(System.Reflection.Assembly,System.Reflection.Assembly)">
             <summary>
@@ -1902,49 +1926,6 @@
             <summary>
             Not yet documented.
             </summary>
-        </member>
-        <member name="T:Sirenix.Utilities.DrawUnityEditorInGlobalConfigWindowAttribute">
-            <summary>
-            <para>This attribute is used by classes deriving from GlobalConfig and tells the advanced preferences to
-            draw it by creating a UnityEditor.Editor instead of a PropertyTree.</para>
-            </summary>
-        </member>
-        <member name="T:Sirenix.Utilities.EditorGlobalConfigAttribute">
-            <summary>
-            <para>This attribute is used by classes deriving from GlobalConfig and specifies the menu item path for the preference window and the asset path for the generated config file.</para>
-            </summary>
-            <seealso cref="T:Sirenix.Utilities.GlobalConfig`1"/>
-        </member>
-        <member name="F:Sirenix.Utilities.EditorGlobalConfigAttribute.MenuItemPath">
-            <summary>
-            The menu item path
-            </summary>
-        </member>
-        <member name="P:Sirenix.Utilities.EditorGlobalConfigAttribute.EditorWindowTitle">
-            <summary>
-            Gets the editor window title.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.EditorGlobalConfigAttribute.#ctor(System.String,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Sirenix.Utilities.EditorGlobalConfigAttribute"/> class.
-            </summary>
-            <param name="path">The path.</param>
-            <param name="menuItem">The menu item.</param>
-        </member>
-        <member name="M:Sirenix.Utilities.EditorGlobalConfigAttribute.OpenWindow(UnityEngine.Object)">
-            <summary>
-            Opens the Odin preferences window for any given GlobalConfig.
-            </summary>
-            <param name="config">The configuration.</param>
-            <exception cref="T:System.ArgumentException">Config parameter must inherit from <see cref="T:Sirenix.Utilities.GlobalConfig`1"/></exception>
-        </member>
-        <member name="M:Sirenix.Utilities.EditorGlobalConfigAttribute.OpenWindow``1(System.String,UnityEngine.Object)">
-            <summary>
-            Opens the Odin preferences window.
-            </summary>
-            <param name="title">The title.</param>
-            <param name="config">The configuration.</param>
         </member>
         <member name="T:Sirenix.Utilities.WeakValueGetter">
             <summary>
@@ -2357,7 +2338,7 @@
             <summary>
             <para>This attribute is used by classes deriving from GlobalConfig and specifies the asset path for the generated config file.</para>
             </summary>
-            <seealso cref="T:Sirenix.Utilities.EditorGlobalConfigAttribute"/>
+            <seealso cref="!:EditorGlobalConfigAttribute"/>
             <seealso cref="T:Sirenix.Utilities.GlobalConfig`1"/>
         </member>
         <member name="P:Sirenix.Utilities.GlobalConfigAttribute.FullPath">
@@ -2835,6 +2816,17 @@
             <summary>
             Not yet documented.
             </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.IndexedDictionary`2.#ctor">
+            <summary>
+            Not yet documented.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.IndexedDictionary`2.#ctor(System.Int32)">
+            <summary>
+            Not yet documented.
+            </summary>
+            <param name="capacity">Not yet documented.</param>
         </member>
         <member name="M:Sirenix.Utilities.IndexedDictionary`2.Get(System.Int32)">
             <summary>
@@ -3991,18 +3983,10 @@
             </summary>
             <seealso cref="T:Sirenix.Utilities.SirenixGlobalConfigAttribute"/>
         </member>
-        <member name="M:Sirenix.Utilities.SirenixEditorConfigAttribute.#ctor(System.String)">
+        <member name="M:Sirenix.Utilities.SirenixEditorConfigAttribute.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Sirenix.Utilities.SirenixEditorConfigAttribute"/> class.
             </summary>
-            <param name="menuItem"></param>
-        </member>
-        <member name="M:Sirenix.Utilities.SirenixEditorConfigAttribute.#ctor(System.String,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Sirenix.Utilities.SirenixEditorConfigAttribute"/> class.
-            </summary>
-            <param name="path"></param>
-            <param name="menuItem"></param>
         </member>
         <member name="T:Sirenix.Utilities.SirenixGlobalConfigAttribute">
             <summary>
@@ -4012,23 +3996,23 @@
             </summary>
             <seealso cref="T:Sirenix.Utilities.SirenixEditorConfigAttribute"/>
         </member>
-        <member name="M:Sirenix.Utilities.SirenixGlobalConfigAttribute.#ctor(System.String)">
+        <member name="M:Sirenix.Utilities.SirenixGlobalConfigAttribute.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Sirenix.Utilities.SirenixGlobalConfigAttribute"/> class.
             </summary>
-            <param name="menuItem">The menu item.</param>
         </member>
-        <member name="M:Sirenix.Utilities.SirenixGlobalConfigAttribute.#ctor(System.String,System.String)">
+        <member name="T:Sirenix.Utilities.StringUtilities">
             <summary>
-            Initializes a new instance of the <see cref="T:Sirenix.Utilities.SirenixGlobalConfigAttribute"/> class.
+            Not yet documented.
             </summary>
-            <param name="path">The path.</param>
-            <param name="menuItem">The menu item.</param>
         </member>
-        <member name="P:Sirenix.Utilities.SirenixGlobalConfigAttribute.EditorWindowTitle">
+        <member name="M:Sirenix.Utilities.StringUtilities.NicifyByteSize(System.Int32,System.Int32)">
             <summary>
-            Gets the editor window title.
+            Not yet documented.
             </summary>
+            <param name="bytes">Not yet documented.</param>
+            <param name="decimals">Not yet documented.</param>
+            <returns>Not yet documented.</returns>
         </member>
         <member name="T:Sirenix.Utilities.UnityVersion">
             <summary>
@@ -4111,31 +4095,6 @@
         <member name="M:Sirenix.Utilities.ReferenceEqualityComparer`1.GetHashCode(`0)">
             <summary>
             Returns the result of the object's own GetHashCode method.
-            </summary>
-        </member>
-        <member name="T:TodoAttribute">
-            <summary>
-            Internal...
-            </summary>
-        </member>
-        <member name="F:TodoAttribute.Assignee">
-            <summary>
-            Internal...
-            </summary>
-        </member>
-        <member name="F:TodoAttribute.TodoMessage">
-            <summary>
-            Internal...
-            </summary>
-        </member>
-        <member name="M:TodoAttribute.#ctor(System.String)">
-            <summary>
-            Internal...
-            </summary>
-        </member>
-        <member name="M:TodoAttribute.#ctor(System.String,System.String)">
-            <summary>
-            Internal...
             </summary>
         </member>
     </members>

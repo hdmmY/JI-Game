@@ -25,7 +25,7 @@ public class BindLight : PostEffectsBase
     {
         if (material != null)
         {
-            Vector2 viewPortPosition = camera.WorldToViewportPoint(new Vector3(2.25f, 2.5f, 0f));   
+            Vector2 viewPortPosition = Camera.WorldToViewportPoint(new Vector3(2.25f, 2.5f, 0f));   
 
             material.SetTexture("_LightTex", m_bulletLightTexture);
             material.SetFloat("_Brightness", m_birghtness);
