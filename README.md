@@ -6,4 +6,4 @@
 
 可以在 Release 一栏中下载其可运行版本。
 
-演示视频见：http://v.youku.com/v_show/id_XMzI1OTgxNzM0NA==.html?spm=a2hzp.8244740.0.0
+演示视频见：https://www.bilibili.com/video/av20201374/
