@@ -10,14 +10,6 @@ public class PlayerMove : MonoBehaviour
     // Width & height
     public Vector2 m_moveAreaShape;
 
-    [Space]
-
-    // Use for control "bullet time"
-    public float m_resumeTime;
-    public float m_pauseTime;
-    public float m_timeScaleWhenPause;
-
-
     private float _verticalSpeed;
     private float _horizontalSpeed;
 
@@ -38,8 +30,6 @@ public class PlayerMove : MonoBehaviour
 
         _verticalSpeed = _playerProperty.m_horizontalSpeed;
         _horizontalSpeed = _playerProperty.m_verticalSpeed;
-
-        JITimer.Instance.TimeScale = 1;
     }
 
     private void Update()
@@ -71,52 +61,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         transform.position = new Vector3(playerPos.x, playerPos.y, transform.position.z); 
-
-
-        // Time slow or resume control
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (_timeState == TimeState.Pausing)
-            {
-                _timeState = TimeState.Resume;
-                StopAllCoroutines();
-                StartCoroutine(Resuming(JITimer.Instance.TimeScale, m_resumeTime));
-            }
-            else if (_timeState == TimeState.Normal || _timeState == TimeState.Resume)
-            {
-                _timeState = TimeState.Pausing;
-                StopAllCoroutines();
-                StartCoroutine(Pausing(m_timeScaleWhenPause, m_pauseTime));
-            }
-        }
-
-
     }
-
-
-    IEnumerator Pausing(float endTimeScale, float lastTime)
-    {
-        while (JITimer.Instance.TimeScale >= endTimeScale)
-        {
-            JITimer.Instance.TimeScale -= (1 - endTimeScale) * Time.deltaTime / lastTime;
-            yield return null;
-        }
-
-        JITimer.Instance.TimeScale = endTimeScale;
-    }
-
-    IEnumerator Resuming(float curTimeScale, float lastTime)
-    {
-        while (JITimer.Instance.TimeScale < 1f)
-        {
-            JITimer.Instance.TimeScale += (1 - curTimeScale) * Time.deltaTime / lastTime;
-            yield return null;
-        }
-        JITimer.Instance.TimeScale = 1f;
-        _timeState = TimeState.Normal;
-    }
-
-
     void UpdateSpeed()
     {
         if (_playerProperty.m_playerMoveState == PlayerProperty.PlayerMoveType.HighSpeed)
@@ -131,7 +76,6 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-
     void SetInitReference()
     {
         _playerProperty = GetComponent<PlayerProperty>();
@@ -143,7 +87,5 @@ public class PlayerMove : MonoBehaviour
         Gizmos.color = Color.blue;
 
         Gizmos.DrawWireCube(m_moveAreaCentre, new Vector3(m_moveAreaShape.x, m_moveAreaShape.y, 0));
-
-        //Gizmos.DrawWireCube(Vector3.zero, Vector3.one * 10);
     }
 }

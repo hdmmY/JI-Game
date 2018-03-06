@@ -29,6 +29,3 @@ sysinfo.txt
 *.apk
 *.unitypackage
 **/BuildGames
-
-# Plugins
-**/Sirenix

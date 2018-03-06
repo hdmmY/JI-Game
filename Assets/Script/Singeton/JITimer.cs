@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class JITimer : JISingletonMonoBehavior<JITimer>
 {
     // Is the game paused?
+    [ShowInInspector, ReadOnly]
     public bool Pause
     {
         get
@@ -20,10 +20,11 @@ public class JITimer : JISingletonMonoBehavior<JITimer>
         }
     }
 
-
     // Time scale.
     // TimeScale = 0 means pause; TimeScale = 1 means normal
     private float _timeScale;
+
+    [ShowInInspector, ReadOnly]
     public float TimeScale
     {
         get
@@ -36,8 +37,9 @@ public class JITimer : JISingletonMonoBehavior<JITimer>
         }
     }
 
-
     private float _deltTime;
+
+    [ShowInInspector, ReadOnly]
     public float DeltTime
     {
         get
@@ -46,7 +48,7 @@ public class JITimer : JISingletonMonoBehavior<JITimer>
         }
     }
 
-
+    [ShowInInspector, ReadOnly]
     // Ignore the TimeScale
     public float RealDeltTime
     {
@@ -59,23 +61,23 @@ public class JITimer : JISingletonMonoBehavior<JITimer>
     /// <summary>
     /// Total Frame Count.Not affect by JITimer.Instance.TimeScale
     /// </summary>
+    [ShowInInspector, ReadOnly]
     public float FrameCount
     {
-        get; private set;
+        get;
+        private set;
     }
 
-
     private float _lastTime;
-    protected override void Start()
+    protected override void Start ()
     {
-        base.Start();
+        base.Start ();
 
         _timeScale = 1;
         _lastTime = Time.time;
     }
 
-
-    private void Update()
+    private void Update ()
     {
         float nowTime = Time.time;
 
