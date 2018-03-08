@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using TMPro;
+using Unity.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,7 +45,6 @@ public class InGameConsoleController : MonoBehaviour
 			if (m_consoleViewContainer.activeInHierarchy)
 			{
 				JITimer.Instance.TimeScale = _prevTimeScale;
-				Debug.Log (JITimer.Instance.TimeScale);
 				m_consoleViewContainer.SetActive (false);
 			}
 			else
@@ -70,7 +71,8 @@ public class InGameConsoleController : MonoBehaviour
 		}
 
 		var curTime = System.DateTime.Now;
-		m_logOutput.text += string.Format ("[{0,2}:{1,2}:{2,2}] : ", curTime.Hour, curTime.Minute, curTime.Second);
+		m_logOutput.text += string.Format ("\n[{0,2}:{1,2}:{2,2}] : {3}\n",
+			curTime.Hour, curTime.Minute, curTime.Second, command);
 
 		m_inputField.text = string.Empty;
 
@@ -78,8 +80,8 @@ public class InGameConsoleController : MonoBehaviour
 
 		switch (args[0])
 		{
-			case "god":
-				EnableGodMode (args);
+			case "tgm":
+				TrunGodMode (args);
 				break;
 
 			case "timescale":
@@ -91,6 +93,10 @@ public class InGameConsoleController : MonoBehaviour
 				m_logOutput.text = string.Empty;
 				break;
 
+			case "fps":
+				ShowFPS ();
+				break;
+
 			default:
 				m_logOutput.text += InvalidCommand;
 				break;
@@ -98,21 +104,21 @@ public class InGameConsoleController : MonoBehaviour
 
 		m_inputField.ActivateInputField ();
 
-		m_logOutput.rectTransform.offsetMin = new Vector2(0, 0); 
+		m_logOutput.rectTransform.offsetMin = new Vector2 (0, 0);
 	}
 
-	private void EnableGodMode (string[] args)
+	private void TrunGodMode (string[] args)
 	{
 		var player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerProperty> ();
 
 		if (player.m_tgm)
 		{
-			m_logOutput.text += "God Mode Off\n";
+			m_logOutput.text += "\tGod Mode Off\n";
 			player.m_tgm = false;
 		}
 		else
 		{
-			m_logOutput.text += "God Mode On\n";
+			m_logOutput.text += "\tGod Mode On\n";
 			player.m_tgm = true;
 		}
 	}
@@ -129,11 +135,21 @@ public class InGameConsoleController : MonoBehaviour
 			float timescale = float.Parse (args[1]);
 			timescale = Mathf.Clamp (timescale, 0, 10);
 			_prevTimeScale = timescale;
-			m_logOutput.text += string.Format ("Current Time Scale : {0,3}\n", _prevTimeScale.ToString ());
+			m_logOutput.text += string.Format ("\tCurrent Time Scale : {0,3}\n", _prevTimeScale.ToString ());
 		}
 		catch (Exception e)
 		{
 			m_logOutput.text += InvalidCommand;
+		}
+	}
+
+	private void ShowFPS ()
+	{
+		var fpss = m_consoleViewContainer.Parent ().Children ().Where (x => x.name == "FPS");
+
+		foreach (var fps in fpss)
+		{
+			fps.SetActive (!fps.activeInHierarchy);
 		}
 	}
 }
