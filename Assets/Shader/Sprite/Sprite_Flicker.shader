@@ -1,5 +1,5 @@
-Shader "Custom/Sprite/Flicker" {
-	
+Shader "Custom/Sprite/Flicker" 
+{	
 	Properties {		
 		[PerRendererData] 
 		_MainTex("Sprite Texture", 2D) = "white" {}

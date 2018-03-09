@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerChangeState : MonoBehaviour
 {
-    [Header("Reference")]
+    [Header ("Reference")]
     public Sprite m_whiteSprite;
     public Sprite m_blackSprite;
 
     [Space]
 
-    [Header("Shield Force Field")]
+    [Header ("Shield Force Field")]
     public GameObject m_forceField;
     public Material m_whiteForceFieldMaterial;
     public Material m_blackForceFieldMaterial;
@@ -19,37 +19,36 @@ public class PlayerChangeState : MonoBehaviour
 
     [Space]
 
-    [Header("Shock Wave Distortion")]
+    [Header ("Shock Wave Distortion")]
     public GameObject m_shockWavePrefab;
     public Material m_whiteShockWaveMaterial;
     public Material m_blackShockWaveMaterial;
 
     [Space]
-    [Header("Shock Wave Destroy")]
-    [Range(0, 1)]
+    [Header ("Shock Wave Destroy")]
+    [Range (0, 1)]
     public float m_shockWaveRadius;
     public float m_shockWaveTime;
     public AnimationCurve m_shockWaveSpeedCurve;
-    [Range(0, 1)]
+    [Range (0, 1)]
     public float m_timeSlowTime;
-    [Range(0, 1)]
+    [Range (0, 1)]
     public float m_timeScaleWhenSlow;
-
 
     private PlayerProperty _playerProperty;
     private SpriteRenderer _playerSpriteRender;
     private MeshRenderer _forceFieldRender;
 
-    private void Start()
+    private void Start ()
     {
-        _playerProperty = GetComponent<PlayerProperty>();
+        _playerProperty = GetComponent<PlayerProperty> ();
         _playerSpriteRender = _playerProperty.m_spriteReference;
-        _forceFieldRender = m_forceField.GetComponent<MeshRenderer>();
+        _forceFieldRender = m_forceField.GetComponent<MeshRenderer> ();
     }
 
-    private void Update()
+    private void Update ()
     {
-        if (Input.GetButton("Change State"))
+        if (Input.GetButton ("Change State"))
         {
             _playerProperty.m_playerMoveState = PlayerProperty.PlayerMoveType.SlowSpeed;
         }
@@ -58,42 +57,40 @@ public class PlayerChangeState : MonoBehaviour
             _playerProperty.m_playerMoveState = PlayerProperty.PlayerMoveType.HighSpeed;
         }
 
-
-        if (Input.GetButtonDown("Change State"))
+        if (Input.GetButtonDown ("Change State"))
         {
 
             if (_playerProperty.m_playerState == JIState.Black)
             {
-                ChangeState(JIState.White);
+                ChangeState (JIState.White);
             }
             else
             {
-                ChangeState(JIState.Black);
+                ChangeState (JIState.Black);
             }
         }
     }
 
-
     // Use this variable so that prev unfinished UpdateForceField coroutin will be shut down when next UpdateForceField coroutin will be apply.
     private Coroutine _prevUpdateForceFieldCoroutin;
-    public void ChangeState(JIState state, bool forceWaveEffect = false)
+    public void ChangeState (JIState state, bool forceWaveEffect = false)
     {
         _playerProperty.m_playerState = state;
 
-        UpdatePlayerSprite();
+        UpdatePlayerSprite ();
 
         if (_prevUpdateForceFieldCoroutin != null)
         {
-            StopCoroutine(_prevUpdateForceFieldCoroutin);
+            StopCoroutine (_prevUpdateForceFieldCoroutin);
         }
-        _prevUpdateForceFieldCoroutin = StartCoroutine(UpdateForceField());
+        _prevUpdateForceFieldCoroutin = StartCoroutine (UpdateForceField ());
 
-        StartCoroutine(UpdateShockWave(forceWaveEffect));
+        StartCoroutine (UpdateShockWave (forceWaveEffect));
     }
 
-    private IEnumerator UpdateForceField()
+    private IEnumerator UpdateForceField ()
     {
-        m_forceField.SetActive(true);
+        m_forceField.SetActive (true);
 
         if (_playerProperty.m_playerState == JIState.Black)
         {
@@ -106,42 +103,41 @@ public class PlayerChangeState : MonoBehaviour
 
         float timer = 0f;
         float targetValue = 0f;
-        while (timer < m_forceFieldTime)
+        while (timer < m_forceFieldTime - 1E-3f)
         {
             timer += JITimer.Instance.DeltTime;
 
             // Value is between [0, 1f]
-            targetValue = Mathf.Clamp01(timer / m_forceFieldTime) * 0.5f;
-            _forceFieldRender.material.SetFloat("_LightDirFactor", targetValue);
+            targetValue = Mathf.Clamp01 (timer / m_forceFieldTime) * 0.5f;
+            _forceFieldRender.material.SetFloat ("_LightDirFactor", targetValue);
 
             yield return null;
         }
 
-        m_forceField.SetActive(false);
+        m_forceField.SetActive (false);
     }
 
-    private IEnumerator UpdateShockWave(bool forceWaveEffect)
+    private IEnumerator UpdateShockWave (bool forceWaveEffect)
     {
         // Create a shockwave collider
-        GameObject shockWave = Instantiate(m_shockWavePrefab, transform);
-        var shockWaveMesh = shockWave.GetComponent<MeshRenderer>();
-        var waveCollider = shockWave.GetComponent<CircleCollider2D>();
-
+        GameObject shockWave = Instantiate (m_shockWavePrefab, transform);
+        var shockWaveMesh = shockWave.GetComponent<MeshRenderer> ();
+        var waveCollider = shockWave.GetComponent<CircleCollider2D> ();
 
         // Break if detect none bullet
         if (!forceWaveEffect)
         {
-            bool canDestory = InitWaveDestroy(shockWave.GetComponent<JIDestroyArea>());
+            bool canDestory = InitWaveDestroy (shockWave.GetComponent<JIDestroyArea> ());
             if (!canDestory)
             {
-                shockWave.SetActive(false);
-                Destroy(shockWave);
+                shockWave.SetActive (false);
+                Destroy (shockWave);
                 yield break;
             }
         }
         else
         {
-            shockWave.GetComponent<JIDestroyArea>().m_destroyBulletType = JIState.All;
+            shockWave.GetComponent<JIDestroyArea> ().m_destroyBulletType = JIState.All;
         }
 
         // Update shock wave material
@@ -156,7 +152,7 @@ public class PlayerChangeState : MonoBehaviour
 
         // Initialize collider and material
         waveCollider.radius = 0.0001f;
-        shockWaveMesh.material.SetFloat("_HoleRadius", 0);
+        shockWaveMesh.material.SetFloat ("_HoleRadius", 0);
 
         // Update collider and material
         float timer = 0;
@@ -165,9 +161,9 @@ public class PlayerChangeState : MonoBehaviour
         {
             timer += JITimer.Instance.RealDeltTime;
 
-            float percent = Mathf.Clamp01(timer / m_shockWaveTime);
-            shockWaveMesh.material.SetFloat("_HoleRadius", m_shockWaveSpeedCurve.Evaluate(percent));
-            waveCollider.radius = Mathf.Clamp((percent + 0.2f) * 0.5f, 0, 0.5f);
+            float percent = Mathf.Clamp01 (timer / m_shockWaveTime);
+            shockWaveMesh.material.SetFloat ("_HoleRadius", m_shockWaveSpeedCurve.Evaluate (percent));
+            waveCollider.radius = Mathf.Clamp ((percent + 0.2f) * 0.5f, 0, 0.5f);
 
             if (timer > m_timeSlowTime)
             {
@@ -177,11 +173,11 @@ public class PlayerChangeState : MonoBehaviour
             yield return null;
         }
 
-        shockWave.SetActive(false);
-        Destroy(shockWave);
+        shockWave.SetActive (false);
+        Destroy (shockWave);
     }
 
-    private void UpdatePlayerSprite()
+    private void UpdatePlayerSprite ()
     {
         if (_playerProperty.m_playerState == JIState.Black)
         {
@@ -193,21 +189,18 @@ public class PlayerChangeState : MonoBehaviour
         }
     }
 
-
-
-
     /// <summary>
     ///  Init wave destroy area
     /// </summary>
     /// <returns> Return true means can trigger destroy. Return false means cann't </returns>
-    private bool InitWaveDestroy(JIDestroyArea destroyArea)
+    private bool InitWaveDestroy (JIDestroyArea destroyArea)
     {
         destroyArea.m_destroyBulletType = JIState.None;
 
-        var cols = Physics2D.CircleCastAll(transform.position, _playerProperty.m_checkBound, Vector2.zero);
+        var cols = Physics2D.CircleCastAll (transform.position, _playerProperty.m_checkBound, Vector2.zero);
         foreach (var col in cols)
         {
-            if (CheckBulletType(col.transform.parent.name))
+            if (CheckBulletType (col.transform.parent.name))
             {
                 destroyArea.m_destroyBulletType = _playerProperty.m_playerState;
                 break;
@@ -216,11 +209,11 @@ public class PlayerChangeState : MonoBehaviour
 
         if (destroyArea.m_destroyBulletType != JIState.None)
         {
-            for (int i = 0; i < cols.Length; i++)             // Destroy all bullets that detected
+            for (int i = 0; i < cols.Length; i++) // Destroy all bullets that detected
             {
-                if (cols[i].transform.tag.ToLower().Contains("bullet"))
+                if (cols[i].transform.tag.ToLower ().Contains ("bullet"))
                 {
-                    UbhObjectPool.Instance.ReleaseGameObject(cols[i].transform.parent.gameObject);
+                    UbhObjectPool.Instance.ReleaseGameObject (cols[i].transform.parent.gameObject);
                 }
             }
 
@@ -231,18 +224,18 @@ public class PlayerChangeState : MonoBehaviour
     }
 
     // Check whether a bullet's state is equals to player state
-    private bool CheckBulletType(string bulletName)
+    private bool CheckBulletType (string bulletName)
     {
-        bulletName = bulletName.ToLower();
+        bulletName = bulletName.ToLower ();
 
         if ((_playerProperty.m_playerState & JIState.Black) == JIState.Black)
         {
-            if (bulletName.Contains("black")) return true;
+            if (bulletName.Contains ("black")) return true;
         }
 
         if ((_playerProperty.m_playerState & JIState.White) == JIState.White)
         {
-            if (bulletName.Contains("white")) return true;
+            if (bulletName.Contains ("white")) return true;
         }
 
         return false;

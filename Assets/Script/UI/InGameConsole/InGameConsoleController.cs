@@ -97,6 +97,10 @@ public class InGameConsoleController : MonoBehaviour
 				ShowFPS ();
 				break;
 
+			case "time":
+				ShowTime ();
+				break;
+
 			default:
 				m_logOutput.text += InvalidCommand;
 				break;
@@ -111,15 +115,15 @@ public class InGameConsoleController : MonoBehaviour
 	{
 		var player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerProperty> ();
 
-		if (player.m_tgm)
+		if (player.m_god)
 		{
 			m_logOutput.text += "\tGod Mode Off\n";
-			player.m_tgm = false;
+			player.m_god = false;
 		}
 		else
 		{
 			m_logOutput.text += "\tGod Mode On\n";
-			player.m_tgm = true;
+			player.m_god = true;
 		}
 	}
 
@@ -145,11 +149,21 @@ public class InGameConsoleController : MonoBehaviour
 
 	private void ShowFPS ()
 	{
-		var fpss = m_consoleViewContainer.Parent ().Children ().Where (x => x.name == "FPS");
+		var fpss = gameObject.Children ().Where (x => x.name == "FPS Canvas");
 
 		foreach (var fps in fpss)
 		{
 			fps.SetActive (!fps.activeInHierarchy);
+		}
+	}
+
+	private void ShowTime ()
+	{
+		var times = gameObject.Children ().Where (x => x.name == "Time Canvas");
+
+		foreach (var time in times)
+		{
+			time.SetActive (!time.activeInHierarchy);
 		}
 	}
 }

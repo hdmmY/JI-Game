@@ -10,34 +10,15 @@ public class JIBulletProperty : MonoBehaviour
     {
         get
         {
-            string name = transform.name.ToLower();
+            string name = transform.name.ToLower ();
 
-            if (name.Contains("white"))
+            if (name.Contains ("white"))
                 return JIState.White;
-            if (name.Contains("black"))
+            if (name.Contains ("black"))
                 return JIState.Black;
 
-            Debug.LogError("The bullet name not correct!");
+            Debug.LogError ("The bullet name not correct!");
             return JIState.Black;
         }
     }
-
-
-    // Is this bullet lighting?
-    public bool Lighting
-    {
-        get
-        {
-            return m_lightingMesh.activeInHierarchy;
-        }
-        set
-        {
-            m_lightingMesh.SetActive(value);
-        }
-    }
-
-
-    [Space]
-    [Header("Reference")]
-    public GameObject m_lightingMesh;
 }

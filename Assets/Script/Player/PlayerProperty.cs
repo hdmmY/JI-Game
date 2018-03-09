@@ -1,36 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class PlayerProperty : MonoBehaviour
 {
     // god mode -- from Skyrim.
-    public bool m_tgm = false;
+    public bool m_god = false;
 
     public bool m_superState = false;
 
-    // movement
-    public float m_verticalSpeed;
-    public float m_horizontalSpeed;
-    public float m_slowHorizontalSpeed;
-    public float m_slowVerticalSpeed;
-
-    // shoot 
-    [Range(0.05f, 2.5f)]
-    public float m_shootInterval;
-    public int m_bulletDamage;
-    public float m_bulletSpeed;
-
-
-    // state
     public JIState m_playerState;
-
-
-    public enum PlayerMoveType
-    {
-        HighSpeed,
-        SlowSpeed
-    };
 
     public PlayerMoveType m_playerMoveState;
 
@@ -38,15 +16,42 @@ public class PlayerProperty : MonoBehaviour
 
     public int m_playerHealth;
 
-    public float m_checkBound;
-
     public float m_playerNeutralization;
 
+    public float m_checkBound;
+
+    [BoxGroup("Movement")]
+    public float m_verticalSpeed;
+
+    [BoxGroup("Movement")]
+    public float m_horizontalSpeed;
+
+    [BoxGroup("Movement")]
+    public float m_slowHorizontalSpeed;
+
+    [BoxGroup("Movement")]
+    public float m_slowVerticalSpeed;
+
+    [BoxGroup("Shot"), Range(0.05f, 2.5f)]
+    public float m_shootInterval;
+
+    [BoxGroup("Shot")]
+    public int m_bulletDamage;
+
+    [BoxGroup("Shot")]
+    public float m_bulletSpeed;
+
+    public enum PlayerMoveType
+    {
+        HighSpeed,
+        SlowSpeed
+    };
+
+    [BoxGroup("Reference")]
     public SpriteRenderer m_spriteReference;
 
+    [BoxGroup("Reference")]
     public PlayerEventMaster m_eventMaster;
-
-    public AudioSource m_playerAudio;
 
     public void AddNeutralization(float value)
     {
@@ -61,5 +66,4 @@ public class PlayerProperty : MonoBehaviour
     {
         Gizmos.DrawWireSphere(transform.position, m_checkBound);
     }
-
 }

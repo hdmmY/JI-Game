@@ -28,11 +28,7 @@ public class TimeManager : MonoBehaviour
             }
         }
 
-        // Whether the game object is active.
-        [SerializeField, HideInInspector]
-        private bool _active = false;
-        [ReadOnly]
-        [ShowInInspector]
+        [ReadOnly, ShowInInspector]
         public bool Active
         {
             get
@@ -101,7 +97,6 @@ public class TimeManager : MonoBehaviour
             }
         }
     }
-
 
     void Update()
     {

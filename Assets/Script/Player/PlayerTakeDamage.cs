@@ -31,7 +31,7 @@ public class PlayerTakeDamage : MonoBehaviour
         string otherTag = other.tag;
 
         // Enemy bullet or Enemy
-        if (!m_playerProperty.m_tgm)
+        if (!m_playerProperty.m_god)
         {
             switch (otherTag)
             {
@@ -59,7 +59,7 @@ public class PlayerTakeDamage : MonoBehaviour
         if((Input.GetKey(KeyCode.J) && Input.GetKeyDown(KeyCode.I)) || 
             Input.GetKey(KeyCode.I) && Input.GetKeyDown(KeyCode.J))
         {
-            m_playerProperty.m_tgm = !m_playerProperty.m_tgm;
+            m_playerProperty.m_god = !m_playerProperty.m_god;
         }
     }
 
@@ -100,11 +100,11 @@ public class PlayerTakeDamage : MonoBehaviour
                                          prevColor.g,
                                          prevColor.b,
                                          0.3f);
-        m_playerProperty.m_tgm = true;
+        m_playerProperty.m_god = true;
 
         yield return new WaitForSeconds(m_godModeTime);
 
-        m_playerProperty.m_tgm = false;
+        m_playerProperty.m_god = false;
         _playerSprite.color = prevColor;
     }
 
