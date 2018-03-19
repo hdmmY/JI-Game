@@ -69,9 +69,9 @@ namespace DanmakU
         IDanmakuModifier[] Modifiers;
 
         /// <summary>
-        /// Callback to draw gizmos that are pickable and always drawn.
+        /// Callback to draw gizmos only if the object is selected.
         /// </summary>
-        void OnDrawGizmos ()
+        private void OnDrawGizmosSelected ()
         {
             var center = transform.TransformPoint (ColliderOffset);
             Gizmos.color = Color.cyan;

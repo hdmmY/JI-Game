@@ -56,7 +56,7 @@ namespace DanmakU
 
             public ComputeBuffer CreateBuffer (ComputeBufferType type)
             {
-                Debug.Log ("Allocate ComputerBuffer" + Time.time);
+                Debug.Log ("Allocate ComputerBuffer");
                 return new ComputeBuffer (Count, Stride, type);
             }
 
