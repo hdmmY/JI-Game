@@ -101,6 +101,10 @@ public class InGameConsoleController : MonoBehaviour
 				ShowTime ();
 				break;
 
+			case "status":
+				ShowPlayerStatus ();
+				break;
+
 			default:
 				m_logOutput.text += InvalidCommand;
 				break;
@@ -164,6 +168,16 @@ public class InGameConsoleController : MonoBehaviour
 		foreach (var time in times)
 		{
 			time.SetActive (!time.activeInHierarchy);
+		}
+	}
+
+	private void ShowPlayerStatus ()
+	{
+		var status =gameObject.Children().Where(x => x.name == "PlayerStatus Canvas");
+
+		foreach(var statu in status)
+		{
+			statu.SetActive(!statu.activeInHierarchy);
 		}
 	}
 }

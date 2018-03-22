@@ -28,8 +28,11 @@ public class Enemy_TakeDamage : MonoBehaviour
         if (collision.CompareTag (EnemyProperty.PlayerBulletTag))
         {
             var bullet = collision.transform.parent.GetComponent<JIBulletProperty> ();
-
+            
             UbhObjectPool.Instance.ReleaseGameObject (bullet.gameObject);
+
+            var player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerProperty> ();
+            player.AddNeutralization (player.m_addValue, bullet.State);
 
             _property.m_health -= bullet.m_damage;
             if (_eventMaster != null)
@@ -37,20 +40,11 @@ public class Enemy_TakeDamage : MonoBehaviour
                 _eventMaster.CallOnDamage (_property);
             }
 
-            if (_property.m_health <= 0)
+            if (_property.m_health <= 0 && !_isDead)
             {
-                EnemyDeath (bullet.State);
+                _isDead = true;
+                Destroy (_property.gameObject);
             }
         }
-    }
-
-    private void EnemyDeath (JIState bulletState)
-    {
-        if (bulletState != _property.m_enemyState && !_isDead)
-        {
-            GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerProperty> ().AddNeutralization (GlobalStaticVariable.AddedNeutralization);
-        }
-        _isDead = true;
-        Destroy (_property.gameObject);
     }
 }
