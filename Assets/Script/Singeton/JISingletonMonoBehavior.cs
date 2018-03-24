@@ -32,10 +32,8 @@ public class JISingletonMonoBehavior<T> : MonoBehaviour where T :MonoBehaviour
         {
             GameObject go = this.gameObject;
 
-            Debug.Log(this);
-            Debug.Log(_instance);
-            Destroy(this);
-            Destroy(go);
+            DestroyImmediate(this);
+            DestroyImmediate(go);
         }
     }
 

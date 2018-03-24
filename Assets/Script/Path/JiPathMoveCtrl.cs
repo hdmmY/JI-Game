@@ -10,8 +10,7 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
     [ListDrawerSettings (ShowIndexLabels = true, DraggableItems = true, Expanded = false)]
     public List<JIPathInfo> m_Paths;
 
-    [ReadOnly]
-    [ShowInInspector]
+    [ReadOnly, ShowInInspector]
     private float _timer;
 
     [ReadOnly, ShowInInspector]
@@ -27,11 +26,9 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
 
         _curPathIndex = 0;
         _curPathInvoked = false;
-
-        iTween.Init (m_targetGameObject);
     }
 
-    private void Update ()
+    protected void Update ()
     {
         if (m_Paths == null) return;
         if (m_targetGameObject == null) return;
@@ -43,7 +40,15 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
         {
             if (m_distroyWhenEndOfPaths)
             {
-                Destroy (m_targetGameObject);
+                if (m_targetGameObject == this.gameObject)
+                {
+                    DestroyImmediate (m_targetGameObject);
+                }
+                else
+                {
+                    DestroyImmediate (this.gameObject);
+                    DestroyImmediate (m_targetGameObject);
+                }
             }
             _curPathIndex++;
             return;
@@ -127,6 +132,56 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
 
         OnDrawGizmosSelected ();
     }
+
+#if UNITY_EDITOR
+    [Button ("Preview", ButtonSizes.Medium)]
+    [HideInPlayMode]
+    public void Preview ()
+    {
+        var prevGo = Instantiate (this.gameObject) as GameObject;
+        var prevTargetGo = gameObject == m_targetGameObject ?
+            prevGo : Instantiate (m_targetGameObject) as GameObject;
+
+        prevGo.hideFlags = HideFlags.DontSave;
+        prevTargetGo.hideFlags = HideFlags.DontSave;
+
+        prevGo.SetActive (false);
+        prevTargetGo.SetActive (false);
+
+        var originMove = prevGo.GetComponent<JiPathMoveCtrl> ();
+        var newMove = prevGo.AddComponent<JiPathMovePreview> ();
+
+        // Copy origin component's data to new preview commponent
+        newMove.m_alwaysShowPath = originMove.m_alwaysShowPath;
+        newMove.m_distroyWhenEndOfPaths = true;
+        newMove.m_Paths = new List<JIPathInfo> ();
+        foreach (var path in originMove.m_Paths)
+        {
+            newMove.m_Paths.Add (new JIPathInfo
+            {
+                m_controlPoints = new List<Vector3> (path.m_controlPoints),
+                    m_delayTime = path.m_delayTime,
+                    m_easeType = path.m_easeType,
+                    m_loopTimes = path.m_loopTimes,
+                    m_loopType = path.m_loopType,
+                    m_moveTo = path.m_moveTo,
+                    m_time = path.m_time
+            });
+        }
+        newMove.m_targetGameObject = prevTargetGo;
+
+        DestroyImmediate (prevGo.GetComponent<JiPathMoveCtrl> ());
+
+        prevTargetGo.SetActive (true);
+        prevGo.SetActive (true);
+    }
+
+    /// <summary>
+    /// Only use for preview path move
+    /// </summary>
+    [ExecuteInEditMode]
+    protected class JiPathMovePreview : JiPathMoveCtrl { }
+#endif
 }
 
 [System.Serializable]
@@ -170,7 +225,7 @@ public struct JIPathInfo
 
     /// <summary>
     /// The gameobject will move to the start of the path
-    /// </summary>
+    /// </summary>  
     [Tooltip ("The gameobject will move to the start of the path")]
     public bool m_moveTo;
 
