@@ -5,29 +5,25 @@ public class DevTakeDamageFlicker : MonoBehaviour
 {
     [Range (0, 1)]
     public float m_flickerTime = 0.03f;
-    
-    private EnemyEventMaster _enemyEventMaster;
+
+    private EnemyProperty _enemy;
 
     private void OnEnable ()
     {
-        _enemyEventMaster = GetComponentInParent<EnemyEventMaster>();
-        if(_enemyEventMaster == null)
-        {
-            Debug.LogError("Error!");
-        }
+        _enemy = GetComponentInParent<EnemyProperty> ();
 
-        _enemyEventMaster.OnDamage += StartFlicker;
+        _enemy.OnDamage += StartFlicker;
     }
 
     private void OnDisable ()
     {
-        _enemyEventMaster.OnDamage -= StartFlicker;
+        _enemy.OnDamage -= StartFlicker;
     }
 
     private void StartFlicker (EnemyProperty enemyProperty)
     {
         var flicker = enemyProperty.m_enemySprite.GetComponent<DevSetEnemySprite> ();
-        
+
         if (flicker == null)
         {
             Debug.LogErrorFormat ("The {0} enemy doesn't have a DevSetEnemySprite component!",

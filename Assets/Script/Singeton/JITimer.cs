@@ -1,6 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class JITimer : JISingletonMonoBehavior<JITimer>
 {
     // Is the game paused?

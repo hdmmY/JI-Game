@@ -1,24 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class FPSCounter : Singleton<FPSCounter>
 {
+	[ShowInInspector, ReadOnly]
 	public int HighestFPS
 	{
 		get; private set;
 	}
 
+	[ShowInInspector, ReadOnly]
 	public int LowestFPS
 	{
 		get; private set;
 	}
 
+	[ShowInInspector, ReadOnly]
 	public int AverageFPS
 	{
 		get; private set;
 	}
 
+	[HideInInspector]
 	public readonly int FrameRange = 60;
 
 	private float[] _frameBuf;
@@ -81,5 +86,4 @@ public class FPSCounter : Singleton<FPSCounter>
 		LowestFPS = (int)low;
 		AverageFPS = (int)(sum / size); 
 	}
-
 }

@@ -44,6 +44,7 @@ using UnityEngine;
 /// <para>Author: Bob Berkebile (http://pixelplacement.com)</para>
 /// <para>Support: http://itween.pixelplacement.com</para>
 /// </summary>
+[ExecuteInEditMode]
 public class iTween : MonoBehaviour
 {
 
@@ -8118,7 +8119,7 @@ void TweenComplete()
                 break;
             }
         }
-        Destroy(this);
+        DestroyImmediate(this);
     }
 
     void ConflictCheck()

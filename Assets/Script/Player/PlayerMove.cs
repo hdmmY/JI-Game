@@ -24,8 +24,7 @@ public class PlayerMove : MonoBehaviour
     };
     TimeState _timeState;
 
-    private void OnEnable()
-    {
+    private void OnEnable(){
         SetInitReference();
 
         _verticalSpeed = _playerProperty.m_horizontalSpeed;

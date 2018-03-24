@@ -15,12 +15,12 @@ namespace JIUI
         {
             _player = JIGlobalRef.Player;
 
-            ShowBalanceHUD(_player.m_playerNeutralization);
+            // ShowBalanceHUD(_player.m_playerNeutralization);
         }
 
         private void Update()
         {
-            ShowBalanceHUD(_player.m_playerNeutralization);
+            //  ShowBalanceHUD(_player.m_playerNeutralization);
         }
 
         private void ShowBalanceHUD(float curBalanceValue)
