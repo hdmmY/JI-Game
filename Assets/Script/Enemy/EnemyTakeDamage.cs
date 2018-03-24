@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent (typeof (EnemyProperty))]
-public class Enemy_TakeDamage : MonoBehaviour
+public class EnemyTakeDamage : MonoBehaviour
 {
-    private EnemyProperty _property;
-    private EnemyEventMaster _eventMaster;
+    private EnemyProperty _enemy;
 
     private bool _isDead;
 
@@ -16,11 +15,10 @@ public class Enemy_TakeDamage : MonoBehaviour
     {
         _isDead = false;
 
-        _eventMaster = GetComponent<EnemyEventMaster> ();
-        _property = GetComponent<EnemyProperty> ();
-        if (_property == null) Debug.LogError ("The Enemy Property is null!");
+        _enemy = GetComponent<EnemyProperty> ();
+        if (_enemy == null) Debug.LogError ("The Enemy Property is null!");
 
-        _enemyHealth = _property.m_health;
+        _enemyHealth = _enemy.m_health;
     }
 
     private void OnTriggerEnter2D (Collider2D collision)
@@ -28,22 +26,19 @@ public class Enemy_TakeDamage : MonoBehaviour
         if (collision.CompareTag (EnemyProperty.PlayerBulletTag))
         {
             var bullet = collision.transform.parent.GetComponent<JIBulletProperty> ();
-            
+
             UbhObjectPool.Instance.ReleaseGameObject (bullet.gameObject);
 
             var player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerProperty> ();
             player.AddNeutralization (player.m_addValue, bullet.State);
 
-            _property.m_health -= bullet.m_damage;
-            if (_eventMaster != null)
-            {
-                _eventMaster.CallOnDamage (_property);
-            }
+            _enemy.m_health -= bullet.m_damage;
+            _enemy.CallOnDamage (_enemy);
 
-            if (_property.m_health <= 0 && !_isDead)
+            if (_enemy.m_health <= 0 && !_isDead)
             {
                 _isDead = true;
-                Destroy (_property.gameObject);
+                Destroy (_enemy.gameObject);
             }
         }
     }

@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 public class JiPathMoveCtrl : JiMoveCtrlBase
 {
     public bool m_alwaysShowPath = false;
 
-    [ListDrawerSettings(ShowIndexLabels = true, DraggableItems = true, Expanded = false)]
+    [ListDrawerSettings (ShowIndexLabels = true, DraggableItems = true, Expanded = false)]
     public List<JIPathInfo> m_Paths;
 
     [ReadOnly]
@@ -18,9 +18,9 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
     private int _curPathIndex;
     private bool _curPathInvoked;
 
-    public override void Start()
+    public override void Start ()
     {
-        base.Start();
+        base.Start ();
 
         // Reset timer. The init _timer is a little below zero to aviod inaccuracy.
         _timer = -0.5f;
@@ -28,11 +28,10 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
         _curPathIndex = 0;
         _curPathInvoked = false;
 
-        iTween.Init(m_targetGameObject);
+        iTween.Init (m_targetGameObject);
     }
 
-
-    private void Update()
+    private void Update ()
     {
         if (m_Paths == null) return;
         if (m_targetGameObject == null) return;
@@ -44,7 +43,7 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
         {
             if (m_distroyWhenEndOfPaths)
             {
-                Destroy(m_targetGameObject);
+                Destroy (m_targetGameObject);
             }
             _curPathIndex++;
             return;
@@ -58,7 +57,7 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
 
         if ((_timer >= startTime - 0.01f) && !_curPathInvoked)
         {
-            StartMove(_curPathIndex);
+            StartMove (_curPathIndex);
             _curPathInvoked = true;
             return;
         }
@@ -68,66 +67,65 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
             _timer = 0f;
             _curPathIndex++;
             _curPathInvoked = false;
-            iTween.Stop(m_targetGameObject);
+            iTween.Stop (m_targetGameObject);
             return;
         }
     }
 
-
-    public override void StopMove()
+    public override void StopMove ()
     {
         if (m_targetGameObject != null)
         {
-            iTween.Stop(m_targetGameObject, "moveto");
+            iTween.Stop (m_targetGameObject, "moveto");
         }
     }
 
     // Lauch the itween variabeles
-    public override Hashtable LauchArgs(int index)
+    public override Hashtable LauchArgs (int index)
     {
         if (m_Paths == null)
         {
-            Debug.LogError("There is no path!");
+            Debug.LogError ("There is no path!");
             return null;
         }
 
         if (m_Paths.Count <= index)
         {
-            Debug.LogError("The path index is not right!");
+            Debug.LogError ("The path index is not right!");
             return null;
         }
 
         var pathInfo = m_Paths[index];
 
-        Hashtable args = new Hashtable();
+        Hashtable args = new Hashtable ();
 
-        args.Add("axis", "z");   // restrict the rotation to z-axis only.
-        args.Add("path", pathInfo.m_controlPoints.ToArray());
-        args.Add("movetopath", pathInfo.m_moveTo);
-        args.Add("easetype", pathInfo.m_easeType);
-        args.Add("looptype", pathInfo.m_loopType);
-        args.Add("time", pathInfo.m_time);
+        args.Add ("axis", "z"); // restrict the rotation to z-axis only.
+        args.Add ("path", pathInfo.m_controlPoints.ToArray ());
+        args.Add ("movetopath", pathInfo.m_moveTo);
+        args.Add ("easetype", pathInfo.m_easeType);
+        args.Add ("looptype", pathInfo.m_loopType);
+        args.Add ("time", pathInfo.m_time);
 
         return args;
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected ()
     {
         foreach (var pathInfo in m_Paths)
         {
             if (pathInfo.m_controlPoints == null || pathInfo.m_controlPoints.Count < 2)
                 continue;
-            Gizmos.DrawIcon(pathInfo.m_controlPoints[0], "Point", true);
-            Gizmos.DrawIcon(pathInfo.m_controlPoints[pathInfo.m_controlPoints.Count - 1], "Point", true);
-            iTween.DrawPathGizmos(pathInfo.m_controlPoints.ToArray());
+            Gizmos.DrawIcon (pathInfo.m_controlPoints[0], "Point", true);
+            Gizmos.DrawIcon (pathInfo.m_controlPoints[pathInfo.m_controlPoints.Count - 1], "Point", true);
+            iTween.DrawPathGizmos (pathInfo.m_controlPoints.ToArray ());
         }
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmos ()
     {
         if (!m_alwaysShowPath) return;
 
-        OnDrawGizmosSelected();
+        OnDrawGizmosSelected ();
     }
 }
 
@@ -137,51 +135,56 @@ public struct JIPathInfo
     /// <summary>
     /// Path nodes
     /// </summary>
-    [ListDrawerSettings(NumberOfItemsPerPage = 4, Expanded = false)]
+    [ListDrawerSettings (NumberOfItemsPerPage = 4, Expanded = false)]
     public List<Vector3> m_controlPoints;
 
     /// <summary>
     /// Set a delay time to start move when this path is invoked
     /// </summary>
-    [CustomValueDrawer("ClampToNoneNagativeFloat")]
+    [CustomValueDrawer ("ClampToNoneNagativeFloat")]
+    [Tooltip ("The delay time to start move when this path is invoked")]
     public float m_delayTime;
 
     /// <summary>
-    /// Time in seconds the movement will take to complete. 
+    /// Time in seconds the movement will take to complete 
     /// </summary>
-    [CustomValueDrawer("ClampToNoneNagativeFloat")]
+    [CustomValueDrawer ("ClampToNoneNagativeFloat")]
+    [Tooltip ("Time in seconds the movement will take to complete")]
     public float m_time;
 
     /// <summary>
-    /// The ease type of the movement.
+    /// The ease type of the movement
     /// </summary>
+    [Tooltip ("The ease type of the movement")]
     public iTween.EaseType m_easeType;
 
     /// <summary>
     /// The loop type of the movement.
     /// </summary>
+    [Tooltip ("The loop type of the movement")]
     public iTween.LoopType m_loopType;
 
-    [HideIf("m_loopType", iTween.LoopType.none)]
-    [CustomValueDrawer("ClampToNoneNegativeInt")]
+    [HideIf ("m_loopType", iTween.LoopType.none)]
+    [CustomValueDrawer ("ClampToNoneNegativeInt")]
     public int m_loopTimes;
 
     /// <summary>
     /// The gameobject will move to the start of the path
     /// </summary>
+    [Tooltip ("The gameobject will move to the start of the path")]
     public bool m_moveTo;
 
 #if UNITY_EDITOR
-    private static float ClampToNoneNagativeFloat(float value, GUIContent label)
+    private static float ClampToNoneNagativeFloat (float value, GUIContent label)
     {
         value = value < 0.001f ? 0.001f : value;
-        return UnityEditor.EditorGUILayout.FloatField(label, value);
+        return UnityEditor.EditorGUILayout.FloatField (label, value);
     }
 
-    private static int ClampToNoneNegativeInt(int value, GUIContent label)
+    private static int ClampToNoneNegativeInt (int value, GUIContent label)
     {
         value = value < 1 ? 1 : value;
-        return UnityEditor.EditorGUILayout.IntField(label, value);
+        return UnityEditor.EditorGUILayout.IntField (label, value);
     }
 #endif
 

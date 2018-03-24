@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent (typeof (SpriteRenderer))]
 public class TakeDamagerFlickerForBoss : MonoBehaviour
 {
-    public EnemyEventMaster m_enemyEventMaster;
-
     [Range (0, 1)]
     public float m_flickerTime;
 
@@ -16,16 +14,19 @@ public class TakeDamagerFlickerForBoss : MonoBehaviour
 
     private SpriteFlicker _flicker;
 
+    private EnemyProperty _enemy;
+
     private void OnEnable ()
     {
         _flicker = GetComponent<SpriteFlicker> ();
 
-        m_enemyEventMaster.OnDamage += StartFlicker;
+        _enemy = GetComponentInParent<EnemyProperty> ();
+        _enemy.OnDamage += StartFlicker;
     }
 
     private void OnDisable ()
     {
-        m_enemyEventMaster.OnDamage -= StartFlicker;
+        _enemy.OnDamage -= StartFlicker;
     }
 
     private void StartFlicker (EnemyProperty enemyProperty)

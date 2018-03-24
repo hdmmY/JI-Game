@@ -10,7 +10,25 @@ public class EnemyProperty : MonoBehaviour
 
     public int m_health;
 
-    public int m_enemyDamage;
-
     public SpriteRenderer m_enemySprite;
+
+    #region Events
+    /// <summary>
+    /// Called when enemy is taking damage
+    /// </summary>
+    public System.Action<EnemyProperty> OnDamage;
+    
+
+    /// <summary>
+    /// Called when enemy is taking damage
+    /// </summary>
+    /// <param name="enemyProperty"></param>
+    public void CallOnDamage (EnemyProperty enemyProperty)
+    {
+        if (enemyProperty != null && OnDamage != null)
+        {
+            OnDamage (enemyProperty);
+        }
+    }
+    #endregion
 }

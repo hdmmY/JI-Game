@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class TakeDamageFlicker : MonoBehaviour
 {
-    public EnemyEventMaster m_enemyEventMaster;
-
     [Range (0, 1)]
     public float m_flickerTime;
 
     [Range (0, 1)]
     public float m_flickerBindFactor = 0.75f;
+
     public Color m_flickerColor;
+
+    private EnemyProperty _enemy;
 
     private void OnEnable ()
     {
-        m_enemyEventMaster.OnDamage += StartFlicker;
+        _enemy = _enemy ?? GetComponentInParent<EnemyProperty> ();
+        _enemy.OnDamage += StartFlicker;
     }
 
     private void OnDisable ()
     {
-        m_enemyEventMaster.OnDamage -= StartFlicker;
+        _enemy.OnDamage -= StartFlicker;
     }
 
     private void StartFlicker (EnemyProperty enemyProperty)

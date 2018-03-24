@@ -34,7 +34,6 @@ namespace DanmakU
         /// </summary>
         public Bounds2D Bounds = new Bounds2D (Vector2.zero, Vector2.one * 200);
 
-        [ShowInInspector]
         Dictionary<DanmakuRendererConfig, RendererGroup> RendererGroups;
         List<DanmakuRendererConfig> EmptyGroups;
         JobHandle UpdateHandle;

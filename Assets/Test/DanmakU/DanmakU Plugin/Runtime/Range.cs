@@ -130,6 +130,8 @@ namespace DanmakU
         public float GetValue () => RandomUtility.Range (Min, Max);
 
         public static implicit operator Range (float val) => new Range (val);
+        public static implicit operator float (Range val) => val.GetValue ();
+        public static implicit operator int (Range val) => (int)val.GetValue ();
 
         public static Range operator + (Range lhs, Range rhs) => new Range (lhs.Min + rhs.Min, lhs.Max + rhs.Max);
         public static Range operator - (Range lhs, Range rhs) => new Range (lhs.Min - rhs.Min, lhs.Max - rhs.Max);
