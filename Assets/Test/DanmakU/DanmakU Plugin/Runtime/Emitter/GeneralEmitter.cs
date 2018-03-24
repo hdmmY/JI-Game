@@ -139,12 +139,6 @@ namespace DanmakU
                     case "ring":
                         Fireables.Add (ScriptableObject.CreateInstance<Ring> ());
                         break;
-                    case "spiral":
-                        Fireables.Add (ScriptableObject.CreateInstance<Spiral> ());
-                        break;
-                    case "paint":
-                        Fireables.Add (ScriptableObject.CreateInstance<Paint> ());
-                        break;
                 }
             }
 

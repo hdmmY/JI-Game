@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace DanmakU
 {
@@ -18,9 +19,27 @@ namespace DanmakU
             public int LayerMask;
         }
 
+        /// <summary>
+        /// Raycast Cache
+        /// </summary>
+        /// <remarks>
+        /// Use for danmakU collision test
+        /// </remarks>
         static RaycastHit2D[] raycastCache = new RaycastHit2D[256];
+
+        /// <summary>
+        /// All danmaku collider in the scenes
+        /// </summary>
         static readonly List<DanmakuCollider> Colliders;
+
         static readonly MultiMap<Collider2D, DanmakuCollider> ColliderMap;
+
+        /// <summary>
+        /// Collider shape data in different layers.
+        /// </summary>
+        /// <remarks>
+        /// The Data[i] contains all colliders in layer (1 << i)
+        /// </remarks>
         static readonly List<Bounds2D>[] Data;
         static Bounds2D GlobalBounds;
         static int GlobalLayerMask;
@@ -164,6 +183,7 @@ namespace DanmakU
         internal void AddDanmaku (DanmakuCollision danmaku) => collidedDanmaku.Add (danmaku);
         internal void Flush ()
         {
+            Debug.Log(collidedDanmaku.Count);
             if (collidedDanmaku.Count > 0 && OnDanmakuCollision != null)
             {
                 OnDanmakuCollision (collidedDanmaku.AsReadOnly ());

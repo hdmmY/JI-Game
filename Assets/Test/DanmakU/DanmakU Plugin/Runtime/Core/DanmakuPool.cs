@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Jobs;
 using UnityEngine;
 
@@ -78,7 +79,7 @@ namespace DanmakU
     /// }
     /// </code>
     /// </example>
-    public class DanmakuPool : IEnumerable<Danmaku>, IDisposable
+    public unsafe class DanmakuPool : IEnumerable<Danmaku>, IDisposable
     {
 
         /// <summary>
@@ -91,8 +92,12 @@ namespace DanmakU
         /// <summary>
         /// Gets the total count of active bullets currently managed by the pool.
         /// </summary>
-        public int ActiveCount => activeCountArray[0];
 
+        public int ActiveCount
+        {
+
+            [MethodImpl (MethodImplOptions.AggressiveInlining)] get { return activeCountArray[0]; }
+        }
         /// <summary>
         /// Gets the total capacity of the pool. Strictly greater than or equal to <see cref="ActiveCount"/>.
         /// </summary>
@@ -104,7 +109,8 @@ namespace DanmakU
         public float ColliderRadius;
 
         internal NativeArray<float> Times;
-        internal NativeArray<DanmakuState> InitialStates;
+
+        private float * _timePtr;
 
         /// <summary>
         /// The array of all world positions of <see cref="DanmakU.Danmaku"/> in the pool.
@@ -112,11 +118,15 @@ namespace DanmakU
         /// <seealso cref="DanmakU.Danmaku.Position"/>
         public NativeArray<Vector2> Positions;
 
+        private float * _positionPtr;
+
         /// <summary>
         /// The array of all rotations of <see cref="DanmakU.Danmaku"/> in the pool.
         /// </summary>
         /// <seealso cref="DanmakU.Danmaku.Rotation"/>
         public NativeArray<float> Rotations;
+
+        private float * _rotationPtr;
 
         /// <summary>
         /// The array of all speeds of <see cref="DanmakU.Danmaku"/> in the pool.
@@ -124,11 +134,15 @@ namespace DanmakU
         /// <seealso cref="DanmakU.Danmaku.Speed"/>
         public NativeArray<float> Speeds;
 
+        private float * _speedPtr;
+
         /// <summary>
         /// The array of all angular speeds of <see cref="DanmakU.Danmaku"/> in the pool.
         /// </summary>
         /// <seealso cref="DanmakU.Danmaku.AngularSpeed"/>
         public NativeArray<float> AngularSpeeds;
+
+        private float * _angularSpeedPtr;
 
         /// <summary>
         /// The array of all angular speeds of <see cref="DanmakU.Danmaku"/> in the pool.
@@ -139,6 +153,8 @@ namespace DanmakU
         /// <seealso cref="DanmakU.Danmaku.AngularSpeed"/>
         public NativeArray<Vector4> Colors;
 
+        private float * _colorPtr;
+
         internal NativeArray<int> activeCountArray;
         internal NativeArray<Vector2> OldPositions;
         internal NativeArray<int> CollisionMasks;
@@ -147,7 +163,6 @@ namespace DanmakU
         {
             activeCountArray = new NativeArray<int> (1, Allocator.Persistent);
             Capacity = poolSize;
-            InitialStates = new NativeArray<DanmakuState> (poolSize, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
             Times = new NativeArray<float> (poolSize, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
             Positions = new NativeArray<Vector2> (poolSize, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
             Rotations = new NativeArray<float> (poolSize, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
@@ -156,6 +171,13 @@ namespace DanmakU
             Colors = new NativeArray<Vector4> (poolSize, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
             OldPositions = new NativeArray<Vector2> (poolSize, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
             CollisionMasks = new NativeArray<int> (poolSize, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+
+            _timePtr = (float * ) Times.GetUnsafePtr ();
+            _positionPtr = (float * ) Positions.GetUnsafePtr ();
+            _rotationPtr = (float * ) Rotations.GetUnsafePtr ();
+            _speedPtr = (float * ) Speeds.GetUnsafePtr ();
+            _angularSpeedPtr = (float * ) AngularSpeeds.GetUnsafePtr ();
+            _colorPtr = (float * ) Colors.GetUnsafePtr ();
         }
 
         internal JobHandle Update (JobHandle dependency = default (JobHandle))
@@ -178,50 +200,59 @@ namespace DanmakU
         /// </summary>
         public Danmaku Get (DanmakuConfig config)
         {
-            CheckCapacity (1);
-            var state = config.CreateState ();
-            InitialStates[ActiveCount] = state;
-            Times[ActiveCount] = 0f;
-            var danmaku = new Danmaku (this, activeCountArray[0]++);
-            danmaku.ApplyState (state);
-            return danmaku;
+            int idx = ActiveCount;
+
+            // Check Capacity
+            if (idx >= Capacity)
+            {
+                Resize ();
+            }
+
+            *(_timePtr + idx) = 0f;
+
+            *(_positionPtr + idx * 2) = config.Position.x;
+            *(_positionPtr + idx * 2 + 1) = config.Position.y;
+
+            *(_rotationPtr + idx) = config.Rotation.Center;
+
+            *(_speedPtr + idx) = config.Speed.Center;
+
+            *(_angularSpeedPtr + idx) = config.AngularSpeed.Center;
+
+            *(_colorPtr + idx * 4) = config.Color.r;
+            *(_colorPtr + idx * 4 + 1) = config.Color.g;
+            *(_colorPtr + idx * 4 + 2) = config.Color.b;
+            *(_colorPtr + idx * 4 + 3) = config.Color.a;
+
+            return new Danmaku (this, activeCountArray[0]++);
         }
 
-        /// <summary>
-        /// Retrieves a batch of new Danmaku from the pool.
-        /// </summary>
-        /// <param name="danmaku">an array of danmaku to write the values to.</param>
-        /// <param name="count">the number of danmaku to create. Must be less than or equal to the length of of danmaku.</param>
-        public void Get (Danmaku[] danmaku, int count)
-        {
-            CheckCapacity (count);
-            var activeCount = ActiveCount;
-            for (var i = 0; i < count; i++)
-            {
-                Times[activeCount + i] = 0f;
-                danmaku[i] = new Danmaku (this, activeCount + i);
-            }
-            activeCountArray[0] += count;
-        }
+        // /// <summary>
+        // /// Retrieves a batch of new Danmaku from the pool.
+        // /// </summary>
+        // /// <param name="danmaku">an array of danmaku to write the values to.</param>
+        // /// <param name="count">the number of danmaku to create. Must be less than or equal to the length of of danmaku.</param>
+        // public void Get (Danmaku[] danmaku, int count)
+        // {
+        //     CheckCapacity (count);
+        //     var activeCount = ActiveCount;
+        //     for (var i = 0; i < count; i++)
+        //     {
+        //         Times[activeCount + i] = 0f;
+        //         danmaku[i] = new Danmaku (this, activeCount + i);
+        //     }
+        //     activeCountArray[0] += count;
+        // }
 
         /// <summary>
         /// Destroys all danmaku in the pool.
         /// </summary>
         public void Clear () => activeCountArray[0] = 0;
 
-        void CheckCapacity (int count)
-        {
-            if (ActiveCount + count > Capacity)
-            {
-                Resize ();
-            }
-        }
-
         void Resize ()
         {
             Debug.LogWarning ("A DanmakuPool is being resized due to inadequate capacity. This is expensive. Consider a higher starting pool size.");
             Capacity *= kGrowthFactor;
-            Resize (ref InitialStates);
             Resize (ref Times);
             Resize (ref Positions);
             Resize (ref Rotations);
@@ -230,6 +261,13 @@ namespace DanmakU
             Resize (ref Colors);
             Resize (ref OldPositions);
             Resize (ref CollisionMasks);
+
+            _timePtr = (float * ) Times.GetUnsafePtr ();
+            _positionPtr = (float * ) Positions.GetUnsafePtr ();
+            _rotationPtr = (float * ) Rotations.GetUnsafePtr ();
+            _speedPtr = (float * ) Speeds.GetUnsafePtr ();
+            _angularSpeedPtr = (float * ) AngularSpeeds.GetUnsafePtr ();
+            _colorPtr = (float * ) Colors.GetUnsafePtr ();
         }
 
         static void Resize<T> (ref NativeArray<T> array) where T : struct
@@ -249,7 +287,6 @@ namespace DanmakU
         public void Dispose ()
         {
             activeCountArray.Dispose ();
-            InitialStates.Dispose ();
             Times.Dispose ();
             Positions.Dispose ();
             Rotations.Dispose ();

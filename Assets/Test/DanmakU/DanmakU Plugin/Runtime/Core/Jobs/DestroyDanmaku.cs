@@ -13,7 +13,6 @@ namespace DanmakU
 
         NativeArray<int> ActiveCountArray;
         NativeArray<float> Times;
-        NativeArray<DanmakuState> InitialStates;
         NativeArray<Vector2> Positions;
         NativeArray<Vector2> OldPositions;
         NativeArray<float> Rotations;
@@ -25,7 +24,6 @@ namespace DanmakU
         {
             ActiveCountArray = pool.activeCountArray;
             Times = pool.Times;
-            InitialStates = pool.InitialStates;
             Positions = pool.Positions;
             OldPositions = pool.OldPositions;
             Rotations = pool.Rotations;
@@ -43,7 +41,6 @@ namespace DanmakU
             {
                 if ( * (timePtr++) >= 0) continue;
                 activeCount--;
-                InitialStates[i] = InitialStates[activeCount];
                 Times[i] = Times[activeCount];
                 Positions[i] = Positions[activeCount];
                 OldPositions[i] = OldPositions[activeCount];

@@ -20,16 +20,30 @@ namespace DanmakU
         /// Creates an state based on the config.
         /// </summary>
         /// <returns>a sampled state from the config's state space.</returns>
-        public DanmakuState CreateState ()
+        public DanmakuState CreateState (bool random)
         {
-            return new DanmakuState
+            if (random)
             {
-                Position = Position,
-                    Rotation = Rotation.GetValue (),
-                    Speed = Speed.GetValue (),
-                    AngularSpeed = AngularSpeed.GetValue (),
-                    Color = Color
-            };
+                return new DanmakuState
+                {
+                    Position = Position,
+                        Rotation = Rotation.GetValue (),
+                        Speed = Speed.GetValue (),
+                        AngularSpeed = AngularSpeed.GetValue (),
+                        Color = Color
+                };
+            }
+            else
+            {
+                return new DanmakuState
+                {
+                    Position = Position,
+                        Rotation = Rotation.Center,
+                        Speed = Speed.Center,
+                        AngularSpeed = AngularSpeed.Center,
+                        Color = Color
+                };
+            }
         }
 
     }

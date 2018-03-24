@@ -7,7 +7,7 @@ namespace DanmakU
 
     public class DestroyDanmakuCollider : MonoBehaviour
     {
-
+        // [HideInInspector]
         public DanmakuCollider Collider;
 
         /// <summary>

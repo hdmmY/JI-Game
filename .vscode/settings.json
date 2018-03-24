@@ -51,5 +51,8 @@
         "ProjectSettings/":true,
         "temp/":true,
         "Temp/":true
-    }
+    },
+    "editor.tabSize": 4,
+    "csharpfixformat.style.braces.onSameLine": false
+
 }

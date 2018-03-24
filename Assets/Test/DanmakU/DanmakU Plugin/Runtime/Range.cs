@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -42,7 +43,10 @@ namespace DanmakU
         /// <summary>
         /// Gets the midpoint value of the range.
         /// </summary>
-        public float Center => (Max + Min) / 2f;
+        public float Center
+        {
+            [MethodImpl (MethodImplOptions.AggressiveInlining)] get { return (_min + _max) / 2; }
+        }
 
         /// <summary>
         /// Gets the size of the range.
@@ -131,7 +135,7 @@ namespace DanmakU
 
         public static implicit operator Range (float val) => new Range (val);
         public static implicit operator float (Range val) => val.GetValue ();
-        public static implicit operator int (Range val) => (int)val.GetValue ();
+        public static implicit operator int (Range val) => (int) val.GetValue ();
 
         public static Range operator + (Range lhs, Range rhs) => new Range (lhs.Min + rhs.Min, lhs.Max + rhs.Max);
         public static Range operator - (Range lhs, Range rhs) => new Range (lhs.Min - rhs.Min, lhs.Max - rhs.Max);

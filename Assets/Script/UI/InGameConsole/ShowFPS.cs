@@ -21,6 +21,6 @@ public class ShowFPS : MonoBehaviour
 	private void Update ()
 	{
 		_textField.text = NumberUtil.
-			NumberFrom1to300[Mathf.Clamp (FPSCounter.Instance.AverageFPS, 0, 300)];
+			NumberFrom1to300[Mathf.Clamp (FPSCounter.Instance.LowestFPS, 0, 300)];
 	}
 }

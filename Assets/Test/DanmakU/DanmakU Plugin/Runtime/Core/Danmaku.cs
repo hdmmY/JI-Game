@@ -34,6 +34,7 @@ namespace DanmakU
         /// </summary>
         public readonly DanmakuPool Pool;
 
+
         internal Danmaku (DanmakuPool pool, int index)
         {
             Pool = pool;
@@ -44,8 +45,6 @@ namespace DanmakU
         /// Gets the number of seconds since the Danmaku was created.
         /// </summary>
         public float Time => Pool.Times[Id];
-
-        public DanmakuState InitialState => Pool.InitialStates[Id];
 
         /// <summary>
         /// Gets or sets the world position of the Danmaku.
