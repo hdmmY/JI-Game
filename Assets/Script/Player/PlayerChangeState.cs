@@ -213,7 +213,7 @@ public class PlayerChangeState : MonoBehaviour
             {
                 if (cols[i].transform.tag.ToLower ().Contains ("bullet"))
                 {
-                    UbhObjectPool.Instance.ReleaseGameObject (cols[i].transform.parent.gameObject);
+                    BulletPool.Instance.ReleaseGameObject (cols[i].transform.parent.gameObject);
                 }
             }
 

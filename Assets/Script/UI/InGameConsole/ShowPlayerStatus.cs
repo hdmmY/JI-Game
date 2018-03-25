@@ -34,10 +34,10 @@ public class ShowPlayerStatus : MonoBehaviour
     {
         if (_player)
         {
-            m_life.text = NumberUtil.NumberFrom1to300[_player.m_playerLife];
-            m_health.text = NumberUtil.NumberFrom1to300[_player.m_playerHealth];
-            m_whitePoint.text = NumberUtil.NumberFrom1to300[_player.m_playerWhitePoint];
-            m_blackPoint.text = NumberUtil.NumberFrom1to300[_player.m_playerBlackPoint];
+            m_life.text = NumberUtil.NumberFrom0to600[_player.m_playerLife];
+            m_health.text = NumberUtil.NumberFrom0to600[_player.m_playerHealth];
+            m_whitePoint.text = NumberUtil.NumberFrom0to600[_player.m_playerWhitePoint];
+            m_blackPoint.text = NumberUtil.NumberFrom0to600[_player.m_playerBlackPoint];
         }
         else
         {

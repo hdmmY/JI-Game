@@ -183,7 +183,6 @@ namespace DanmakU
         internal void AddDanmaku (DanmakuCollision danmaku) => collidedDanmaku.Add (danmaku);
         internal void Flush ()
         {
-            Debug.Log(collidedDanmaku.Count);
             if (collidedDanmaku.Count > 0 && OnDanmakuCollision != null)
             {
                 OnDanmakuCollision (collidedDanmaku.AsReadOnly ());

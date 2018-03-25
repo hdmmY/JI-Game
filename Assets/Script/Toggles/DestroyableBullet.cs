@@ -36,7 +36,7 @@ public class DestroyableBullet : MonoBehaviour
                     }
                 }
 
-                UbhObjectPool.Instance.ReleaseGameObject(collision.transform.parent.gameObject);
+                BulletPool.Instance.ReleaseGameObject(collision.transform.parent.gameObject);
             }
         }               
     }

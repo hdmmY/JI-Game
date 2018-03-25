@@ -2,41 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 /// <summary>
 /// Ubh object pool.
 /// </summary>
-public class UbhObjectPool : UbhSingletonMonoBehavior<UbhObjectPool>
+public class BulletPool : Singleton<BulletPool>
 {
-    public int m_ActiveGameObject;
+    /// <summary>
+    /// Currently actived bullet number
+    /// </summary>
+    public int ActiveGameObject => GetActivePooledObjectCount ();
 
-    public int m_TotalGameObject;
+    /// <summary>
+    /// Total bullet number in the pool
+    /// </summary>
+    /// <returns></returns>
+    public int TotalGameObject => GetPooledObjectCount ();
 
+    private List<int> _PooledKeyList = new List<int> ();
 
-    List<int> _PooledKeyList = new List<int>();
-    Dictionary<int, List<GameObject>> _PooledGoDic = new Dictionary<int, List<GameObject>>();
-
-    protected override void Awake()
-    {
-        base.Awake();
-    }
+    private Dictionary<int, List<GameObject>> _PooledGoDic = new Dictionary<int, List<GameObject>> ();
 
     /// <summary>
     /// Get GameObject from object pool or instantiate.
     /// </summary>
-    public GameObject GetGameObject(GameObject prefab, Vector3 position, Quaternion rotation, bool forceInstantiate = false)
+    public GameObject GetGameObject (GameObject prefab, Vector3 position, Quaternion rotation, bool forceInstantiate = false)
     {
         if (prefab == null)
         {
             return null;
         }
 
-        int key = prefab.GetInstanceID();
+        int key = prefab.GetInstanceID ();
 
-        if (_PooledKeyList.Contains(key) == false && _PooledGoDic.ContainsKey(key) == false)
+        if (_PooledKeyList.Contains (key) == false && _PooledGoDic.ContainsKey (key) == false)
         {
-            _PooledKeyList.Add(key);
-            _PooledGoDic.Add(key, new List<GameObject>());
+            _PooledKeyList.Add (key);
+            _PooledGoDic.Add (key, new List<GameObject> ());
         }
 
         List<GameObject> goList = _PooledGoDic[key];
@@ -49,7 +50,7 @@ public class UbhObjectPool : UbhSingletonMonoBehavior<UbhObjectPool>
                 go = goList[i];
                 if (go == null)
                 {
-                    goList.Remove(go);
+                    goList.Remove (go);
                     continue;
                 }
                 if (go.activeSelf == false)
@@ -58,16 +59,16 @@ public class UbhObjectPool : UbhSingletonMonoBehavior<UbhObjectPool>
                     Transform goTransform = go.transform;
                     goTransform.position = position;
                     goTransform.rotation = rotation;
-                    go.SetActive(true);
+                    go.SetActive (true);
                     return go;
                 }
             }
         }
 
         // Instantiate because there is no free GameObject in object pool.
-        go = (GameObject)Instantiate(prefab, position, rotation);
-        go.transform.parent = _Transform;
-        goList.Add(go);
+        go = (GameObject) Instantiate (prefab, position, rotation);
+        go.transform.parent = transform;
+        goList.Add (go);
 
         return go;
     }
@@ -75,22 +76,22 @@ public class UbhObjectPool : UbhSingletonMonoBehavior<UbhObjectPool>
     /// <summary>
     /// Releases game object (back to pool or destroy).
     /// </summary>
-    public void ReleaseGameObject(GameObject go, bool destroy = false)
+    public void ReleaseGameObject (GameObject go, bool destroy = false)
     {
         if (destroy)
         {
-            Destroy(go);
+            Destroy (go);
             return;
         }
 
-        go.transform.SetParent(transform);
-        go.SetActive(false);
+        go.transform.SetParent (transform);
+        go.SetActive (false);
     }
 
     /// <summary>
     /// Get active bullets count.
     /// </summary>
-    public int GetActivePooledObjectCount()
+    public int GetActivePooledObjectCount ()
     {
         int cnt = 0;
         for (int i = 0; i < _PooledKeyList.Count; i++)
@@ -109,9 +110,8 @@ public class UbhObjectPool : UbhSingletonMonoBehavior<UbhObjectPool>
         return cnt;
     }
 
-
-    public int GetPooledObjectCount()
-    {      
+    public int GetPooledObjectCount ()
+    {
         int cnt = 0;
         for (int i = 0; i < _PooledKeyList.Count; i++)
         {
@@ -127,11 +127,5 @@ public class UbhObjectPool : UbhSingletonMonoBehavior<UbhObjectPool>
             }
         }
         return cnt;
-    }
-
-    private void Update()
-    {
-        m_ActiveGameObject = GetActivePooledObjectCount();
-        m_TotalGameObject = GetPooledObjectCount();
     }
 }

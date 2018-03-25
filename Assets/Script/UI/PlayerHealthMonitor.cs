@@ -10,36 +10,33 @@ namespace JIUI
 
         private PlayerProperty _player;
 
-        private void Start()
+        private void Start ()
         {
-            _player = JIGlobalRef.Player;
+            _player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerProperty> ();
 
-            ShowHealthHUD(4);
+            ShowHealthHUD (4);
         }
 
-
-        private void Update()
+        private void Update ()
         {
-            ShowHealthHUD(_player.m_playerHealth);
+            ShowHealthHUD (_player.m_playerHealth);
         }
 
-
-        private void ShowHealthHUD(int curHealth)
+        private void ShowHealthHUD (int curHealth)
         {
             if (m_healthHUDs != null)
             {
                 int i = 0;
                 for (; i < curHealth; i++)
                 {
-                    m_healthHUDs[i].SetActive(true);
+                    m_healthHUDs[i].SetActive (true);
                 }
 
                 for (; i < m_healthHUDs.Count; i++)
                 {
-                    m_healthHUDs[i].SetActive(false);
+                    m_healthHUDs[i].SetActive (false);
                 }
             }
         }
     }
 }
-

@@ -26,7 +26,7 @@ public class JIDestroyArea : UbhMonoBehaviour
         {
             if(CheckBulletType(colTrans.parent.name))
             {
-                UbhObjectPool.Instance.ReleaseGameObject(colTrans.parent.gameObject);
+                BulletPool.Instance.ReleaseGameObject(colTrans.parent.gameObject);
             }
         } 
     }          

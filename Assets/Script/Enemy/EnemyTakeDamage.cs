@@ -27,7 +27,7 @@ public class EnemyTakeDamage : MonoBehaviour
         {
             var bullet = collision.transform.parent.GetComponent<JIBulletProperty> ();
 
-            UbhObjectPool.Instance.ReleaseGameObject (bullet.gameObject);
+            BulletPool.Instance.ReleaseGameObject (bullet.gameObject);
 
             var player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerProperty> ();
             player.AddNeutralization (player.m_addValue, bullet.State);

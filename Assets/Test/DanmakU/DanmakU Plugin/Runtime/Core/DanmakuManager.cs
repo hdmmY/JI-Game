@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Assertions;
-using Sirenix.OdinInspector;
 
 namespace DanmakU
 {
@@ -34,7 +34,11 @@ namespace DanmakU
         /// </summary>
         public Bounds2D Bounds = new Bounds2D (Vector2.zero, Vector2.one * 200);
 
-        [ShowInInspector]
+        /// <summary>
+        /// Currently actived bullet in the scenes
+        /// </summary>
+        public int ActiveCount => GetActivedBulletNumber ();
+
         Dictionary<DanmakuRendererConfig, RendererGroup> RendererGroups;
         List<DanmakuRendererConfig> EmptyGroups;
         JobHandle UpdateHandle;
@@ -182,6 +186,21 @@ namespace DanmakU
                 throw new Exception ("Attempted to create a DanmakuSet without valid renderer.");
             }
             return new RendererGroup (renderer);
+        }
+
+        int GetActivedBulletNumber ()
+        {
+            int count = 0;
+
+            foreach (var renderGroup in RendererGroups.Values)
+            {
+                foreach (var set in renderGroup.Sets)
+                {
+                    count += set.Pool.ActiveCount;
+                }
+            }
+
+            return count;
         }
 
         class RendererGroup : IDisposable

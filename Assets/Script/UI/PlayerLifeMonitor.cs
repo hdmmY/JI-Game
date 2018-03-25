@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace JIUI
 {
     public class PlayerLifeMonitor : MonoBehaviour
@@ -14,21 +13,19 @@ namespace JIUI
 
         private PlayerProperty _player;
 
-        private void Start()
+        private void Start ()
         {
-            _player = JIGlobalRef.Player;
+            _player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerProperty> ();
 
-            ShowLifeHUD(5);
+            ShowLifeHUD (5);
         }
 
-
-        private void Update()
+        private void Update ()
         {
-            ShowLifeHUD(_player.m_playerLife);
+            ShowLifeHUD (_player.m_playerLife);
         }
 
-
-        private void ShowLifeHUD(int curHealth)
+        private void ShowLifeHUD (int curHealth)
         {
             if (m_lifeHUDs != null)
             {

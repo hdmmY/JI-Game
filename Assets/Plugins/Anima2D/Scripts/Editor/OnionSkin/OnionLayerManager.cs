@@ -37,12 +37,12 @@ namespace Anima2D
 		}
 	}
 
-	public class OnionLayerGameObjectPool : ObjectPool< GameObject >
+	public class OnionLayerGameBulletPool : BulletPool< GameObject >
 	{
-		public OnionLayerGameObjectPool(GameObject go) : base( new OnionLayerGameObjectCreationPolicy(go) ) {}
+		public OnionLayerGameBulletPool(GameObject go) : base( new OnionLayerGameObjectCreationPolicy(go) ) {}
 	}
 	
-	public class OnionLayerPool : ObjectPool< OnionLayer >
+	public class OnionLayerPool : BulletPool< OnionLayer >
 	{
 		public OnionLayerPool() : base( new OnionLayerCreationPolicy() ) {}
 	}
@@ -51,7 +51,7 @@ namespace Anima2D
 	{
 		Dictionary<int,OnionLayer> m_OnionLayers = new Dictionary<int,OnionLayer>();
 		
-		OnionLayerGameObjectPool m_GameObjectPool;
+		OnionLayerGameBulletPool m_GameBulletPool;
 		OnionLayerPool m_OnionLayerPool = new OnionLayerPool();
 		
 		GameObject m_Source;
@@ -70,15 +70,15 @@ namespace Anima2D
 					
 					m_OnionLayerPool.Clear();
 					
-					if(m_GameObjectPool != null)
+					if(m_GameBulletPool != null)
 					{
-						m_GameObjectPool.Clear();
-						m_GameObjectPool = null;
+						m_GameBulletPool.Clear();
+						m_GameBulletPool = null;
 					}
 					
 					if(m_Source)
 					{
-						m_GameObjectPool = new OnionLayerGameObjectPool(m_Source);
+						m_GameBulletPool = new OnionLayerGameBulletPool(m_Source);
 					}
 				}
 			}
@@ -94,7 +94,7 @@ namespace Anima2D
 
 				if(!l_onionLayer.previewInstance)
 				{
-					l_onionLayer.SetPreviewInstance(m_GameObjectPool.Get(), source);
+					l_onionLayer.SetPreviewInstance(m_GameBulletPool.Get(), source);
 				}
 				
 				l_onionLayer.previewInstance.transform.position = source.transform.position;

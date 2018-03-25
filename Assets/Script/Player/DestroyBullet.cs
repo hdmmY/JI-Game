@@ -10,7 +10,7 @@ public class DestroyBullet : MonoBehaviour {
 
         if(tag.Contains("enemy") && tag.Contains("bullet"))
         {
-            UbhObjectPool.Instance.ReleaseGameObject(collision.transform.parent.gameObject);
+            BulletPool.Instance.ReleaseGameObject(collision.transform.parent.gameObject);
         }
     }
 }

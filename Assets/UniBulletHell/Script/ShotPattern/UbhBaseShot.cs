@@ -125,7 +125,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
             }
             for (int i = 0; i < goBulletList.Count; i++)
             {
-                UbhObjectPool.Instance.ReleaseGameObject(goBulletList[i]);
+                BulletPool.Instance.ReleaseGameObject(goBulletList[i]);
             }
         }
     }
@@ -184,8 +184,8 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
             return null;
         }
 
-        // get Bullet GameObject from ObjectPool
-        var goBullet = UbhObjectPool.Instance.GetGameObject(bulletPrefab, position, rotation, forceInstantiate);
+        // get Bullet GameObject from BulletPool
+        var goBullet = BulletPool.Instance.GetGameObject(bulletPrefab, position, rotation, forceInstantiate);
         if (goBullet == null)
         {
             return null;
@@ -286,7 +286,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
             countUpTime += JITimer.Instance.DeltTime;
         }
 
-        UbhObjectPool.Instance.ReleaseGameObject(goBullet);
+        BulletPool.Instance.ReleaseGameObject(goBullet);
     }
 
     #region Inspector Function

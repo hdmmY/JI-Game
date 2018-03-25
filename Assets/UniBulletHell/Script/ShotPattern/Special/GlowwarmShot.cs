@@ -83,7 +83,7 @@ namespace SpecialShot
                         destoryableScript.CurrentBulletVelocity += () => { return 0; };
                         destoryableScript.DestoryBullet += () =>
                         {
-                            UbhObjectPool.Instance.ReleaseGameObject(bullet.gameObject);
+                            BulletPool.Instance.ReleaseGameObject(bullet.gameObject);
                         };
                     }
 
@@ -158,7 +158,7 @@ namespace SpecialShot
                     AutoReleaseBulletGameObject(bulletUpper.gameObject);
                     AutoReleaseBulletGameObject(bulletUnder.gameObject);
 
-                    UbhObjectPool.Instance.ReleaseGameObject(bulletTrans.gameObject);
+                    BulletPool.Instance.ReleaseGameObject(bulletTrans.gameObject);
                     FinishedShot(this);
 
                     yield break;

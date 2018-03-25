@@ -102,7 +102,7 @@ public class PlayerShoot : MonoBehaviour
         }
 
         // Get bullet gameobject from object pool
-        var goBullet = UbhObjectPool.Instance.GetGameObject (bulletPrefab, position, rotation, forceInstantiate);
+        var goBullet = BulletPool.Instance.GetGameObject (bulletPrefab, position, rotation, forceInstantiate);
         if (goBullet == null)
         {
             Debug.LogWarning ("Fail to get the bullet from object pool!");

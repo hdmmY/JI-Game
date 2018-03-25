@@ -27,7 +27,7 @@ public class ShowTime : MonoBehaviour
         if (_timeManager)
         {
             _textField.text = NumberUtil.
-            NumberFrom1to300[Mathf.Clamp ((int) _timeManager.m_timer, 0, 300)];
+            NumberFrom0to600[Mathf.Clamp ((int) _timeManager.m_timer, 0, 300)];
         }
         else
         {
