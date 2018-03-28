@@ -8,15 +8,6 @@ namespace JIUI
     {
         public SpriteFade m_balanceValueFade;
 
-        private PlayerProperty _player;
-
-        private void Start ()
-        {
-            _player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerProperty> ();
-
-            // ShowBalanceHUD(_player.m_playerNeutralization);
-        }
-
         private void Update ()
         {
             //  ShowBalanceHUD(_player.m_playerNeutralization);

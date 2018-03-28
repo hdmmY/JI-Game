@@ -9,16 +9,12 @@ public class EnemyTakeDamage : MonoBehaviour
 
     private bool _isDead;
 
-    private int _enemyHealth;
-
     private void OnEnable ()
     {
         _isDead = false;
 
         _enemy = GetComponent<EnemyProperty> ();
         if (_enemy == null) Debug.LogError ("The Enemy Property is null!");
-
-        _enemyHealth = _enemy.m_health;
     }
 
     private void OnTriggerEnter2D (Collider2D collision)

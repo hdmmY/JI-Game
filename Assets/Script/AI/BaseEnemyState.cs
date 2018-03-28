@@ -26,7 +26,7 @@ public class BaseEnemyState : MonoBehaviour
             Debug.LogError("Enemy AI Controller is null!\n");
         }
 
-        _stateEnd = false;
+        _stateEnd = false; 
     }
 
 

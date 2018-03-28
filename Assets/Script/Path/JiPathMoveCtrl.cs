@@ -142,8 +142,8 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
         var prevTargetGo = gameObject == m_targetGameObject ?
             prevGo : Instantiate (m_targetGameObject) as GameObject;
 
-        prevGo.hideFlags = HideFlags.DontSave;
-        prevTargetGo.hideFlags = HideFlags.DontSave;
+        prevGo.hideFlags = HideFlags.HideAndDontSave;
+        prevTargetGo.hideFlags = HideFlags.HideAndDontSave;
 
         prevGo.SetActive (false);
         prevTargetGo.SetActive (false);
