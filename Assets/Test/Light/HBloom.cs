@@ -73,6 +73,15 @@ public class HBloom : MonoBehaviour
         _material.SetVector ("_Curve", curve);
         _material.SetFloat ("_SamplerScale", m_sampleScale);
 
+        if(m_antiFlicker)
+        {
+            _material.EnableKeyword("ANTI_FLICKER");
+        }
+        else
+        {
+            _material.DisableKeyword("ANTI_FLICKER");
+        }
+
         // Current render texture width and height
         int width = src.width;
         int height = src.height;

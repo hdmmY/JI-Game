@@ -14,7 +14,7 @@
             CGPROGRAM 
             #pragma target 3.0
             #include "HBloom.cginc"
-            #pragma multi_compiler __ ANTI_FLICKER  // Only turnon anti flicker when there has flicker
+            #pragma multi_compiler __ ANTI_FLICKER  // Only turn on anti flicker when there has flicker
             #pragma fragment frag_prefilter
             #pragma vertex vert 
             ENDCG
@@ -27,6 +27,7 @@
             CGPROGRAM 
             #pragma target 3.0
             #include "HBloom.cginc"
+            #pragma multi_compiler __ ANTI_FLICKER  // Only turn on anti flicker when there has flicker
             #pragma vertex vert
             #pragma fragment frag_downsample
             ENDCG
