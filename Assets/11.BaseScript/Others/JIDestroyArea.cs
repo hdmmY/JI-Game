@@ -24,7 +24,7 @@ public class JIDestroyArea : UbhMonoBehaviour
 
         if(goTag.Contains("bullet"))
         {
-            if(CheckBulletType(colTrans.parent.name))
+            if(CheckBulletType(colTrans.name))
             {
                 BulletPool.Instance.ReleaseGameObject(colTrans.parent.gameObject);
             }
@@ -45,6 +45,7 @@ public class JIDestroyArea : UbhMonoBehaviour
         {
             if (bulletName.Contains("white")) return true;
         }
+        
         if (m_destroyBulletType == JIState.All)
             return true;
 

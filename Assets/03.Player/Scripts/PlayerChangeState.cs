@@ -200,7 +200,7 @@ public class PlayerChangeState : MonoBehaviour
         var cols = Physics2D.CircleCastAll (transform.position, _playerProperty.m_checkBound, Vector2.zero);
         foreach (var col in cols)
         {
-            if (CheckBulletType (col.transform.parent.name))
+            if (CheckBulletType (col.transform.name))
             {
                 destroyArea.m_destroyBulletType = _playerProperty.m_playerState;
                 break;

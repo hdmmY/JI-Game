@@ -6,7 +6,6 @@ using Sirenix.OdinInspector;
 /// <summary>
 /// Ubh nWay shot.
 /// </summary>
-[AddComponentMenu("UniBulletHell/Shot Pattern/nWay Shot")]
 public class UbhNwayShot : UbhBaseShot
 {
     // note : In N way shot pattern, each way has m_bulletNum bullets.

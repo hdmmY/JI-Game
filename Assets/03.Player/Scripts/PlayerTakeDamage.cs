@@ -39,7 +39,7 @@ public class PlayerTakeDamage : MonoBehaviour
                     PlayerDeath ();
                     break;
                 case "EnemyBullet":
-                    DamagePlayerByState (other.transform.parent.name, other.transform.parent.GetComponent<JIBulletController> ());
+                    DamagePlayerByState (other.transform.parent.name, other.transform.parent.GetComponent<JIBulletProperty> ());
                     break;
                 case "EnemyLaser":
                     PlayerDeath ();
@@ -110,7 +110,7 @@ public class PlayerTakeDamage : MonoBehaviour
         m_playerProperty.m_playerHealth = _defaultPlayerHealth;
     }
 
-    void DamagePlayerByState (string enemyName, JIBulletController enemyBullet)
+    void DamagePlayerByState (string enemyName, JIBulletProperty enemyBullet)
     {
         if (enemyBullet == null) return;
 
@@ -151,19 +151,22 @@ public class PlayerTakeDamage : MonoBehaviour
 
         float timer = 0;
 
-        m_deathUI.SetActive (true);
-        var deathSprite = m_deathUI.GetComponent<SpriteRenderer> ();
-        var deathColor = deathSprite.color;
-
-        var targetDeathColor = deathColor;
-
-        targetDeathColor.a = 0;
-        while (timer < 2)
+        if (m_deathUI)
         {
-            targetDeathColor.a += timer / 2f;
-            deathSprite.color = targetDeathColor;
-            timer += JITimer.Instance.RealDeltTime;
-            yield return null;
+            m_deathUI.SetActive (true);
+            var deathSprite = m_deathUI.GetComponent<SpriteRenderer> ();
+            var deathColor = deathSprite.color;
+
+            var targetDeathColor = deathColor;
+
+            targetDeathColor.a = 0;
+            while (timer < 2)
+            {
+                targetDeathColor.a += timer / 2f;
+                deathSprite.color = targetDeathColor;
+                timer += JITimer.Instance.RealDeltTime;
+                yield return null;
+            }
         }
 
         var effect = GameObject.FindGameObjectWithTag ("MainCamera")?.GetComponent<BrightnessSaturationAndContrast> ();
@@ -185,5 +188,4 @@ public class PlayerTakeDamage : MonoBehaviour
 
         yield return null;
     }
-
 }

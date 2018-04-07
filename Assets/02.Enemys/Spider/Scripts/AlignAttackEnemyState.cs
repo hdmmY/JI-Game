@@ -2,179 +2,182 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BossLevel2
+namespace Boss
 {
-    /*******************   Behavior   *******************************************
-    Firstly, move to the centre.
-    Secondly, shot align bullet.
-    Thridly, shot m_shotPattern
-    Fourthly, wait for m_timeToWaitAfterShotDone seconds
-    End
-    ****************************************************************************/
-    public class AlignAttackEnemyState : AttackEnemyState
+    namespace Spider
     {
-        // The boss position y when boss shot bullet.
-        public float m_bossPositionY;
-
-        [Space]
-        [Header ("Align Shot")]
-        public UbhBaseShot m_alignShotLeft;
-        public UbhBaseShot m_alignShotRight;
-        public float m_alignBulletSpeed; // bullet speed for align way bullet
-        public float m_alignBulletEmitInterval; // bullet shot interval for m_alignShotLeft & m_alignShotRight
-
-        // Control first, second, third sub state
-        private bool _moveToCenterDone;
-        private bool _alignShotDone;
-        private bool _shotPatternDone;
-
-        public override void Initialize (EnemyProperty enemyProperty)
+        /*******************   Behavior   *******************************************
+        Firstly, move to the centre.
+        Secondly, shot align bullet.
+        Thridly, shot m_shotPattern
+        Fourthly, wait for m_timeToWaitAfterShotDone seconds
+        End
+        ****************************************************************************/
+        public class AlignAttackEnemyState : AttackEnemyState
         {
-            base.Initialize (enemyProperty);
+            // The boss position y when boss shot bullet.
+            public float m_bossPositionY;
 
-            _moveToCenterDone = false;
-            _alignShotDone = false;
-            _shotPatternDone = false;
+            [Space]
+            [Header ("Align Shot")]
+            public UbhBaseShot m_alignShotLeft;
+            public UbhBaseShot m_alignShotRight;
+            public float m_alignBulletSpeed; // bullet speed for align way bullet
+            public float m_alignBulletEmitInterval; // bullet shot interval for m_alignShotLeft & m_alignShotRight
 
-            _timer = 0f;
-            _curShotTimes = m_shotTimes;
+            // Control first, second, third sub state
+            private bool _moveToCenterDone;
+            private bool _alignShotDone;
+            private bool _shotPatternDone;
 
-            m_alignShotLeft.m_bulletSpeed = m_alignShotRight.m_bulletSpeed = m_alignBulletSpeed;
-        }
-
-        public override void UpdateState (EnemyProperty enemyProperty)
-        {
-            if (_stateEnd) return;
-
-            // First sub state
-            if (!_moveToCenterDone)
+            public override void Initialize (EnemyProperty enemyProperty)
             {
-                MoveToCentre (enemyProperty);
-                return;
+                base.Initialize (enemyProperty);
+
+                _moveToCenterDone = false;
+                _alignShotDone = false;
+                _shotPatternDone = false;
+
+                _timer = 0f;
+                _curShotTimes = m_shotTimes;
+
+                m_alignShotLeft.m_bulletSpeed = m_alignShotRight.m_bulletSpeed = m_alignBulletSpeed;
             }
 
-            // Second sub state
-            if (_moveToCenterDone && !_alignShotDone)
+            public override void UpdateState (EnemyProperty enemyProperty)
             {
-                StartCoroutine (ShotAlignBullet ());
-                return;
-            }
+                if (_stateEnd) return;
 
-            // Thrid sub state
-            if (_moveToCenterDone && _alignShotDone && !_shotPatternDone)
-            {
-                if (_curShotTimes > 0)
+                // First sub state
+                if (!_moveToCenterDone)
                 {
-                    Shot ();
+                    MoveToCentre (enemyProperty);
+                    return;
                 }
-                return;
+
+                // Second sub state
+                if (_moveToCenterDone && !_alignShotDone)
+                {
+                    StartCoroutine (ShotAlignBullet ());
+                    return;
+                }
+
+                // Thrid sub state
+                if (_moveToCenterDone && _alignShotDone && !_shotPatternDone)
+                {
+                    if (_curShotTimes > 0)
+                    {
+                        Shot ();
+                    }
+                    return;
+                }
+
+                // Fourth sub state
+                if (_moveToCenterDone && _alignShotDone && _shotPatternDone)
+                {
+                    _timer += JITimer.Instance.DeltTime;
+
+                    if (_timer >= m_timeToWaitAfterShotDone)
+                    {
+                        _stateEnd = true;
+                        CallOnStateEnd ();
+                    }
+                    return;
+                }
             }
 
-            // Fourth sub state
-            if (_moveToCenterDone && _alignShotDone && _shotPatternDone)
+            public override void EndState (EnemyProperty enemyProperty)
+            {
+                base.EndState (enemyProperty);
+            }
+
+            private void MoveToCentre (EnemyProperty enemyProperty)
+            {
+                Vector3 destination = GameObject.FindGameObjectWithTag ("Player")?.transform.position ?? Vector3.zero;
+                destination.y = m_bossPositionY;
+
+                Vector3 moveDir = destination - enemyProperty.transform.position;
+
+                if (moveDir.sqrMagnitude <= 0.1) // End movement
+                {
+                    _moveToCenterDone = true;
+                    enemyProperty.transform.position = destination;
+                }
+                else // Move
+                {
+                    enemyProperty.transform.position += moveDir.normalized * 2.0f * JITimer.Instance.DeltTime;
+                }
+
+                ResetBoundRect (m_shotPattern as SpecialShot.BounceMatrixShot, enemyProperty.transform.position.x);
+            }
+
+            private IEnumerator ShotAlignBullet ()
+            {
+                _alignShotDone = true;
+
+                float timer = 0f;
+
+                while (!_stateEnd)
+                {
+                    timer += JITimer.Instance.DeltTime;
+
+                    if (timer > m_alignBulletEmitInterval)
+                    {
+                        timer -= m_alignBulletEmitInterval;
+
+                        // The align shot bullet number is set to 1 to ensure that each 
+                        // shot can only shot one bullet. Align shot bullet emit interval is controlled by m_alignBulletEmitInterval
+                        m_alignShotLeft.m_bulletNum = m_alignShotRight.m_bulletNum = 1;
+
+                        m_alignShotLeft.Shot ();
+                        m_alignShotRight.Shot ();
+                    }
+
+                    yield return null;
+                }
+            }
+
+            private void Shot ()
             {
                 _timer += JITimer.Instance.DeltTime;
 
-                if (_timer >= m_timeToWaitAfterShotDone)
+                if (_timer >= m_shotInterval)
                 {
-                    _stateEnd = true;
-                    CallOnStateEnd ();
-                }
-                return;
-            }
-        }
+                    m_shotPattern.Shot ();
+                    _curShotTimes--;
 
-        public override void EndState (EnemyProperty enemyProperty)
-        {
-            base.EndState (enemyProperty);
-        }
-
-        private void MoveToCentre (EnemyProperty enemyProperty)
-        {
-            Vector3 destination = GameObject.FindGameObjectWithTag ("Player")?.transform.position ?? Vector3.zero;
-            destination.y = m_bossPositionY;
-
-            Vector3 moveDir = destination - enemyProperty.transform.position;
-
-            if (moveDir.sqrMagnitude <= 0.1) // End movement
-            {
-                _moveToCenterDone = true;
-                enemyProperty.transform.position = destination;
-            }
-            else // Move
-            {
-                enemyProperty.transform.position += moveDir.normalized * 2.0f * JITimer.Instance.DeltTime;
-            }
-
-            ResetBoundRect (m_shotPattern as SpecialShot.BounceMatrixShot, enemyProperty.transform.position.x);
-        }
-
-        private IEnumerator ShotAlignBullet ()
-        {
-            _alignShotDone = true;
-
-            float timer = 0f;
-
-            while (!_stateEnd)
-            {
-                timer += JITimer.Instance.DeltTime;
-
-                if (timer > m_alignBulletEmitInterval)
-                {
-                    timer -= m_alignBulletEmitInterval;
-
-                    // The align shot bullet number is set to 1 to ensure that each 
-                    // shot can only shot one bullet. Align shot bullet emit interval is controlled by m_alignBulletEmitInterval
-                    m_alignShotLeft.m_bulletNum = m_alignShotRight.m_bulletNum = 1;
-
-                    m_alignShotLeft.Shot ();
-                    m_alignShotRight.Shot ();
+                    _timer -= m_shotInterval;
                 }
 
-                yield return null;
+                // Shot Done
+                if (_curShotTimes == 0)
+                {
+                    _shotPatternDone = true;
+                    _timer = 0;
+                }
             }
-        }
 
-        private void Shot ()
-        {
-            _timer += JITimer.Instance.DeltTime;
-
-            if (_timer >= m_shotInterval)
+            /// <summary>
+            /// Reset the bouce rect of bounce matrix shot, so its center.x is x
+            /// </summary>
+            private void ResetBoundRect (SpecialShot.BounceMatrixShot bounceMatrixShot, float x)
             {
-                m_shotPattern.Shot ();
-                _curShotTimes--;
+                if (bounceMatrixShot == null) return;
 
-                _timer -= m_shotInterval;
+                Rect originRect = bounceMatrixShot.m_bounceBound;
+
+                x = x - originRect.width / 2;
+                originRect.Set (x, originRect.y, originRect.width, originRect.height);
+
+                bounceMatrixShot.m_bounceBound = originRect;
             }
 
-            // Shot Done
-            if (_curShotTimes == 0)
+            private void OnDrawGizmosSelected ()
             {
-                _shotPatternDone = true;
-                _timer = 0;
+                Gizmos.color = Color.blue;
+
+                Gizmos.DrawLine (new Vector3 (-100, m_bossPositionY, 0), new Vector3 (100, m_bossPositionY, 0));
             }
-        }
-
-        /// <summary>
-        /// Reset the bouce rect of bounce matrix shot, so its center.x is x
-        /// </summary>
-        private void ResetBoundRect (SpecialShot.BounceMatrixShot bounceMatrixShot, float x)
-        {
-            if (bounceMatrixShot == null) return;
-
-            Rect originRect = bounceMatrixShot.m_bounceBound;
-
-            x = x - originRect.width / 2;
-            originRect.Set (x, originRect.y, originRect.width, originRect.height);
-
-            bounceMatrixShot.m_bounceBound = originRect;
-        }
-
-        private void OnDrawGizmosSelected ()
-        {
-            Gizmos.color = Color.blue;
-
-            Gizmos.DrawLine (new Vector3 (-100, m_bossPositionY, 0), new Vector3 (100, m_bossPositionY, 0));
         }
     }
 }

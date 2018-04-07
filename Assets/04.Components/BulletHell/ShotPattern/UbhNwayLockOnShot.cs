@@ -4,7 +4,6 @@ using System.Collections;
 /// <summary>
 /// Ubh nway lock on shot.
 /// </summary>
-[AddComponentMenu("UniBulletHell/Shot Pattern/nWay Shot (Lock On)")]
 public class UbhNwayLockOnShot : UbhNwayShot
 {
     // "Set a target with tag name."

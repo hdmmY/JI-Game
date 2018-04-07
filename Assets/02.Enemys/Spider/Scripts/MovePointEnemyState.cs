@@ -2,68 +2,71 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BossLevel2
+namespace Boss
 {
-    // Move the enemy to a point
-    public class MovePointEnemyState : BaseEnemyState
+    namespace Spider
     {
-        public float m_waitTimeWhenReachDest = 0;
-
-        public float m_moveSpeed;
-
-        public Vector3 m_destination;
-
-        private Vector3 _moveDir;
-
-        private bool _reachDestination;
-        private float _waitTimer;
-
-        public override void Initialize (EnemyProperty enemyProperty)
+        // Move the enemy to a point
+        public class MovePointEnemyState : BaseEnemyState
         {
-            base.Initialize (enemyProperty);
+            public float m_waitTimeWhenReachDest = 0;
 
-            _moveDir = (m_destination - enemyProperty.transform.position).normalized;
-        }
+            public float m_moveSpeed;
 
-        public override void UpdateState (EnemyProperty enemyProperty)
-        {
-            base.UpdateState (enemyProperty);
+            public Vector3 m_destination;
 
-            Vector3 nextPosition = enemyProperty.transform.position + _moveDir * m_moveSpeed * JITimer.Instance.DeltTime;
+            private Vector3 _moveDir;
 
-            // Is move overhead? If true, means reach destination
-            if (Vector3.Dot (nextPosition - m_destination, _moveDir) > 0 &&
-                !_reachDestination)
+            private bool _reachDestination;
+            private float _waitTimer;
+
+            public override void Initialize (EnemyProperty enemyProperty)
             {
-                _reachDestination = true;
-                _waitTimer = 0;
+                base.Initialize (enemyProperty);
+
+                _moveDir = (m_destination - enemyProperty.transform.position).normalized;
             }
 
-            if (_reachDestination) // Wait and end the state
+            public override void UpdateState (EnemyProperty enemyProperty)
             {
-                _waitTimer += JITimer.Instance.DeltTime;
-                if (_waitTimer >= m_waitTimeWhenReachDest)
+                base.UpdateState (enemyProperty);
+
+                Vector3 nextPosition = enemyProperty.transform.position + _moveDir * m_moveSpeed * JITimer.Instance.DeltTime;
+
+                // Is move overhead? If true, means reach destination
+                if (Vector3.Dot (nextPosition - m_destination, _moveDir) > 0 &&
+                    !_reachDestination)
                 {
-                    _stateEnd = true;
-                    CallOnStateEnd ();
-                    Debug.Log (Time.time);
+                    _reachDestination = true;
+                    _waitTimer = 0;
+                }
+
+                if (_reachDestination) // Wait and end the state
+                {
+                    _waitTimer += JITimer.Instance.DeltTime;
+                    if (_waitTimer >= m_waitTimeWhenReachDest)
+                    {
+                        _stateEnd = true;
+                        CallOnStateEnd ();
+                        Debug.Log (Time.time);
+                    }
+                }
+                else // Update  position
+                {
+                    enemyProperty.transform.position = nextPosition;
                 }
             }
-            else // Update  position
+
+            public override void EndState (EnemyProperty enemyProperty)
             {
-                enemyProperty.transform.position = nextPosition;
+                base.EndState (enemyProperty);
             }
-        }
 
-        public override void EndState (EnemyProperty enemyProperty)
-        {
-            base.EndState (enemyProperty);
-        }
-
-        public void OnDrawGizmosSelected ()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawCube (m_destination, Vector3.one * 0.1f);
+            public void OnDrawGizmosSelected ()
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawCube (m_destination, Vector3.one * 0.1f);
+            }
         }
     }
 }
