@@ -76,17 +76,16 @@ public class PlayerTakeDamage : MonoBehaviour
         }
         StartCoroutine (TurnOnGodMode ());
 
-        if (m_playerProperty.m_playerLife == 0)
+        m_playerProperty.m_playerLife--;
+        m_playerProperty.m_playerHealth = _defaultPlayerHealth;
+
+        if (m_playerProperty.m_playerLife < 0)
         {
+            m_playerProperty.m_playerLife = 0;
             JITimer.Instance.TimeScale = 0;
             StartCoroutine (GameOver ());
         }
-        else
-        {
-            m_playerProperty.m_playerLife--;
-            ResetPlayerHealth ();
-        }
-
+        m_playerProperty.TakeDamage (m_playerProperty.m_playerLife, m_playerProperty.m_playerHealth);
     }
 
     IEnumerator TurnOnGodMode ()
@@ -105,37 +104,36 @@ public class PlayerTakeDamage : MonoBehaviour
         _playerSprite.color = prevColor;
     }
 
-    void ResetPlayerHealth ()
-    {
-        m_playerProperty.m_playerHealth = _defaultPlayerHealth;
-    }
-
-    void DamagePlayerByState (string enemyName, JIBulletProperty enemyBullet)
+    void DamagePlayerByState (string bulletName, JIBulletProperty enemyBullet)
     {
         if (enemyBullet == null) return;
 
-        enemyName = enemyName.ToLower ();
-        JIState enemyType;
+        bulletName = bulletName.ToLower ();
+        JIState bulletType;
 
-        if (enemyName.Contains ("black"))
+        if (bulletName.Contains ("black"))
         {
-            enemyType = JIState.Black;
+            bulletType = JIState.Black;
         }
-        else if (enemyName.Contains ("white"))
+        else if (bulletName.Contains ("white"))
         {
-            enemyType = JIState.White;
+            bulletType = JIState.White;
         }
         else
         {
-            enemyType = JIState.All;
+            bulletType = JIState.All;
         }
 
-        if (enemyType == m_playerProperty.m_playerState)
+        if (bulletType == m_playerProperty.m_playerState)
         {
             m_playerProperty.m_playerHealth--;
             if (m_playerProperty.m_playerHealth <= 0)
             {
                 PlayerDeath ();
+            }
+            else
+            {
+                m_playerProperty.TakeDamage (m_playerProperty.m_playerLife, m_playerProperty.m_playerHealth);
             }
             BulletPool.Instance.ReleaseGameObject (enemyBullet.gameObject);
         }

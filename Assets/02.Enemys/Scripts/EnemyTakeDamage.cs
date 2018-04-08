@@ -7,6 +7,8 @@ public class EnemyTakeDamage : MonoBehaviour
 {
     private EnemyProperty _enemy;
 
+    private PlayerProperty _player;
+
     private bool _isDead;
 
     private void OnEnable ()
@@ -15,6 +17,9 @@ public class EnemyTakeDamage : MonoBehaviour
 
         _enemy = GetComponent<EnemyProperty> ();
         if (_enemy == null) Debug.LogError ("The Enemy Property is null!");
+
+        _player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerProperty> ();
+        if (_player == null) Debug.LogError ("Cannot find the player!");
     }
 
     private void OnTriggerEnter2D (Collider2D collision)
@@ -25,8 +30,7 @@ public class EnemyTakeDamage : MonoBehaviour
 
             BulletPool.Instance.ReleaseGameObject (bullet.gameObject);
 
-            var player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerProperty> ();
-            player.AddNeutralization (player.m_addValue, bullet.State);
+            _player.AddNeutralization (_player.m_addValue, bullet.State);
 
             _enemy.m_health -= bullet.m_damage;
             _enemy.CallOnDamage (_enemy);
