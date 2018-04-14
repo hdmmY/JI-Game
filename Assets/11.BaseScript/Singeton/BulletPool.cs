@@ -84,7 +84,11 @@ public class BulletPool : Singleton<BulletPool>
             return;
         }
 
-        go.transform.SetParent (transform);
+        if(go.transform.parent != transform)
+        {
+            go.transform.SetParent(transform);
+        }
+
         go.SetActive (false);
     }
 

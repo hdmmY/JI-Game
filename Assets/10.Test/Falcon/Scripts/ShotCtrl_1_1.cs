@@ -68,7 +68,7 @@ namespace Boss
             {
                 var bullet = BulletPool.Instance.GetGameObject (BulletPrefab, shotPosition, Quaternion.identity, false);
                 var controller = bullet.GetComponent<JIBulletController> () ?? bullet.AddComponent<JIBulletController> ();
-                controller.Shot (_bulletSpeed, -90, 0, 0,
+                controller.Shot (_bulletSpeed, 270, 0, 0,
                     false, null, 0, 0,
                     false, 0, 0,
                     false, 0, 0);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerProperty))]
+[RequireComponent (typeof (PlayerProperty))]
 public class PlayerMove : MonoBehaviour
 {
     // Centre point
@@ -15,31 +15,32 @@ public class PlayerMove : MonoBehaviour
 
     private PlayerProperty _playerProperty;
 
-
     private enum TimeState
     {
         Normal,
         Pausing,
         Resume
-    };
+    }
+
     TimeState _timeState;
 
-    private void OnEnable(){
-        SetInitReference();
+    private void OnEnable ()
+    {
+        SetInitReference ();
 
         _verticalSpeed = _playerProperty.m_horizontalSpeed;
         _horizontalSpeed = _playerProperty.m_verticalSpeed;
     }
 
-    private void Update()
+    private void Update ()
     {
-        UpdateSpeed();
+        UpdateSpeed ();
 
-        float deltTime = Time.deltaTime;           
+        float horizontalMove = InputManager.Instance.InputCtrl.HorizontalInput () * _horizontalSpeed;
+        float VerticalMove = InputManager.Instance.InputCtrl.VerticalInput () * _verticalSpeed;
 
-        Vector2 playerPos = (Vector2)transform.position + new Vector2
-                (InputManager.Instance.HorizontalInput * _horizontalSpeed,
-                 InputManager.Instance.VerticalInput * _verticalSpeed) * JITimer.Instance.DeltTime;
+        Vector2 playerPos = (Vector2) transform.position +
+            new Vector2 (horizontalMove, VerticalMove) * Time.deltaTime;
 
         // player position is out of bound
         if (playerPos.x < m_moveAreaCentre.x - m_moveAreaShape.x / 2)
@@ -59,9 +60,9 @@ public class PlayerMove : MonoBehaviour
             playerPos.y = m_moveAreaCentre.y + m_moveAreaShape.y / 2;
         }
 
-        transform.position = new Vector3(playerPos.x, playerPos.y, transform.position.z); 
+        transform.position = new Vector3 (playerPos.x, playerPos.y, transform.position.z);
     }
-    void UpdateSpeed()
+    void UpdateSpeed ()
     {
         if (_playerProperty.m_playerMoveState == PlayerProperty.PlayerMoveType.HighSpeed)
         {
@@ -75,16 +76,16 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    void SetInitReference()
+    void SetInitReference ()
     {
-        _playerProperty = GetComponent<PlayerProperty>();
+        _playerProperty = GetComponent<PlayerProperty> ();
         //_animator = GetComponent<Animator>();
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmos ()
     {
         Gizmos.color = Color.blue;
 
-        Gizmos.DrawWireCube(m_moveAreaCentre, new Vector3(m_moveAreaShape.x, m_moveAreaShape.y, 0));
+        Gizmos.DrawWireCube (m_moveAreaCentre, new Vector3 (m_moveAreaShape.x, m_moveAreaShape.y, 0));
     }
 }

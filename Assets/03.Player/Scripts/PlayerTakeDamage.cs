@@ -25,8 +25,8 @@ public class PlayerTakeDamage : MonoBehaviour
         _playerSprite = m_playerProperty.m_spriteReference;
     }
 
-    // Player Death.
-    void OnTriggerEnter2D (Collider2D other)
+
+    private void OnTriggerEnter2D (Collider2D other)
     {
         string otherTag = other.tag;
 
@@ -62,7 +62,7 @@ public class PlayerTakeDamage : MonoBehaviour
         }
     }
 
-    void PlayerDeath ()
+    private void PlayerDeath ()
     {
         var explHelper = Instantiate (m_Explosion, transform.position, Quaternion.identity, transform.parent);
         switch (m_playerProperty.m_playerState)
@@ -88,7 +88,7 @@ public class PlayerTakeDamage : MonoBehaviour
         m_playerProperty.TakeDamage (m_playerProperty.m_playerLife, m_playerProperty.m_playerHealth);
     }
 
-    IEnumerator TurnOnGodMode ()
+    private IEnumerator TurnOnGodMode ()
     {
         Color prevColor = _playerSprite.color;
 
@@ -104,7 +104,7 @@ public class PlayerTakeDamage : MonoBehaviour
         _playerSprite.color = prevColor;
     }
 
-    void DamagePlayerByState (string bulletName, JIBulletProperty enemyBullet)
+    private void DamagePlayerByState (string bulletName, JIBulletProperty enemyBullet)
     {
         if (enemyBullet == null) return;
 
@@ -124,6 +124,8 @@ public class PlayerTakeDamage : MonoBehaviour
             bulletType = JIState.All;
         }
 
+        BulletPool.Instance.ReleaseGameObject(enemyBullet.gameObject);
+
         if (bulletType == m_playerProperty.m_playerState)
         {
             m_playerProperty.m_playerHealth--;
@@ -135,7 +137,6 @@ public class PlayerTakeDamage : MonoBehaviour
             {
                 m_playerProperty.TakeDamage (m_playerProperty.m_playerLife, m_playerProperty.m_playerHealth);
             }
-            BulletPool.Instance.ReleaseGameObject (enemyBullet.gameObject);
         }
         else
         {

@@ -27,7 +27,7 @@ public class PlayerSuperState : MonoBehaviour
 
     private void Update ()
     {
-        if (Input.GetButton ("MaxBalence"))
+        if (InputManager.Instance.InputCtrl.MaxBlanceButtonDown ())
         {
             if (_playerProperty.m_playerBlackPoint >= _playerProperty.m_maxPlayerPoint &&
                 _playerProperty.m_playerWhitePoint >= _playerProperty.m_maxPlayerPoint)

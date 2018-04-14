@@ -4,19 +4,19 @@ using MovementEffects;
 using MovementEffects.Extensions;
 using UnityEngine;
 
-public class PlayerLifeMonitor : MonoBehaviour
+public class PlayerHealthMonitor : MonoBehaviour
 {
-    public Texture PlayerLife0;
+    public Texture PlayerHealth0;
 
-    public Texture PlayerLife1;
+    public Texture PlayerHealth1;
 
-    public Texture PlayerLife2;
+    public Texture PlayerHealth2;
 
-    public Texture PlayerLife3;
+    public Texture PlayerHealth3;
 
-    public Texture PlayerLife4;
+    public Texture PlayerHealth4;
 
-    public Texture PlayerLife5;
+    public Texture PlayerHealth5;
 
     private PlayerProperty _player;
 
@@ -25,39 +25,39 @@ public class PlayerLifeMonitor : MonoBehaviour
     private void OnEnable ()
     {
         _player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerProperty> ();
-        _player.TakeDamage += ChangeLifeUI;
+        _player.TakeDamage += ChangeHealthUI;
 
         _fadeMaterial = GetComponent<MeshRenderer> ().material;
     }
 
     private void OnDisable ()
     {
-        _player.TakeDamage -= ChangeLifeUI;
+        _player.TakeDamage -= ChangeHealthUI;
     }
 
-    private void ChangeLifeUI (int curLife, int curHealth)
+    private void ChangeHealthUI (int curLife, int curHealth)
     {
         _fadeMaterial.SetTexture ("_UpperTex", _fadeMaterial.GetTexture ("_UnderTex"));
 
-        switch (curLife)
+        switch (curHealth)
         {
             case 0:
-                _fadeMaterial.SetTexture ("_UnderTex", PlayerLife0);
+                _fadeMaterial.SetTexture ("_UnderTex", PlayerHealth0);
                 break;
             case 1:
-                _fadeMaterial.SetTexture ("_UnderTex", PlayerLife1);
+                _fadeMaterial.SetTexture ("_UnderTex", PlayerHealth1);
                 break;
             case 2:
-                _fadeMaterial.SetTexture ("_UnderTex", PlayerLife2);
+                _fadeMaterial.SetTexture ("_UnderTex", PlayerHealth2);
                 break;
             case 3:
-                _fadeMaterial.SetTexture ("_UnderTex", PlayerLife3);
+                _fadeMaterial.SetTexture ("_UnderTex", PlayerHealth3);
                 break;
             case 4:
-                _fadeMaterial.SetTexture ("_UnderTex", PlayerLife4);
+                _fadeMaterial.SetTexture ("_UnderTex", PlayerHealth4);
                 break;
             case 5:
-                _fadeMaterial.SetTexture ("_UnderTex", PlayerLife5);
+                _fadeMaterial.SetTexture ("_UnderTex", PlayerHealth5);
                 break;
             default:
                 return;
@@ -66,7 +66,7 @@ public class PlayerLifeMonitor : MonoBehaviour
         _fadeMaterial.SetFloat ("_Fade", 1);
 
         var fadeEffect = new Effect<Material, float> ();
-        fadeEffect.Duration = 1f;
+        fadeEffect.Duration = 2f;
         fadeEffect.OnUpdate = (mat, value) => mat.SetFloat ("_Fade", value);
         fadeEffect.RetrieveStart = (mat, lastValue) => 1;
         fadeEffect.RetrieveEnd = (mat) => 0;

@@ -36,7 +36,7 @@ public class PlayerShoot : MonoBehaviour
 
     void Update ()
     {
-        if (Input.GetButton ("Shot"))
+        if (InputManager.Instance.InputCtrl.ShotButton ())
         {
             Shot ();
         }

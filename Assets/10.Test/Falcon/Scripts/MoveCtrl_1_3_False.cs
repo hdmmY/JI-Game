@@ -57,10 +57,9 @@ namespace Boss
                 sequence.IgnoreUnityTimescale = true;
                 sequence.OnComplete = (trans) =>
                 {
-                    Debug.Log (true);
                     GetComponent<UbhBaseShot> ().Shot ();
                 };
-                
+
                 Movement.Run (sequence);
             }
 

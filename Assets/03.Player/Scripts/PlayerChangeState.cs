@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PlayerChangeState : MonoBehaviour
 {
+    /// <summary>
+    /// When the change state button is held, 
+    /// player will start to slow move until hold button unless TimeToSlowDown seconds
+    /// </summary>
+    [Range (0, 0.5f)]
+    public float m_timeToSlowDown = 0.3f;
+
     [Header ("Reference")]
     public Sprite m_whiteSprite;
     public Sprite m_blackSprite;
@@ -38,27 +45,21 @@ public class PlayerChangeState : MonoBehaviour
     private PlayerProperty _playerProperty;
     private SpriteRenderer _playerSpriteRender;
     private MeshRenderer _forceFieldRender;
+    private float _timerForSlowMove;
 
-    private void Start ()
+    private void OnEnable ()
     {
         _playerProperty = GetComponent<PlayerProperty> ();
         _playerSpriteRender = _playerProperty.m_spriteReference;
         _forceFieldRender = m_forceField.GetComponent<MeshRenderer> ();
+        _timerForSlowMove = 0f;
     }
 
     private void Update ()
     {
-        if (Input.GetButton ("Change State"))
+        if (InputManager.Instance.InputCtrl.ChangeStateButtonDown ())
         {
-            _playerProperty.m_playerMoveState = PlayerProperty.PlayerMoveType.SlowSpeed;
-        }
-        else
-        {
-            _playerProperty.m_playerMoveState = PlayerProperty.PlayerMoveType.HighSpeed;
-        }
-
-        if (Input.GetButtonDown ("Change State"))
-        {
+            _timerForSlowMove = 0f;
 
             if (_playerProperty.m_playerState == JIState.Black)
             {
@@ -68,6 +69,20 @@ public class PlayerChangeState : MonoBehaviour
             {
                 ChangeState (JIState.Black);
             }
+        }
+
+        if (InputManager.Instance.InputCtrl.ChangeStateButton ())
+        {
+            _timerForSlowMove += JITimer.Instance.DeltTime;
+
+            if (_timerForSlowMove > m_timeToSlowDown)
+            {
+                _playerProperty.m_playerMoveState = PlayerProperty.PlayerMoveType.SlowSpeed;
+            }
+        }
+        else
+        {
+            _playerProperty.m_playerMoveState = PlayerProperty.PlayerMoveType.HighSpeed;
         }
     }
 
