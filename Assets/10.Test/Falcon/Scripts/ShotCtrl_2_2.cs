@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Boss
@@ -12,7 +13,8 @@ namespace Boss
 
         public class ShotCtrl_2_2 : MonoBehaviour
         {
-            public List<GameObject> BulletsToSpeedUp = new List<GameObject> ();
+            [ReadOnly]
+            public List<GameObject> BulletsToSpeedUp;
 
             public Vector2 WindDirction;
 
@@ -23,6 +25,11 @@ namespace Boss
 
             private void OnEnable ()
             {
+                var bullets = GameObject.FindGameObjectsWithTag ("EnemyBullet")
+                    .Where (x => x.GetComponent<JIBulletProperty> () != null);
+
+                BulletsToSpeedUp = new List<GameObject> (bullets);
+
                 Shot ();
             }
 

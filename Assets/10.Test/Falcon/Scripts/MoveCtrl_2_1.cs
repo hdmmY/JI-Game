@@ -18,7 +18,7 @@ namespace Boss
             private void OnEnable ()
             {
                 var effect = new Effect<Transform, Vector3> ();
-                effect.CalculatePercentDone = Easing.Pow2Out;
+                effect.CalculatePercentDone = Easing.GetEase(Easing.EaseType.Pow2Out);
                 effect.Duration = 1f;
                 effect.OnUpdate = (boss, value) => boss.position = value;
                 effect.RetrieveEnd = (boss) => TargetPoint;

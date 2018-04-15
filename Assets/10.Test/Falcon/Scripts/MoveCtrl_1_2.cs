@@ -28,7 +28,7 @@ namespace Boss
                 effect.RetrieveStart = (trans, lastEndValue) => trans.position;
                 effect.RetrieveEnd = (trans) => TargetPoint;
                 effect.OnUpdate = (trans, newValue) => trans.position = newValue;
-                effect.CalculatePercentDone = Easing.Pow2InOut;
+                effect.CalculatePercentDone = Easing.GetEase (Easing.EaseType.Pow2InOut);
 
                 var sequence = new Sequence<Transform, Vector3> ();
                 sequence.Add (effect);

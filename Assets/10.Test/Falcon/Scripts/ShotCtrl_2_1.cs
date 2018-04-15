@@ -14,17 +14,13 @@ namespace Boss
 
         public class ShotCtrl_2_1 : MonoBehaviour
         {
-            public ShotCtrl_2_2 NextShotReference;
-
-            [Space]
-
             [SerializeField] private List<SectorShot> SectorShots;
 
             private void OnEnable ()
             {
                 for (int i = 0; i < SectorShots.Count; i++)
                 {
-                    SectorShots[i].MoveType = Easing.Pow4Out;
+                    SectorShots[i].MoveType = Easing.GetEase(Easing.EaseType.Pow4Out);
                 }
             }
 
@@ -33,18 +29,7 @@ namespace Boss
                 foreach (var secShot in SectorShots)
                 {
                     secShot.Shot ();
-                }
-
-                if (NextShotReference.BulletsToSpeedUp == null)
-                    NextShotReference.BulletsToSpeedUp = new List<GameObject> ();
-
-                foreach (var secShot in SectorShots)
-                {
-                    foreach (var bullet in secShot.Bullet)
-                    {
-                        NextShotReference.BulletsToSpeedUp.Add (bullet);
-                    }
-                }
+                }   
             }
 
             private void OnDrawGizmosSelected ()
@@ -62,11 +47,6 @@ namespace Boss
                 /// Prefab bullet gameobject to instantiate.
                 /// </summary>
                 public GameObject BulletPrefab;
-
-                /// <summary>
-                /// Bullet that of this shot
-                /// </summary>
-                public GameObject[] Bullet { get; private set; }
 
                 public Transform BossTrans;
 
@@ -102,8 +82,6 @@ namespace Boss
 
                 public void Shot ()
                 {
-                    Bullet = new GameObject[LineNumber];
-
                     float angleDelt = AngleRange / LineNumber;
                     float startAngle = CenterAngle - AngleRange / 2 + angleDelt / 2;;
 
@@ -115,7 +93,7 @@ namespace Boss
                         center *= LineLength;
                         center += (Vector2) BossTrans.position;
 
-                        Bullet[i] = BulletPool.Instance.GetGameObject (
+                        var bullet = BulletPool.Instance.GetGameObject (
                             BulletPrefab, BossTrans.position, Quaternion.identity);
 
                         var effect = new Effect<Transform, Vector3> ();
@@ -126,7 +104,7 @@ namespace Boss
                         effect.CalculatePercentDone = MoveType;
 
                         var seq = new Sequence<Transform, Vector3> ();
-                        seq.Reference = Bullet[i].transform;
+                        seq.Reference = bullet.transform;
                         seq.Add (effect);
 
                         Movement.Run (seq);

@@ -70,7 +70,7 @@ public class PlayerHealthMonitor : MonoBehaviour
         fadeEffect.OnUpdate = (mat, value) => mat.SetFloat ("_Fade", value);
         fadeEffect.RetrieveStart = (mat, lastValue) => 1;
         fadeEffect.RetrieveEnd = (mat) => 0;
-        fadeEffect.CalculatePercentDone = Easing.Pow2Out;
+        fadeEffect.CalculatePercentDone = Easing.GetEase (Easing.EaseType.Pow2Out);
 
         var fadeSeq = new Sequence<Material, float> ();
         fadeSeq.Add (fadeEffect);
