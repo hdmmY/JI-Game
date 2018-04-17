@@ -27,6 +27,12 @@ namespace Boss.Falcon
         [SerializeField]
         private Transform _falcon;
 
+        /// <summary>
+        /// Timer for fake state. Record the no fake state since last fake state
+        /// </summary>
+        [ShowInInspector, ReadOnly]
+        private int _fakeStateTimer;
+
         #region MutiShot Variables
 
         [BoxGroup ("MutiShot"), SerializeField]
@@ -166,6 +172,38 @@ namespace Boss.Falcon
 
         #endregion
 
+        #region  Fake Variables
+
+        /// <summary>
+        /// Fake State : Fake boss prefab
+        /// </summary>
+        [BoxGroup ("Fake"), SerializeField]
+        private GameObject _fakeBoss;
+
+        /// <summary>
+        /// Fake State : Fake boss dash time
+        /// </summary>
+        [BoxGroup ("Fake"), Range (0.5f, 3f), SerializeField]
+        private float _fakeDashTime;
+
+        /// <summary>
+        /// Fake State : Wait for a while until translate to next state
+        /// </summary>
+        [BoxGroup ("Fake"), Range (0.5f, 10f), SerializeField]
+        private float _fakeStateWaitTime;
+
+        [BoxGroup ("Fake"), SerializeField]
+        private UbhBaseShot _fakeBossShotPattern;
+
+        [BoxGroup ("Fake"), SerializeField]
+        private UbhBaseShot _realBossShotPattern;
+
+        private SequenceInstance _fakeBossMoveSeq;
+
+        private SequenceInstance _realBossMoveSeq;
+
+        #endregion
+
         /// <summary>
         /// Awake is called when the script instance is being loaded.
         /// </summary>
@@ -256,8 +294,10 @@ namespace Boss.Falcon
 
         private void MoveShot_EndMove ()
         {
+            float distance = Mathf.Abs (_falcon.position.x - BulletDestroyBound.Instance.Center.x);
+
             // Reach map edge
-            if (Mathf.Abs (_falcon.position.x) > BulletDestroyBound.Instance.Size.x * 0.75f)
+            if (distance > (BulletDestroyBound.Instance.Size.x * 0.7f))
             {
                 var effect = new Effect<Transform, Vector3> ();
                 effect.Duration = 1.5f;
@@ -280,12 +320,20 @@ namespace Boss.Falcon
 
         private void MoveShot_Transition ()
         {
-            switch (Random.Range (1, 2))
+            _fakeStateTimer++;
+            if (_fakeStateTimer == 4)
             {
-                case 1:
+                _fakeStateTimer = 0;
+                fsm.ChangeState (States.Fake, StateTransition.Safe);
+                return;
+            }
+
+            switch (Random.Range (0, 2))
+            {
+                case 0:
                     fsm.ChangeState (States.MutiShot, StateTransition.Safe);
                     break;
-                case 2:
+                case 1:
                     fsm.ChangeState (States.Expansion, StateTransition.Safe);
                     break;
             }
@@ -337,20 +385,27 @@ namespace Boss.Falcon
 
         private void MutiShot_Transition ()
         {
-            var distance = Mathf.Abs (_player.position.x - _falcon.position.x);
+            _fakeStateTimer++;
+            if (_fakeStateTimer == 4)
+            {
+                _fakeStateTimer = 0;
+                fsm.ChangeState (States.Fake, StateTransition.Safe);
+                return;
+            }
 
-            if (distance > BulletDestroyBound.Instance.Size.x * 0.4f)
+            var distance = Mathf.Abs (_player.position.x - _falcon.position.x);
+            if (distance > BulletDestroyBound.Instance.Size.x)
             {
                 fsm.ChangeState (States.MoveShot, StateTransition.Safe);
                 return;
             }
 
-            switch (Random.Range (1, 2))
+            switch (Random.Range (0, 2))
             {
-                case 1:
+                case 0:
                     fsm.ChangeState (States.Expansion, StateTransition.Safe);
                     break;
-                case 2:
+                case 1:
                     fsm.ChangeState (States.Empty, StateTransition.Safe);
                     break;
             }
@@ -437,7 +492,7 @@ namespace Boss.Falcon
             var moveEffect = new Effect<Transform, Vector3> ();
             moveEffect.Duration = moveTime;
             moveEffect.RetrieveStart = (falcon, lastValue) => falcon.position;
-            moveEffect.RetrieveEnd = (falcon) => falcon.position = _expanBossPos;
+            moveEffect.RetrieveEnd = (falcon) => _expanBossPos;
             moveEffect.OnUpdate = (falcon, pos) => falcon.position = pos;
             moveEffect.CalculatePercentDone = Easing.GetEase (Easing.EaseType.Pow2Out);
             var moveSeq = new Sequence<Transform, Vector3> ();
@@ -461,20 +516,27 @@ namespace Boss.Falcon
 
         private void Expansion_Transition ()
         {
-            var distance = Mathf.Abs (_player.position.x - _falcon.position.x);
+            _fakeStateTimer++;
+            if (_fakeStateTimer == 4)
+            {
+                _fakeStateTimer = 0;
+                fsm.ChangeState (States.Fake, StateTransition.Safe);
+                return;
+            }
 
-            if (distance > BulletDestroyBound.Instance.Size.x * 0.4f)
+            var distance = Mathf.Abs (_player.position.x - _falcon.position.x);
+            if (distance > BulletDestroyBound.Instance.Size.x)
             {
                 fsm.ChangeState (States.MoveShot, StateTransition.Safe);
                 return;
             }
 
-            switch (Random.Range (1, 2))
+            switch (Random.Range (0, 2))
             {
-                case 1:
+                case 0:
                     fsm.ChangeState (States.MutiShot, StateTransition.Safe);
                     break;
-                case 2:
+                case 1:
                     fsm.ChangeState (States.Empty, StateTransition.Safe);
                     break;
             }
@@ -550,6 +612,128 @@ namespace Boss.Falcon
                 bullet.position += accDir * JITimer.Instance.DeltTime * speed;
                 yield return null;
             }
+        }
+
+        #endregion
+
+        #region  Fake State
+
+        private void Fake_Enter ()
+        {
+            if (_falcon == null || _fakeBoss == null) return;
+            if (_fakeBossShotPattern == null || _realBossShotPattern == null) return;
+            if (_fakeDashTime < 0.1f) return;
+
+            var fakeBoss = Instantiate (_fakeBoss, _falcon.position, _falcon.rotation);
+
+            Vector3 rightPos = new Vector3 (0, 0, _falcon.position.z);
+            rightPos.x = BulletDestroyBound.Instance.Center.x + BulletDestroyBound.Instance.Size.x * 0.7f;
+            rightPos.y = BulletDestroyBound.Instance.Center.y + BulletDestroyBound.Instance.Size.y * 0.75f;
+            Vector3 leftPos = new Vector3 (0, rightPos.y, rightPos.z);
+            leftPos.x = BulletDestroyBound.Instance.Center.x - BulletDestroyBound.Instance.Size.x * 0.75f;
+
+            Vector3 realDest = Vector3.zero;
+            Vector3 fakeDest = Vector3.zero;
+            switch (Random.Range (0, 2))
+            {
+                case 0:
+                    realDest = leftPos;
+                    fakeDest = rightPos;
+                    break;
+                case 1:
+                    realDest = rightPos;
+                    fakeDest = leftPos;
+                    break;
+            }
+
+            Fake_FakeBossMove (fakeBoss.transform, fakeDest);
+            Fake_RealBossMove (realDest);
+        }
+
+        private void Fake_Update ()
+        {
+            if (_fakeBossMoveSeq != null)
+                _fakeBossMoveSeq.Timescale = JITimer.Instance.TimeScale;
+            if (_realBossMoveSeq != null)
+                _realBossMoveSeq.Timescale = JITimer.Instance.TimeScale;
+        }
+
+        private void Fake_Transistion ()
+        {
+            float distance = Mathf.Abs (_player.position.x - _falcon.position.x);
+
+            if (distance > BulletDestroyBound.Instance.Size.x)
+            {
+                fsm.ChangeState (States.MoveShot, StateTransition.Safe);
+                return;
+            }
+
+            switch (Random.Range (1, 2))
+            {
+                case 1:
+                    fsm.ChangeState (States.Expansion, StateTransition.Safe);
+                    break;
+                case 2:
+                    fsm.ChangeState (States.MutiShot, StateTransition.Safe);
+                    break;
+            }
+        }
+
+        private void Fake_FakeBossMove (Transform fakeBoss, Vector3 dest)
+        {
+            var effect1 = new Effect<Transform, Vector3> ();
+            effect1.Duration = 2f;
+            effect1.RetrieveStart = (fake, lastValue) => fake.position;
+            effect1.RetrieveEnd = (fake) => dest;
+            effect1.OnUpdate = (fake, pos) => fake.position = pos;
+
+            var effect2 = new Effect<Transform, Vector3> ();
+            effect2.Duration = _fakeDashTime;
+            effect2.RetrieveStart = (fake, lastValue) => lastValue;
+            effect2.RetrieveEnd = (fake) => new Vector3 (dest.x,
+                BulletDestroyBound.Instance.Center.y - BulletDestroyBound.Instance.Size.y * 0.65f, dest.z);
+            effect2.OnUpdate = (fake, pos) => fake.position = pos;
+            effect2.CalculatePercentDone = Easing.GetEase (Easing.EaseType.Pow4In);
+
+            var seq = new Sequence<Transform, Vector3> ();
+            seq.Add (effect1);
+            seq.Add (effect2);
+            seq.Reference = fakeBoss;
+            seq.OnComplete = (fake) =>
+            {
+                _fakeBossShotPattern.transform.position = fake.position;
+                _fakeBossShotPattern.OnShotFinish = (shotPattern) => Destroy (fake.gameObject);
+                _fakeBossShotPattern.Shot ();
+            };
+
+            _fakeBossMoveSeq = Movement.Run (seq);
+        }
+
+        private void Fake_RealBossMove (Vector3 dest)
+        {
+            var moveEffect = new Effect<Transform, Vector3> ();
+            moveEffect.Duration = 2f;
+            moveEffect.RetrieveStart = (falcon, lastValue) => falcon.position;
+            moveEffect.RetrieveEnd = (falcon) => dest;
+            moveEffect.OnUpdate = (falcon, pos) => falcon.position = pos;
+            moveEffect.RunEffectUntilTime = (curTime, stopTime) => curTime < stopTime + _fakeDashTime;
+            moveEffect.OnDone = (falcon) =>
+            {
+                _realBossShotPattern.transform.position = falcon.position;
+                _realBossShotPattern.Shot ();
+            };
+
+            var pauseEffect = new Effect<Transform, Vector3> ();
+            pauseEffect.Duration = _fakeStateWaitTime;
+            pauseEffect.OnUpdate = (falcon, pos) => Debug.Log (Time.time);
+
+            var seq = new Sequence<Transform, Vector3> ();
+            seq.Add (moveEffect);
+            seq.Add (pauseEffect);
+            seq.Reference = _falcon;
+            seq.OnComplete = (falcon) => Fake_Transistion ();
+
+            _realBossMoveSeq = Movement.Run (seq);
         }
 
         #endregion

@@ -44,10 +44,10 @@ public class BulletDestroyBound : Singleton<BulletDestroyBound>
 
     [SerializeField] private BoxCollider2D _rightBounds;
 
-    private float Up => Center.y + Size.y;
-    private float Down => Center.y - Size.y;
-    private float Right => Center.x + Size.x;
-    private float Left => Center.x - Size.x;
+    public float Up => Center.y + Size.y;
+    public float Down => Center.y - Size.y;
+    public float Right => Center.x + Size.x;
+    public float Left => Center.x - Size.x;
 
     private void OnEnable ()
     {
