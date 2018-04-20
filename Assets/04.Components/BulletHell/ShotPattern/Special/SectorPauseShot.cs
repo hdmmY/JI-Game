@@ -25,7 +25,7 @@ namespace SpecialShot
         [Tooltip ("The sector's radius")]
         public float m_sectorRadius;
 
-        [Range (1, 20)]
+        [Range (1, 50)]
         [Tooltip ("Number of bullet in a sector")]
         public int m_NWay = 10;
 
@@ -95,6 +95,8 @@ namespace SpecialShot
             }
 
             _Shooting = false;
+
+            OnShotFinish (this);
         }
 
         // The method for bullet movemnt
@@ -124,6 +126,7 @@ namespace SpecialShot
             while (true)
             {
                 float t = timer / timeToReachEdge;
+                t = Mathf.Clamp01 (-(Mathf.Pow (t - 1f, 2f) - 1f)); // Pow2Out
                 bulletTrans.position = Vector3.Lerp (startPos, endPos, t);
                 timer += JITimer.Instance.DeltTime;
 

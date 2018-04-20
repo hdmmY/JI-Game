@@ -13,6 +13,7 @@ namespace Boss.Falcon
     {
         public enum States
         {
+            None = 0,
             MutiShot,
             MoveShot,
             Expansion,
@@ -20,12 +21,21 @@ namespace Boss.Falcon
             Empty // Use for state loop
         }
 
-        private StateMachine<States> fsm;
+        public States CurrentState
+        {
+            get
+            {
+                if (_fsm != null) return _fsm.State;
+                return States.None;
+            }
+        }
+
+        private StateMachine<States> _fsm;
 
         // Variables that used by states
         private Transform _player;
-        [SerializeField]
-        private Transform _falcon;
+
+        [SerializeField] private Transform _falcon;
 
         /// <summary>
         /// Timer for fake state. Record the no fake state since last fake state
@@ -43,13 +53,6 @@ namespace Boss.Falcon
         /// </summary>
         [BoxGroup ("MutiShot"), Range (1, 20), SerializeField]
         private int _mutiShotNumberPerCircle = 10;
-
-        /// <summary>
-        /// MutiShot : Delay between circles
-        /// </summary>
-        [BoxGroup ("MutiShot"), Range (0.03f, 1f), SerializeField]
-
-        private float _mutiShotDelay = 0.1f;
 
         /// <summary>
         /// MutiShot : Bullet init velocity
@@ -115,7 +118,7 @@ namespace Boss.Falcon
         /// <summary>
         /// Expansion State : Bullet speed when bullet expansion
         /// </summary>
-        [BoxGroup ("Expansion"), Range (0.1f, 3f), SerializeField]
+        [BoxGroup ("Expansion"), Range (0.1f, 10f), SerializeField]
         private float _expanBulletExpanSpeed;
 
         /// <summary>
@@ -211,8 +214,8 @@ namespace Boss.Falcon
         {
             _player = GameObject.FindGameObjectWithTag ("Player").transform;
 
-            fsm = StateMachine<States>.Initialize (this);
-            fsm.ChangeState (States.Expansion);
+            _fsm = StateMachine<States>.Initialize (this);
+            _fsm.ChangeState (States.Expansion);
         }
 
         #region Move State
@@ -324,17 +327,17 @@ namespace Boss.Falcon
             if (_fakeStateTimer == 4)
             {
                 _fakeStateTimer = 0;
-                fsm.ChangeState (States.Fake, StateTransition.Safe);
+                _fsm.ChangeState (States.Fake, StateTransition.Safe);
                 return;
             }
 
             switch (Random.Range (0, 2))
             {
                 case 0:
-                    fsm.ChangeState (States.MutiShot, StateTransition.Safe);
+                    _fsm.ChangeState (States.MutiShot, StateTransition.Safe);
                     break;
                 case 1:
-                    fsm.ChangeState (States.Expansion, StateTransition.Safe);
+                    _fsm.ChangeState (States.Expansion, StateTransition.Safe);
                     break;
             }
         }
@@ -389,24 +392,24 @@ namespace Boss.Falcon
             if (_fakeStateTimer == 4)
             {
                 _fakeStateTimer = 0;
-                fsm.ChangeState (States.Fake, StateTransition.Safe);
+                _fsm.ChangeState (States.Fake, StateTransition.Safe);
                 return;
             }
 
             var distance = Mathf.Abs (_player.position.x - _falcon.position.x);
-            if (distance > BulletDestroyBound.Instance.Size.x)
+            if (distance > BulletDestroyBound.Instance.Size.x * 0.8f)
             {
-                fsm.ChangeState (States.MoveShot, StateTransition.Safe);
+                _fsm.ChangeState (States.MoveShot, StateTransition.Safe);
                 return;
             }
 
             switch (Random.Range (0, 2))
             {
                 case 0:
-                    fsm.ChangeState (States.Expansion, StateTransition.Safe);
+                    _fsm.ChangeState (States.Expansion, StateTransition.Safe);
                     break;
                 case 1:
-                    fsm.ChangeState (States.Empty, StateTransition.Safe);
+                    _fsm.ChangeState (States.Empty, StateTransition.Safe);
                     break;
             }
         }
@@ -520,24 +523,24 @@ namespace Boss.Falcon
             if (_fakeStateTimer == 4)
             {
                 _fakeStateTimer = 0;
-                fsm.ChangeState (States.Fake, StateTransition.Safe);
+                _fsm.ChangeState (States.Fake, StateTransition.Safe);
                 return;
             }
 
             var distance = Mathf.Abs (_player.position.x - _falcon.position.x);
-            if (distance > BulletDestroyBound.Instance.Size.x)
+            if (distance > BulletDestroyBound.Instance.Size.x * 0.8f)
             {
-                fsm.ChangeState (States.MoveShot, StateTransition.Safe);
+                _fsm.ChangeState (States.MoveShot, StateTransition.Safe);
                 return;
             }
 
             switch (Random.Range (0, 2))
             {
                 case 0:
-                    fsm.ChangeState (States.MutiShot, StateTransition.Safe);
+                    _fsm.ChangeState (States.MutiShot, StateTransition.Safe);
                     break;
                 case 1:
-                    fsm.ChangeState (States.Empty, StateTransition.Safe);
+                    _fsm.ChangeState (States.Empty, StateTransition.Safe);
                     break;
             }
         }
@@ -589,9 +592,18 @@ namespace Boss.Falcon
             }
 
             // Expansion move
-            while ((bullet.position - dest).sqrMagnitude > 0.01f)
+            while (true)
             {
-                bullet.position += expanDir * expanSpeed * JITimer.Instance.DeltTime;
+                Vector3 newPos = bullet.position + expanDir * expanSpeed * JITimer.Instance.DeltTime;
+                if (Vector3.Dot (newPos - dest, expanDir) > 0)
+                {
+                    bullet.position = dest;
+                    break;
+                }
+                else
+                {
+                    bullet.position = newPos;
+                }
                 yield return null;
             }
 
@@ -605,7 +617,7 @@ namespace Boss.Falcon
             // Homing 
             var player = GameObject.FindGameObjectWithTag ("Player").transform.position;
             var accDir = (player - bullet.position).normalized;
-            var speed = 3f;
+            var speed = 5f;
             while (true)
             {
                 speed += JITimer.Instance.DeltTime * accel;
@@ -664,17 +676,17 @@ namespace Boss.Falcon
 
             if (distance > BulletDestroyBound.Instance.Size.x)
             {
-                fsm.ChangeState (States.MoveShot, StateTransition.Safe);
+                _fsm.ChangeState (States.MoveShot, StateTransition.Safe);
                 return;
             }
 
             switch (Random.Range (1, 2))
             {
                 case 1:
-                    fsm.ChangeState (States.Expansion, StateTransition.Safe);
+                    _fsm.ChangeState (States.Expansion, StateTransition.Safe);
                     break;
                 case 2:
-                    fsm.ChangeState (States.MutiShot, StateTransition.Safe);
+                    _fsm.ChangeState (States.MutiShot, StateTransition.Safe);
                     break;
             }
         }
@@ -693,7 +705,7 @@ namespace Boss.Falcon
             effect2.RetrieveEnd = (fake) => new Vector3 (dest.x,
                 BulletDestroyBound.Instance.Center.y - BulletDestroyBound.Instance.Size.y * 0.65f, dest.z);
             effect2.OnUpdate = (fake, pos) => fake.position = pos;
-            effect2.CalculatePercentDone = Easing.GetEase (Easing.EaseType.Pow4In);
+            effect2.CalculatePercentDone = Easing.GetEase (Easing.EaseType.Pow3Out);
 
             var seq = new Sequence<Transform, Vector3> ();
             seq.Add (effect1);
@@ -745,7 +757,7 @@ namespace Boss.Falcon
         /// </summary>
         private void Empty_Enter ()
         {
-            fsm.ChangeState (fsm.LastState);
+            _fsm.ChangeState (_fsm.LastState);
         }
 
         #endregion 
