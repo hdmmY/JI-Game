@@ -37,8 +37,6 @@ public class PlayerHealthMonitor : MonoBehaviour
 
     private void ChangeHealthUI (int curLife, int curHealth)
     {
-        Debug.Log ("Here!");
-
         _fadeMaterial.SetTexture ("_UpperTex", _fadeMaterial.GetTexture ("_UnderTex"));
 
         switch (curHealth)

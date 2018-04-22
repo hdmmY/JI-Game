@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerTakeDamage : MonoBehaviour
 {
@@ -13,8 +14,6 @@ public class PlayerTakeDamage : MonoBehaviour
     // The player property. 
     public PlayerProperty m_playerProperty;
 
-    public GameObject m_deathUI;
-
     private SpriteRenderer _playerSprite;
 
     private int _defaultPlayerHealth;
@@ -24,7 +23,6 @@ public class PlayerTakeDamage : MonoBehaviour
         _defaultPlayerHealth = m_playerProperty.m_playerHealth;
         _playerSprite = m_playerProperty.m_spriteReference;
     }
-
 
     private void OnTriggerEnter2D (Collider2D other)
     {
@@ -83,7 +81,7 @@ public class PlayerTakeDamage : MonoBehaviour
         {
             m_playerProperty.m_playerLife = 0;
             JITimer.Instance.TimeScale = 0;
-            StartCoroutine (GameOver ());
+            EventManager.Instance.Raise (new GameOverEvent (SceneManager.GetActiveScene ().name));
         }
         m_playerProperty.TakeDamage (m_playerProperty.m_playerLife, m_playerProperty.m_playerHealth);
     }
@@ -124,7 +122,7 @@ public class PlayerTakeDamage : MonoBehaviour
             bulletType = JIState.All;
         }
 
-        BulletPool.Instance.ReleaseGameObject(enemyBullet.gameObject);
+        BulletPool.Instance.ReleaseGameObject (enemyBullet.gameObject);
 
         if (bulletType == m_playerProperty.m_playerState)
         {
@@ -142,49 +140,5 @@ public class PlayerTakeDamage : MonoBehaviour
         {
             PlayerDeath ();
         }
-    }
-
-    private IEnumerator GameOver ()
-    {
-        JITimer.Instance.TimeScale = 0;
-
-        float timer = 0;
-
-        if (m_deathUI)
-        {
-            m_deathUI.SetActive (true);
-            var deathSprite = m_deathUI.GetComponent<SpriteRenderer> ();
-            var deathColor = deathSprite.color;
-
-            var targetDeathColor = deathColor;
-
-            targetDeathColor.a = 0;
-            while (timer < 2)
-            {
-                targetDeathColor.a += timer / 2f;
-                deathSprite.color = targetDeathColor;
-                timer += JITimer.Instance.RealDeltTime;
-                yield return null;
-            }
-        }
-
-        var effect = GameObject.FindGameObjectWithTag ("MainCamera")?.GetComponent<BrightnessSaturationAndContrast> ();
-
-        if (effect)
-        {
-            timer = 0;
-            while (timer < 1)
-            {
-                JITimer.Instance.TimeScale = 0;
-                timer += JITimer.Instance.RealDeltTime;
-                effect.m_brightness = 1 - timer;
-                yield return null;
-            }
-            effect.m_brightness = 0;
-        }
-
-        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync ("Menu", UnityEngine.SceneManagement.LoadSceneMode.Single);
-
-        yield return null;
     }
 }

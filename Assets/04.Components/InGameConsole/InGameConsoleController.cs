@@ -3,6 +3,7 @@ using System.Linq;
 using TMPro;
 using Unity.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InGameConsoleController : MonoBehaviour
@@ -53,8 +54,9 @@ public class InGameConsoleController : MonoBehaviour
                 _prevTimeScale = JITimer.Instance.TimeScale;
                 JITimer.Instance.TimeScale = 0f;
                 m_consoleViewContainer.SetActive (true);
+                m_inputField.text = "";
                 m_inputField.ActivateInputField ();
-                m_inputField.text = string.Empty;
+
                 GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMove> ().enabled = false;
             }
         }
@@ -107,6 +109,10 @@ public class InGameConsoleController : MonoBehaviour
                 ShowPlayerStatus ();
                 break;
 
+            case "loadscene":
+                LoadSceneByName (args);
+                break;
+
             default:
                 m_logOutput.text += InvalidCommand;
                 break;
@@ -138,6 +144,7 @@ public class InGameConsoleController : MonoBehaviour
         if (args.Length == 1)
         {
             m_logOutput.text += InvalidCommand;
+            return;
         }
 
         try
@@ -187,5 +194,28 @@ public class InGameConsoleController : MonoBehaviour
         {
             statu.SetActive (!statu.activeInHierarchy);
         }
+    }
+
+    private void LoadSceneByName (string[] args)
+    {
+        if (args.Length == 1)
+        {
+            m_logOutput.text += InvalidCommand;
+            return;
+        }
+
+        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        {
+            string sceneName = SceneUtility.GetScenePathByBuildIndex (i);
+            int start = sceneName.LastIndexOf ('/') + 1;
+            int end = sceneName.LastIndexOf ('.');
+            if (sceneName.Substring (start, end - start).ToLower () == args[1])
+            {
+                SceneManager.LoadSceneAsync (i, LoadSceneMode.Single);
+                return;
+            }
+        }
+
+        m_logOutput.text += InvalidCommand;
     }
 }
