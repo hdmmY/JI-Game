@@ -84,6 +84,8 @@ public class PlayerProperty : MonoBehaviour
     /// </remarks>
     public void AddNeutralization (int value, JIState bulletState)
     {
+        Debug.Log (bulletState);
+
         if (!m_superState)
         {
             switch (bulletState)

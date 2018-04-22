@@ -183,7 +183,7 @@ public class PlayerTakeDamage : MonoBehaviour
             effect.m_brightness = 0;
         }
 
-        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync ("Falcon", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync ("Menu", UnityEngine.SceneManagement.LoadSceneMode.Single);
 
         yield return null;
     }

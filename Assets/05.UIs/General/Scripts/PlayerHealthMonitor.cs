@@ -37,6 +37,8 @@ public class PlayerHealthMonitor : MonoBehaviour
 
     private void ChangeHealthUI (int curLife, int curHealth)
     {
+        Debug.Log ("Here!");
+
         _fadeMaterial.SetTexture ("_UpperTex", _fadeMaterial.GetTexture ("_UnderTex"));
 
         switch (curHealth)
@@ -66,7 +68,7 @@ public class PlayerHealthMonitor : MonoBehaviour
         _fadeMaterial.SetFloat ("_Fade", 1);
 
         var fadeEffect = new Effect<Material, float> ();
-        fadeEffect.Duration = 2f;
+        fadeEffect.Duration = 0.8f;
         fadeEffect.OnUpdate = (mat, value) => mat.SetFloat ("_Fade", value);
         fadeEffect.RetrieveStart = (mat, lastValue) => 1;
         fadeEffect.RetrieveEnd = (mat) => 0;

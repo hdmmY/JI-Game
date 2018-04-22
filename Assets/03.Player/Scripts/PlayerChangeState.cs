@@ -11,6 +11,9 @@ public class PlayerChangeState : MonoBehaviour
     [Range (0, 0.5f)]
     public float m_timeToSlowDown = 0.3f;
 
+    [Range (0, 2f)]
+    public float m_changeStateCoolDown = 0.5f;
+
     [Header ("Reference")]
     public Sprite m_whiteSprite;
     public Sprite m_blackSprite;
@@ -55,11 +58,16 @@ public class PlayerChangeState : MonoBehaviour
         _timerForSlowMove = 0f;
     }
 
+    private float _changeStateCoolDownTimer;
+
     private void Update ()
     {
-        if (InputManager.Instance.InputCtrl.ChangeStateButtonDown ())
+        _changeStateCoolDownTimer += JITimer.Instance.DeltTime;
+
+        if (InputManager.Instance.InputCtrl.ChangeStateButtonDown () && _changeStateCoolDownTimer > m_changeStateCoolDown)
         {
             _timerForSlowMove = 0f;
+            _changeStateCoolDownTimer = 0f;
 
             if (_playerProperty.m_playerState == JIState.Black)
             {
