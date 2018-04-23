@@ -17,7 +17,6 @@ public class EnemyProperty : MonoBehaviour
     /// Called when enemy is taking damage
     /// </summary>
     public System.Action<EnemyProperty> OnDamage;
-    
 
     /// <summary>
     /// Called when enemy is taking damage

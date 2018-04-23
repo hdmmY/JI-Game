@@ -96,7 +96,7 @@ namespace SpecialShot
 
             _Shooting = false;
 
-            OnShotFinish (this);
+            FinishedShot (this);
         }
 
         // The method for bullet movemnt

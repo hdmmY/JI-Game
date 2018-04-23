@@ -83,7 +83,9 @@ public class PlayerTakeDamage : MonoBehaviour
             JITimer.Instance.TimeScale = 0;
             EventManager.Instance.Raise (new GameOverEvent (SceneManager.GetActiveScene ().name));
         }
-        m_playerProperty.TakeDamage (m_playerProperty.m_playerLife, m_playerProperty.m_playerHealth);
+
+        EventManager.Instance.Raise (new PlayerHurtedEvent (
+            m_playerProperty.m_playerLife, m_playerProperty.m_playerHealth));
     }
 
     private IEnumerator TurnOnGodMode ()
@@ -133,7 +135,8 @@ public class PlayerTakeDamage : MonoBehaviour
             }
             else
             {
-                m_playerProperty.TakeDamage (m_playerProperty.m_playerLife, m_playerProperty.m_playerHealth);
+                EventManager.Instance.Raise (new PlayerHurtedEvent (
+                    m_playerProperty.m_playerLife, m_playerProperty.m_playerHealth));
             }
         }
         else

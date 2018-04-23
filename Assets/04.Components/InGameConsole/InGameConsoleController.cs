@@ -113,6 +113,10 @@ public class InGameConsoleController : MonoBehaviour
                 LoadSceneByName (args);
                 break;
 
+            case "recover":
+                Recover ();
+                break;
+
             default:
                 m_logOutput.text += InvalidCommand;
                 break;
@@ -211,11 +215,27 @@ public class InGameConsoleController : MonoBehaviour
             int end = sceneName.LastIndexOf ('.');
             if (sceneName.Substring (start, end - start).ToLower () == args[1])
             {
+                EventManager.Instance.Raise (new BeforeChangeToNextStageEvent (
+                    SceneManager.GetActiveScene ().buildIndex, i));
+
                 SceneManager.LoadSceneAsync (i, LoadSceneMode.Single);
                 return;
             }
         }
 
         m_logOutput.text += InvalidCommand;
+    }
+
+    private void Recover ()
+    {
+        var player = GameObject.FindGameObjectWithTag ("Player")
+            .GetComponent<PlayerProperty> ();
+
+        if (player == null) return;
+
+        player.m_playerLife = 5;
+        player.m_playerHealth = 5;
+
+        m_logOutput.text += "Recovered!`\n";
     }
 }

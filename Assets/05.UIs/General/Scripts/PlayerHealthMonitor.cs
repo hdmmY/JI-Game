@@ -25,20 +25,21 @@ public class PlayerHealthMonitor : MonoBehaviour
     private void OnEnable ()
     {
         _player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerProperty> ();
-        _player.TakeDamage += ChangeHealthUI;
-
         _fadeMaterial = GetComponent<MeshRenderer> ().material;
+
+        EventManager.Instance.AddListener<PlayerHurtedEvent> (ChangeHealthUI);
     }
 
     private void OnDisable ()
     {
-        _player.TakeDamage -= ChangeHealthUI;
+        EventManager.Instance.RemoveListener<PlayerHurtedEvent> (ChangeHealthUI);
     }
 
-    private void ChangeHealthUI (int curLife, int curHealth)
+    private void ChangeHealthUI (PlayerHurtedEvent playerHurtedEvent)
     {
         _fadeMaterial.SetTexture ("_UpperTex", _fadeMaterial.GetTexture ("_UnderTex"));
 
+        int curHealth = playerHurtedEvent.CurPlayerHealth;
         switch (curHealth)
         {
             case 0:

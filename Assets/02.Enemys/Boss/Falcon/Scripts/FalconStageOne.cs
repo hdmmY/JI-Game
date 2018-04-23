@@ -760,7 +760,7 @@ namespace Boss.Falcon
             seq.OnComplete = (fake) =>
             {
                 _fakeBossShotPattern.transform.position = fake.position;
-                _fakeBossShotPattern.OnShotFinish = (shotPattern) => Destroy (fake.gameObject);
+                _fakeBossShotPattern.OnShotFinish += (shotPattern) => Destroy (fake.gameObject);
                 _fakeBossShotPattern.Shot ();
             };
 

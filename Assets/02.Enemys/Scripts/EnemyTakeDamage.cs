@@ -7,19 +7,12 @@ public class EnemyTakeDamage : MonoBehaviour
 {
     private EnemyProperty _enemy;
 
-    private PlayerProperty _player;
-
     private bool _isDead;
 
     private void OnEnable ()
     {
         _isDead = false;
-
         _enemy = GetComponent<EnemyProperty> ();
-        if (_enemy == null) Debug.LogError ("The Enemy Property is null!");
-
-        _player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerProperty> ();
-        if (_player == null) Debug.LogError ("Cannot find the player!");
     }
 
     private void OnTriggerEnter2D (Collider2D collision)
@@ -28,9 +21,9 @@ public class EnemyTakeDamage : MonoBehaviour
         {
             var bullet = collision.transform.parent.GetComponent<JIBulletProperty> ();
 
-            BulletPool.Instance.ReleaseGameObject (bullet.gameObject);
+            EventManager.Instance.Raise (new EnemyHurtedEvent (bullet.State));
 
-            _player.AddNeutralization (_player.m_addValue, bullet.State);
+            BulletPool.Instance.ReleaseGameObject (bullet.gameObject);
 
             _enemy.m_health -= bullet.m_damage;
             _enemy.CallOnDamage (_enemy);

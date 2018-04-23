@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 // Load specific scenes when all monitored gameobjects dead
 public class LoadSceneWhenAllDestroy : MonoBehaviour
@@ -13,7 +13,7 @@ public class LoadSceneWhenAllDestroy : MonoBehaviour
     // Effect that control the brigntness of the screen
     public BrightnessSaturationAndContrast m_brightnessEffect;
 
-    private void Update()
+    private void Update ()
     {
         bool allDead = true;
 
@@ -28,15 +28,23 @@ public class LoadSceneWhenAllDestroy : MonoBehaviour
 
         if (allDead)
         {
-            StartCoroutine(LoadScene());
+            StartCoroutine (LoadScene ());
         }
     }
 
     /// <summary>
     /// Fade brightness to zero and then load the scene
     /// </summary>
-    private IEnumerator LoadScene()
-    {   
+    private IEnumerator LoadScene ()
+    {
+        var nextScene = SceneManagerExtension.GetBuildIndexByName (m_loadSceneName);
+
+        if (nextScene < 0)
+        {
+            Debug.LogError ("Invalid Scene Name!");
+            yield break;
+        }
+
         float timer = 0;
         m_brightnessEffect.enabled = true;
 
@@ -50,7 +58,9 @@ public class LoadSceneWhenAllDestroy : MonoBehaviour
         }
         m_brightnessEffect.m_brightness = 0;
 
-        SceneUtil.LoadSceneAsync(m_loadSceneName);
-    }             
+        EventManager.Instance.Raise (new BeforeChangeToNextStageEvent (
+            SceneManager.GetActiveScene ().buildIndex, nextScene));
 
+        SceneManager.LoadSceneAsync (m_loadSceneName, LoadSceneMode.Single);
+    }
 }

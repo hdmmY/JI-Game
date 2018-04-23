@@ -64,49 +64,6 @@ public class PlayerProperty : MonoBehaviour
     [BoxGroup ("Reference")]
     public SpriteRenderer m_spriteReference;
 
-    #region  Events
-    /// <summary>
-    /// Player being damage event, called when player being hitted
-    /// </summary>
-    /// <remarks>
-    /// TakeDamage(int curLife, int curHealth)
-    /// </remarks>
-    public Action<int, int> TakeDamage;
-    #endregion
-
-    /// <summary>
-    /// Add player point
-    /// </summary>
-    /// <remarks>
-    /// If the bullet state is black/white, the player's black/white point will increment
-    /// If the bullet state is none, nothing will happed
-    /// If the bullet state is all, the player's black and white point will increment
-    /// </remarks>
-    public void AddNeutralization (int value, JIState bulletState)
-    {
-        if (!m_superState)
-        {
-            switch (bulletState)
-            {
-                case JIState.All:
-                    m_playerBlackPoint += value;
-                    m_playerWhitePoint += value;
-                    break;
-                case JIState.Black:
-                    m_playerBlackPoint += value;
-                    break;
-                case JIState.White:
-                    m_playerWhitePoint += value;
-                    break;
-                case JIState.None:
-                    break;
-            }
-
-            m_playerBlackPoint = Mathf.Clamp (m_playerBlackPoint, 0, m_maxPlayerPoint);
-            m_playerWhitePoint = Mathf.Clamp (m_playerWhitePoint, 0, m_maxPlayerPoint);
-        }
-    }
-
     private void OnDrawGizmosSelected ()
     {
         Gizmos.DrawWireSphere (transform.position, m_checkBound);
