@@ -12,6 +12,9 @@ public class EnemyProperty : MonoBehaviour
 
     public SpriteRenderer m_enemySprite;
 
+    // Whether the enemy is dead
+    [HideInInspector] public bool m_isDead;
+
     #region Events
     /// <summary>
     /// Called when enemy is taking damage

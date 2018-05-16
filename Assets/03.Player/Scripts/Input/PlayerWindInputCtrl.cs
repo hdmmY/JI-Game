@@ -56,110 +56,142 @@ public class PlayerWindInputCtrl : IPlayerInputCtrl
         _rightHoldTime = GoRight ? _rightHoldTime + deltT : 0f;
     }
 
-    public float VerticalInput ()
+    public float VerticalInput
     {
-        if (GoUp && GoDown) return Mathf.Sign (WindDirection.y);
-
-        if (GoUp)
+        get
         {
-            if (WindDirection.y >= 0)
-                return 1;
-            else
-            {
-                var vMove = Mathf.Clamp01 (_upHoldTime * _strength);
-                vMove = -1 + 2 * Mathf.Sin (vMove * Mathf.PI * 0.5f);
-                return vMove;
-            }
-        }
+            if (GoUp && GoDown) return Mathf.Sign (WindDirection.y);
 
-        if (GoDown)
+            if (GoUp)
+            {
+                if (WindDirection.y >= 0)
+                    return 1;
+                else
+                {
+                    var vMove = Mathf.Clamp01 (_upHoldTime * _strength);
+                    vMove = -1 + 2 * Mathf.Sin (vMove * Mathf.PI * 0.5f);
+                    return vMove;
+                }
+            }
+
+            if (GoDown)
+            {
+                if (WindDirection.y <= 0)
+                    return -1;
+                else
+                {
+                    var vMove = Mathf.Clamp01 (_upHoldTime * _strength);
+                    vMove = 1 - 2 * Mathf.Sin (vMove * Mathf.PI * 0.5f);
+                    return vMove;
+                }
+            }
+
+            return WindDirection.y == 0 ? 0 : Mathf.Sign (WindDirection.y);
+        }
+    }
+
+    public float HorizontalInput
+    {
+        get
         {
-            if (WindDirection.y <= 0)
-                return -1;
-            else
+            if (GoRight && GoLeft) return Mathf.Sign (WindDirection.x);
+
+            if (GoRight)
             {
-                var vMove = Mathf.Clamp01 (_upHoldTime * _strength);
-                vMove = 1 - 2 * Mathf.Sin (vMove * Mathf.PI * 0.5f);
-                return vMove;
+                if (WindDirection.x >= 0)
+                    return 1;
+                else if (WindDirection.x < 0)
+                {
+                    var hMove = Mathf.Clamp01 (_rightHoldTime * _strength);
+                    hMove = -1 + 2 * Mathf.Sin (hMove * Mathf.PI * 0.5f);
+                    return hMove;
+                }
             }
+
+            if (GoLeft)
+            {
+                if (WindDirection.x <= 0)
+                    return -1;
+                else
+                {
+                    var hMove = Mathf.Clamp01 (_rightHoldTime * _strength);
+                    hMove = 1 - 2 * Mathf.Sin (hMove * Mathf.PI * 0.5f);
+                    return hMove;
+                }
+            }
+
+            return WindDirection.x == 0 ? 0 : Mathf.Sign (WindDirection.x);
         }
-
-        return WindDirection.y == 0 ? 0 : Mathf.Sign (WindDirection.y);
     }
-
-    public float HorizontalInput ()
+    public bool ShotButton
     {
-        if (GoRight && GoLeft) return Mathf.Sign (WindDirection.x);
-
-        if (GoRight)
+        get
         {
-            if (WindDirection.x >= 0)
-                return 1;
-            else if (WindDirection.x < 0)
-            {
-                var hMove = Mathf.Clamp01 (_rightHoldTime * _strength);
-                hMove = -1 + 2 * Mathf.Sin (hMove * Mathf.PI * 0.5f);
-                return hMove;
-            }
+            return Input.GetKey (KeyCode.Z);
         }
+    }
 
-        if (GoLeft)
+    public bool ShotButtonUp
+    {
+        get
         {
-            if (WindDirection.x <= 0)
-                return -1;
-            else
-            {
-                var hMove = Mathf.Clamp01 (_rightHoldTime * _strength);
-                hMove = 1 - 2 * Mathf.Sin (hMove * Mathf.PI * 0.5f);
-                return hMove;
-            }
+            return Input.GetKeyUp (KeyCode.Z);
         }
-
-        return WindDirection.x == 0 ? 0 : Mathf.Sign (WindDirection.x);
     }
-    public bool ShotButton ()
+
+    public bool ShotButtonDown
     {
-        return Input.GetKey (KeyCode.Z);
+        get
+        {
+            return Input.GetKeyDown (KeyCode.Z);
+        }
     }
 
-    public bool ShotButtonUp ()
+    public bool ChangeStateButton
     {
-        return Input.GetKeyUp (KeyCode.Z);
+        get
+        {
+            return Input.GetKey (KeyCode.LeftShift);
+        }
     }
 
-    public bool ShotButtonDown ()
+    public bool ChangeStateButtonUp
     {
-        return Input.GetKeyDown (KeyCode.Z);
+        get
+        {
+            return Input.GetKeyUp (KeyCode.LeftShift);
+        }
     }
 
-    public bool ChangeStateButton ()
+    public bool ChangeStateButtonDown
     {
-        return Input.GetKey (KeyCode.LeftShift);
+        get
+        {
+            return Input.GetKeyDown (KeyCode.LeftShift);
+        }
     }
 
-    public bool ChangeStateButtonUp ()
+    public bool MaxBlanceButton
     {
-        return Input.GetKeyUp (KeyCode.LeftShift);
+        get
+        {
+            return Input.GetKey (KeyCode.X);
+        }
     }
 
-    public bool ChangeStateButtonDown ()
+    public bool MaxBlanceButtonUp
     {
-        return Input.GetKeyDown (KeyCode.LeftShift);
+        get
+        {
+            return Input.GetKeyUp (KeyCode.X);
+        }
     }
 
-    public bool MaxBlanceButton ()
+    public bool MaxBlanceButtonDown
     {
-        return Input.GetKey (KeyCode.X);
+        get
+        {
+            return Input.GetKeyDown (KeyCode.X);
+        }
     }
-
-    public bool MaxBlanceButtonUp ()
-    {
-        return Input.GetKeyUp (KeyCode.X);
-    }
-
-    public bool MaxBlanceButtonDown ()
-    {
-        return Input.GetKeyDown (KeyCode.X);
-    }
-
 }

@@ -1,24 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class JIBulletProperty : MonoBehaviour
 {
-    public int m_damage;
+    public int Damage;
 
-    public JIState State
-    {
-        get
-        {
-            string name = transform.name.ToLower ();
+    public bool IsLaser;
 
-            if (name.Contains ("white"))
-                return JIState.White;
-            if (name.Contains ("black"))
-                return JIState.Black;
-
-            Debug.LogError ("The bullet name not correct!");
-            return JIState.Black;
-        }
-    }
+    public bool IsPlayerBullet;
 }

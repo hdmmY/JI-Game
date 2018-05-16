@@ -31,7 +31,7 @@ public class DestroyableBullet : MonoBehaviour
                     }
                     else
                     {
-                        int bulletDamage = collision.transform.parent.GetComponent<JIBulletProperty>().m_damage;
+                        int bulletDamage = collision.transform.parent.GetComponent<JIBulletProperty>().Damage;
                         m_bulletDestroyableHealth -= bulletDamage;
                     }
                 }

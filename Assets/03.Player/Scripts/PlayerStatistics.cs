@@ -14,13 +14,10 @@ public class PlayerStatistics
     public int PlayerMaxPoint;
     public int PlayerAddPointWhenHit;
     public float PlayerEliminateRadius;
-    public float PlayerVerticalSpeed;
-    public float PlayerHorizontalSpeed;
-    public float PlayerSlowVerticalSpeed;
-    public float PlayerSlowHorizontalSpeed;
-    public float PlayerShotInterval;
-    public int PlayerBulletDamage;
-    public float PlayerBulletSpeed;
+    public float PlayerBlackVSpeed;
+    public float PlayerBlackHSpeed;
+    public float PlayerWhiteVSpeed;
+    public float PlayerWhiteHSpeed;
 
     public PlayerStatistics ()
     {
@@ -35,15 +32,11 @@ public class PlayerStatistics
         PlayerWhitePoint = player.m_playerWhitePoint;
         PlayerMaxPoint = player.m_maxPlayerPoint;
         PlayerAddPointWhenHit = player.m_addValue;
-        PlayerEliminateRadius = player.m_checkBound;
-        PlayerVerticalSpeed = player.m_verticalSpeed;
-        PlayerHorizontalSpeed = player.m_horizontalSpeed;
-        PlayerSlowVerticalSpeed = player.m_slowVerticalSpeed;
-        PlayerSlowHorizontalSpeed = player.m_slowHorizontalSpeed;
-        PlayerShotInterval = player.m_shootInterval;
-        PlayerBulletDamage = player.m_bulletDamage;
-        PlayerBulletSpeed = player.m_bulletSpeed;
-    } 
+        PlayerBlackHSpeed = player.m_blackHSpeed;
+        PlayerBlackVSpeed = player.m_blackVSpeed;
+        PlayerWhiteHSpeed = player.m_whiteHSpeed;
+        PlayerWhiteVSpeed = player.m_whiteVSpeed;
+    }
 
     public void Load (PlayerProperty player)
     {
@@ -53,14 +46,10 @@ public class PlayerStatistics
         player.m_playerWhitePoint = PlayerWhitePoint;
         player.m_maxPlayerPoint = PlayerMaxPoint;
         player.m_addValue = PlayerAddPointWhenHit;
-        player.m_checkBound = PlayerEliminateRadius;
-        player.m_verticalSpeed = PlayerVerticalSpeed;
-        player.m_horizontalSpeed = PlayerHorizontalSpeed;
-        player.m_slowVerticalSpeed = PlayerSlowVerticalSpeed;
-        player.m_slowHorizontalSpeed = PlayerSlowHorizontalSpeed;
-        player.m_shootInterval = PlayerShotInterval;
-        player.m_bulletDamage = PlayerBulletDamage;
-        player.m_bulletSpeed = PlayerBulletSpeed;
+        player.m_blackHSpeed = PlayerBlackHSpeed;
+        player.m_blackVSpeed = PlayerBlackVSpeed;
+        player.m_whiteHSpeed = PlayerWhiteHSpeed;
+        player.m_whiteVSpeed = PlayerWhiteVSpeed;
     }
 
     private void SavePlayerStatistics ()

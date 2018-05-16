@@ -265,10 +265,9 @@ namespace Boss.Falcon
         private void MoveShot_LateUpdate ()
         {
             var playerProperty = _player.GetComponent<PlayerProperty> ();
-            float moveSpeed = playerProperty.m_playerMoveState == PlayerProperty.PlayerMoveType.HighSpeed ?
-                playerProperty.m_horizontalSpeed : playerProperty.m_slowHorizontalSpeed;
-            float shotSpeed = playerProperty.m_shootInterval;
-            float bulletSpeed = playerProperty.m_bulletSpeed;
+            float moveSpeed = playerProperty.GetHMoveSpeed();
+            float shotSpeed = 0.03f;
+            float bulletSpeed = 5;
 
             _moveShotTarget = _player.position.x;
 

@@ -2,37 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 [RequireComponent (typeof (EnemyProperty))]
 public class EnemyTakeDamage : MonoBehaviour
 {
-    private EnemyProperty _enemy;
-
-    private bool _isDead;
-
-    private void OnEnable ()
+    private void Awake ()
     {
-        _isDead = false;
-        _enemy = GetComponent<EnemyProperty> ();
-    }
+        Debug.Log (this.gameObject);
 
-    private void OnTriggerEnter2D (Collider2D collision)
-    {
-        if (collision.CompareTag (EnemyProperty.PlayerBulletTag))
-        {
-            var bullet = collision.transform.parent.GetComponent<JIBulletProperty> ();
-
-            EventManager.Instance.Raise (new EnemyHurtedEvent (bullet.State));
-
-            BulletPool.Instance.ReleaseGameObject (bullet.gameObject);
-
-            _enemy.m_health -= bullet.m_damage;
-            _enemy.CallOnDamage (_enemy);
-
-            if (_enemy.m_health <= 0 && !_isDead)
-            {
-                _isDead = true;
-                Destroy (_enemy.gameObject);
-            }
-        }
+#if UNITY_EDITOR
+        DestroyImmediate (this);
+#else 
+        Destroy (this);
+#endif
     }
 }

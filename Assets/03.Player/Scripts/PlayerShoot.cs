@@ -1,148 +1,201 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
+[RequireComponent (typeof (PlayerProperty))]
 public class PlayerShoot : MonoBehaviour
 {
-    // The position of the bullet emit point.
-    public List<Transform> m_shootList = new List<Transform> ();
+    #region Public variables
 
-    // Prefab of red status bullet
-    public GameObject m_whiteBulletPrefab;
+    // Weapon overload
+    [ShowInInspector] public bool Overload { get; private set; }
 
-    // Prefab of black status bullet
-    public GameObject m_blackBulletPrefab;
+    [BoxGroup ("Black")]
+    public AnimationCurve LaserWidthCurve;
 
-    public GameObject m_superWhiteBulletPrefab;
-    public GameObject m_superBlackBulletPrefab;
+    [BoxGroup ("Black")]
+    public AnimationCurve LaserDamageCurve;
 
-    [Space]
-    [Header ("Homing")]
-    public bool m_homing;
+    [BoxGroup ("Black")]
+    public GrowthLaser LaserPrefab;
 
-    public float m_homingSpeed;
-    public LayerMask m_homingLayer;
+    [BoxGroup ("Black")]
+    public float BlackOverloadTime;
 
-    // Use this property to control damage and shot interval.
-    private PlayerProperty _playerProperty;
+    [BoxGroup ("White")]
+    public WBulletEmitController WhiteBulletEmitter;
 
-    // Timer for count whether it is enough time after last shot.
-    private float _timer;
+    [BoxGroup ("White")]
+    public float WhiteEmitInterval;
 
-    void OnEnable ()
+    [BoxGroup ("White")]
+    public float WhiteOverloadTime;
+
+    #endregion
+
+    #region Monobehavior
+
+    private void OnEnable ()
     {
-        _playerProperty = GetComponent<PlayerProperty> ();
-    }
+        _player = GetComponent<PlayerProperty> ();
 
-    void Update ()
-    {
-        if (InputManager.Instance.InputCtrl.ShotButton ())
+        _blackOverloadTimer = 0f;
+        _whiteOverloadTimer = 0f;
+
+        if (_player.m_playerState == JIState.Black)
         {
-            Shot ();
+            BeforeChangeToBState ();
         }
         else
         {
-            _timer = 0f;
+            BeforeChangeToWState ();
         }
     }
 
-    // Player wants to shot.
-    void Shot ()
+    private void Update ()
     {
-        _timer += JITimer.Instance.DeltTime;
-
-        // it is not enough time after the last shot, shot cancel 
-        if (_timer < _playerProperty.m_shootInterval)
-            return;
-
-        if (m_shootList == null || m_shootList.Count <= 0)
+        // Change state
+        if (InputManager.Instance.InputCtrl.ChangeStateButtonDown)
         {
-            Debug.LogWarning ("Cannot shot because ShotList is not set.");
-            return;
-        }
-
-        for (int i = 0; i < m_shootList.Count; i++)
-        {
-            JIBulletController bulletController = GetBullet (m_shootList[i].position, Quaternion.identity);
-            JIBulletProperty bulletProperty = bulletController.GetComponent<JIBulletProperty> ();
-
-            if (bulletController == null || bulletProperty == null) break;
-
-            bulletProperty.m_damage = _playerProperty.m_bulletDamage;
-            ShotBullet (bulletController, _playerProperty.m_bulletSpeed, m_shootList[i].rotation.z + 90f, m_homing);
-        }
-
-        // finish a shot, reset timer
-        _timer = 0f;
-    }
-
-    // Get a template bullet in the object pool.
-    // position: bullet worldspace position.
-    // rotation: bullet worldspace rotation.
-    // forceInstantiate: force to instantiate a bullet in object pool and get it.
-    JIBulletController GetBullet (Vector3 position, Quaternion rotation, bool forceInstantiate = false)
-    {
-        GameObject bulletPrefab = null;
-        if (_playerProperty.m_superState && _playerProperty.m_playerState == JIState.Black)
-            bulletPrefab = m_superBlackBulletPrefab;
-        else if (_playerProperty.m_superState && _playerProperty.m_playerState == JIState.White)
-            bulletPrefab = m_superWhiteBulletPrefab;
-        else if (!_playerProperty.m_superState && _playerProperty.m_playerState == JIState.Black)
-            bulletPrefab = m_blackBulletPrefab;
-        else
-            bulletPrefab = m_whiteBulletPrefab;
-
-        if (bulletPrefab == null)
-        {
-            return null;
-        }
-
-        // Get bullet gameobject from object pool
-        var goBullet = BulletPool.Instance.GetGameObject (bulletPrefab, position, rotation, forceInstantiate);
-        if (goBullet == null)
-        {
-            Debug.LogWarning ("Fail to get the bullet from object pool!");
-            return null;
-        }
-
-        // Get or add JIBulletController component
-        var bulletController = goBullet.GetComponent<JIBulletController> ();
-        if (bulletController == null)
-        {
-            bulletController = goBullet.AddComponent<JIBulletController> ();
-        }
-
-        // Get or add JIBulletProperty component
-        var bulletProperty = goBullet.GetComponent<JIBulletProperty> ();
-        if (bulletProperty == null)
-        {
-            bulletProperty = goBullet.AddComponent<JIBulletProperty> ();
-        }
-
-        return bulletController;
-    }
-
-    private void ShotBullet (JIBulletController bullet, float speed, float angle, bool homing)
-    {
-        if (homing)
-        {
-            var enemy = Physics2D.CircleCast (transform.position, 20, Vector2.one, 0, m_homingLayer).transform;
-
-            if (enemy != null)
+            if (_player.m_playerState == JIState.Black)
             {
-                bullet.Shot (speed, angle, 0, 0,
-                    true, enemy, m_homingSpeed, 10000,
-                    false, 0, 0,
-                    false, 0, 0);
-                return;
+                BeforeChangeToWState ();
+                _player.m_playerState = JIState.White;
+            }
+            else if (_player.m_playerState == JIState.White)
+            {
+                BeforeChangeToBState ();
+                _player.m_playerState = JIState.Black;
             }
         }
 
-        bullet.Shot (speed, angle, 0, 0,
-            false, null, 0, 0,
-            false, 0, 0,
-            false, 0, 0);
+        if (_player.m_playerState == JIState.Black)
+        {
+            BlackStateLaserShot ();
+        }
+        else if (_player.m_playerState == JIState.White)
+        {
+            WhiteStateShot ();
+        }
+    }
+
+    #endregion
+
+    #region Private member and method
+
+    private PlayerProperty _player;
+
+    private float _blackOverloadTimer;
+
+    private float _whiteOverloadTimer;
+
+    private GrowthLaser _curLaser;
+
+    private float _whiteShotTimer;
+
+    private WBulletEmitController _curEmitter;
+
+    // Called before change to black state
+    private void BeforeChangeToBState ()
+    {
+        Overload = false;
+
+        _blackOverloadTimer = 0f;
+
+        Vector3 laserPos = transform.position + new Vector3 (0, 0.258f, 0);
+        Quaternion laserRot = Quaternion.identity;
+        _curLaser = Instantiate (LaserPrefab, laserPos, laserRot, transform) as GrowthLaser;
+        _curLaser.LaserWidth = LaserWidthCurve.Evaluate (_blackOverloadTimer);
+        _curLaser.Damage = (int) LaserDamageCurve.Evaluate (_blackOverloadTimer);
+
+        if (_curEmitter != null)
+        {
+            Destroy (_curEmitter.gameObject);
+            _curEmitter = null;
+        }
+    }
+
+    // Black state shot : shot the laser
+    private void BlackStateLaserShot ()
+    {
+        if (InputManager.Instance.InputCtrl.ShotButton)
+        {
+            _blackOverloadTimer += JITimer.Instance.DeltTime;
+
+            if (!_curLaser.gameObject.activeInHierarchy)
+            {
+                _curLaser.UpdateLaserAppear ();
+                _curLaser.gameObject.SetActive (true);
+            }
+        }
+        else
+        {
+            _blackOverloadTimer = 0f;
+            _curLaser.LaserLength = 0f;
+
+            if (_curLaser.gameObject.activeInHierarchy)
+                _curLaser.gameObject.SetActive (false);
+        }
+
+        Overload = _blackOverloadTimer >= BlackOverloadTime;
+
+        _curLaser.LaserWidth = LaserWidthCurve.Evaluate (_blackOverloadTimer);
+        _curLaser.Damage = (int) LaserDamageCurve.Evaluate (_blackOverloadTimer);
+    }
+
+    // Called before change to white state
+    private void BeforeChangeToWState ()
+    {
+        Overload = false;
+
+        _whiteOverloadTimer = 0f;
+        _whiteShotTimer = 0f;
+
+        Vector3 emitterPos = transform.position + new Vector3 (0, 0.4f, 0);
+        Quaternion emitterRot = Quaternion.identity;
+        _curEmitter = Instantiate (WhiteBulletEmitter, emitterPos, emitterRot,
+            transform) as WBulletEmitController;
+
+        if (_curLaser)
+        {
+            Destroy (_curLaser.gameObject);
+            _curLaser = null;
+        }
 
     }
+
+    // White state shot : shot the white sector bullets
+    private void WhiteStateShot ()
+    {
+        _whiteShotTimer += JITimer.Instance.DeltTime;
+
+        if (InputManager.Instance.InputCtrl.ShotButton)
+        {
+            _whiteOverloadTimer += JITimer.Instance.DeltTime;
+
+            if (_whiteShotTimer >= WhiteEmitInterval) // shot
+            {
+                _whiteShotTimer = 0f;
+
+                if (_whiteOverloadTimer >= WhiteOverloadTime)
+                {
+                    _curEmitter.OverloadShot ();
+                }
+                else
+                {
+                    _curEmitter.NormalShot ();
+                }
+            }
+        }
+        else
+        {
+            _whiteOverloadTimer = 0f;
+        }
+
+        Overload = _whiteOverloadTimer >= WhiteEmitInterval;
+    }
+
+    #endregion
 
 }

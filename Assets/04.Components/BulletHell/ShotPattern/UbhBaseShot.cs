@@ -159,57 +159,18 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
         _Shooting = false;
     }
 
-    /// <summary>
-    /// Get bullet from object pool.
-    /// </summary>                        
-    /// <param name="forceInstantiate"> force the pool to return an instantiate bullet. </param>
-    /// <returns></returns>
     protected JIBulletController GetBullet (Vector3 position, Quaternion rotation, bool forceInstantiate = false)
     {
-        return GetBullet (m_bulletPrefab, position, rotation, forceInstantiate);
-    }
-
-    /// <summary>
-    /// Get bullet from object pool.
-    /// </summary>                        
-    /// <param name="forceInstantiate"> force the pool to return an instantiate bullet. </param>
-    /// <returns></returns>
-    protected JIBulletController GetBullet (GameObject bulletPrefab, Vector3 position, Quaternion rotation, bool forceInstantiate = false)
-    {
-        if (bulletPrefab == null)
+        if (m_bind)
         {
-            Debug.LogWarning ("Cannot generate a bullet because BulletPrefab is not set.");
-            return null;
+            return BulletUtils.GetBullet (m_bulletPrefab, m_bindTransform, position,
+                rotation, forceInstantiate);
         }
-
-        // get Bullet GameObject from BulletPool
-        var goBullet = BulletPool.Instance.GetGameObject (bulletPrefab, position, rotation, forceInstantiate);
-        if (goBullet == null)
+        else
         {
-            return null;
+            return BulletUtils.GetBullet (m_bulletPrefab, null, position, rotation,
+                forceInstantiate);
         }
-
-        // Get or add JIBulletController component
-        var bulletController = goBullet.GetComponent<JIBulletController> ();
-        if (bulletController == null)
-        {
-            bulletController = goBullet.AddComponent<JIBulletController> ();
-        }
-
-        // Get or add JIBulletProperty component
-        var bulletProperty = goBullet.GetComponent<JIBulletProperty> ();
-        if (bulletProperty == null)
-        {
-            bulletProperty = goBullet.AddComponent<JIBulletProperty> ();
-        }
-
-        // Bind transfrom
-        if (m_bindTransform != null)
-        {
-            goBullet.transform.parent = m_bindTransform;
-        }
-
-        return bulletController;
     }
 
     /// <summary>

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Sirenix.OdinInspector;
+
 public class PlayerGeneralInputCtrl : IPlayerInputCtrl
 {
     private bool GoRight => Input.GetKey (KeyCode.RightArrow) || Input.GetKey (KeyCode.D);
@@ -12,66 +14,114 @@ public class PlayerGeneralInputCtrl : IPlayerInputCtrl
 
     private bool GoDown => Input.GetKey (KeyCode.DownArrow) || Input.GetKey (KeyCode.S);
 
-    public float VerticalInput ()
+    [ShowInInspector]
+    public float VerticalInput
     {
-        if (GoUp && GoDown) return 0;
-        if (GoUp) return 1;
-        if (GoDown) return -1;
-        return 0;
+        get
+        {
+            if (GoUp && GoDown) return 0;
+            if (GoUp) return 1;
+            if (GoDown) return -1;
+            return 0;
+        }
     }
 
-    public float HorizontalInput ()
+    [ShowInInspector]
+    public float HorizontalInput
     {
-        if (GoRight && GoLeft) return 0; 
-        if (GoRight) return 1;
-        if (GoLeft) return -1;
-        return 0;
+        get
+        {
+            if (GoRight && GoLeft) return 0;
+            if (GoRight) return 1;
+            if (GoLeft) return -1;
+            return 0;
+        }
     }
 
-    public bool ShotButton ()
+    [ShowInInspector]
+    public bool ShotButton
     {
-        return Input.GetKey (KeyCode.Z);
+        get
+        {
+            return Input.GetKey (KeyCode.Z);
+        }
     }
 
-    public bool ShotButtonUp ()
+    [ShowInInspector]
+    public bool ShotButtonUp
     {
-        return Input.GetKeyUp (KeyCode.Z);
+        get
+        {
+            return Input.GetKeyUp (KeyCode.Z);
+        }
     }
 
-    public bool ShotButtonDown ()
+    [ShowInInspector]
+    public bool ShotButtonDown
     {
-        return Input.GetKeyDown (KeyCode.Z);
+        get
+        {
+            return Input.GetKeyDown (KeyCode.Z);
+        }
     }
 
-    public bool ChangeStateButton ()
+    [ShowInInspector]
+    public bool ChangeStateButton
     {
-        return Input.GetKey (KeyCode.LeftShift);
+        get
+        {
+            return Input.GetKey (KeyCode.LeftShift);
+        }
     }
 
-    public bool ChangeStateButtonUp ()
+    [ShowInInspector]
+    public bool ChangeStateButtonUp
     {
-        return Input.GetKeyUp (KeyCode.LeftShift);
+        get
+        {
+            return Input.GetKeyUp (KeyCode.LeftShift);
+        }
     }
 
-    public bool ChangeStateButtonDown ()
+    [ShowInInspector]
+    public bool ChangeStateButtonDown
     {
-        return Input.GetKeyDown (KeyCode.LeftShift);
+        get
+        {
+            return Input.GetKeyDown (KeyCode.LeftShift);
+        }
     }
 
-    public bool MaxBlanceButton ()
+    [ShowInInspector]
+    public bool MaxBlanceButton
     {
-        return Input.GetKey (KeyCode.X);
+        get
+        {
+            return Input.GetKey (KeyCode.X);
+        }
     }
 
-    public bool MaxBlanceButtonUp ()
+    [ShowInInspector]
+    public bool MaxBlanceButtonUp
     {
-        return Input.GetKeyUp (KeyCode.X);
+        get
+        {
+            return Input.GetKeyUp (KeyCode.X);
+        }
+
     }
 
-    public bool MaxBlanceButtonDown ()
+    [ShowInInspector]
+    public bool MaxBlanceButtonDown
     {
-        return Input.GetKeyDown (KeyCode.X);
+        get
+        {
+            return Input.GetKeyDown (KeyCode.X);
+        }
     }
 
-    public void Update () { }
+    public void Update ()
+    {
+
+    }
 }

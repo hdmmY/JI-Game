@@ -4,20 +4,12 @@ using UnityEngine;
 
 public class PlayerProperty : MonoBehaviour
 {
-    public enum PlayerMoveType
-    {
-        HighSpeed,
-        SlowSpeed
-    }
-
     // god mode -- from Skyrim.
     public bool m_god = false;
 
     public bool m_superState = false;
 
     public JIState m_playerState;
-
-    public PlayerMoveType m_playerMoveState;
 
     public int m_playerLife; // Each life have muti health
 
@@ -36,36 +28,48 @@ public class PlayerProperty : MonoBehaviour
     /// </summary>
     public int m_addValue = 1;
 
-    [Space]
-
-    public float m_checkBound;
+    [BoxGroup ("Movement")]
+    public float m_blackVSpeed;
 
     [BoxGroup ("Movement")]
-    public float m_verticalSpeed;
+    public float m_blackHSpeed;
 
     [BoxGroup ("Movement")]
-    public float m_horizontalSpeed;
+    public float m_whiteVSpeed;
 
     [BoxGroup ("Movement")]
-    public float m_slowHorizontalSpeed;
-
-    [BoxGroup ("Movement")]
-    public float m_slowVerticalSpeed;
-
-    [BoxGroup ("Shot"), Range (0.05f, 2.5f)]
-    public float m_shootInterval;
-
-    [BoxGroup ("Shot")]
-    public int m_bulletDamage;
-
-    [BoxGroup ("Shot")]
-    public float m_bulletSpeed;
+    public float m_whiteHSpeed;
 
     [BoxGroup ("Reference")]
     public SpriteRenderer m_spriteReference;
 
-    private void OnDrawGizmosSelected ()
+    #region Public method
+
+    public float GetHMoveSpeed ()
     {
-        Gizmos.DrawWireSphere (transform.position, m_checkBound);
+        if (m_playerState == JIState.Black)
+        {
+            return m_blackHSpeed;
+        }
+        else if (m_playerState == JIState.White)
+        {
+            return m_whiteHSpeed;
+        }
+        return 0;
     }
+
+    public float GetVMoveSpeed ()
+    {
+        if (m_playerState == JIState.Black)
+        {
+            return m_blackVSpeed;
+        }
+        else if (m_playerState == JIState.White)
+        {
+            return m_whiteVSpeed;
+        }
+        return 0;
+    }
+
+    #endregion
 }

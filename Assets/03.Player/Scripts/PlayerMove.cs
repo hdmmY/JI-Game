@@ -10,34 +10,36 @@ public class PlayerMove : MonoBehaviour
     // Width & height
     public Vector2 m_moveAreaShape;
 
-    private float _verticalSpeed;
-    private float _horizontalSpeed;
-
-    private PlayerProperty _playerProperty;
-
-    private enum TimeState
-    {
-        Normal,
-        Pausing,
-        Resume
-    }
-
-    TimeState _timeState;
+    private PlayerProperty _player;
 
     private void OnEnable ()
     {
-        SetInitReference ();
-
-        _verticalSpeed = _playerProperty.m_horizontalSpeed;
-        _horizontalSpeed = _playerProperty.m_verticalSpeed;
+        _player = GetComponent<PlayerProperty> ();
     }
 
     private void Update ()
     {
-        UpdateSpeed ();
+        float hInput = InputManager.Instance.InputCtrl.HorizontalInput;
+        float vInput = InputManager.Instance.InputCtrl.VerticalInput;
 
-        float horizontalMove = InputManager.Instance.InputCtrl.HorizontalInput () * _horizontalSpeed;
-        float VerticalMove = InputManager.Instance.InputCtrl.VerticalInput () * _verticalSpeed;
+        float hSpeed, vSpeed;
+        if(_player.m_playerState == JIState.White)
+        {
+            hSpeed = _player.m_whiteHSpeed;
+            vSpeed = _player.m_whiteVSpeed;
+        }
+        else if(_player.m_playerState == JIState.Black)
+        {
+            hSpeed = _player.m_blackHSpeed;
+            vSpeed = _player.m_blackVSpeed;
+        }
+        else
+        {
+            return;
+        }
+
+        float horizontalMove = hInput * hSpeed;
+        float VerticalMove = vInput * vSpeed;
 
         Vector2 playerPos = (Vector2) transform.position +
             new Vector2 (horizontalMove, VerticalMove) * Time.deltaTime;
@@ -62,25 +64,7 @@ public class PlayerMove : MonoBehaviour
 
         transform.position = new Vector3 (playerPos.x, playerPos.y, transform.position.z);
     }
-    void UpdateSpeed ()
-    {
-        if (_playerProperty.m_playerMoveState == PlayerProperty.PlayerMoveType.HighSpeed)
-        {
-            _horizontalSpeed = _playerProperty.m_horizontalSpeed;
-            _verticalSpeed = _playerProperty.m_verticalSpeed;
-        }
-        else
-        {
-            _horizontalSpeed = _playerProperty.m_slowHorizontalSpeed;
-            _verticalSpeed = _playerProperty.m_slowVerticalSpeed;
-        }
-    }
-
-    void SetInitReference ()
-    {
-        _playerProperty = GetComponent<PlayerProperty> ();
-        //_animator = GetComponent<Animator>();
-    }
+    
 
     private void OnDrawGizmos ()
     {

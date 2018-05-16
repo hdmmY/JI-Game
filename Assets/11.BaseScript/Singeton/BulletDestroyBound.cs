@@ -63,6 +63,7 @@ public class BulletDestroyBound : Singleton<BulletDestroyBound>
         {
             col.offset = offset;
             col.size = size;
+            col.tag = tag;
         };
 
         setColliderBounds (_upperBounds,
