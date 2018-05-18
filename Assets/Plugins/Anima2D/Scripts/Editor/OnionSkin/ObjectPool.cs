@@ -51,7 +51,7 @@ namespace Anima2D.Pool
 		T m_Original;
 	}
 
-	public abstract class ObjectPool< T >
+	public abstract class BulletPool< T >
 	{
 		List<T> m_AvaliableObject;
 		List<T> m_DispatchedObjects;
@@ -61,13 +61,13 @@ namespace Anima2D.Pool
 
 		ICreationPolicy<T> m_CreationPolicy = null;
 
-		protected ObjectPool()
+		protected BulletPool()
 		{
 			m_AvaliableObject = new List<T>();
 			m_DispatchedObjects = new List<T>();
 		}
 
-		public ObjectPool(ICreationPolicy<T> _creationPolicy) : this()
+		public BulletPool(ICreationPolicy<T> _creationPolicy) : this()
 		{
 			m_CreationPolicy = _creationPolicy;
 		}
@@ -125,8 +125,8 @@ namespace Anima2D.Pool
 		}
 	}
 
-	public class DefaultObjectPool<T> : ObjectPool<T> where T : new ()
+	public class DefaultBulletPool<T> : BulletPool<T> where T : new ()
 	{
-		public DefaultObjectPool() : base( new DefaultCreationPolicy<T>() ) {}
+		public DefaultBulletPool() : base( new DefaultCreationPolicy<T>() ) {}
 	}
 }

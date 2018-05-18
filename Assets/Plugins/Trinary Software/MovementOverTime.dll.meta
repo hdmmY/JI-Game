@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: f35ccb949cf8584458d254cc033d57c8
+PluginImporter:
+  serializedVersion: 1
+  iconMap: { MovementEffects.Movement: {fileID: 2800000, guid: 0a913585c98bd644db7d85684033dec9, type: 3} }
+  executionOrder: {}
+  isPreloaded: 0
+  isOverridable: 0
+  platformData:
+    Any:
+      enabled: 1
+      settings: {}
+    Editor:
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+    WindowsStoreApps:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
