@@ -164,7 +164,7 @@ public class PlayerShoot : MonoBehaviour
         Overload = false;
 
         _whiteOverloadTimer = 0f;
-        _whiteShotTimer = 0f;
+        _whiteShotTimer = 100f;
 
         Vector3 emitterPos = transform.position + new Vector3 (0, 0.4f, 0);
         Quaternion emitterRot = Quaternion.identity;
