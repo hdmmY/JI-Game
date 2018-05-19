@@ -9,13 +9,20 @@ public class PlayerShoot : MonoBehaviour
     #region Public variables
 
     // Weapon overload
-    [ShowInInspector] public bool Overload { get; private set; }
+    [ShowInInspector, ReadOnly]
+    public bool Overload { get; private set; }
 
     [BoxGroup ("Black")]
     public AnimationCurve LaserWidthCurve;
 
     [BoxGroup ("Black")]
     public AnimationCurve LaserDamageCurve;
+
+    [BoxGroup ("Black"), Range (0, 1)]
+    public float LaserInterval;
+
+    [BoxGroup ("Black")]
+    public float LaserGrowthSpeed = 1;
 
     [BoxGroup ("Black")]
     public GrowthLaser LaserPrefab;
@@ -27,7 +34,10 @@ public class PlayerShoot : MonoBehaviour
     public WBulletEmitController WhiteBulletEmitter;
 
     [BoxGroup ("White")]
-    public float WhiteEmitInterval;
+    public AnimationCurve WhiteEmitInterval;
+
+    [BoxGroup ("White")]
+    public AnimationCurve WhiteBulletSpeed;
 
     [BoxGroup ("White")]
     public float WhiteOverloadTime;
@@ -108,6 +118,8 @@ public class PlayerShoot : MonoBehaviour
         _curLaser = Instantiate (LaserPrefab, laserPos, laserRot, transform) as GrowthLaser;
         _curLaser.LaserWidth = LaserWidthCurve.Evaluate (_blackOverloadTimer);
         _curLaser.Damage = (int) LaserDamageCurve.Evaluate (_blackOverloadTimer);
+        _curLaser.Interval = LaserInterval;
+        _curLaser.GrowthSpeed = LaserGrowthSpeed;
 
         if (_curEmitter != null)
         {
@@ -142,6 +154,8 @@ public class PlayerShoot : MonoBehaviour
 
         _curLaser.LaserWidth = LaserWidthCurve.Evaluate (_blackOverloadTimer);
         _curLaser.Damage = (int) LaserDamageCurve.Evaluate (_blackOverloadTimer);
+        _curLaser.Interval = LaserInterval;
+        _curLaser.GrowthSpeed = LaserGrowthSpeed;
     }
 
     // Called before change to white state
@@ -170,11 +184,13 @@ public class PlayerShoot : MonoBehaviour
     {
         _whiteShotTimer += JITimer.Instance.DeltTime;
 
+        WhiteBulletEmitter.BulletSpeed = WhiteBulletSpeed.Evaluate (_whiteOverloadTimer);
+
         if (InputManager.Instance.InputCtrl.ShotButton)
         {
             _whiteOverloadTimer += JITimer.Instance.DeltTime;
 
-            if (_whiteShotTimer >= WhiteEmitInterval) // shot
+            if (_whiteShotTimer >= WhiteEmitInterval.Evaluate (_whiteOverloadTimer)) // shot
             {
                 _whiteShotTimer = 0f;
 
@@ -193,7 +209,7 @@ public class PlayerShoot : MonoBehaviour
             _whiteOverloadTimer = 0f;
         }
 
-        Overload = _whiteOverloadTimer >= WhiteEmitInterval;
+        Overload = _whiteOverloadTimer >= WhiteEmitInterval.Evaluate (_whiteOverloadTimer);
     }
 
     #endregion

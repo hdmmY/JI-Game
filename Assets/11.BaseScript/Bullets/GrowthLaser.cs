@@ -8,7 +8,6 @@ public class GrowthLaser : Laser
 {
     public override LaserType LaserType => LaserType.Growth;
 
-    [Range (0, 1)]
     public float GrowthSpeed;
 
     [HideInInspector]
