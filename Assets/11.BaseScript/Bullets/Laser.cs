@@ -80,8 +80,8 @@ public abstract class Laser : MonoBehaviour
 
     private void UpdateLaserEditor ()
     {
-        var renderer = GetComponent<LineRenderer> ();
-        var boxcol2D = GetComponent<BoxCollider2D> ();
+        var boxcol2D = transform.GetChild (0).GetComponent<BoxCollider2D> ();
+        var renderer = transform.GetChild (1).GetComponent<LineRenderer> ();
 
         renderer.widthMultiplier = LaserWidth;
         renderer.SetPosition (1, new Vector3 (0, LaserLength, 0));
