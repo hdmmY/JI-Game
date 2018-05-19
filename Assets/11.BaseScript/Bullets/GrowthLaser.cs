@@ -4,14 +4,15 @@ using System.Linq;
 
 using UnityEngine;
 
+using Sirenix.OdinInspector;
+
 public class GrowthLaser : Laser
 {
     public override LaserType LaserType => LaserType.Growth;
 
-    [Range (0, 1)]
     public float GrowthSpeed;
 
-    [HideInInspector]
+    [ReadOnly]
     public List<Transform> Colliders = new List<Transform> ();
 
     protected override void Update ()
@@ -20,7 +21,7 @@ public class GrowthLaser : Laser
 
         if (Colliders.Count == 0)
         {
-            LaserLength += JITimer.Instance.DeltTime * GrowthSpeed * 5f;
+            LaserLength += JITimer.Instance.DeltTime * GrowthSpeed;
         }
         else
         {
@@ -31,8 +32,19 @@ public class GrowthLaser : Laser
                 float length = col.position.y - transform.position.y;
                 LaserLength = Mathf.Min (length, LaserLength);
             }
+
+            if (LaserLength <= 0)
+            {
+                Colliders.Clear ();
+                LaserLength = 0f;
+            }
         }
 
         UpdateLaserAppear ();
+    }
+
+    private void OnDisable ()
+    {
+        Colliders.Clear ();
     }
 }
