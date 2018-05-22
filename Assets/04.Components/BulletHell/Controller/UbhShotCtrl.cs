@@ -8,7 +8,6 @@ using Sirenix.OdinInspector;
 /// <summary>
 /// Ubh shot ctrl.
 /// </summary>
-[AddComponentMenu("UniBulletHell/Controller/Shot Controller")]
 public class UbhShotCtrl : UbhMonoBehaviour
 {
     [Serializable]

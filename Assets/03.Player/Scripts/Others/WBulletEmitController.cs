@@ -21,14 +21,14 @@ public class WBulletEmitController : MonoBehaviour
         foreach (var emitter in NormalEmitters)
         {
             var bullet = BulletUtils.GetBullet (BulletPrefab, null, emitter.position,
-                emitter.rotation);
+                emitter.rotation).gameObject;
 
             float angle = bullet.transform.rotation.eulerAngles.z + 90f;
 
-            bullet.Shot (BulletSpeed, angle, 0, 0,
-                false, null, 0, 0,
-                false, 0, 0,
-                false, 0, 0);
+            var moveController = bullet.AddComponent<GeneralBulletMoveCtrl> ();
+            moveController.Angle = angle;
+            moveController.Speed = BulletSpeed;
+            moveController.Init ();
         }
     }
 
@@ -41,14 +41,14 @@ public class WBulletEmitController : MonoBehaviour
         foreach (var emitter in ExtraEmitters)
         {
             var bullet = BulletUtils.GetBullet (BulletPrefab, null, emitter.position,
-                emitter.rotation);
+                emitter.rotation).gameObject;
 
             float angle = bullet.transform.rotation.eulerAngles.z + 90f;
 
-            bullet.Shot (BulletSpeed, angle, 0, 0,
-                false, null, 0, 0,
-                false, 0, 0,
-                false, 0, 0);
+            var moveController = bullet.AddComponent<GeneralBulletMoveCtrl> ();
+            moveController.Angle = angle;
+            moveController.Speed = BulletSpeed;
+            moveController.Init ();
         }
     }
 

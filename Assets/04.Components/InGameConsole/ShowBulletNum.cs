@@ -25,7 +25,8 @@ public class ShowBulletNum : MonoBehaviour
     {
         if (_danmakuManager == null)
         {
-            _textField.text = _bulletPool.ActiveGameObject.ToString ();
+            _textField.text = string.Format ("{0} ({1})",
+                _bulletPool.ActiveGameObject, _bulletPool.TotalGameObject);
         }
         else
         {

@@ -29,11 +29,16 @@ public static class BulletUtils
         var reBullet = BulletPool.Instance.GetGameObject (bullet, position, rotation, forceInstantiate);
         if (reBullet == null) return null;
 
+        /* Legency code. Will remove later */
         var controller = reBullet.GetComponent<JIBulletController> ();
         if (controller == null) controller = reBullet.AddComponent<JIBulletController> ();
+        /* ******************************* */
 
         var property = reBullet.GetComponent<JIBulletProperty> ();
         if (property == null) property = reBullet.AddComponent<JIBulletProperty> ();
+
+        var bulletMove = reBullet.GetComponent<JIBulletMovement> ();
+        if (bulletMove == null) bulletMove = reBullet.AddComponent<JIBulletMovement> ();
 
         if (parent != null) reBullet.transform.parent = parent;
 

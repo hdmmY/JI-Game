@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 /// <summary>
 /// Ubh object pool.
@@ -21,6 +24,35 @@ public class BulletPool : Singleton<BulletPool>
     private List<int> _PooledKeyList = new List<int> ();
 
     private Dictionary<int, List<GameObject>> _PooledGoDic = new Dictionary<int, List<GameObject>> ();
+
+    private List<TimerGameobject> _timerGos = new List<TimerGameobject> ();
+    private float _nextCheckTime;
+    private readonly float CHECKTIME = 3f; // Check time for destory gameobject that long time unused
+
+    private void Update ()
+    {
+        _timerGos.ForEach (x =>
+        {
+            if (x.GameObject.activeInHierarchy) x.Timer = 0f;
+            else x.Timer += JITimer.Instance.RealDeltTime;
+        });
+
+        if (Time.time > _nextCheckTime)
+        {
+            var tmpList = new List<TimerGameobject> ();
+
+            foreach (var timerGo in _timerGos)
+            {
+                if (timerGo.Timer > CHECKTIME)
+                    ReleaseGameObject (timerGo.GameObject, true);
+                else
+                    tmpList.Add (timerGo);
+            }
+            _timerGos = tmpList;
+
+            _nextCheckTime = Time.time + UnityEngine.Random.Range (1f, 2f);
+        }
+    }
 
     /// <summary>
     /// Get GameObject from object pool or instantiate.
@@ -70,12 +102,21 @@ public class BulletPool : Singleton<BulletPool>
         go.transform.parent = transform;
         goList.Add (go);
 
+        _timerGos.Add (new TimerGameobject
+        {
+            Timer = 0f,
+                GameObject = go
+        });
+
         return go;
     }
 
     /// <summary>
-    /// Releases game object (back to pool or destroy).
+    /// Releases gameobject (back to pool or destroy).
     /// </summary>
+    /// <remarks>
+    /// If this gameobject has 'JIBulletMovement' component, it will be destroied 
+    /// </remarks>
     public void ReleaseGameObject (GameObject go, bool destroy = false)
     {
         if (destroy)
@@ -84,12 +125,19 @@ public class BulletPool : Singleton<BulletPool>
             return;
         }
 
-        if(go.transform.parent != transform)
+        if (go.transform.parent != transform)
         {
-            go.transform.SetParent(transform);
+            go.transform.SetParent (transform);
         }
-
         go.SetActive (false);
+
+        if (go.GetComponent<BaseBulletMoveCtrl> () != null)
+        {
+            foreach (var moveCtrl in go.GetComponents<BaseBulletMoveCtrl> ())
+            {
+                Destroy (moveCtrl);
+            }
+        }
     }
 
     /// <summary>
@@ -131,5 +179,11 @@ public class BulletPool : Singleton<BulletPool>
             }
         }
         return cnt;
+    }
+
+    public class TimerGameobject
+    {
+        public float Timer;
+        public GameObject GameObject;
     }
 }

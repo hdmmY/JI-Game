@@ -265,7 +265,7 @@ namespace Boss.Falcon
         private void MoveShot_LateUpdate ()
         {
             var playerProperty = _player.GetComponent<PlayerProperty> ();
-            float moveSpeed = playerProperty.GetHMoveSpeed();
+            float moveSpeed = playerProperty.GetHMoveSpeed ();
             float shotSpeed = 0.03f;
             float bulletSpeed = 5;
 
@@ -278,13 +278,19 @@ namespace Boss.Falcon
             {
                 _moveShotShotTimer = shotSpeed;
 
-                var left = GetBullet (_moveShotBullet, _falcon.TransformPoint (_moveShotShotPosLeft), Quaternion.identity);
+                var left = BulletUtils.GetBullet (
+                    _moveShotBullet, null,
+                    _falcon.TransformPoint (_moveShotShotPosLeft),
+                    Quaternion.identity);
                 left.GetComponent<JIBulletController> ().Shot (bulletSpeed, 270f, 0, 0,
                     false, null, 0f, 0f,
                     false, 0f, 0f,
                     false, 0f, 0f);
 
-                var right = GetBullet (_moveShotBullet, _falcon.TransformPoint (_moveShotShotPosRight), Quaternion.identity);
+                var right = BulletUtils.GetBullet (
+                    _moveShotBullet, null,
+                    _falcon.TransformPoint (_moveShotShotPosRight),
+                    Quaternion.identity);
                 right.GetComponent<JIBulletController> ().Shot (bulletSpeed, 270f, 0, 0,
                     false, null, 0f, 0f,
                     false, 0f, 0f,
@@ -455,8 +461,10 @@ namespace Boss.Falcon
             {
                 float angle = i * delt;
 
-                var bullet = GetBullet (_mutiShotBullet, _falcon.position, Quaternion.identity);
-                bullet.GetComponent<JIBulletController> ().Shot (MutiShot_BulletMove (bullet, angle));
+                var bullet = BulletUtils.GetBullet (
+                    _mutiShotBullet, null, _falcon.position, Quaternion.identity);
+                bullet.GetComponent<JIBulletController> ().Shot (
+                    MutiShot_BulletMove (bullet.transform, angle));
             }
         }
 
@@ -598,11 +606,15 @@ namespace Boss.Falcon
                 destRight = _falcon.position + Vector3.right * (_expanInitDistance + i * _expanBulletLocaInterval);
                 destLeft = _falcon.position + Vector3.left * (_expanInitDistance + i * _expanBulletLocaInterval);
 
-                var left = GetBullet (_expanBullet, _falcon.position, Quaternion.identity);
-                left.GetComponent<JIBulletController> ().Shot (Expansion_BulletMove (left, destLeft));
+                var left = BulletUtils.GetBullet (
+                    _expanBullet, null, _falcon.position, Quaternion.identity);
+                left.GetComponent<JIBulletController> ().Shot (
+                    Expansion_BulletMove (left.transform, destLeft));
 
-                var right = GetBullet (_expanBullet, _falcon.position, Quaternion.identity);
-                right.GetComponent<JIBulletController> ().Shot (Expansion_BulletMove (right, destRight));
+                var right = BulletUtils.GetBullet (
+                    _expanBullet, null, _falcon.position, Quaternion.identity);
+                right.GetComponent<JIBulletController> ().Shot (
+                    Expansion_BulletMove (right.transform, destRight));
 
                 timer = _expanBulletShotInterval;
                 while (timer > 0f)
@@ -806,23 +818,5 @@ namespace Boss.Falcon
         }
 
         #endregion 
-
-        /// <summary>
-        /// Get a valid bullet from the pool. Return null if pool is full.
-        /// </summary>
-        private Transform GetBullet (GameObject bulletPrefab, Vector3 position = default (Vector3), Quaternion rotation = default (Quaternion))
-        {
-            var bullet = BulletPool.Instance.GetGameObject (
-                bulletPrefab, position, rotation).transform;
-
-            if (bullet == null) return null;
-            if (bullet.GetComponent<JIBulletProperty> () == null)
-                bullet.gameObject.AddComponent<JIBulletProperty> ();
-            if (bullet.GetComponent<JIBulletController> () == null)
-                bullet.gameObject.AddComponent<JIBulletController> ();
-
-            return bullet;
-        }
-
     }
 }

@@ -187,6 +187,30 @@ public class PlayerWindInputCtrl : IPlayerInputCtrl
         }
     }
 
+    public bool SpellButton
+    {
+        get
+        {
+            return Input.GetKey (KeyCode.X);
+        }
+    }
+
+    public bool SpellButtonDown
+    {
+        get
+        {
+            return Input.GetKeyDown (KeyCode.X);
+        }
+    }
+
+    public bool SpellButtonUp
+    {
+        get
+        {
+            return Input.GetKeyUp (KeyCode.X);
+        }
+    }
+
     public bool MaxBlanceButtonDown
     {
         get

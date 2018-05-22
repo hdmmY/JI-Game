@@ -93,6 +93,33 @@ public class PlayerGeneralInputCtrl : IPlayerInputCtrl
     }
 
     [ShowInInspector]
+    public bool SpellButton
+    {
+        get
+        {
+            return Input.GetKey (KeyCode.X);
+        }
+    }
+
+    [ShowInInspector]
+    public bool SpellButtonDown
+    {
+        get
+        {
+            return Input.GetKeyDown (KeyCode.X);
+        }
+    }
+
+    [ShowInInspector]
+    public bool SpellButtonUp
+    {
+        get
+        {
+            return Input.GetKeyUp (KeyCode.X);
+        }
+    }
+
+    [ShowInInspector]
     public bool MaxBlanceButton
     {
         get

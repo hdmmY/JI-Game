@@ -128,7 +128,7 @@ public class InGameConsoleController : MonoBehaviour
 
     private void TrunGodMode (string[] args)
     {
-        var player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerProperty> ();
+        var player = FindObjectOfType<PlayerProperty> ();
 
         if (player.m_god)
         {

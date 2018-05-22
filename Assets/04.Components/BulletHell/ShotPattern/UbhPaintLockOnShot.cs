@@ -4,7 +4,6 @@ using System.Collections;
 /// <summary>
 /// Ubh paint lock on shot.
 /// </summary>
-[AddComponentMenu("UniBulletHell/Shot Pattern/Paint Shot (Lock On)")]
 public class UbhPaintLockOnShot : UbhPaintShot
 {
     // "Set a target with tag name."
@@ -16,26 +15,24 @@ public class UbhPaintLockOnShot : UbhPaintShot
     // "Overwrite PaintCenterAngle in direction of target to Transform.position."
     public Transform _TargetTransform;
 
-    protected override void Awake ()
-    {
-        base.Awake();
-    }
-
     public override void Shot ()
     {
-        if (_Shooting) {
+        if (_Shooting)
+        {
             return;
         }
-        if (_TargetTransform == null && _SetTargetFromTag) {
-            _TargetTransform = UbhUtil.GetTransformFromTagName(_TargetTagName);
+        if (_TargetTransform == null && _SetTargetFromTag)
+        {
+            _TargetTransform = UbhUtil.GetTransformFromTagName (_TargetTagName);
         }
-        if (_TargetTransform == null) {
-            Debug.LogWarning("Cannot shot because TargetTransform is not set.");
+        if (_TargetTransform == null)
+        {
+            Debug.LogWarning ("Cannot shot because TargetTransform is not set.");
             return;
         }
 
-        _PaintCenterAngle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform);
+        _PaintCenterAngle = UbhUtil.GetAngleFromTwoPosition (transform, _TargetTransform);
 
-        base.Shot();
+        base.Shot ();
     }
 }

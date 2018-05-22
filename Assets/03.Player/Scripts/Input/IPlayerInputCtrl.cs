@@ -63,6 +63,21 @@ public interface IPlayerInputCtrl
     bool MaxBlanceButtonDown { get; }
 
     /// <summary>
+    /// Return true when player hold spell emit button
+    /// </summary>
+    bool SpellButton { get; }
+
+    /// <summary>
+    /// Return true when player realse spell emit button
+    /// </summary>
+    bool SpellButtonUp { get; }
+
+    /// <summary>
+    /// Return true when player press spell emit button
+    /// </summary>
+    bool SpellButtonDown { get; }
+
+    /// <summary>
     /// Called each frame
     /// </summary>
     void Update ();

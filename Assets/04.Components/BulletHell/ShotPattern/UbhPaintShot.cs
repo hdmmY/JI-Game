@@ -5,7 +5,6 @@ using UnityEngine;
 /// <summary>
 /// Ubh paint shot.
 /// </summary>
-[AddComponentMenu ("UniBulletHell/Shot Pattern/Paint Shot")]
 public class UbhPaintShot : UbhBaseShot
 {
     static readonly string[] SPLIT_VAL = { "\n", "\r", "\r\n" };
@@ -21,11 +20,6 @@ public class UbhPaintShot : UbhBaseShot
     public float _BetweenAngle = 3f;
     // "Set a delay time between shot and next line shot. (sec)"
     public float _NextLineDelay = 0.1f;
-
-    protected override void Awake ()
-    {
-        base.Awake ();
-    }
 
     public override void Shot ()
     {

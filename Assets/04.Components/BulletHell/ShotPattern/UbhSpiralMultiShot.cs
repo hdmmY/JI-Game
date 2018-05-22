@@ -4,37 +4,33 @@ using System.Collections;
 /// <summary>
 /// Ubh spiral multi shot.
 /// </summary>
-[AddComponentMenu("UniBulletHell/Shot Pattern/Spiral Multi Shot")]
 public class UbhSpiralMultiShot : UbhBaseShot
 {
     // "Set a number of shot spiral way."
     public int _SpiralWayNum = 4;
     // "Set a starting angle of shot. (0 to 360)"
-    [Range(0f, 360f)]
+    [Range (0f, 360f)]
     public float _StartAngle = 180f;
     // "Set a shift angle of spiral. (-360 to 360)"
-    [Range(-360f, 360f)]
+    [Range (-360f, 360f)]
     public float _ShiftAngle = 5f;
     // "Set a delay time between bullet and next bullet. (sec)"
     public float _BetweenDelay = 0.2f;
 
-    protected override void Awake ()
-    {
-        base.Awake();
-    }
-
     public override void Shot ()
     {
-        StartCoroutine(ShotCoroutine());
+        StartCoroutine (ShotCoroutine ());
     }
 
     IEnumerator ShotCoroutine ()
     {
-        if (m_bulletNum<= 0 || _SpiralWayNum <= 0) {
-            Debug.LogWarning("Cannot shot because BulletNum or SpiralWayNum is not set.");
+        if (m_bulletNum <= 0 || _SpiralWayNum <= 0)
+        {
+            Debug.LogWarning ("Cannot shot because BulletNum or SpiralWayNum is not set.");
             yield break;
         }
-        if (_Shooting) {
+        if (_Shooting)
+        {
             yield break;
         }
         _Shooting = true;
@@ -43,29 +39,32 @@ public class UbhSpiralMultiShot : UbhBaseShot
 
         int spiralWayIndex = 0;
 
-        for (int i = 0; i < m_bulletNum; i++) {
-            if (_SpiralWayNum <= spiralWayIndex) {
+        for (int i = 0; i < m_bulletNum; i++)
+        {
+            if (_SpiralWayNum <= spiralWayIndex)
+            {
                 spiralWayIndex = 0;
-                if (0f < _BetweenDelay) {
-                    yield return StartCoroutine(UbhUtil.WaitForSeconds(_BetweenDelay));
+                if (0f < _BetweenDelay)
+                {
+                    yield return StartCoroutine (UbhUtil.WaitForSeconds (_BetweenDelay));
                 }
             }
 
-            var bullet = GetBullet(transform.position, transform.rotation);
-            if (bullet == null) {
-                break;
-            }
+            var bullet = GetBullet (transform.position, transform.rotation);
+            var bulletMove = bullet.gameObject.AddComponent<GeneralBulletMoveCtrl> ();
 
-            float angle = _StartAngle + (spiralWayShiftAngle * spiralWayIndex) + (_ShiftAngle * Mathf.Floor(i / _SpiralWayNum));
+            float angle = _StartAngle + (spiralWayShiftAngle * spiralWayIndex) +
+                (_ShiftAngle * Mathf.Floor (i / _SpiralWayNum));
 
-            ShotBullet(bullet, m_bulletSpeed, angle);
+            bulletMove.Angle = angle;
+            bulletMove.Speed = m_bulletSpeed;
+            bulletMove.Init ();
 
-            AutoReleaseBulletGameObject(bullet.gameObject);
+            AutoReleaseBulletGameObject (bullet.gameObject);
 
             spiralWayIndex++;
         }
 
-
-        FinishedShot(this);
+        FinishedShot (this);
     }
 }
