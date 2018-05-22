@@ -47,7 +47,7 @@ public class InGameConsoleController : MonoBehaviour
             {
                 JITimer.Instance.TimeScale = _prevTimeScale;
                 m_consoleViewContainer.SetActive (false);
-                GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMove> ().enabled = true;
+                FindObjectOfType<PlayerMove> ().enabled = true;
             }
             else
             {
@@ -56,8 +56,7 @@ public class InGameConsoleController : MonoBehaviour
                 m_consoleViewContainer.SetActive (true);
                 m_inputField.text = "";
                 m_inputField.ActivateInputField ();
-
-                GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMove> ().enabled = false;
+                FindObjectOfType<PlayerMove> ().enabled = false;
             }
         }
 
