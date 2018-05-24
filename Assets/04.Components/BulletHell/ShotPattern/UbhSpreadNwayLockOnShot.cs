@@ -4,7 +4,6 @@ using System.Collections;
 /// <summary>
 /// Ubh spread nway lock on shot.
 /// </summary>
-[AddComponentMenu("UniBulletHell/Shot Pattern/Spread nWay Shot (Lock On)")]
 public class UbhSpreadNwayLockOnShot : UbhSpreadNwayShot
 {
     // "Set a target with tag name."
@@ -18,58 +17,43 @@ public class UbhSpreadNwayLockOnShot : UbhSpreadNwayShot
     // "Always aim to target."
     public bool _Aiming;
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
-    public override void Shot()
+    public override void Shot ()
     {
         if (_Shooting)
         {
             return;
         }
 
-        AimTarget();
+        AimTarget ();
 
         if (_TargetTransform == null)
         {
-            Debug.LogWarning("Cannot shot because TargetTransform is not set.");
+            Debug.LogWarning ("Cannot shot because TargetTransform is not set.");
             return;
         }
 
-        base.Shot();
-
-        if (_Aiming)
-        {
-            StartCoroutine(AimingCoroutine());
-        }
+        base.Shot ();
     }
 
-    void AimTarget()
+    private void OnEnable ()
+    {
+        if (_Aiming) AimTarget ();
+    }
+
+    private void Update ()
+    {
+        if (_Aiming) AimTarget ();
+    }
+
+    private void AimTarget ()
     {
         if (_TargetTransform == null && _SetTargetFromTag)
         {
-            _TargetTransform = UbhUtil.GetTransformFromTagName(_TargetTagName);
+            _TargetTransform = UbhUtil.GetTransformFromTagName (_TargetTagName);
         }
         if (_TargetTransform != null)
         {
-            _CenterAngle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform);         
-        }
-    }
-
-    IEnumerator AimingCoroutine()
-    {
-        while (_Aiming)
-        {
-            if (_Shooting == false)
-            {
-                yield break;
-            }
-
-            AimTarget();
-
-            yield return 0;
+            _CenterAngle = UbhUtil.GetAngleFromTwoPosition (transform, _TargetTransform);
         }
     }
 }

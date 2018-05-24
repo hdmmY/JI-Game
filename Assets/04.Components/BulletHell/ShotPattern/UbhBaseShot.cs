@@ -156,6 +156,7 @@ public abstract class UbhBaseShot : UbhMonoBehaviour
         {
             OnShotFinish (shotPattern);
         }
+        
         _Shooting = false;
     }
 

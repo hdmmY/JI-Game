@@ -424,9 +424,10 @@ namespace Boss.Falcon
 
                     float decelerateTime = _fullWindInitDecelerateTime - i * _fullWindDecelerateTimeInterval;
 
-                    Transform bullet = GetBullet (_fullWindBullet, _falcon.position, Quaternion.identity);
-                    bullet.GetComponent<JIBulletController> ()
-                        .Shot (WindBulletMove.PauseLinearMove (bullet, vec, decelerateTime, winds));
+                    var bullet = BulletUtils.GetBullet (
+                        _fullWindBullet, null, _falcon.position, Quaternion.identity);
+                    bullet.GetComponent<JIBulletController> ().Shot (
+                        WindBulletMove.PauseLinearMove (bullet.transform, vec, decelerateTime, winds));
                 }
 
                 while (timer < _fullWindShotInterval)
@@ -576,9 +577,10 @@ namespace Boss.Falcon
                     float rad = angle * Mathf.Deg2Rad;
                     Vector3 vec = new Vector3 (Mathf.Cos (rad), Mathf.Sin (rad), 0f) * _sideWindBulletVec;
 
-                    Transform bullet = GetBullet (_sideWindBullet, _falcon.position, Quaternion.identity);
-                    bullet.GetComponent<JIBulletController> ()
-                        .Shot (WindBulletMove.LinearWindMove (bullet, vec, Vector3.zero, winds));
+                    var bullet = BulletUtils.GetBullet (
+                        _sideWindBullet, null, _falcon.position, Quaternion.identity);
+                    bullet.GetComponent<JIBulletController> ().Shot (
+                        WindBulletMove.LinearWindMove (bullet.transform, vec, Vector3.zero, winds));
                 }
 
                 while (timer < _sideWindShotInterval)
@@ -673,7 +675,7 @@ namespace Boss.Falcon
         {
             var bulletRotate = Quaternion.Euler (0, 0, emitRad * Mathf.Rad2Deg);
             var bulletSpeed = new Vector3 (Mathf.Cos (emitRad), Mathf.Sin (emitRad), 0) * _shotOneBulletSpeed;
-            var bullet = GetBullet (_shotOneBullet, emitPos, bulletRotate);
+            var bullet = BulletUtils.GetBullet (_shotOneBullet, null, emitPos, bulletRotate);
             bullet.GetComponent<JIBulletController> ()
                 .Shot (WindBulletMove.LinearWindMove (bullet.transform, bulletSpeed, Vector3.zero, winds));
         }
@@ -789,9 +791,10 @@ namespace Boss.Falcon
                 Vector3 vSpeed = new Vector3 (Mathf.Cos (bulletRad), Mathf.Sin (bulletRad), 0) * speed;
 
                 var rotation = Quaternion.Euler (0, 0, bulletAngle - 90f);
-                var bullet = GetBullet (_shotTwoSecBullet, _falcon.position, rotation);
-                bullet.GetComponent<JIBulletController> ()
-                    .Shot (WindBulletMove.LinearWindMove (bullet.transform, vSpeed, Vector3.zero, winds));
+                var bullet = BulletUtils.GetBullet (
+                    _shotTwoSecBullet, null, _falcon.position, rotation);
+                bullet.GetComponent<JIBulletController> ().Shot (
+                    WindBulletMove.LinearWindMove (bullet.transform, vSpeed, Vector3.zero, winds));
 
                 float interval = Random.Range (_shotTwoSecMinEmitInterval, _shotTwoSecMaxEmitInterval);
                 yield return new WaitForSeconds (interval);
@@ -812,7 +815,8 @@ namespace Boss.Falcon
                 Vector3 vSpeed = new Vector3 (Mathf.Cos (rad), Mathf.Sin (rad), 0) * speed;
 
                 var rotation = Quaternion.Euler (0, 0, angle - 90f);
-                var bullet = GetBullet (_shotTwoCirBullet, _falcon.position, rotation);
+                var bullet = BulletUtils.GetBullet (
+                    _shotTwoCirBullet, null, _falcon.position, rotation);
                 bullet.GetComponent<JIBulletController> ()
                     .Shot (WindBulletMove.LinearWindMove (bullet.transform, vSpeed, Vector3.zero, winds));
 
@@ -909,7 +913,8 @@ namespace Boss.Falcon
                 Vector3 speed = new Vector3 (Mathf.Cos (rad), Mathf.Sin (rad), 0f) * _shotThreeInitVec;
                 Vector3 accel = new Vector3 (Mathf.Cos (rad), Mathf.Sin (rad), 0f) * _shotThreeAccel;
 
-                var bullet = GetBullet (_shotThreeBullet, _falcon.position, Quaternion.identity);
+                var bullet = BulletUtils.GetBullet (
+                    _shotThreeBullet, null, _falcon.position, Quaternion.identity);
                 bullet.GetComponent<JIBulletController> ()
                     .Shot (WindBulletMove.LinearWindMove (bullet.transform, speed, accel, winds));
             }
@@ -948,23 +953,6 @@ namespace Boss.Falcon
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere (_falcon.position, _shotOneCircleRadius);
 
-        }
-
-        /// <summary>
-        /// Get a valid wind affected bullet from the pool. Return null if pool is full.
-        /// </summary>
-        private Transform GetBullet (GameObject bulletPrefab, Vector3 position = default (Vector3), Quaternion rotation = default (Quaternion))
-        {
-            var bullet = BulletPool.Instance.GetGameObject (
-                bulletPrefab, position, rotation).transform;
-
-            if (bullet == null) return null;
-            if (bullet.GetComponent<JIBulletProperty> () == null)
-                bullet.gameObject.AddComponent<JIBulletProperty> ();
-            if (bullet.GetComponent<JIBulletController> () == null)
-                bullet.gameObject.AddComponent<JIBulletController> ();
-
-            return bullet;
         }
 
         private States GetStates (int stateNum)

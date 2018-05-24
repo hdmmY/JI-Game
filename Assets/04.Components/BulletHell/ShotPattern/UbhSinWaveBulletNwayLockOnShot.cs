@@ -4,7 +4,6 @@ using System.Collections;
 /// <summary>
 /// Ubh sin wave bullet nway lock on shot.
 /// </summary>
-[AddComponentMenu("UniBulletHell/Shot Pattern/Sin Wave Bullet nWay Shot (Lock On)")]
 public class UbhSinWaveBulletNwayLockOnShot : UbhSinWaveBulletNwayShot
 {
     // "Set a target with tag name."
@@ -18,49 +17,51 @@ public class UbhSinWaveBulletNwayLockOnShot : UbhSinWaveBulletNwayShot
     // "Always aim to target."
     public bool _Aiming;
 
-    protected override void Awake ()
-    {
-        base.Awake();
-    }
-
     public override void Shot ()
     {
-        if (_Shooting) {
+        if (_Shooting)
+        {
             return;
         }
 
-        AimTarget();
+        AimTarget ();
 
-        if (_TargetTransform == null) {
-            Debug.LogWarning("Cannot shot because TargetTransform is not set.");
+        if (_TargetTransform == null)
+        {
+            Debug.LogWarning ("Cannot shot because TargetTransform is not set.");
             return;
         }
 
-        base.Shot();
+        base.Shot ();
 
-        if (_Aiming) {
-            StartCoroutine(AimingCoroutine());
+        if (_Aiming)
+        {
+            StartCoroutine (AimingCoroutine ());
         }
     }
 
     void AimTarget ()
     {
-        if (_TargetTransform == null && _SetTargetFromTag) {
-            _TargetTransform = UbhUtil.GetTransformFromTagName(_TargetTagName);
+        if (_TargetTransform == null && _SetTargetFromTag)
+        {
+            _TargetTransform = UbhUtil.GetTransformFromTagName (_TargetTagName);
         }
-        if (_TargetTransform != null) {
-            _CenterAngle = UbhUtil.GetAngleFromTwoPosition(transform, _TargetTransform);
+        if (_TargetTransform != null)
+        {
+            _CenterAngle = UbhUtil.GetAngleFromTwoPosition (transform, _TargetTransform);
         }
     }
 
     IEnumerator AimingCoroutine ()
     {
-        while (_Aiming) {
-            if (_Shooting == false) {
+        while (_Aiming)
+        {
+            if (_Shooting == false)
+            {
                 yield break;
             }
 
-            AimTarget();
+            AimTarget ();
 
             yield return 0;
         }

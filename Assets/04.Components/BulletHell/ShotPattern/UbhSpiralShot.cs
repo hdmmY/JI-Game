@@ -5,7 +5,6 @@ using UnityEngine;
 /// <summary>
 /// Ubh spiral shot.
 /// </summary>
-[AddComponentMenu ("UniBulletHell/Shot Pattern/Spiral Shot")]
 public class UbhSpiralShot : UbhBaseShot
 {
     /// <summary>
@@ -13,7 +12,7 @@ public class UbhSpiralShot : UbhBaseShot
     /// </summary>
     [Range (0f, 360f)]
     [BoxGroup ("Sprial")]
-    public float _StartAngle = 180f; 
+    public float _StartAngle = 180f;
 
     /// <summary>
     /// Set a shift angle of spiral. (-360 to 360)
@@ -28,11 +27,6 @@ public class UbhSpiralShot : UbhBaseShot
     [BoxGroup ("Sprial")]
     [Range (0.02f, 3f)]
     public float _BetweenDelay = 0.2f;
-
-    protected override void Awake ()
-    {
-        base.Awake ();
-    }
 
     public override void Shot ()
     {
@@ -60,14 +54,13 @@ public class UbhSpiralShot : UbhBaseShot
             }
 
             var bullet = GetBullet (transform.position, transform.rotation);
-            if (bullet == null)
-            {
-                break;
-            }
+            var bulletMoveCtrl = bullet.gameObject.AddComponent<GeneralBulletMoveCtrl> ();
 
             float angle = _StartAngle + (_ShiftAngle * i);
 
-            ShotBullet (bullet, m_bulletSpeed, angle);
+            bulletMoveCtrl.Angle = angle;
+            bulletMoveCtrl.Speed = m_bulletSpeed;
+            bulletMoveCtrl.Init ();
 
             AutoReleaseBulletGameObject (bullet.gameObject);
         }

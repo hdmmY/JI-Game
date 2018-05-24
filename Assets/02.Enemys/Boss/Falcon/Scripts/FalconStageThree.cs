@@ -172,22 +172,5 @@ namespace Boss.Falcon
         }
 
         #endregion
-
-        /// <summary>
-        /// Get a valid wind affected bullet from the pool. Return null if pool is full.
-        /// </summary>
-        private Transform GetBullet (GameObject bulletPrefab, Vector3 position = default (Vector3), Quaternion rotation = default (Quaternion))
-        {
-            var bullet = BulletPool.Instance.GetGameObject (
-                bulletPrefab, position, rotation).transform;
-
-            if (bullet == null) return null;
-            if (bullet.GetComponent<JIBulletProperty> () == null)
-                bullet.gameObject.AddComponent<JIBulletProperty> ();
-            if (bullet.GetComponent<JIBulletController> () == null)
-                bullet.gameObject.AddComponent<JIBulletController> ();
-
-            return bullet;
-        }
     }
 }

@@ -8,8 +8,6 @@ public class EnemyTakeDamage : MonoBehaviour
 {
     private void Awake ()
     {
-        Debug.Log (this.gameObject);
-
 #if UNITY_EDITOR
         DestroyImmediate (this);
 #else 

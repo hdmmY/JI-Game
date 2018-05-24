@@ -15,7 +15,7 @@ public class ShowPlayerStatus : MonoBehaviour
 
     private PlayerProperty _player;
 
-    private static readonly string NuLLText = "Null"; 
+    private static readonly string NuLLText = "Null";
 
     private void Start ()
     {
@@ -24,9 +24,9 @@ public class ShowPlayerStatus : MonoBehaviour
             Debug.LogError ("Please set the correspond text!", this);
         }
 
-        if(GameObject.FindGameObjectWithTag ("Player"))
+        if (FindObjectOfType<PlayerProperty> () != null)
         {
-            _player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerProperty> ();
+            _player = FindObjectOfType<PlayerProperty> ();
         }
     }
 
