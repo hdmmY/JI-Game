@@ -22,21 +22,8 @@ public class PlayerMove : MonoBehaviour
         float hInput = InputManager.Instance.InputCtrl.HorizontalInput;
         float vInput = InputManager.Instance.InputCtrl.VerticalInput;
 
-        float hSpeed, vSpeed;
-        if(_player.m_playerState == JIState.White)
-        {
-            hSpeed = _player.m_whiteHSpeed;
-            vSpeed = _player.m_whiteVSpeed;
-        }
-        else if(_player.m_playerState == JIState.Black)
-        {
-            hSpeed = _player.m_blackHSpeed;
-            vSpeed = _player.m_blackVSpeed;
-        }
-        else
-        {
-            return;
-        }
+        float hSpeed = _player.GetHMoveSpeed ();
+        float vSpeed = _player.GetVMoveSpeed ();
 
         float horizontalMove = hInput * hSpeed;
         float VerticalMove = vInput * vSpeed;
@@ -64,7 +51,6 @@ public class PlayerMove : MonoBehaviour
 
         transform.position = new Vector3 (playerPos.x, playerPos.y, transform.position.z);
     }
-    
 
     private void OnDrawGizmos ()
     {

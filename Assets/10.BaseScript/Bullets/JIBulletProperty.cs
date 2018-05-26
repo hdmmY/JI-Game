@@ -7,7 +7,7 @@ public class JIBulletProperty : MonoBehaviour
 {
     public int Damage;
 
-    public bool IsLaser;
-
     public bool IsPlayerBullet;
+
+    public JIBulletType Type = JIBulletType.Normal;
 }

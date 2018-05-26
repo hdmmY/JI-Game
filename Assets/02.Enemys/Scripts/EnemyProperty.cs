@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class EnemyProperty : MonoBehaviour
 {
-    public static readonly string EnemyBulletTag = "EnemyBullet";
-
-    public static readonly string PlayerBulletTag = "PlayerBullet";
-
     public int m_health;
+
+    public bool m_elite;
 
     public SpriteRenderer m_enemySprite;
 
@@ -33,4 +31,9 @@ public class EnemyProperty : MonoBehaviour
         }
     }
     #endregion
+
+    private void OnDestroy ()
+    {
+    }
+
 }

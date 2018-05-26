@@ -45,5 +45,4 @@ public abstract class JiMoveCtrlBase : MonoBehaviour
     {
         iTween.MoveTo(m_targetGameObject, LauchArgs(index));
     }
-
 }

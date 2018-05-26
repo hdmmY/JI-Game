@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent (typeof (EnemyProperty))]
 public class ShowEnemyHealthUI : MonoBehaviour
 {
     public Slider HealthUI;

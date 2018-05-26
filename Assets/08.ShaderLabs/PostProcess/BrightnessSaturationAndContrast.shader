@@ -63,7 +63,6 @@
 				return fixed4(finalColor.rgb, renderTex.a);
 			}
 
-
 			ENDCG
 		}
 

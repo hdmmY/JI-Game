@@ -7,8 +7,6 @@ public abstract class BaseBulletMoveCtrl : MonoBehaviour
 
     protected JIBulletMovement _bulletMove;
 
-    protected bool _initialized;
-
     /// <summary>
     /// Awake is called when the script instance is being loaded.
     /// </summary>

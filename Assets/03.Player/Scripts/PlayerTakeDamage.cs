@@ -26,26 +26,12 @@ public class PlayerTakeDamage : MonoBehaviour
 
     private void OnTriggerEnter2D (Collider2D other)
     {
-        string otherTag = other.tag;
-
         // Enemy bullet or Enemy
         if (!m_playerProperty.m_god)
         {
-            switch (otherTag)
+            if (other.CompareTag ("Enemy"))
             {
-                case "Enemy":
-                    PlayerDeath ();
-                    break;
-                case "EnemyBullet":
-                    DamagePlayerByState (other.transform.parent.name, other.transform.parent.GetComponent<JIBulletProperty> ());
-                    break;
-                case "EnemyLaser":
-                    PlayerDeath ();
-                    break;
-                case "EnemyBullet_DontDestoryOutBound":
-                    PlayerDeath ();
-                    break;
-
+                PlayerDeath ();
             }
         }
     }
@@ -60,7 +46,7 @@ public class PlayerTakeDamage : MonoBehaviour
         }
     }
 
-    private void PlayerDeath ()
+    public void PlayerDeath ()
     {
         var explHelper = Instantiate (m_Explosion, transform.position, Quaternion.identity, transform.parent);
         switch (m_playerProperty.m_playerState)

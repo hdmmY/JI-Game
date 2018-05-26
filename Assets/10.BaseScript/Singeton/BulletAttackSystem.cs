@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,92 +14,135 @@ public class BulletAttackSystem : Singleton<BulletAttackSystem>
         EventManager.Instance.RemoveListener<BulletAttackEvent> (DealwithBulletAttack);
     }
 
+    #region Main Method
+
     private void DealwithBulletAttack (BulletAttackEvent attEvent)
     {
-        bool isEnemy = attEvent.ColUnit.CompareTag ("Enemy");
-        bool isPlayer = attEvent.ColUnit.CompareTag ("Player");
-
-        if (attEvent.Bullet.IsPlayerBullet && isPlayer)
+        if (attEvent.Bullet.IsPlayerBullet)
         {
-            return;
-        }
-        else if (!attEvent.Bullet.IsPlayerBullet && isEnemy)
-        {
-            return;
-        }
-
-        if (attEvent.Bullet.IsLaser)
-        {
-            Laser laser = attEvent.Bullet.GetComponent<Laser> ();
-
-            if (isPlayer)
+            switch (attEvent.ColliderUnit.UnitType)
             {
-                DealwithEnemyLaserAttack ();
-            }
-            else if (isEnemy)
-            {
-                DealwithPlayerLaserAttack (laser,
-                    attEvent.ColUnit.GetComponent<EnemyProperty> ());
+                case JIColliderUnitType.Player:
+                    PlayerBullet_Player (attEvent.Bullet, attEvent.ColliderUnit.Player);
+                    break;
+                case JIColliderUnitType.PlayerBullet:
+                    PlayerBullet_PlayerBullet (attEvent.Bullet, attEvent.ColliderUnit.PlayerBullet);
+                    break;
+                case JIColliderUnitType.Enemy:
+                    PlayerBullet_Enemy (attEvent.Bullet, attEvent.ColliderUnit.Enemy);
+                    break;
+                case JIColliderUnitType.EnemyBullet:
+                    PlayerBullet_EnemyBullet (attEvent.Bullet, attEvent.ColliderUnit.EnemyBullet);
+                    break;
             }
         }
         else
         {
-            JIBulletProperty bullet = attEvent.Bullet.GetComponent<JIBulletProperty> ();
-
-            if (isPlayer)
+            switch (attEvent.ColliderUnit.UnitType)
             {
-                DealwithEnemyNormalAttack ();
-            }
-            else
-            {
-                DealwithPlayerNormalAttack (bullet,
-                    attEvent.ColUnit.GetComponent<EnemyProperty> ());
+                case JIColliderUnitType.Player:
+                    EnemyBullet_Player (attEvent.Bullet, attEvent.ColliderUnit.Player);
+                    break;
+                case JIColliderUnitType.PlayerBullet:
+                    EnemyBullet_PlayerBullet (attEvent.Bullet, attEvent.ColliderUnit.PlayerBullet);
+                    break;
+                case JIColliderUnitType.Enemy:
+                    EnemyBullet_Enemy (attEvent.Bullet, attEvent.ColliderUnit.Enemy);
+                    break;
+                case JIColliderUnitType.EnemyBullet:
+                    EnemyBullet_EnemyBullet (attEvent.Bullet, attEvent.ColliderUnit.EnemyBullet);
+                    break;
             }
         }
     }
 
-    // Player laser attack enemy
-    private void DealwithPlayerLaserAttack (Laser laser, EnemyProperty enemy)
+    private void PlayerBullet_PlayerBullet (JIBulletProperty playerBulletA, JIBulletProperty playerBulletB)
     {
-        if (laser.DamageTimer < laser.Interval) return;
-        if (enemy.m_isDead) return;
 
-        laser.DamageTimer = 0f;
+    }
 
-        enemy.m_health -= laser.Damage;
+    private void PlayerBullet_EnemyBullet (JIBulletProperty playerBullet, JIBulletProperty enemyBullet)
+    {
+
+    }
+
+    private void PlayerBullet_Player (JIBulletProperty playerBullet, PlayerProperty player)
+    {
+
+    }
+
+    private void PlayerBullet_Enemy (JIBulletProperty playerBullet, EnemyProperty enemy)
+    {
+        if (playerBullet.Type == JIBulletType.Laser)
+        {
+            var laser = playerBullet.GetComponent<Laser> ();
+
+            if (laser.DamageTimer < laser.Interval) return;
+            laser.DamageTimer = 0f;
+
+            AttackEnemy (laser.Damage, enemy);
+        }
+        else if (playerBullet.Type == JIBulletType.Normal)
+        {
+            AttackEnemy (playerBullet.Damage, enemy);
+            BulletPool.Instance.ReleaseGameObject (playerBullet.gameObject);
+        }
+        else if (playerBullet.Type == JIBulletType.Bomb)
+        {
+            if (!enemy.m_elite)
+            {
+                AttackEnemy (enemy.m_health, enemy);
+            }
+        }
+    }
+
+    private void EnemyBullet_Player (JIBulletProperty enemyBullet, PlayerProperty player)
+    {
+        if (!player.m_god)
+        {
+            player.GetComponentInChildren<PlayerTakeDamage> ().PlayerDeath ();
+        }
+
+        if (enemyBullet.Type == JIBulletType.Normal)
+        {
+            BulletPool.Instance.ReleaseGameObject (enemyBullet.gameObject);
+        }
+        else
+        {
+            Destroy (enemyBullet.gameObject);
+        }
+    }
+
+    private void EnemyBullet_EnemyBullet (JIBulletProperty enemyBulletA, JIBulletProperty enmeyBulletB)
+    {
+
+    }
+
+    private void EnemyBullet_PlayerBullet (JIBulletProperty enemyBullet, JIBulletProperty playerBullet)
+    {
+
+    }
+
+    private void EnemyBullet_Enemy (JIBulletProperty enemyBullet, EnemyProperty enemy)
+    {
+
+    }
+
+    #endregion
+
+    #region Helper Methods
+
+    private void AttackEnemy (int damage, EnemyProperty enemy)
+    {
+        enemy.m_health -= damage;
         enemy.CallOnDamage (enemy);
 
-        if (enemy.m_health <= 0)
+        if (enemy.m_health <= 0 && !enemy.m_isDead)
         {
             enemy.m_isDead = true;
             Destroy (enemy.gameObject);
         }
     }
 
-    // Enemy laser attack player
-    private void DealwithEnemyLaserAttack ()
-    {
-
-    }
-
-    // Player bullet attack enemy
-    private void DealwithPlayerNormalAttack (JIBulletProperty bullet, EnemyProperty enemy)
-    {
-        enemy.m_health -= bullet.Damage;
-        enemy.CallOnDamage (enemy);
-
-        if (enemy.m_health <= 0)
-        {
-            enemy.m_isDead = true;
-            Destroy (enemy.gameObject);
-        }
-
-        BulletPool.Instance.ReleaseGameObject (bullet.gameObject);
-    }
-
-    // Enemy bullet attack player
-    private void DealwithEnemyNormalAttack ()
-    {
-
-    }
+    #endregion
 }
