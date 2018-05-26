@@ -62,7 +62,7 @@ public class JIBulletMovement : MonoBehaviour
 
     #region Monobehavior
 
-    private void Update ()
+    private void LateUpdate ()
     {
         float deltTime = JITimer.Instance.DeltTime;
 

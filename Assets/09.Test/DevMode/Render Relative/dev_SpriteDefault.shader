@@ -1,4 +1,4 @@
-Shader "Test/dev_SpriteDefault"
+Shader "Custom/Test/dev_SpriteDefault"
 {
     Properties
     {

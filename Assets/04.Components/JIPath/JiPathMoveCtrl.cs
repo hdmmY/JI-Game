@@ -42,12 +42,16 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
             {
                 if (m_targetGameObject == this.gameObject)
                 {
-                    DestroyImmediate (m_targetGameObject);
+                    m_targetGameObject.SetActive (false);
+                    Destroy (m_targetGameObject);
                 }
                 else
                 {
-                    DestroyImmediate (this.gameObject);
-                    DestroyImmediate (m_targetGameObject);
+                    this.gameObject.SetActive (false);
+                    Destroy (this.gameObject);
+
+                    m_targetGameObject.SetActive (false);
+                    Destroy (m_targetGameObject);
                 }
             }
             _curPathIndex++;
@@ -170,7 +174,8 @@ public class JiPathMoveCtrl : JiMoveCtrlBase
         }
         newMove.m_targetGameObject = prevTargetGo;
 
-        DestroyImmediate (prevGo.GetComponent<JiPathMoveCtrl> ());
+        prevGo.GetComponent<JiPathMoveCtrl> ().enabled = false;
+        Destroy (prevGo.GetComponent<JiPathMoveCtrl> ());
 
         prevTargetGo.SetActive (true);
         prevGo.SetActive (true);

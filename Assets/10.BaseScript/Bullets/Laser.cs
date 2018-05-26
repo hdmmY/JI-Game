@@ -57,7 +57,7 @@ public abstract class Laser : MonoBehaviour
 
     #region Pirvate variables
 
-    private JIBulletProperty _bullet;
+    protected JIBulletProperty _bullet;
 
     private BoxCollider2D _boxcol2D;
 

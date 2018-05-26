@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.PostProcessing;
 
 // Load specific scenes when all monitored gameobjects dead
 public class LoadSceneWhenAllDestroy : MonoBehaviour
@@ -11,7 +12,9 @@ public class LoadSceneWhenAllDestroy : MonoBehaviour
     public string m_loadSceneName;
 
     // Effect that control the brigntness of the screen
-    public BrightnessSaturationAndContrast m_brightnessEffect;
+    public PostProcessingBehaviour m_brightnessEffect;
+
+    private bool _loading = false;
 
     private void Update ()
     {
@@ -26,8 +29,9 @@ public class LoadSceneWhenAllDestroy : MonoBehaviour
             }
         }
 
-        if (allDead)
+        if (allDead && !_loading)
         {
+            _loading = true;
             StartCoroutine (LoadScene ());
         }
     }
@@ -45,18 +49,22 @@ public class LoadSceneWhenAllDestroy : MonoBehaviour
             yield break;
         }
 
-        float timer = 0;
-        m_brightnessEffect.enabled = true;
+        PostProcessingProfile effect = Instantiate<PostProcessingProfile> (
+            m_brightnessEffect.profile);
+        ColorGradingModel.Settings effectSetting = effect.colorGrading.settings;
 
-        // Fade brightness from one to zero in one second
-        while (timer < 1)
+        m_brightnessEffect.profile = effect;
+
+        // Fade brightness
+        float timer = 0;
+        while (timer < 2)
         {
             JITimer.Instance.TimeScale = 0;
             timer += JITimer.Instance.RealDeltTime;
-            m_brightnessEffect.m_brightness = 1 - timer;
+            effectSetting.basic.postExposure = -5 * timer;
+            effect.colorGrading.settings = effectSetting;
             yield return null;
         }
-        m_brightnessEffect.m_brightness = 0;
 
         EventManager.Instance.Raise (new BeforeChangeToNextStageEvent (
             SceneManager.GetActiveScene ().buildIndex, nextScene));

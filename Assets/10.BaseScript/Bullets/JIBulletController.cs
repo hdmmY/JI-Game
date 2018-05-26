@@ -15,6 +15,8 @@ public class JIBulletController : MonoBehaviour
     {
         _shooting = false;
 
+        DelegateUtils.ClearDelegate (OnBulletDestroy);
+
         // Clear all delegates in OnBulletDestroy 
         if (OnBulletDestroy != null)
         {

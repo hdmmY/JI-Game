@@ -44,4 +44,21 @@ public static class BulletUtils
 
         return controller;
     }
+
+    /// <summary>
+    /// Clear all bullet move controller component on the bullet
+    /// </summary>
+    public static void ClearAllMoveCtrl (GameObject bullet)
+    {
+        if (bullet == null) return;
+
+        var moveCtrls = new List<BaseBulletMoveCtrl> ();
+
+        bullet.GetComponents<BaseBulletMoveCtrl> (moveCtrls);
+
+        foreach (var moveCtrl in moveCtrls)
+        {
+            UnityEngine.Object.Destroy (moveCtrl);
+        }
+    }
 }

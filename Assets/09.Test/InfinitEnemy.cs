@@ -14,6 +14,8 @@ public class InfinitEnemy : MonoBehaviour
 
     private List<GameObject> _spawnedEnemies;
 
+    private int _index = 0;
+
     // Use this for initialization
     void Start ()
     {
@@ -46,11 +48,19 @@ public class InfinitEnemy : MonoBehaviour
 
         for (int i = 0; i < num; i++)
         {
-            pos.x = Random.Range (SpawnArea.left, SpawnArea.right);
-            pos.y = Random.Range (SpawnArea.bottom, SpawnArea.top);
+            pos.x = Random.Range (SpawnArea.xMin, SpawnArea.xMax);
+            pos.y = Random.Range (SpawnArea.yMin, SpawnArea.yMax);
             pos.z = EnemyPrefab.transform.position.z;
 
-            _spawnedEnemies.Add (Instantiate (EnemyPrefab, pos, EnemyPrefab.transform.rotation));
+            var enemy = Instantiate (EnemyPrefab, pos, EnemyPrefab.transform.rotation);
+            enemy.name = string.Format ("{0} + {1}", enemy.name, _index++);
+
+            if (enemy.GetComponent<EnemyProperty> () == null)
+            {
+                Debug.LogError ("EnemyProperty component is not instantiate!");
+            }
+
+            _spawnedEnemies.Add (enemy);
         }
     }
 

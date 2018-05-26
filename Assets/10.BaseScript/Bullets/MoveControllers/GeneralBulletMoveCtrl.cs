@@ -21,10 +21,6 @@ public class GeneralBulletMoveCtrl : BaseBulletMoveCtrl
     public float PauseTime = 0f;
     public float ResumeTime = 0f;
 
-    private float _angle;
-    private float _homeAngle;
-    private float _selfTimeCount;
-
     public override void Init ()
     {
         _angle = Angle - 90f;
@@ -35,6 +31,12 @@ public class GeneralBulletMoveCtrl : BaseBulletMoveCtrl
 
         _initialized = true;
     }
+
+    #region  Private Variables and Methods
+    private float _angle;
+    private float _homeAngle;
+    private float _selfTimeCount;
+    private bool _initialized;
 
     private void OnDisable ()
     {
@@ -84,4 +86,6 @@ public class GeneralBulletMoveCtrl : BaseBulletMoveCtrl
             }
         }
     }
+    
+    #endregion
 }
