@@ -18,10 +18,10 @@ public class FlyCannonController : MonoBehaviour
     public int BulletDamage;
 
     [BoxGroup ("Move")]
-    public Transform Target;
+    public PlayerProperty Player;
 
     [BoxGroup ("Move")]
-    public Vector3 TargetOffset;
+    public Vector3 Offset;
 
     [BoxGroup ("Move")]
     public float SmoothTime;
@@ -63,9 +63,10 @@ public class FlyCannonController : MonoBehaviour
 
     private void Move ()
     {
-        if (Target == null) return;
+        if (Player == null) return;
+        if (Player.m_playerState == JIState.Black) return;
 
-        Vector3 targetPos = Target.position + TargetOffset;
+        Vector3 targetPos = Player.transform.position + Offset;
 
         Vector2 pos = Vector2.SmoothDamp (transform.position, targetPos,
             ref _velocity, SmoothTime, 10, JITimer.Instance.DeltTime);

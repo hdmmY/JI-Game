@@ -98,8 +98,8 @@ public class PlayerSpell : MonoBehaviour
 
         var cannon = Instantiate (FlyCannonPrefab, transform.position + cannonOffset,
             FlyCannonPrefab.transform.rotation, null);
-        cannon.Target = transform;
-        cannon.TargetOffset = cannonOffset;
+        cannon.Player = _player;
+        cannon.Offset = cannonOffset;
         cannon.ExistTime = CannonExistTime;
     }
 
