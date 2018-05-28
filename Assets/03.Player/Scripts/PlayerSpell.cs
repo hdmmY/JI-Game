@@ -22,6 +22,12 @@ public class PlayerSpell : MonoBehaviour
     [BoxGroup ("Black")]
     public float BombExplodTime;
 
+    [BoxGroup ("White")]
+    public FlyCannonController FlyCannonPrefab;
+
+    [BoxGroup ("White"), Range (0, 20)]
+    public int CannonExistTime;
+
     #endregion
 
     #region Private Variables and Methods
@@ -43,7 +49,7 @@ public class PlayerSpell : MonoBehaviour
             }
             else if (_player.m_playerState == JIState.White)
             {
-
+                ShotWhiteCannon ();
             }
         }
     }
@@ -84,6 +90,19 @@ public class PlayerSpell : MonoBehaviour
         Movement.Run (seq);
     }
 
+    private void ShotWhiteCannon ()
+    {
+        float rangle = GetRandomAngleFromTwoArea (-45, 45, 135, 225) * Mathf.Deg2Rad;
+        Vector2 rdir = new Vector2 (Mathf.Cos (rangle), Mathf.Sin (rangle)) * 0.4f;
+        Vector3 cannonOffset = new Vector3 (rdir.x, rdir.y, 0f);
+
+        var cannon = Instantiate (FlyCannonPrefab, transform.position + cannonOffset,
+            FlyCannonPrefab.transform.rotation, null);
+        cannon.Target = transform;
+        cannon.TargetOffset = cannonOffset;
+        cannon.ExistTime = CannonExistTime;
+    }
+
     private void OnDrawGizmosSelected ()
     {
         Gizmos.color = Color.white;
@@ -92,6 +111,16 @@ public class PlayerSpell : MonoBehaviour
         Vector3 end = start + Vector3.up * BombFlyDistance;
 
         Gizmos.DrawLine (start, end);
+    }
+
+    private float GetRandomAngleFromTwoArea (float start1, float end1, float start2, float end2)
+    {
+        float angle1 = Random.Range (start1, end1);
+        float angle2 = Random.Range (start2, end2);
+
+        bool useAngle1 = Random.Range (0, 2) == 0;
+
+        return useAngle1 ? angle1 : angle2;
     }
 
     #endregion
